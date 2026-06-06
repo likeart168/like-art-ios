@@ -1,0 +1,60 @@
+{
+  "name": "爱艺术",
+  "appid": "__UNI__9723DBA",
+  "description": "俄罗斯手工玩偶 - 爱艺术 Like-Art",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
+    },
+    "modules": {
+      "Payment": {},
+      "Share": {}
+    },
+    "distribute": {
+      "android": {
+        "permissions": [
+          "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+          "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+          "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.VIBRATE\"/>"
+        ]
+      },
+      "ios": {
+        "appid": "com.likeart.app",
+        "mobileprovision": "likeart_appstore.mobileprovision",
+        "p12": "ios_distribution.p12",
+        "password": "likeart",
+        "devices": "iphone",
+        "privacyDescription": {
+          "NSPhotoLibraryUsageDescription": "用于上传头像和商品图片",
+          "NSCameraUsageDescription": "用于拍照上传头像",
+          "NSPhotoLibraryAddUsageDescription": "用于保存图片到相册"
+        },
+        "urltypes": [
+          {
+            "urlschemes": [
+              "likeart"
+            ]
+          }
+        ]
+      },
+      "sdkConfigs": {}
+    }
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+name: LikeArt
+options:
+  bundleIdPrefix: com.likeart
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.likeart.app
+    INFOPLIST_FILE: LikeArt/Info.plist
+    CODE_SIGN_STYLE: Manual
+targets:
+  LikeArt:
+    type: application
+    platform: iOS
+    sources:
+      - LikeArt
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: "1"
+        DEVELOPMENT_TEAM: "2JZCL349AG"
+        PROVISIONING_PROFILE_SPECIFIER: "LikeArt App Store"
+        CODE_SIGN_IDENTITY: "Apple Distribution"
+    info:
+      path: LikeArt/Info.plist
