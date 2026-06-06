@@ -2,3 +2,12 @@ node_modules/
 dist/
 .DS_Store
 *.log
+*.p8
+*.p12
+*.key
+*.pem
+*.mobileprovision
+*.cer
+*.csr
+LikeArt.ipa
+*.cpuprofile
