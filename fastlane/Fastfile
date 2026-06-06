@@ -3,7 +3,7 @@ default_platform(:ios)
 platform :ios do
   desc "Build and upload to TestFlight"
   lane :release do
-    sh("cd ios && xcodegen generate")
+    sh("xcodegen generate --spec ios/project.yml")
     setup_ci if ENV["CI"]
     
     import_certificate(
