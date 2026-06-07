@@ -57,6 +57,14 @@ jobs:
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
           xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
       
+      - name: Verify IPA
+        if: success()
+        run: |
+          echo "=== Checking build directory ==="
+          ls -laR build/
+          echo "=== Checking for IPA ==="
+          find build -name "*.ipa" -type f
+      
       - name: Save IPA
         if: success()
         uses: actions/upload-artifact@v4
