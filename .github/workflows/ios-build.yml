@@ -110,7 +110,7 @@ jobs:
           du -sh Payload/LikeArt.app/www/ 2>/dev/null || echo "(no www folder)"
           echo "=== Inspect done ==="
           exit 0
-        shell: bash
+        shell: "bash {0}"
         working-directory: build
       
       - name: Validate IPA
