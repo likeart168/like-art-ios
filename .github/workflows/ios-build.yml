@@ -38,28 +38,44 @@ jobs:
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
-      - name: Build IPA with Fastlane
+      - name: Build & Archive
         run: |
-          fastlane run gym \
-            project:ios/LikeArt.xcodeproj \
-            scheme:LikeArt \
-            export_method:app-store \
-            configuration:Release \
-            output_directory:build \
-            output_name:LikeArt.ipa \
-            clean:true \
-            include_bitcode:false \
-            include_symbols:false \
-            xcargs:"CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=2JZCL349AG PROVISIONING_PROFILE_SPECIFIER='LikeArt App Store'" 2>&1 | tail -80
+          xcodebuild \
+            -project ios/LikeArt.xcodeproj \
+            -scheme LikeArt \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/LikeArt.xcarchive \
+            archive \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=2JZCL349AG \
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -50
       
-      - name: Verify IPA
+      - name: Export IPA
         if: success()
         run: |
-          echo "=== IPA ==="
-          ls -la build/*.ipa 2>/dev/null || echo "(no IPA)"
-          file build/LikeArt.ipa 2>/dev/null || true
-          echo "=== Size ==="
-          wc -c build/*.ipa 2>/dev/null || true
+          cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
+          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
+      
+      - name: Check IPA
+        if: success()
+        run: |
+          echo "--- files in build/ ---"
+          ls build/ 2>/dev/null || echo "(no build dir)"
+          echo "--- IPA files ---"
+          ls build/*.ipa 2>/dev/null || echo "(no IPA)"
+          echo "--- Archive app ---" 
+          ls build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "(no app bundle)"
+          echo "--- Binary ---"
+          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "(no binary)"
+        shell: "bash --noprofile --norc -o pipefail {0}"
+      
+      - name: Upload Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt-IPA
+          path: build/*.ipa
       
       - name: Upload to TestFlight
         if: success()
@@ -70,12 +86,9 @@ jobs:
           mkdir -p ~/.appstoreconnect/private_keys
           cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
           echo "=== Uploading ==="
-          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1 || echo "UPLOAD FAILED (check IPA validity)"
+          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1 || echo "(upload returned error)"
               if: success()
-        env:
-          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-        run: |
-          fastlane run upload_to_testflight \
-            ipa:build/LikeArt.ipa \
-            api_key:"$(fastlane run app_store_connect_api_key key_id:$APPSTORE_KEY_ID issuer_id:$APPSTORE_ISSUER_ID key_filepath:certs/AuthKey.p8)"
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt-iOS-IPA
+          path: build/*.ipa
