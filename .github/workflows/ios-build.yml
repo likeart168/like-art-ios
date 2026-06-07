@@ -9,28 +9,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Import certificate & profile
+      - name: Import cert
         run: |
-          security unlock-keychain -p "" login.keychain 2>/dev/null
-          security default-keychain -s login.keychain 2>/dev/null
+          set -ex
+          security unlock-keychain -p "" login.keychain 2>/dev/null || true
+          security default-keychain -s login.keychain 2>/dev/null || true
           
-          # The p12 and mobileprovision are base64 encoded in repo
-          base64 -d ios_distribution.p12.b64 > /tmp/cert.p12 2>&1
-          security import /tmp/cert.p12 -P "likeart" -A 2>&1
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" login.keychain 2>&1
+          # Decode cert
+          base64 -d ios_distribution.p12.b64 > /tmp/cert.p12
+          ls -la /tmp/cert.p12
           
+          # Import
+          security import /tmp/cert.p12 -P "likeart" -A
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" login.keychain 2>&1 || true
+          
+          # Profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          base64 -d likeart_appstore.mobileprovision.b64 > ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision 2>&1
+          base64 -d likeart_appstore.mobileprovision.b64 > ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision
           
           security find-identity -v -p codesigning
 
-      - name: Compile Swift to executable
+      - name: Compile
         run: |
-          SDK_PATH=\$(xcrun --sdk iphoneos --show-sdk-path)
+          set -ex
+          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
           mkdir -p build/Payload/LikeArt.app
           
           swiftc -target arm64-apple-ios16.0 \
-            -sdk "\$SDK_PATH" \
+            -sdk "$SDK_PATH" \
             -parse-as-library \
             -emit-executable \
             ios/LikeArt/AppDelegate.swift \
@@ -38,8 +44,9 @@ jobs:
           
           file build/Payload/LikeArt.app/LikeArt
 
-      - name: Package .app bundle
+      - name: Package
         run: |
+          set -ex
           cp ios/LikeArt/Info.plist build/Payload/LikeArt.app/
           cp -r ios/LikeArt/www build/Payload/LikeArt.app/
           base64 -d likeart_appstore.mobileprovision.b64 > build/Payload/LikeArt.app/embedded.mobileprovision
@@ -47,16 +54,19 @@ jobs:
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
 
-      - name: Sign & create IPA
+      - name: Sign
         run: |
-          IDENTITY=\$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print \$2}')
-          echo "Signing with: \$IDENTITY"
-          codesign --force --sign "\$IDENTITY" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1
+          set -ex
+          IDENTITY=$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print $2}')
+          echo "Signing with: $IDENTITY"
+          codesign --force --sign "$IDENTITY" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app
+          
           cd build && zip -r LikeArt.ipa Payload/ && cd ..
           ls -la build/LikeArt.ipa
 
-      - name: Upload to TestFlight
+      - name: Upload
         run: |
+          set -ex
           mkdir -p ~/.appstoreconnect/private_keys
           cp AuthKey_JFU29259DM.p8 ~/.appstoreconnect/private_keys/
           xcrun altool --upload-app -f build/LikeArt.ipa -t ios \
