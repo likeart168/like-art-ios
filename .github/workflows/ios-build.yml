@@ -28,13 +28,22 @@ jobs:
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
-      - name: Setup CI & Import
+      - name: Setup CI keychain
+        run: fastlane run setup_ci
+      
+      - name: Import cert
         env:
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
         run: |
-          fastlane run setup_ci
-          fastlane run import_certificate certificate_path:certs/ios_distribution.p12 certificate_password:"$CERT_PASSWORD"
-          fastlane run install_provisioning_profile path:certs/likeart_appstore.mobileprovision
+          set -x
+          openssl pkcs12 -in certs/ios_distribution.p12 -passin pass:"$CERT_PASSWORD" -noout 2>&1 || echo "P12_CHECK_FAILED"
+          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || echo "IMPORT_FAILED"
+          security set-key-partition-list -S apple-tool:,apple: -k "" /Users/runner/Library/Keychains/login.keychain-db 2>&1 || true
+      
+      - name: Import profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
       
       - name: Build
         run: |
