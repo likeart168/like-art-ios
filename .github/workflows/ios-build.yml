@@ -71,12 +71,19 @@ jobs:
           name: LikeArt-iOS
           path: build/*.ipa
       
-      - name: Upload to TestFlight
+      - name: Verify & Upload to TestFlight
         if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          IPA_FILE=$(find build -name "*.ipa" -type f | head -1)
-          echo "Found IPA: $IPA_FILE"
+          echo "=== Checking certs ==="
+          ls -la certs/AuthKey.p8
+          echo "=== Key file first line ==="
+          head -1 certs/AuthKey.p8
+          echo "=== Key file last line ==="
+          tail -1 certs/AuthKey.p8
+          echo "=== Finding IPA ==="
+          find build -name "*.ipa" -type f -exec ls -la {} \;
+          echo "=== Uploading ==="
           fastlane ios upload 2>&1
