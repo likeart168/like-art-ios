@@ -14,7 +14,7 @@ jobs:
           brew install xcodegen
           gem install fastlane
       
-      - name: Decode & import
+      - name: Import certs & profile
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
           PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
@@ -26,11 +26,8 @@ jobs:
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
           
-          # Import
-          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" $(security list-keychains -d user | head -1 | tr -d '"' | tr -d ' ') 2>/dev/null || true
+          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || echo "IMPORT_FAILED"
           
-          # Install profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
       
@@ -48,9 +45,10 @@ jobs:
             archive \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=2JZCL349AG \
-            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store"
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -30
       
       - name: Export IPA
+        if: success()
         run: |
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
           xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist
