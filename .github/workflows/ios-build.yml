@@ -15,14 +15,10 @@ jobs:
 
       - name: Setup certs
         run: |
-          security unlock-keychain -p "" login.keychain 2>/dev/null || true
-          security default-keychain -s login.keychain 2>/dev/null || true
           base64 -d ios_distribution.p12.b64 > /tmp/cert.p12
-          security import /tmp/cert.p12 -P "likeart" -A 2>&1
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" login.keychain 2>&1 || true
+          security import /tmp/cert.p12 -P "likeart" -T /usr/bin/codesign -T /usr/bin/security 2>&1
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           base64 -d likeart_appstore.mobileprovision.b64 > ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision
-          security find-identity -v -p codesigning | head -5
 
       - name: Compile
         run: |
@@ -30,7 +26,6 @@ jobs:
           mkdir -p build/Payload/LikeArt.app
           swiftc -target arm64-apple-ios16.0 -sdk "$SDK_PATH" -parse-as-library -emit-executable ios/LikeArt/AppDelegate.swift -o build/Payload/LikeArt.app/LikeArt
           file build/Payload/LikeArt.app/LikeArt
-          ls -lh build/Payload/LikeArt.app/LikeArt
 
       - name: Package
         run: |
@@ -39,13 +34,12 @@ jobs:
           base64 -d likeart_appstore.mobileprovision.b64 > build/Payload/LikeArt.app/embedded.mobileprovision
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
-          ls -la build/Payload/LikeArt.app/
 
       - name: Sign & IPA
         run: |
           ID=$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print $2}')
           echo "Signing: $ID"
-          codesign --force --sign "$ID" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1
+          codesign --force --sign "$ID" build/Payload/LikeArt.app 2>&1
           cd build && zip -r LikeArt.ipa Payload/ && cd ..
           ls -lh build/LikeArt.ipa
 
