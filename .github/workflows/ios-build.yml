@@ -54,15 +54,22 @@ jobs:
       - name: Export IPA
         if: success()
         run: |
-          cp ios/exportOptions.plist export.plist
+          cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
           xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
       
-      - name: Upload to TestFlight
+      - name: Check IPA Size
         if: success()
-        env:
-          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          mkdir -p ~/.appstoreconnect/private_keys
-          cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
-          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
+          echo "=== IPA info ==="
+          ls -la build/
+          find build -name "*.ipa" -exec ls -la {} \;
+          echo "=== Archive ==="
+          ls -la build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "NO APP"
+          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY"
+      
+      - name: Upload Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt-iOS-IPA
+          path: build/*.ipa
