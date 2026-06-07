@@ -1,7 +1,5 @@
 name: Build & Upload iOS
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 jobs:
   build:
@@ -9,22 +7,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup tools
-        run: |
-          brew install xcodegen
-          gem install fastlane
+      - name: Setup
+        run: brew install xcodegen
       
       - name: Import certs & profile
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
           PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
-          AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
         run: |
           mkdir -p certs
           echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
-          echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
           security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
           security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
           security find-identity -v -p codesigning
@@ -34,53 +28,33 @@ jobs:
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
-      - name: Build IPA with Fastlane
+      - name: DEBUG - List project
         run: |
-          cat > Fastfile << 'FASTEOF'
-          default_platform(:ios)
-          platform :ios do
-            lane :build do
-              gym(
-                project: "ios/LikeArt.xcodeproj",
-                scheme: "LikeArt",
-                export_method: "app-store",
-                output_directory: "build",
-                output_name: "LikeArt.ipa",
-                include_symbols: false,
-                include_bitcode: false,
-                clean: true
-              )
-            end
-          end
-          FASTEOF
-          fastlane build 2>&1
+          echo "=== Project files ==="
+          find ios/LikeArt.xcodeproj -type f 2>/dev/null | head -10
+          echo "=== Targets ==="
+          xcodebuild -project ios/LikeArt.xcodeproj -list 2>&1
       
-      - name: Check IPA
-        if: success()
+      - name: DEBUG - Build only (no archive)
         run: |
-          ls -lh build/LikeArt.ipa
-          file build/LikeArt.ipa
-          mkdir -p /tmp/check
-          cd /tmp/check
-          cp ../LikeArt.ipa .
-          unzip -o -q LikeArt.ipa
-          echo "Binary:"
-          ls -lh Payload/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY!"
-          file Payload/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY FILE!"
-      
-      - name: Upload Artifact
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: LikeArt-IPA
-          path: build/*.ipa
-      
-      - name: Upload to TestFlight
-        if: success()
-        env:
-          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-        run: |
-          mkdir -p ~/.appstoreconnect/private_keys
-          cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
-          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
+          xcodebuild \
+            -project ios/LikeArt.xcodeproj \
+            -scheme LikeArt \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            build \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=2JZCL349AG \
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -30
+          echo "=== Checking build output ==="
+          find build/DerivedData -name "LikeArt.app" -type d 2>/dev/null
+          find build/DerivedData -name "LikeArt" -type f 2>/dev/null | head -5
+          echo "=== App contents ==="
+          APP=$(find build/DerivedData -name "LikeArt.app" -type d 2>/dev/null | head -1)
+          if [ -n "$APP" ]; then
+            ls -la "$APP/"
+            ls -lh "$APP/LikeArt" 2>/dev/null || echo "No binary in .app"
+          else
+            echo "No .app found!"
+          fi
