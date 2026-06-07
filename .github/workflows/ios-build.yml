@@ -9,11 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Copy H5 build to www
-        run: |
-          mkdir -p ios/LikeArt/www
-          cp -r dist/build/h5/* ios/LikeArt/www/
-
       - name: Import certificate & profile
         env:
           P12_BASE64: \${{ secrets.P12_BASE64 }}
@@ -34,55 +29,41 @@ jobs:
           SDK_PATH=\$(xcrun --sdk iphoneos --show-sdk-path)
           mkdir -p build/Payload/LikeArt.app
           
-          # Compile AppDelegate into a real Mach-O executable
           swiftc -target arm64-apple-ios16.0 \
             -sdk "\$SDK_PATH" \
             -parse-as-library \
-            -Xlinker -rpath -Xlinker @executable_path/Frameworks \
             -emit-executable \
             ios/LikeArt/AppDelegate.swift \
             -o build/Payload/LikeArt.app/LikeArt
           
-          echo "=== Executable info ==="
+          echo "=== Executable ==="
           file build/Payload/LikeArt.app/LikeArt
           ls -la build/Payload/LikeArt.app/LikeArt
 
       - name: Package .app bundle
         run: |
-          # Copy resources
           cp ios/LikeArt/Info.plist build/Payload/LikeArt.app/
           cp -r ios/LikeArt/www build/Payload/LikeArt.app/
-          
-          # Copy provisioning profile
           cp certs/likeart_appstore.mobileprovision build/Payload/LikeArt.app/embedded.mobileprovision
           
-          # Set bundle ID in Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion 1" build/Payload/LikeArt.app/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 1.0.0" build/Payload/LikeArt.app/Info.plist
           
-          echo "=== App bundle ==="
-          ls -la build/Payload/LikeArt.app/
+          echo "=== App bundle contents ==="
+          ls -laR build/Payload/LikeArt.app/ 2>/dev/null | head -30
 
       - name: Sign & create IPA
         run: |
-          # Find signing identity
           IDENTITY=\$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print \$2}')
           echo "Signing with: \$IDENTITY"
           
-          # Sign
-          codesign --force --sign "\$IDENTITY" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1 || true
+          codesign --force --sign "\$IDENTITY" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1
           
-          # Create IPA
           cd build
           zip -r LikeArt.ipa Payload/
           cd ..
-          echo "=== IPA ==="
           ls -la build/LikeArt.ipa
-          
-          # Verify IPA
-          unzip -l build/LikeArt.ipa | grep LikeArt
+          unzip -l build/LikeArt.ipa | grep -E '(LikeArt\$|Info.plist|embedded)'
 
       - name: Upload to TestFlight
         env:
