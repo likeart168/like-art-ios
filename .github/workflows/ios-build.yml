@@ -9,6 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Setup tools
+        run: |
+          brew install xcodegen
+      
       - name: Import certs & profile
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}

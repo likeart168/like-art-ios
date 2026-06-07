@@ -17,7 +17,6 @@ targets:
     resources:
       - path: LikeArt/www
         type: folder
-        optional: true
     settings:
       base:
         TARGETED_DEVICE_FAMILY: "1"
