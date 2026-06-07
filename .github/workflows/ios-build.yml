@@ -60,11 +60,15 @@ jobs:
       - name: Check IPA
         if: success()
         run: |
-          ls build/ 2>/dev/null
-          wc -c build/*.ipa 2>/dev/null || echo "NO IPA"
-          ls build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "NO APP"
-          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY"
-        shell: bash
+          echo "--- files in build/ ---"
+          ls build/ 2>/dev/null || echo "(no build dir)"
+          echo "--- IPA files ---"
+          ls build/*.ipa 2>/dev/null || echo "(no IPA)"
+          echo "--- Archive app ---" 
+          ls build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "(no app bundle)"
+          echo "--- Binary ---"
+          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "(no binary)"
+        shell: "bash --noprofile --norc -o pipefail {0}"
       
       - name: Upload Artifact
         if: success()
