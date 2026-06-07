@@ -1,49 +1,100 @@
-name: Build & Upload iOS
+name: Build & Upload iOS Native
+
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Show Xcode version
-        run: xcodebuild -version
-      
-      - name: Import certs & profile
+
+      - name: Copy H5 build to www
+        run: |
+          mkdir -p ios/LikeArt/www
+          cp -r dist/build/h5/* ios/LikeArt/www/
+
+      - name: Import certificate & profile
         env:
-          P12_BASE64: ${{ secrets.P12_BASE64 }}
-          PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
-          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
+          P12_BASE64: \${{ secrets.P12_BASE64 }}
+          PROVISION_BASE64: \${{ secrets.PROVISION_BASE64 }}
+          CERT_PASSWORD: \${{ secrets.CERT_PASSWORD }}
         run: |
           mkdir -p certs
-          echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
-          echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
-          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
+          echo "\$P12_BASE64" | base64 -d > certs/ios_distribution.p12
+          echo "\$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
+          security unlock-keychain -p "" login.keychain 2>/dev/null || true
+          security import certs/ios_distribution.p12 -P "\$CERT_PASSWORD" -A -T /usr/bin/codesign 2>&1
           security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-      
-      - name: Create Xcode project
+
+      - name: Compile Swift to executable
         run: |
-          mkdir -p build_project
-          cd build_project
-          # Create minimal project using xcodebuild
-          xcodebuild -create-xcode-project -project LikeArt.xcodeproj 2>&1 || true
-          # Alternative: use swift package to generate project
-          mkdir -p LikeArt
-          cp ../ios/LikeArt/AppDelegate.swift LikeArt/
-          cp ../ios/LikeArt/Info.plist LikeArt/
-          swift package init --type executable --name LikeArt 2>&1 || true
-          ls -la
-      
-      - name: Try direct compile
-        run: |
-          echo "=== Trying swiftc direct compile ==="
+          SDK_PATH=\$(xcrun --sdk iphoneos --show-sdk-path)
+          mkdir -p build/Payload/LikeArt.app
+          
+          # Compile AppDelegate into a real Mach-O executable
           swiftc -target arm64-apple-ios16.0 \
-            -sdk $(xcrun --sdk iphoneos --show-sdk-path) \
+            -sdk "\$SDK_PATH" \
+            -parse-as-library \
+            -Xlinker -rpath -Xlinker @executable_path/Frameworks \
             -emit-executable \
             ios/LikeArt/AppDelegate.swift \
-            -o build/LikeArt 2>&1
+            -o build/Payload/LikeArt.app/LikeArt
+          
+          echo "=== Executable info ==="
+          file build/Payload/LikeArt.app/LikeArt
+          ls -la build/Payload/LikeArt.app/LikeArt
+
+      - name: Package .app bundle
+        run: |
+          # Copy resources
+          cp ios/LikeArt/Info.plist build/Payload/LikeArt.app/
+          cp -r ios/LikeArt/www build/Payload/LikeArt.app/
+          
+          # Copy provisioning profile
+          cp certs/likeart_appstore.mobileprovision build/Payload/LikeArt.app/embedded.mobileprovision
+          
+          # Set bundle ID in Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion 1" build/Payload/LikeArt.app/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 1.0.0" build/Payload/LikeArt.app/Info.plist
+          
+          echo "=== App bundle ==="
+          ls -la build/Payload/LikeArt.app/
+
+      - name: Sign & create IPA
+        run: |
+          # Find signing identity
+          IDENTITY=\$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print \$2}')
+          echo "Signing with: \$IDENTITY"
+          
+          # Sign
+          codesign --force --sign "\$IDENTITY" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1 || true
+          
+          # Create IPA
+          cd build
+          zip -r LikeArt.ipa Payload/
+          cd ..
+          echo "=== IPA ==="
+          ls -la build/LikeArt.ipa
+          
+          # Verify IPA
+          unzip -l build/LikeArt.ipa | grep LikeArt
+
+      - name: Upload to TestFlight
+        env:
+          APPSTORE_KEY_ID: JFU29259DM
+          APPSTORE_ISSUER_ID: 8ad4234e-2fc0-4943-8cde-e8bff3541efb
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          cp AuthKey_JFU29259DM.p8 ~/.appstoreconnect/private_keys/
+          
+          xcrun altool --upload-app \
+            -f build/LikeArt.ipa \
+            -t ios \
+            --apiKey JFU29259DM \
+            --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb \
+            --verbose
