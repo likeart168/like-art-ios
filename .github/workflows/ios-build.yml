@@ -77,6 +77,14 @@ jobs:
           name: LikeArt-IPA
           path: build/*.ipa
       
+      - name: Validate IPA
+        if: success()
+        run: |
+          echo "=== IPA size ==="
+          ls -lh build/LikeArt.ipa
+          echo "=== Validate ==="
+          xcrun altool --validate-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
+      
       - name: Upload to TestFlight
         if: success()
         env:
@@ -86,4 +94,4 @@ jobs:
           mkdir -p ~/.appstoreconnect/private_keys
           cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
           echo "=== Uploading ==="
-          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1 || echo "(upload returned error)"
+          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
