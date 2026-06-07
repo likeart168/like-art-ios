@@ -15,7 +15,7 @@ targets:
     sources:
       - LikeArt
     resources:
-      - path: LikeArt/www
+      - path: ../www
         type: folder
     settings:
       base:
