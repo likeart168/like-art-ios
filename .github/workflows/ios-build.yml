@@ -13,7 +13,6 @@ jobs:
         run: |
           brew install xcodegen
           gem install fastlane
-          pip3 install pyjwt requests
       
       - name: Import certs & profile
         env:
@@ -55,27 +54,32 @@ jobs:
         run: |
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
           xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
-          echo "=== IPA files ==="
-          ls -la build/*.ipa 2>/dev/null || echo "No IPA found!"
-      
-      - name: Show IPA
-        if: success()
-        run: |
-          echo "=== IPA contents ==="
-          ls -la build/
-          find build -name "*.ipa" -type f
+          echo "=== IPA ==="
+          ls -la build/*.ipa
       
       - name: Upload Artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: LikeArt-iOS
+          name: LikeArt
           path: build/*.ipa
       
-      - name: Verify API Key
+      - name: Upload to TestFlight
         if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          python3 scripts/upload_ipa.py 2>&1
+          mkdir -p ~/.appstoreconnect/private_keys
+          cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
+          echo "Key at: ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8"
+          ls -la ~/.appstoreconnect/private_keys/
+          
+          IPA_PATH=$(find build -name "*.ipa" -type f | head -1)
+          echo "Uploading: ${IPA_PATH}"
+          
+          xcrun altool --upload-app \
+            --file "${IPA_PATH}" \
+            --type ios \
+            --apiKey "${APPSTORE_KEY_ID}" \
+            --apiIssuer "${APPSTORE_ISSUER_ID}" 2>&1
