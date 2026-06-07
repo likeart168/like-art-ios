@@ -13,11 +13,6 @@ jobs:
         run: |
           brew install xcodegen
           gem install fastlane
-          echo "=== PATH ===" 
-          echo $PATH
-          echo "=== which ==="
-          which fastlane || echo "NOT FOUND"
-          which xcodegen || echo "NOT FOUND"
       
       - name: Setup certs dir
         run: mkdir -p certs
@@ -31,12 +26,67 @@ jobs:
           echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
-          echo "=== Cert files ==="
-          ls -la certs/
       
-      - name: Build & Upload
+      - name: Manual cert import
+        env:
+          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
+        run: |
+          security create-keychain -p temp123 build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p temp123 build.keychain
+          security set-keychain-settings -t 3600 -l build.keychain
+          security import certs/ios_distribution.p12 -k build.keychain -P "$CERT_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple: -k temp123 build.keychain
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          echo "=== Certs ===" && security find-identity -v -p codesigning build.keychain
+      
+      - name: XcodeGen
+        run: cd ios && xcodegen generate --spec project.yml
+      
+      - name: Write export plist
+        run: |
+          cat > export.plist << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store</string>
+            <key>teamID</key>
+            <string>2JZCL349AG</string>
+          </dict>
+          </plist>
+          PLIST
+      
+      - name: Archive
+        run: |
+          xcodebuild \
+            -project ios/LikeArt.xcodeproj \
+            -scheme LikeArt \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/LikeArt.xcarchive \
+            archive \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            DEVELOPMENT_TEAM=2JZCL349AG \
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" \
+            OTHER_CODE_SIGN_FLAGS="--keychain build.keychain"
+      
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/LikeArt.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist export.plist
+      
+      - name: Upload to TestFlight
+        if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-        run: fastlane ios release --verbose
+        run: |
+          fastlane run upload_to_testflight \
+            ipa:build/LikeArt.ipa \
+            api_key:"$(fastlane run app_store_connect_api_key key_id:$APPSTORE_KEY_ID issuer_id:$APPSTORE_ISSUER_ID key_filepath:certs/AuthKey.p8)"
