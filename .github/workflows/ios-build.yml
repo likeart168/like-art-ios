@@ -14,41 +14,29 @@ jobs:
           brew install xcodegen
           gem install fastlane
       
-      - name: Setup certs dir
-        run: mkdir -p certs
-      
       - name: Decode certs
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
           PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
           AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
         run: |
+          mkdir -p certs
           echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
       
-      - name: Import cert
-        env:
-          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-        run: |
-          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A
-          security set-key-partition-list -S apple-tool:,apple: -k "" /Users/runner/Library/Keychains/login.keychain-db 2>/dev/null || true
-          echo "=== Installed identities ==="
-          security find-identity -v -p codesigning
-      
-      - name: Import profile
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-          echo "=== Profile info ==="
-          security cms -D -i certs/likeart_appstore.mobileprovision 2>/dev/null | plutil -p - | head -20 || true
-      
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
-      - name: Build
+      - name: Setup CI & Import
         env:
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
+        run: |
+          fastlane run setup_ci
+          fastlane run import_certificate certificate_path:certs/ios_distribution.p12 certificate_password:"$CERT_PASSWORD"
+          fastlane run install_provisioning_profile path:certs/likeart_appstore.mobileprovision
+      
+      - name: Build
         run: |
           fastlane run gym \
             project:ios/LikeArt.xcodeproj \
@@ -56,8 +44,7 @@ jobs:
             export_method:app-store \
             output_directory:build \
             output_name:LikeArt.ipa \
-            include_bitcode:false \
-            verbose:true
+            include_bitcode:false
       
       - name: Upload
         if: success()
