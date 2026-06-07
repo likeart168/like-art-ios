@@ -12,6 +12,7 @@ jobs:
       - name: Setup tools
         run: |
           brew install xcodegen
+          gem install fastlane
       
       - name: Import certs & profile
         env:
