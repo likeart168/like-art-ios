@@ -1,22 +1,18 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Upload to TestFlight"
-  lane :upload do
+  desc "Upload IPA to TestFlight"
+  lane :upload_testflight_ipa do
     api_key = app_store_connect_api_key(
       key_id: ENV["APPSTORE_KEY_ID"],
       issuer_id: ENV["APPSTORE_ISSUER_ID"],
-      key_filepath: File.join(Dir.pwd, "certs", "AuthKey.p8")
+      key_filepath: "certs/AuthKey.p8"
     )
     
-    ipa_path = Dir.glob("build/**/*.ipa").first
-    UI.message("Found IPA: #{ipa_path}")
-    
     upload_to_testflight(
-      ipa: ipa_path,
+      ipa: "build/LikeArt.ipa",
       api_key: api_key,
-      skip_waiting_for_build_processing: true,
-      skip_submission: true
+      skip_waiting_for_build_processing: true
     )
   end
 end
