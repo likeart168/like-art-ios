@@ -28,17 +28,15 @@ jobs:
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
-      - name: Setup CI keychain
-        run: fastlane run setup_ci
-      
-      - name: Import cert
+      - name: Setup CI & import cert
         env:
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
         run: |
           set -x
-          openssl pkcs12 -in certs/ios_distribution.p12 -passin pass:"$CERT_PASSWORD" -noout 2>&1 || echo "P12_CHECK_FAILED"
-          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || echo "IMPORT_FAILED"
-          security set-key-partition-list -S apple-tool:,apple: -k "" /Users/runner/Library/Keychains/login.keychain-db 2>&1 || true
+          fastlane run setup_ci
+          openssl pkcs12 -in certs/ios_distribution.p12 -passin pass:"$CERT_PASSWORD" -noout 2>&1
+          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A
+          security set-key-partition-list -S apple-tool:,apple: -k "" 2>/dev/null || true
       
       - name: Import profile
         run: |
