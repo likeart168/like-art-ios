@@ -12,7 +12,6 @@ jobs:
       - name: Setup tools
         run: |
           brew install xcodegen
-          gem install fastlane
       
       - name: Import certs & profile
         env:
@@ -27,68 +26,82 @@ jobs:
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
           security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
           security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
-          security find-identity -v -p codesigning
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
       
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
-      - name: Build & Archive
+      - name: Build (no archive)
         run: |
-          set -o pipefail
           xcodebuild \
             -project ios/LikeArt.xcodeproj \
             -scheme LikeArt \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath build/LikeArt.xcarchive \
-            archive \
+            -derivedDataPath build/DerivedData \
+            build \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=2JZCL349AG \
-            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tee build/build.log
-          echo "--- Last 60 lines ---"
-          tail -60 build/build.log
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -20
       
-      - name: Upload Build Log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build/build.log
+      - name: Find .app and create archive
+        run: |
+          APP=$(find build/DerivedData -name "LikeArt.app" -type d | head -1)
+          echo "App found: $APP"
+          ls -lh "$APP/LikeArt"
+          # Create archive structure
+          mkdir -p build/LikeArt.xcarchive/Products/Applications
+          cp -r "$APP" build/LikeArt.xcarchive/Products/Applications/
+          # Create archive Info.plist
+          cat > build/LikeArt.xcarchive/Info.plist << 'PLISTEOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>ApplicationProperties</key>
+            <dict>
+              <key>ApplicationPath</key><string>Applications/LikeArt.app</string>
+              <key>CFBundleIdentifier</key><string>com.likeart.app</string>
+              <key>CFBundleShortVersionString</key><string>1.0.0</string>
+              <key>CFBundleVersion</key><string>1</string>
+              <key>SigningIdentity</key><string>Apple Distribution</string>
+              <key>Team</key><string>2JZCL349AG</string>
+            </dict>
+            <key>ArchiveVersion</key><integer>2</integer>
+            <key>Name</key><string>LikeArt</string>
+            <key>SchemeName</key><string>LikeArt</string>
+          </dict>
+          </plist>
+          PLISTEOF
+          echo "Archive created at build/LikeArt.xcarchive"
       
       - name: Export IPA
-        if: success()
         run: |
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
-          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1
+          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -20
       
-      - name: Check Binary
-        if: success()
+      - name: Check IPA
         run: |
-          echo "--- IPA size ---"
           ls -lh build/LikeArt.ipa
-          echo "--- Archive app contents ---"
-          APP="build/LikeArt.xcarchive/Products/Applications/LikeArt.app"
-          ls -la "$APP/" 2>/dev/null || echo "(no app bundle)"
-          echo "--- Binary ---"
-          ls -lh "$APP/LikeArt" 2>/dev/null || echo "NO BINARY!"
-          file "$APP/LikeArt" 2>/dev/null || echo "NO BINARY FILE!"
+          mkdir -p /tmp/check && cd /tmp/check
+          cp ../build/LikeArt.ipa .
+          unzip -o -q LikeArt.ipa
+          echo "Binary:"
+          ls -lh Payload/LikeArt.app/LikeArt
+          file Payload/LikeArt.app/LikeArt
       
       - name: Upload Artifact
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: LikeArt-IPA
           path: build/*.ipa
       
       - name: Upload to TestFlight
-        if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
           cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
-          echo "=== Uploading ==="
           xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
