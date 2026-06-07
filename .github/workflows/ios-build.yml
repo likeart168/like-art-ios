@@ -87,8 +87,3 @@ jobs:
           cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
           echo "=== Uploading ==="
           xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1 || echo "(upload returned error)"
-              if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: LikeArt-iOS-IPA
-          path: build/*.ipa
