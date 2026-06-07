@@ -17,9 +17,6 @@ targets:
     resources:
       - path: LikeArt/www
         type: folder
-    dependencies:
-      - framework: WebKit.framework
-        type: sdk
     settings:
       base:
         TARGETED_DEVICE_FAMILY: "1"
