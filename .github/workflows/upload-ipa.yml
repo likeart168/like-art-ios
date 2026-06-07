@@ -11,11 +11,13 @@ jobs:
       
       - name: Upload IPA to TestFlight
         run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          cp AuthKey_JFU29259DM.p8 ~/.appstoreconnect/private_keys/
+          
           xcrun altool --upload-app \
             -f LikeArt.ipa \
             -t ios \
             --apiKey JFU29259DM \
             --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb \
-            --apiKeyFile AuthKey_JFU29259DM.p8 \
             --verbose
 
