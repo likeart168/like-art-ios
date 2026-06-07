@@ -57,17 +57,14 @@ jobs:
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
           xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
       
-      - name: Check IPA Size
+      - name: Check IPA
         if: success()
         run: |
-          set +e
-          echo "=== IPA info ==="
-          ls -la build/
-          find build -name "*.ipa" -exec ls -la {} \; || true
-          echo "=== Archive ==="
-          ls -la build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "NO APP BUNDLE"
-          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY FILE"
-          du -sh build/LikeArt.xcarchive/ 2>/dev/null || true
+          ls build/ 2>/dev/null
+          wc -c build/*.ipa 2>/dev/null || echo "NO IPA"
+          ls build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "NO APP"
+          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY"
+        shell: bash {0}
       
       - name: Upload Artifact
         if: success()
