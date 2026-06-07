@@ -1,60 +1,66 @@
-name: Build & Upload iOS
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup tools
-        run: |
-          brew install xcodegen
-          gem install fastlane
-      
-      - name: Import certs & profile
-        env:
-          P12_BASE64: ${{ secrets.P12_BASE64 }}
-          PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
-          AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
-          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-        run: |
-          mkdir -p certs
-          echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
-          echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
-          echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
-          
-          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A
-          echo "=== Cert imported, exit: $? ==="
-          security find-identity -v -p codesigning
-          
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-          echo "=== Profile copied ==="
-      
-      - name: XcodeGen
-        run: cd ios && xcodegen generate --spec project.yml
-      
-      - name: Build, Archive & Export IPA
-        run: |
-          fastlane run gym \
-            project:ios/LikeArt.xcodeproj \
-            scheme:LikeArt \
-            export_method:app-store \
-            configuration:Release \
-            output_directory:build \
-            build_path:build \
-            codesigning_identity:"Apple Distribution" \
-            include_bitcode:false 2>&1 | tail -80
-      
-      - name: Upload
-        if: success()
-        env:
-          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-        run: |
-          fastlane run upload_to_testflight \
-            ipa:build/LikeArt.ipa \
-            api_key:"$(fastlane run app_store_connect_api_key key_id:$APPSTORE_KEY_ID issuer_id:$APPSTORE_ISSUER_ID key_filepath:certs/AuthKey.p8)"
+1|name: Build & Upload iOS
+2|on:
+3|  push:
+4|    branches: [main]
+5|  workflow_dispatch:
+6|jobs:
+7|  build:
+8|    runs-on: macos-latest
+9|    steps:
+10|      - uses: actions/checkout@v4
+11|      
+12|      - name: Setup tools
+13|        run: |
+14|          brew install xcodegen
+15|          gem install fastlane
+16|      
+17|      - name: Import certs & profile
+18|        env:
+19|          P12_BASE64: ${{ secrets.P12_BASE64 }}
+20|          PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
+21|          AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
+22|          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
+23|        run: |
+24|          mkdir -p certs
+25|          echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
+26|          echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
+27|          echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
+28|          
+29|          echo "=== Importing cert ==="
+30|          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
+31|          IMPORT_EXIT=$?
+32|          echo "=== Import exit: $IMPORT_EXIT ==="
+33|          
+34|          echo "=== Available identities ==="
+35|          security find-identity -v -p codesigning 2>&1 || echo "No identities found"
+36|          
+37|          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+38|          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+39|          echo "=== Profile copied ==="
+40|          ls -la ~/Library/MobileDevice/Provisioning\ Profiles/
+41|      
+42|      - name: XcodeGen
+43|        run: cd ios && xcodegen generate --spec project.yml
+44|      
+45|      - name: Build, Archive & Export IPA
+46|        run: |
+47|          fastlane run gym \
+48|            project:ios/LikeArt.xcodeproj \
+49|            scheme:LikeArt \
+50|            export_method:app-store \
+51|            configuration:Release \
+52|            output_directory:build \
+53|            build_path:build \
+54|            codesigning_identity:"Apple Distribution" \
+55|            include_bitcode:false 2>&1 | tail -80
+56|      
+57|      - name: Upload
+58|        if: success()
+59|        env:
+60|          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+61|          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+62|        run: |
+63|          fastlane run upload_to_testflight \
+64|            ipa:build/LikeArt.ipa \
+65|            api_key:"$(fastlane run app_store_connect_api_key key_id:$APPSTORE_KEY_ID issuer_id:$APPSTORE_ISSUER_ID key_filepath:certs/AuthKey.p8)"
+66|
