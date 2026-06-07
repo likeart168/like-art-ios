@@ -77,12 +77,36 @@ jobs:
           name: LikeArt-IPA
           path: build/*.ipa
       
-      - name: Validate IPA
+      - name: Inspect IPA
         if: success()
         run: |
           echo "=== IPA size ==="
           ls -lh build/LikeArt.ipa
-          echo "=== Validate ==="
+          echo "=== IPA contents ==="
+          mkdir -p /tmp/ipa_inspect
+          cd /tmp/ipa_inspect
+          unzip -q ../LikeArt.ipa 2>&1 || true
+          echo "--- Payload contents ---"
+          ls -la Payload/LikeArt.app/
+          echo "--- Binary size ---"
+          ls -lh Payload/LikeArt.app/LikeArt 2>/dev/null || echo "(no binary)"
+          file Payload/LikeArt.app/LikeArt 2>/dev/null || echo "(no binary file)"
+          echo "--- Info.plist ---"
+          plutil -p Payload/LikeArt.app/Info.plist 2>/dev/null | head -20 || echo "(no plist)"
+          echo "--- Embedded profile ---"
+          ls Payload/LikeArt.app/embedded.mobileprovision 2>/dev/null && security cms -D -i Payload/LikeArt.app/embedded.mobileprovision 2>/dev/null | plutil -p - | grep -E '(Name|UUID|TeamIdentifier|Expiration)' || echo "(no embedded profile)"
+          echo "--- Www folder size ---"
+          du -sh Payload/LikeArt.app/www/ 2>/dev/null || echo "(no www folder)"
+        shell: "bash --noprofile --norc -o pipefail {0}"
+        working-directory: build
+      
+      - name: Validate IPA
+        if: success()
+        env:
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+        run: |
+          echo "=== Validate with App Store Connect ==="
           xcrun altool --validate-app -f build/LikeArt.ipa -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
       
       - name: Upload to TestFlight
