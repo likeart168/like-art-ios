@@ -13,9 +13,6 @@ jobs:
         run: |
           brew install xcodegen
           gem install fastlane
-          echo "=== PATH ===" && echo $PATH
-          echo "=== xcodegen ===" && which xcodegen
-          echo "=== fastlane ===" && which fastlane
       
       - name: Setup certs
         run: mkdir -p certs
@@ -30,15 +27,34 @@ jobs:
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
       
-      - name: Debug structure
+      - name: XcodeGen Generate
         run: |
-          echo "=== Root ===" && ls -la
-          echo "=== ios/ ===" && ls -la ios/
-          echo "=== ios/LikeArt/ ===" && ls -la ios/LikeArt/
+          cd ios
+          xcodegen generate --spec project.yml
+          echo "=== Generated files ==="
+          ls -la *.xcodeproj 2>/dev/null || echo "No xcodeproj!"
       
-      - name: Build & Upload
+      - name: Gym Build
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-        run: fastlane ios release --verbose
+        run: |
+          fastlane run gym \
+            project:ios/LikeArt.xcodeproj \
+            scheme:LikeArt \
+            export_method:app-store \
+            output_directory:build \
+            output_name:LikeArt.ipa \
+            include_bitcode:false
+      
+      - name: Upload to TestFlight
+        if: success()
+        env:
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+        run: |
+          fastlane run upload_to_testflight \
+            ipa:build/LikeArt.ipa \
+            api_key:"$(fastlane run app_store_connect_api_key key_id:$APPSTORE_KEY_ID issuer_id:$APPSTORE_ISSUER_ID key_filepath:certs/AuthKey.p8)" \
+            skip_waiting_for_build_processing:true
