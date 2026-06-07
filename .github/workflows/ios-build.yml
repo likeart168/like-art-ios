@@ -20,12 +20,12 @@ jobs:
           security unlock-keychain -p "" /tmp/app-sign.keychain-db
           security set-keychain-settings -lut 21600 /tmp/app-sign.keychain-db
           
-          base64 -d ios_distribution.p12.b64 > /tmp/cert.p12
+          base64 -D -i ios_distribution.p12.b64 -o /tmp/cert.p12
           security import /tmp/cert.p12 -k /tmp/app-sign.keychain-db -P "likeart" -T /usr/bin/codesign -T /usr/bin/security 2>&1
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" /tmp/app-sign.keychain-db 2>&1 || true
           
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          base64 -d likeart_appstore.mobileprovision.b64 > ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision
+          base64 -D -i likeart_appstore.mobileprovision.b64 -o ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision
           
           security find-identity -v -p codesigning /tmp/app-sign.keychain-db
 
@@ -35,12 +35,13 @@ jobs:
           mkdir -p build/Payload/LikeArt.app
           swiftc -target arm64-apple-ios16.0 -sdk "$SDK_PATH" -parse-as-library -emit-executable ios/LikeArt/AppDelegate.swift -o build/Payload/LikeArt.app/LikeArt
           file build/Payload/LikeArt.app/LikeArt
+          ls -lh build/Payload/LikeArt.app/LikeArt
 
       - name: Package
         run: |
           cp ios/LikeArt/Info.plist build/Payload/LikeArt.app/
           cp -r ios/LikeArt/www build/Payload/LikeArt.app/
-          base64 -d likeart_appstore.mobileprovision.b64 > build/Payload/LikeArt.app/embedded.mobileprovision
+          base64 -D -i likeart_appstore.mobileprovision.b64 -o build/Payload/LikeArt.app/embedded.mobileprovision
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
 
