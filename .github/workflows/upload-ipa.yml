@@ -1,0 +1,21 @@
+name: Upload to TestFlight
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Upload IPA to TestFlight
+        run: |
+          xcrun altool --upload-app \
+            -f LikeArt.ipa \
+            -t ios \
+            --apiKey JFU29259DM \
+            --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb \
+            --apiKeyFile AuthKey_JFU29259DM.p8 \
+            --verbose
+
