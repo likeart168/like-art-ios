@@ -13,6 +13,7 @@ jobs:
         run: |
           brew install xcodegen
           gem install fastlane
+          pip3 install pyjwt requests
       
       - name: Import certs & profile
         env:
@@ -71,19 +72,10 @@ jobs:
           name: LikeArt-iOS
           path: build/*.ipa
       
-      - name: Verify & Upload to TestFlight
+      - name: Verify API Key
         if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          echo "=== Checking certs ==="
-          ls -la certs/AuthKey.p8
-          echo "=== Key file first line ==="
-          head -1 certs/AuthKey.p8
-          echo "=== Key file last line ==="
-          tail -1 certs/AuthKey.p8
-          echo "=== Finding IPA ==="
-          find build -name "*.ipa" -type f -exec ls -la {} \;
-          echo "=== Uploading ==="
-          fastlane ios upload 2>&1
+          python3 scripts/upload_ipa.py 2>&1
