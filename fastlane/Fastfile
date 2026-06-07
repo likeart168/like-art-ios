@@ -6,15 +6,6 @@ platform :ios do
     sh("xcodegen generate --spec ios/project.yml")
     setup_ci if ENV["CI"]
     
-    import_certificate(
-      certificate_path: "certs/ios_distribution.p12",
-      certificate_password: ENV["CERT_PASSWORD"] || "likeart"
-    )
-    
-    install_provisioning_profile(
-      path: "certs/likeart_appstore.mobileprovision"
-    )
-    
     gym(
       project: "ios/LikeArt.xcodeproj",
       scheme: "LikeArt",
