@@ -26,31 +26,29 @@ jobs:
           echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
-          echo "=== File sizes ==="
-          wc -c certs/*
-          echo "=== P12 header ===" && xxd certs/ios_distribution.p12 | head -3
       
       - name: Import cert
         env:
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
         run: |
-          set -x
-          # 验证P12
-          openssl pkcs12 -in certs/ios_distribution.p12 -passin pass:"$CERT_PASSWORD" -noout 2>&1 || echo "P12_CHECK_FAILED"
-          # 导入到登录钥匙串（最简单的方式）
-          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || echo "IMPORT_FAILED"
-          # 允许codesign访问
-          security set-key-partition-list -S apple-tool:,apple: -k "" /Users/runner/Library/Keychains/login.keychain-db 2>&1 || true
+          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A
+          security set-key-partition-list -S apple-tool:,apple: -k "" /Users/runner/Library/Keychains/login.keychain-db 2>/dev/null || true
+          echo "=== Installed identities ==="
+          security find-identity -v -p codesigning
       
       - name: Import profile
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          echo "=== Profile info ==="
+          security cms -D -i certs/likeart_appstore.mobileprovision 2>/dev/null | plutil -p - | head -20 || true
       
       - name: XcodeGen
         run: cd ios && xcodegen generate --spec project.yml
       
       - name: Build
+        env:
+          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
         run: |
           fastlane run gym \
             project:ios/LikeArt.xcodeproj \
@@ -58,9 +56,8 @@ jobs:
             export_method:app-store \
             output_directory:build \
             output_name:LikeArt.ipa \
-            include_bitcode:false
-        env:
-          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
+            include_bitcode:false \
+            verbose:true
       
       - name: Upload
         if: success()
