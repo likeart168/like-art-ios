@@ -27,9 +27,7 @@ jobs:
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
           
           security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
-          
           security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
-          
           security find-identity -v -p codesigning
           
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
@@ -56,13 +54,15 @@ jobs:
         run: |
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
           xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
+          echo "=== IPA files ==="
+          ls -la build/*.ipa 2>/dev/null || echo "No IPA found!"
       
-      - name: Upload
+      - name: Upload to TestFlight
         if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          fastlane run upload_to_testflight \
-            ipa:build/LikeArt.ipa \
-            api_key:"$(fastlane run app_store_connect_api_key key_id:$APPSTORE_KEY_ID issuer_id:$APPSTORE_ISSUER_ID key_filepath:certs/AuthKey.p8)"
+          IPA=$(ls build/*.ipa | head -1)
+          echo "Uploading: $IPA"
+          xcrun altool --upload-app -f "$IPA" -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
