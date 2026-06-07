@@ -11,11 +11,18 @@ jobs:
 
       - name: Import certificate & profile
         run: |
-          security unlock-keychain -p "" login.keychain 2>/dev/null || true
-          security import ios_distribution.p12 -P "likeart" -A -T /usr/bin/codesign 2>&1
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
+          security unlock-keychain -p "" login.keychain 2>/dev/null
+          security default-keychain -s login.keychain 2>/dev/null
+          
+          # Try import with allow
+          security import ios_distribution.p12 -P "likeart" -A 2>&1
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" login.keychain 2>&1
+          
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          
+          # Show identities
+          security find-identity -v -p codesigning
 
       - name: Compile Swift to executable
         run: |
@@ -41,8 +48,6 @@ jobs:
           
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
-          
-          echo "=== App bundle ==="
           ls -la build/Payload/LikeArt.app/
 
       - name: Sign & create IPA
@@ -56,7 +61,6 @@ jobs:
           zip -r LikeArt.ipa Payload/
           cd ..
           ls -la build/LikeArt.ipa
-          unzip -l build/LikeArt.ipa | grep -E '(LikeArt\$|Info.plist|embedded)'
 
       - name: Upload to TestFlight
         run: |
