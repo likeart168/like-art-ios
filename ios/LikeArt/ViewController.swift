@@ -9,6 +9,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
+        config.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         
         webView = WKWebView(frame: view.bounds, configuration: config)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -16,8 +17,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webView.allowsBackForwardNavigationGestures = true
         view.addSubview(webView)
         
-        if let url = URL(string: "https://like-art.com") {
-            webView.load(URLRequest(url: url))
+        // Load local H5 app
+        if let wwwPath = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "www") {
+            let url = URL(fileURLWithPath: wwwPath)
+            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         }
     }
     
