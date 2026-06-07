@@ -75,8 +75,18 @@ jobs:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
+          # Copy key to the correct location
+          mkdir -p ~/.appstoreconnect/private_keys
+          cp certs/AuthKey.p8 ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8
+          echo "=== Key placed at ~/.appstoreconnect/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8 ==="
+          
+          # Find IPA
+          IPA_FILE=$(find "$GITHUB_WORKSPACE" -name "*.ipa" -type f | head -1)
+          echo "=== IPA: $IPA_FILE ($(wc -c < "$IPA_FILE") bytes) ==="
+          
+          # Upload
           xcrun altool --upload-app \
-            -f build/LikeArt.ipa \
+            -f "$IPA_FILE" \
             -t ios \
             --apiKey "$APPSTORE_KEY_ID" \
             --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
