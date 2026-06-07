@@ -1,6 +1,10 @@
 name: iOS Build & Upload
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.trigger*'
   workflow_dispatch:
 
 jobs:
@@ -18,15 +22,13 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" login.keychain 2>&1 || true
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           base64 -d likeart_appstore.mobileprovision.b64 > ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision
-          echo "=== Identities ==="
           security find-identity -v -p codesigning | head -5
 
       - name: Compile
         run: |
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
           mkdir -p build/Payload/LikeArt.app
-          swiftc -target arm64-apple-ios16.0             -sdk "$SDK_PATH"             -parse-as-library             -emit-executable             ios/LikeArt/AppDelegate.swift             -o build/Payload/LikeArt.app/LikeArt
-          echo "=== Binary ==="
+          swiftc -target arm64-apple-ios16.0 -sdk "$SDK_PATH" -parse-as-library -emit-executable ios/LikeArt/AppDelegate.swift -o build/Payload/LikeArt.app/LikeArt
           file build/Payload/LikeArt.app/LikeArt
           ls -lh build/Payload/LikeArt.app/LikeArt
 
@@ -37,13 +39,12 @@ jobs:
           base64 -d likeart_appstore.mobileprovision.b64 > build/Payload/LikeArt.app/embedded.mobileprovision
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
-          echo "=== Bundle ==="
           ls -la build/Payload/LikeArt.app/
 
       - name: Sign & IPA
         run: |
           ID=$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print $2}')
-          echo "Identity: $ID"
+          echo "Signing: $ID"
           codesign --force --sign "$ID" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1
           cd build && zip -r LikeArt.ipa Payload/ && cd ..
           ls -lh build/LikeArt.ipa
@@ -52,4 +53,4 @@ jobs:
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
           cp AuthKey_JFU29259DM.p8 ~/.appstoreconnect/private_keys/
-          xcrun altool --upload-app -f build/LikeArt.ipa -t ios             --apiKey JFU29259DM --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --verbose
+          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey JFU29259DM --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --verbose
