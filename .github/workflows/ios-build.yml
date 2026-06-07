@@ -52,9 +52,13 @@ jobs:
       - name: Export IPA
         if: success()
         run: |
+          echo "=== Archive check ==="
+          ls -la build/LikeArt.xcarchive/
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
-          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
-          echo "=== IPA ==="
+          cat export.plist
+          echo "=== Exporting ==="
+          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1
+          echo "=== IPA files ==="
           ls -la build/*.ipa
       
       - name: Upload Artifact
