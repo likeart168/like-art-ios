@@ -8,10 +8,18 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup XcodeGen
-        run: brew install xcodegen
+      
+      - name: Setup tools
+        run: |
+          brew install xcodegen
+          gem install fastlane
+          echo "=== PATH ===" && echo $PATH
+          echo "=== xcodegen ===" && which xcodegen
+          echo "=== fastlane ===" && which fastlane
+      
       - name: Setup certs
         run: mkdir -p certs
+      
       - name: Decode certs
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
@@ -21,17 +29,16 @@ jobs:
           echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
-      - name: Bundle install
-        run: bundle install
-      - name: Debug directory structure
+      
+      - name: Debug structure
         run: |
           echo "=== Root ===" && ls -la
           echo "=== ios/ ===" && ls -la ios/
           echo "=== ios/LikeArt/ ===" && ls -la ios/LikeArt/
-          echo "=== project.yml ===" && cat ios/project.yml
+      
       - name: Build & Upload
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-        run: bundle exec fastlane ios release --verbose
+        run: fastlane ios release --verbose
