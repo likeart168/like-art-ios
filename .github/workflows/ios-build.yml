@@ -44,8 +44,14 @@ jobs:
       
       - name: Build & Archive
         run: |
+          echo "=== Available schemes ==="
+          xcodebuild -project ios/LikeArt.xcodeproj -list 2>&1 | head -20
+          
+          SCHEME=$(xcodebuild -project ios/LikeArt.xcodeproj -list 2>/dev/null | awk '/Schemes:/{getline; print $1}')
+          echo "Using scheme: $SCHEME"
+          
           echo "=== Building ==="
-          xcodebuild -project ios/LikeArt.xcodeproj -scheme LikeArt -sdk iphoneos -configuration Release -archivePath build/LikeArt.xcarchive archive CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=2JZCL349AG PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -100
+          xcodebuild -project ios/LikeArt.xcodeproj -scheme "$SCHEME" -sdk iphoneos -configuration Release -archivePath build/LikeArt.xcarchive archive CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=2JZCL349AG PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -100
           echo "=== Exit: $? ==="
       - name: Inspect Archive
         if: success()
