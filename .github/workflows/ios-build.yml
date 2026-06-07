@@ -47,26 +47,18 @@ jobs:
       
       - name: Find .app and create archive
         run: |
-          set +e
-          APP=$(find build/DerivedData -name "LikeArt.app" -type d 2>/dev/null | head -1)
-          if [ -z "$APP" ]; then
-            echo "ERROR: App not found! Listing DerivedData:"
-            find build/DerivedData -type d | head -20
+          APP="build/DerivedData/Build/Products/Release-iphoneos/LikeArt.app"
+          if [ ! -d "$APP" ]; then
+            echo "Standard path not found, searching..."
+            find build/DerivedData -maxdepth 5 -name "LikeArt.app" -type d 2>/dev/null
             exit 1
           fi
-          echo "App found: $APP"
+          echo "App: $APP"
           ls -la "$APP/"
-          if [ -f "$APP/LikeArt" ]; then
-            ls -lh "$APP/LikeArt"
-            file "$APP/LikeArt"
-          else
-            echo "Binary not at expected path, searching..."
-            find "$APP" -type f -perm +111 | head -5
-          fi
-          # Create archive
+          ls -lh "$APP/LikeArt" 2>/dev/null || echo "(no LikeArt binary)"
           mkdir -p build/LikeArt.xcarchive/Products/Applications
           cp -R "$APP" build/LikeArt.xcarchive/Products/Applications/
-          echo "Archive created"
+          echo "Done"
       
       - name: Export IPA
         run: |
