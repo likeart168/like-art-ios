@@ -14,9 +14,6 @@ targets:
     platform: iOS
     sources:
       - LikeArt
-    resources:
-      - path: LikeArt/www
-        type: folder
     settings:
       base:
         TARGETED_DEVICE_FAMILY: "1"
