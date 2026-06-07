@@ -47,15 +47,18 @@ jobs:
       
       - name: Find .app and create archive
         run: |
-          APP="build/DerivedData/Build/Products/Release-iphoneos/LikeArt.app"
-          if [ ! -d "$APP" ]; then
-            echo "Standard path not found, searching..."
-            find build/DerivedData -maxdepth 5 -name "LikeArt.app" -type d 2>/dev/null
+          echo "=== Listing DerivedData structure ==="
+          find build/DerivedData -maxdepth 6 -type d 2>/dev/null | head -40
+          echo "=== Searching for .app ==="
+          find build/DerivedData -name "LikeArt.app" -type d 2>/dev/null
+          APP=$(find build/DerivedData -name "LikeArt.app" -type d 2>/dev/null | head -1)
+          if [ -z "$APP" ]; then
+            echo "FATAL: No .app found!"
             exit 1
           fi
           echo "App: $APP"
           ls -la "$APP/"
-          ls -lh "$APP/LikeArt" 2>/dev/null || echo "(no LikeArt binary)"
+          ls -lh "$APP/LikeArt" 2>/dev/null || echo "(no binary file)"
           mkdir -p build/LikeArt.xcarchive/Products/Applications
           cp -R "$APP" build/LikeArt.xcarchive/Products/Applications/
           echo "Done"
