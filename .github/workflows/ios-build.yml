@@ -36,29 +36,17 @@ jobs:
           cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
       
       - name: XcodeGen
-        run: cd ios && xcodegen generate --spec project.yml
+        run: |
+          cd ios
+          xcodegen generate --spec project.yml
+          echo "=== Schemes ==="
+          xcodebuild -project LikeArt.xcodeproj -list
       
       - name: Build & Archive
         run: |
-          set -x
-          echo "=== Source files ==="
-          ls -la ios/LikeArt/
-          echo "=== Building with full output ==="
-          xcodebuild \
-            -project ios/LikeArt.xcodeproj \
-            -scheme LikeArt \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath build/LikeArt.xcarchive \
-            archive \
-            CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM=2JZCL349AG \
-            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" \
-            ONLY_ACTIVE_ARCH=NO 2>&1 | grep -v "^note:" | tail -80
+          echo "=== Building ==="
+          xcodebuild -project ios/LikeArt.xcodeproj -scheme LikeArt -sdk iphoneos -configuration Release -archivePath build/LikeArt.xcarchive archive CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=2JZCL349AG PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -100
           echo "=== Exit: $? ==="
-          echo "=== App bundle ==="
-          ls -la build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "NO APP BUNDLE"
-      
       - name: Inspect Archive
         if: success()
         run: |
