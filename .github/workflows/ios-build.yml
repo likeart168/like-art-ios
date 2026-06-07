@@ -51,6 +51,18 @@ jobs:
             DEVELOPMENT_TEAM=2JZCL349AG \
             PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -50
       
+      - name: Inspect Archive
+        if: success()
+        run: |
+          echo "=== Products ==="
+          ls -laR build/LikeArt.xcarchive/Products/ 2>/dev/null || echo "NO PRODUCTS DIR"
+          echo "=== Binary file check ==="
+          file build/LikeArt.xcarchive/Products/Applications/LikeArt.app/LikeArt 2>/dev/null || echo "NO BINARY"
+          echo "=== App size ==="
+          du -sh build/LikeArt.xcarchive/Products/Applications/LikeArt.app/ 2>/dev/null || echo "NO APP"
+          echo "=== Archive size ==="
+          du -sh build/LikeArt.xcarchive/
+      
       - name: Export IPA
         if: success()
         run: |
