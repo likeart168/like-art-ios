@@ -1,0 +1,35 @@
+name: iOS Test Compile
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.trigger*'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Test compile
+        run: |
+          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
+          echo "SDK: $SDK_PATH"
+          swiftc -target arm64-apple-ios16.0 -sdk "$SDK_PATH" -parse-as-library -emit-executable ios/LikeArt/AppDelegate.swift -o /tmp/LikeArt
+          echo "=== Binary ==="
+          file /tmp/LikeArt
+          ls -lh /tmp/LikeArt
+          echo "SUCCESS"
+      
+      - name: Test cert import
+        run: |
+          security create-keychain -p "" /tmp/test.keychain-db
+          security default-keychain -s /tmp/test.keychain-db
+          security unlock-keychain -p "" /tmp/test.keychain-db
+          base64 -d ios_distribution.p12.b64 > /tmp/cert.p12
+          ls -lh /tmp/cert.p12
+          file /tmp/cert.p12
+          security import /tmp/cert.p12 -k /tmp/test.keychain-db -P "likeart" -T /usr/bin/codesign 2>&1
+          echo "IMPORT EXIT: $?"
