@@ -34,26 +34,22 @@ jobs:
         run: |
           security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || echo "IMPORT_FAILED"
           security set-key-partition-list -S apple-tool:,apple: -k "" /Users/runner/Library/Keychains/login.keychain-db 2>&1 || true
+          echo "=== Available identities ==="
+          security find-identity -v -p codesigning
       
       - name: Import profile
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          echo "=== Profile UUID ==="
+          for f in ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision; do
+            security cms -D -i "$f" 2>/dev/null | plutil -extract UUID raw - 2>/dev/null
+          done
       
-      - name: Build with xcodebuild
+      - name: Archive & Export
         run: |
-          xcodebuild \
-            -project ios/LikeArt.xcodeproj \
-            -scheme LikeArt \
-            -sdk iphoneos \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            build \
-            CODE_SIGNING_ALLOWED=NO 2>&1 | tail -50
-      
-      - name: Archive
-        if: success()
-        run: |
+          cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
+          
           xcodebuild \
             -project ios/LikeArt.xcodeproj \
             -scheme LikeArt \
@@ -62,14 +58,13 @@ jobs:
             -archivePath build/LikeArt.xcarchive \
             archive \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            DEVELOPMENT_TEAM=2JZCL349AG
-      
-      - name: Export IPA
-        if: success()
-        run: |
-          cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
-          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist
+            DEVELOPMENT_TEAM=2JZCL349AG \
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store"
+          
+          xcodebuild -exportArchive \
+            -archivePath build/LikeArt.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist export.plist
       
       - name: Upload
         if: success()
