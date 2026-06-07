@@ -80,16 +80,21 @@ jobs:
       - name: Inspect IPA
         if: success()
         run: |
+          set +e  # Don't fail on inspection errors
           IPA="LikeArt.ipa"
           echo "=== IPA size ==="
           ls -lh "$IPA"
+          echo "=== IPA file type ==="
+          file "$IPA"
           echo "=== IPA contents ==="
           mkdir -p /tmp/ipa_inspect
           cp "$IPA" /tmp/ipa_inspect/
           cd /tmp/ipa_inspect
-          unzip -q LikeArt.ipa 2>&1
+          unzip -o -q LikeArt.ipa 2>&1
+          UNZIP_EXIT=$?
+          echo "Unzip exit: $UNZIP_EXIT"
           echo "--- Payload contents ---"
-          ls -la Payload/LikeArt.app/
+          ls -la Payload/LikeArt.app/ 2>/dev/null || echo "(no Payload dir)"
           echo "--- Binary size ---"
           ls -lh Payload/LikeArt.app/LikeArt 2>/dev/null || echo "(no binary)"
           file Payload/LikeArt.app/LikeArt 2>/dev/null || echo "(no binary file)"
@@ -97,12 +102,14 @@ jobs:
           plutil -p Payload/LikeArt.app/Info.plist 2>/dev/null | head -25 || echo "(no plist)"
           echo "--- Embedded profile ---"
           if [ -f Payload/LikeArt.app/embedded.mobileprovision ]; then
-            security cms -D -i Payload/LikeArt.app/embedded.mobileprovision 2>/dev/null | plutil -p - | grep -E '(Name|UUID|TeamIdentifier|Expiration|ApplicationIdentifier)'
+            security cms -D -i Payload/LikeArt.app/embedded.mobileprovision 2>/dev/null | plutil -p - 2>/dev/null | grep -E '(Name|UUID|TeamIdentifier|Expiration|ApplicationIdentifier)'
           else
             echo "(no embedded profile)"
           fi
           echo "--- Www folder ---"
           du -sh Payload/LikeArt.app/www/ 2>/dev/null || echo "(no www folder)"
+          echo "=== Inspect done ==="
+          exit 0
         shell: "bash --noprofile --norc -o pipefail {0}"
         working-directory: build
       
