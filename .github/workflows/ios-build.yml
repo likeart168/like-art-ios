@@ -1,69 +1,67 @@
-1|1|1|1|name: Build & Upload iOS
-2|2|2|2|on:
-3|3|3|3|  push:
-4|4|4|4|    branches: [main]
-5|5|5|5|  workflow_dispatch:
-6|6|6|6|jobs:
-7|7|7|7|  build:
-8|8|8|8|    runs-on: macos-latest
-9|9|9|9|    steps:
-10|10|10|10|      - uses: actions/checkout@v4
-11|11|11|11|      
-12|12|12|12|      - name: Setup tools
-13|13|13|13|        run: |
-14|14|14|14|          brew install xcodegen
-15|15|15|15|          gem install fastlane
-16|16|16|16|      
-17|17|17|17|      - name: Import certs & profile
-18|18|18|18|        env:
-19|19|19|19|          P12_BASE64: ${{ secrets.P12_BASE64 }}
-20|20|20|20|          PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
-21|21|21|21|          AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
-22|22|22|22|          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-23|23|23|23|        run: |
-24|24|24|24|          mkdir -p certs
-25|25|25|25|          echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
-26|26|26|26|          echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
-27|27|27|27|          echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
-28|28|28|28|          
-29|29|29|29|          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
-30|30|30|30|          security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
-31|31|31|31|          security find-identity -v -p codesigning
-32|32|32|32|          
-33|33|33|33|          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-34|34|34|34|          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-35|35|35|35|      
-36|36|36|36|      - name: XcodeGen
-37|37|37|37|        run: cd ios && xcodegen generate --spec project.yml
-38|38|38|38|      
-39|39|39|39|      - name: Build & Archive
-40|40|40|40|        run: |
-41|41|41|41|          xcodebuild \
-42|42|42|42|            -project ios/LikeArt.xcodeproj \
-43|43|43|43|            -scheme LikeArt \
-44|44|44|44|            -sdk iphoneos \
-45|45|45|45|            -configuration Release \
-46|46|46|46|            -archivePath build/LikeArt.xcarchive \
-47|47|47|47|            archive \
-48|48|48|48|            CODE_SIGN_STYLE=Manual \
-49|49|49|49|            DEVELOPMENT_TEAM=2JZCL349AG \
-50|50|50|50|            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -50
-51|51|51|51|      
-52|52|52|52|      - name: Export IPA
-53|53|53|53|        if: success()
-54|54|54|54|        run: |
-55|55|55|55|          cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
-56|56|56|56|          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
-57|57|57|57|          echo "=== IPA files ==="
-58|58|58|58|          ls -la build/*.ipa 2>/dev/null || echo "No IPA found!"
-59|59|59|59|      
-60|60|60|60|      - name: Upload to TestFlight
-61|61|61|61|        if: success()
-62|62|62|62|        env:
-63|63|63|63|          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
-64|64|64|64|          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
-65|65|65|65|        run: |
-66|66|66|66|          IPA=$(ls build/*.ipa | head -1)
-67|67|67|67|          echo "Uploading: $IPA"
-68|68|68|68|          xcrun altool --upload-app -f "$IPA" -t ios --apiKey "$APPSTORE_KEY_ID" --apiIssuer "$APPSTORE_ISSUER_ID" 2>&1
-69|69|69|69|
+name: Build & Upload iOS
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup tools
+        run: |
+          brew install xcodegen
+          gem install fastlane
+      
+      - name: Import certs & profile
+        env:
+          P12_BASE64: ${{ secrets.P12_BASE64 }}
+          PROVISION_BASE64: ${{ secrets.PROVISION_BASE64 }}
+          AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
+        run: |
+          mkdir -p certs
+          echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
+          echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
+          echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
+          
+          security import certs/ios_distribution.p12 -P "$CERT_PASSWORD" -A 2>&1 || true
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" login.keychain 2>&1 || true
+          security find-identity -v -p codesigning
+          
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp certs/likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+      
+      - name: XcodeGen
+        run: cd ios && xcodegen generate --spec project.yml
+      
+      - name: Build & Archive
+        run: |
+          xcodebuild \
+            -project ios/LikeArt.xcodeproj \
+            -scheme LikeArt \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/LikeArt.xcarchive \
+            archive \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=2JZCL349AG \
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -50
+      
+      - name: Export IPA
+        if: success()
+        run: |
+          cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
+          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
+          echo "=== IPA files ==="
+          ls -la build/*.ipa 2>/dev/null || echo "No IPA found!"
+      
+      - name: Upload to TestFlight
+        if: success()
+        env:
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+        run: |
+          ls -la build/*.ipa
+          fastlane ios upload 2>&1
