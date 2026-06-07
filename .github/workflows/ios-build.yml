@@ -13,6 +13,11 @@ jobs:
         run: |
           brew install xcodegen
           gem install fastlane
+          echo "=== PATH ===" 
+          echo $PATH
+          echo "=== which ==="
+          which fastlane || echo "NOT FOUND"
+          which xcodegen || echo "NOT FOUND"
       
       - name: Setup certs dir
         run: mkdir -p certs
@@ -26,10 +31,12 @@ jobs:
           echo "$P12_BASE64" | base64 -d > certs/ios_distribution.p12
           echo "$PROVISION_BASE64" | base64 -d > certs/likeart_appstore.mobileprovision
           echo "$AUTHKEY_BASE64" | base64 -d > certs/AuthKey.p8
+          echo "=== Cert files ==="
+          ls -la certs/
       
       - name: Build & Upload
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
           CERT_PASSWORD: ${{ secrets.CERT_PASSWORD }}
-        run: fastlane ios release
+        run: fastlane ios release --verbose
