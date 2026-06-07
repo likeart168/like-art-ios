@@ -57,11 +57,26 @@ jobs:
           echo "=== IPA files ==="
           ls -la build/*.ipa 2>/dev/null || echo "No IPA found!"
       
+      - name: Show IPA
+        if: success()
+        run: |
+          echo "=== IPA contents ==="
+          ls -la build/
+          find build -name "*.ipa" -type f
+      
+      - name: Upload Artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt-iOS
+          path: build/*.ipa
+      
       - name: Upload to TestFlight
         if: success()
         env:
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
         run: |
-          ls -la build/*.ipa
+          IPA_FILE=$(find build -name "*.ipa" -type f | head -1)
+          echo "Found IPA: $IPA_FILE"
           fastlane ios upload 2>&1
