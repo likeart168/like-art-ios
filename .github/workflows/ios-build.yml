@@ -34,6 +34,7 @@ jobs:
       
       - name: Build (no archive)
         run: |
+          set -o pipefail
           xcodebuild \
             -project ios/LikeArt.xcodeproj \
             -scheme LikeArt \
@@ -43,7 +44,7 @@ jobs:
             build \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=2JZCL349AG \
-            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -20
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tee build/build.log | grep -E '(error:|BUILD|Compiling|Linking|\*\*)' | tail -20
       
       - name: Find .app and create archive
         run: |
