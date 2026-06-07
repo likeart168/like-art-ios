@@ -45,13 +45,13 @@ jobs:
             archive \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=2JZCL349AG \
-            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | tail -50
+            PROVISIONING_PROFILE_SPECIFIER="LikeArt App Store" 2>&1 | grep -E '(error:|warning:|BUILD|ARCHIVE|Compiling|Linking|Touch|CodeSign)' | tail -100
       
       - name: Export IPA
         if: success()
         run: |
           cat > export.plist <<< '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>app-store</string><key>teamID</key><string>2JZCL349AG</string></dict></plist>'
-          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1 | tail -30
+          xcodebuild -exportArchive -archivePath build/LikeArt.xcarchive -exportPath build -exportOptionsPlist export.plist 2>&1
       
       - name: Check Binary
         if: success()
