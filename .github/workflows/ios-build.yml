@@ -14,14 +14,14 @@ jobs:
           security unlock-keychain -p "" login.keychain 2>/dev/null
           security default-keychain -s login.keychain 2>/dev/null
           
-          # Try import with allow
-          security import ios_distribution.p12 -P "likeart" -A 2>&1
+          # The p12 and mobileprovision are base64 encoded in repo
+          base64 -d ios_distribution.p12.b64 > /tmp/cert.p12 2>&1
+          security import /tmp/cert.p12 -P "likeart" -A 2>&1
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" login.keychain 2>&1
           
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          base64 -d likeart_appstore.mobileprovision.b64 > ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision 2>&1
           
-          # Show identities
           security find-identity -v -p codesigning
 
       - name: Compile Swift to executable
@@ -36,40 +36,28 @@ jobs:
             ios/LikeArt/AppDelegate.swift \
             -o build/Payload/LikeArt.app/LikeArt
           
-          echo "=== Executable ==="
           file build/Payload/LikeArt.app/LikeArt
-          ls -la build/Payload/LikeArt.app/LikeArt
 
       - name: Package .app bundle
         run: |
           cp ios/LikeArt/Info.plist build/Payload/LikeArt.app/
           cp -r ios/LikeArt/www build/Payload/LikeArt.app/
-          cp likeart_appstore.mobileprovision build/Payload/LikeArt.app/embedded.mobileprovision
+          base64 -d likeart_appstore.mobileprovision.b64 > build/Payload/LikeArt.app/embedded.mobileprovision
           
           /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
           /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
-          ls -la build/Payload/LikeArt.app/
 
       - name: Sign & create IPA
         run: |
           IDENTITY=\$(security find-identity -v -p codesigning | grep "iPhone Distribution" | head -1 | awk -F'"' '{print \$2}')
           echo "Signing with: \$IDENTITY"
-          
           codesign --force --sign "\$IDENTITY" --entitlements ios/LikeArt/LikeArt.entitlements build/Payload/LikeArt.app 2>&1
-          
-          cd build
-          zip -r LikeArt.ipa Payload/
-          cd ..
+          cd build && zip -r LikeArt.ipa Payload/ && cd ..
           ls -la build/LikeArt.ipa
 
       - name: Upload to TestFlight
         run: |
           mkdir -p ~/.appstoreconnect/private_keys
           cp AuthKey_JFU29259DM.p8 ~/.appstoreconnect/private_keys/
-          
-          xcrun altool --upload-app \
-            -f build/LikeArt.ipa \
-            -t ios \
-            --apiKey JFU29259DM \
-            --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb \
-            --verbose
+          xcrun altool --upload-app -f build/LikeArt.ipa -t ios \
+            --apiKey JFU29259DM --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --verbose
