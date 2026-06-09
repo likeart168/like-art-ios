@@ -56,7 +56,7 @@ jobs:
         run: |
           cd ios/App
           xcodebuild -resolvePackageDependencies -scmProvider system
-          xcodebuild -workspace App.xcworkspace \
+          xcodebuild -project App.xcodeproj \
             -scheme App \
             -sdk iphoneos \
             -configuration Release \
