@@ -22,12 +22,18 @@
     "distribute": {
       "android": {
         "permissions": [
-          "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+          "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
           "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-          "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
           "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-          "<uses-permission android:name=\"android.permission.VIBRATE\"/>"
-        ]
+          "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+          "<uses-permission android:name=\"android.permission.INTERNET\"/>"
+        ],
+        "minSdkVersion": 21,
+        "targetSdkVersion": 34,
+        "networkSecurityConfig": {
+          "cleartextTrafficPermitted": true
+        },
+        "packagename": "com.likeart.app"
       },
       "ios": {
         "appid": "com.likeart.app",
