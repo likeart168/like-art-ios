@@ -64,7 +64,7 @@ jobs:
             archive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="likeart" \
+            PROVISIONING_PROFILE_SPECIFIER="fad0d533-ab97-48d8-8a60-944c6f3b91af" \
             DEVELOPMENT_TEAM=2JZCL349AG
       
       - name: Export IPA
