@@ -52,7 +52,9 @@ jobs:
           security import /tmp/key.pem -k build.keychain -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
       
-      - name: Build IPA
+      - name: Build IPA (Xcode 26.3)
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_26.3.app/Contents/Developer
         run: |
           cd ios/App
           xcodebuild -resolvePackageDependencies -scmProvider system
@@ -65,9 +67,13 @@ jobs:
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="fad0d533-ab97-48d8-8a60-944c6f3b91af" \
-            DEVELOPMENT_TEAM=2JZCL349AG
+            DEVELOPMENT_TEAM=2JZCL349AG \
+            CURRENT_PROJECT_VERSION=$GITHUB_RUN_NUMBER \
+            MARKETING_VERSION=2.0.1
       
       - name: Export IPA
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_26.3.app/Contents/Developer
         run: |
           xcodebuild -exportArchive \
             -archivePath /tmp/App.xcarchive \
@@ -76,6 +82,7 @@ jobs:
       
       - name: Upload to App Store Connect
         env:
+          DEVELOPER_DIR: /Applications/Xcode_26.3.app/Contents/Developer
           APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
           APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
           AUTHKEY_BASE64: ${{ secrets.AUTHKEY_BASE64 }}
