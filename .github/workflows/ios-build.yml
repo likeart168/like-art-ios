@@ -1,10 +1,8 @@
-name: iOS Build & Upload
+name: iOS WebView Build
 
 on:
   push:
     branches: [main]
-    paths:
-      - '.trigger*'
   workflow_dispatch:
 
 jobs:
@@ -12,49 +10,62 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup certs
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build H5
+        run: npx vite build --outDir dist/build/h5 --base ./
+      
+      - name: Install & sync Capacitor iOS
         run: |
-          security create-keychain -p "" /tmp/app-sign.keychain-db
-          security default-keychain -s /tmp/app-sign.keychain-db
-          security unlock-keychain -p "" /tmp/app-sign.keychain-db
-          security set-keychain-settings -lut 21600 /tmp/app-sign.keychain-db
-          
-          base64 -D -i ios_distribution.p12.b64 -o /tmp/cert.p12
-          security import /tmp/cert.p12 -k /tmp/app-sign.keychain-db -P "likeart" -T /usr/bin/codesign -T /usr/bin/security 2>&1
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" /tmp/app-sign.keychain-db 2>&1 || true
-          
+          npm install @capacitor/ios
+          npx cap sync ios
+      
+      - name: Setup signing
+        env:
+          P12_CERTIFICATE: ${{ secrets.P12_CERTIFICATE }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+        run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          base64 -D -i likeart_appstore.mobileprovision.b64 -o ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision
-          
-          security find-identity -v -p codesigning /tmp/app-sign.keychain-db
-
-      - name: Compile
+          echo "$PROVISIONING_PROFILE" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/likeart.mobileprovision
+          echo "$P12_CERTIFICATE" | base64 --decode > /tmp/cert.p12
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security import /tmp/cert.p12 -k build.keychain -P "$P12_PASSWORD" -A
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+      
+      - name: Build IPA
         run: |
-          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
-          mkdir -p build/Payload/LikeArt.app
-          swiftc -target arm64-apple-ios16.0 -sdk "$SDK_PATH" -parse-as-library -emit-executable ios/LikeArt/AppDelegate.swift -o build/Payload/LikeArt.app/LikeArt
-          file build/Payload/LikeArt.app/LikeArt
-          ls -lh build/Payload/LikeArt.app/LikeArt
-
-      - name: Package
+          cd ios/App
+          xcodebuild -resolvePackageDependencies -scmProvider system
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath /tmp/App.xcarchive \
+            archive \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="likeart" \
+            DEVELOPMENT_TEAM=2JZCL349AG
+      
+      - name: Export IPA
         run: |
-          cp ios/LikeArt/Info.plist build/Payload/LikeArt.app/
-          cp -r ios/LikeArt/www build/Payload/LikeArt.app/
-          base64 -D -i likeart_appstore.mobileprovision.b64 -o build/Payload/LikeArt.app/embedded.mobileprovision
-          /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.likeart.app" build/Payload/LikeArt.app/Info.plist
-          /usr/libexec/PlistBuddy -c "Set :CFBundleExecutable LikeArt" build/Payload/LikeArt.app/Info.plist
-
-      - name: Sign & IPA
-        run: |
-          ID=$(security find-identity -v -p codesigning /tmp/app-sign.keychain-db | grep "iPhone Distribution" | head -1 | awk -F'"' '{print $2}')
-          echo "Signing: $ID"
-          codesign --force --sign "$ID" --keychain /tmp/app-sign.keychain-db build/Payload/LikeArt.app 2>&1
-          cd build && zip -r LikeArt.ipa Payload/ && cd ..
-          ls -lh build/LikeArt.ipa
-
-      - name: Upload TestFlight
-        run: |
-          mkdir -p ~/.appstoreconnect/private_keys
-          cp AuthKey_JFU29259DM.p8 ~/.appstoreconnect/private_keys/
-          xcrun altool --upload-app -f build/LikeArt.ipa -t ios --apiKey JFU29259DM --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --verbose
+          xcodebuild -exportArchive \
+            -archivePath /tmp/App.xcarchive \
+            -exportPath /tmp/export \
+            -exportOptionsPlist ios/App/ExportOptions.plist
+      
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt.ipa
+          path: /tmp/export/*.ipa
