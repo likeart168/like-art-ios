@@ -13,36 +13,34 @@ jobs:
 
       - name: Build IPA
         run: |
-          set -x
-          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
-          echo "SDK: $SDK"
+          # Show environment
+          xcrun --sdk iphoneos --show-sdk-path
+          swift --version
           
+          # Create app bundle
           mkdir -p Payload/LikeArt.app
           
-          # Compile Swift → arm64 binary
-          swiftc -sdk "$SDK" -target arm64-apple-ios15.0 \
-            -emit-executable -o Payload/LikeArt.app/LikeArt \
+          # Compile with xcrun swiftc
+          xcrun --sdk iphoneos swiftc \
+            -target arm64-apple-ios15.0 \
+            -emit-executable \
+            -o Payload/LikeArt.app/LikeArt \
             ios-simple/App/AppDelegate.swift
           
+          echo "Compile OK"
           file Payload/LikeArt.app/LikeArt
           
-          # Copy Info.plist (remove MinimumOSVersion key, not valid in plist)
-          python3 -c "
-          import plistlib
-          with open('ios-simple/App/Info.plist','rb') as f:
-              d = plistlib.load(f)
-          d.pop('MinimumOSVersion', None)
-          d['MinimumOSVersion'] = '15.0'
-          with open('Payload/LikeArt.app/Info.plist','wb') as f:
-              plistlib.dump(d, f)
-          "
+          # Use pre-built Info.plist directly
+          cp ios-simple/App/Info.plist Payload/LikeArt.app/Info.plist
           
-          # Ad-hoc codesign
-          codesign --force --sign - Payload/LikeArt.app/
+          # Ad-hoc sign
+          codesign --force --sign - Payload/LikeArt.app/ 2>&1
+          echo "Sign OK"
           
-          # Package IPA
+          # Package
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
+          echo "DONE"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
