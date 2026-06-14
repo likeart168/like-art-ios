@@ -1,4 +1,4 @@
-name: Build iOS App
+name: Build iOS Redirect App
 
 on:
   push:
@@ -7,63 +7,59 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug Environment
+      - name: Setup
         run: |
-          echo "=== Xcode ==="
-          xcodebuild -version 2>&1 || echo "NO XCODE"
-          echo "=== SDKs ==="
-          xcodebuild -showsdks 2>&1 || echo "NO SDKS"
-          echo "=== swift ==="
-          which swift || echo "NO SWIFT"
-          swift --version 2>&1 || echo "NO SWIFT VERSION"
-          echo "=== xcrun ==="
-          xcrun --sdk iphoneos --show-sdk-path 2>&1 || echo "NO IOS SDK"
-          echo "=== ls ios-simple ==="
-          ls -la ios-simple/App/
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-path
 
-      - name: Build IPA
+      - name: Install Certificates
         run: |
-          # Try to find SDK
-          SDK=$(xcrun --sdk iphoneos --show-sdk-path 2>/dev/null || echo "")
-          if [ -z "$SDK" ]; then
-            echo "No iOS SDK found, searching..."
-            SDK=$(find /Applications/Xcode*.app -name "iPhoneOS.sdk" -type d 2>/dev/null | head -1)
-          fi
+          security create-keychain -p temp123 build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p temp123 build.keychain
+          security import ios_distribution.p12 -k build.keychain -P 'likeart' -A -T /usr/bin/codesign 2>&1
+          security set-key-partition-list -S apple-tool:,apple: -s -k temp123 build.keychain 2>&1
           
-          if [ -z "$SDK" ]; then
-            echo "ERROR: Cannot find iOS SDK"
-            exit 1
-          fi
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Build Archive
+        run: |
+          cd ios/App
           
-          echo "Using SDK: $SDK"
+          # Get profile UUID
+          PROF_UUID=$(grep -a -A1 "UUID" ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision | grep string | sed 's/.*<string>//' | sed 's/<\/string>//')
+          echo "Profile UUID: $PROF_UUID"
           
-          cd ios-simple
-          mkdir -p build/Payload/LikeArt.app
+          xcodebuild archive \
+            -project App.xcodeproj \
+            -scheme App \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath /tmp/App.xcarchive \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="iPhone Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROF_UUID" \
+            2>&1 | tail -50
+
+      - name: Export IPA
+        run: |
+          cd ios/App
+          xcodebuild -exportArchive \
+            -archivePath /tmp/App.xcarchive \
+            -exportPath /tmp/export \
+            -exportOptionsPlist ExportOptions.plist 2>&1 | tail -20
           
-          swiftc -sdk "$SDK" -target arm64-apple-ios15.0 \
-            -emit-executable -o build/Payload/LikeArt.app/LikeArt \
-            App/AppDelegate.swift 2>&1
-          
-          echo "Binary:"
-          file build/Payload/LikeArt.app/LikeArt
-          ls -la build/Payload/LikeArt.app/LikeArt
-          
-          cp App/Info.plist build/Payload/LikeArt.app/
-          
-          cd build
-          zip -r ../LikeArt.ipa Payload/ 2>&1
-          cd ..
-          
-          ls -la LikeArt.ipa
-          echo "Done! IPA=$(pwd)/LikeArt.ipa"
+          ls -la /tmp/export/*.ipa
+          cp /tmp/export/*.ipa /tmp/LikeArt.ipa 2>/dev/null || true
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: LikeArt-iOS-v${{ github.run_number }}
-          path: ios-simple/LikeArt.ipa
+          path: /tmp/LikeArt.ipa
           retention-days: 90
