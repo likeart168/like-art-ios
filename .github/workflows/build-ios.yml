@@ -11,55 +11,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup
+      - name: Build IPA
         run: |
-          xcodebuild -version
-          xcrun --sdk iphoneos --show-sdk-path
-
-      - name: Install Certificates
-        run: |
-          security create-keychain -p temp123 build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p temp123 build.keychain
-          security import ios_distribution.p12 -k build.keychain -P 'likeart' -A -T /usr/bin/codesign 2>&1
-          security set-key-partition-list -S apple-tool:,apple: -s -k temp123 build.keychain 2>&1
+          set -ex
+          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+          echo "SDK: $SDK"
           
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-
-      - name: Build Archive
-        run: |
-          cd ios/App
+          cd ios-simple
+          mkdir -p Payload/LikeArt.app
           
-          # Get profile UUID
-          PROF_UUID=$(grep -a -A1 "UUID" ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision | grep string | sed 's/.*<string>//' | sed 's/<\/string>//')
-          echo "Profile UUID: $PROF_UUID"
+          # Compile Swift → arm64 binary
+          swiftc -sdk "$SDK" -target arm64-apple-ios15.0 \
+            -emit-executable -o Payload/LikeArt.app/LikeArt \
+            App/AppDelegate.swift
           
-          xcodebuild archive \
-            -project App.xcodeproj \
-            -scheme App \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath /tmp/App.xcarchive \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="iPhone Distribution" \
-            PROVISIONING_PROFILE_SPECIFIER="$PROF_UUID" \
-            2>&1 | tail -50
-
-      - name: Export IPA
-        run: |
-          cd ios/App
-          xcodebuild -exportArchive \
-            -archivePath /tmp/App.xcarchive \
-            -exportPath /tmp/export \
-            -exportOptionsPlist ExportOptions.plist 2>&1 | tail -20
+          file Payload/LikeArt.app/LikeArt
           
-          ls -la /tmp/export/*.ipa
-          cp /tmp/export/*.ipa /tmp/LikeArt.ipa 2>/dev/null || true
+          # Copy Info.plist
+          cp App/Info.plist Payload/LikeArt.app/
+          
+          # Ad-hoc codesign (no cert needed)
+          codesign --force --sign - Payload/LikeArt.app/
+          
+          # Package IPA
+          zip -r ../LikeArt.ipa Payload/
+          cd ..
+          ls -la LikeArt.ipa
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: LikeArt-iOS-v${{ github.run_number }}
-          path: /tmp/LikeArt.ipa
-          retention-days: 90
+          path: ios-simple/LikeArt.ipa
