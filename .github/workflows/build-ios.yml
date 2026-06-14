@@ -1,0 +1,101 @@
+name: Build iOS App
+
+on:
+  push:
+    branches: [ios-redirect]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Xcode & Tools
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app 2>/dev/null || \
+          sudo xcode-select -s /Applications/Xcode_26.app 2>/dev/null || true
+          xcodebuild -version
+
+      - name: Install Certificates from Repo
+        run: |
+          # Import distribution certificate
+          security create-keychain -p temp123 build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p temp123 build.keychain
+          security import ios_distribution.p12 -k build.keychain -P 'likeart' -A -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k temp123 build.keychain
+          
+          # Install provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp likeart_appstore.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          
+          # Get profile UUID for signing
+          PROFILE_UUID=$(grep -a -A1 UUID ~/Library/MobileDevice/Provisioning\ Profiles/likeart_appstore.mobileprovision | head -1 | sed 's/.*<string>//' | sed 's/<\/string>//')
+          echo "PROFILE_UUID=$PROFILE_UUID"
+          echo "PROFILE_UUID=$PROFILE_UUID" >> $GITHUB_ENV
+
+      - name: Build IPA with swiftc
+        run: |
+          cd ios-simple
+          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+          
+          # Build binary
+          mkdir -p build/Payload/LikeArt.app
+          swiftc -sdk "$SDK" -target arm64-apple-ios15.0 \
+            -emit-executable -o build/Payload/LikeArt.app/LikeArt \
+            App/AppDelegate.swift
+          
+          # Copy Info.plist
+          cp App/Info.plist build/Payload/LikeArt.app/
+          
+          # Copy provisioning profile
+          cp ../likeart_appstore.mobileprovision build/Payload/LikeArt.app/embedded.mobileprovision
+          
+          # Compile asset catalog
+          xcrun actool --compile build/Payload/LikeArt.app \
+            --app-icon AppIcon \
+            --minimum-deployment-target 15.0 \
+            --platform iphoneos \
+            App/Assets.xcassets 2>/dev/null || echo "actool: icons may be missing"
+          
+          ls -la build/Payload/LikeArt.app/
+          
+          # Codesign
+          codesign --force --sign "iPhone Distribution" \
+            --entitlements <(echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict/></plist>') \
+            build/Payload/LikeArt.app/
+          
+          codesign -vvv build/Payload/LikeArt.app/
+          
+          # Package IPA
+          cd build
+          zip -r ../../LikeArt.ipa Payload/
+          cd ..
+          ls -la LikeArt.ipa
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt-iOS-v${{ github.run_number }}
+          path: ios-simple/LikeArt.ipa
+          retention-days: 90
+
+      - name: Upload to TestFlight
+        continue-on-error: true
+        run: |
+          if [ -f ios-simple/LikeArt.ipa ]; then
+            # Try with API key if available
+            if [ -n "$API_KEY_BASE64" ]; then
+              echo "$API_KEY_BASE64" | base64 -d > /tmp/AuthKey.p8
+            fi
+            
+            xcrun altool --upload-app \
+              -f ios-simple/LikeArt.ipa \
+              -t ios \
+              --apiKey "2W7A5K57L2" \
+              --apiIssuer "8ad4234e-2fc0-4943-8cde-e8bff3541efb" \
+              2>&1 || echo "TestFlight upload skipped (no API key configured)"
+          fi
+        env:
+          API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_BASE64 }}

@@ -1,0 +1,31 @@
+name: LikeArt
+options:
+  bundleIdPrefix: com.likeart.app
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  LikeArt:
+    type: application
+    platform: iOS
+    sources:
+      - App
+    settings:
+      base:
+        INFOPLIST_FILE: App/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.likeart.app
+        CODE_SIGN_STYLE: Manual
+        DEVELOPMENT_TEAM: ""
+        PROVISIONING_PROFILE_SPECIFIER: ""
+    preBuildScripts:
+      - name: "Generate App Icon"
+        script: |
+          ACTOOL="xcrun actool"
+          ASSETS_DIR="${SRCROOT}/App/Assets.xcassets"
+          CAR_OUT="${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Assets.car"
+          mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+          ${ACTOOL} --compile "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}" \
+            --app-icon AppIcon \
+            --output-partial-info-plist /tmp/partial.plist \
+            --minimum-deployment-target 15.0 \
+            --platform iphoneos \
+            "${ASSETS_DIR}" 2>/dev/null || true
