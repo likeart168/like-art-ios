@@ -11,32 +11,55 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build with swiftc
+      - name: Debug Environment
         run: |
-          set -ex
-          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
-          echo "SDK: $SDK"
+          echo "=== Xcode ==="
+          xcodebuild -version 2>&1 || echo "NO XCODE"
+          echo "=== SDKs ==="
+          xcodebuild -showsdks 2>&1 || echo "NO SDKS"
+          echo "=== swift ==="
+          which swift || echo "NO SWIFT"
+          swift --version 2>&1 || echo "NO SWIFT VERSION"
+          echo "=== xcrun ==="
+          xcrun --sdk iphoneos --show-sdk-path 2>&1 || echo "NO IOS SDK"
+          echo "=== ls ios-simple ==="
+          ls -la ios-simple/App/
+
+      - name: Build IPA
+        run: |
+          # Try to find SDK
+          SDK=$(xcrun --sdk iphoneos --show-sdk-path 2>/dev/null || echo "")
+          if [ -z "$SDK" ]; then
+            echo "No iOS SDK found, searching..."
+            SDK=$(find /Applications/Xcode*.app -name "iPhoneOS.sdk" -type d 2>/dev/null | head -1)
+          fi
+          
+          if [ -z "$SDK" ]; then
+            echo "ERROR: Cannot find iOS SDK"
+            exit 1
+          fi
+          
+          echo "Using SDK: $SDK"
           
           cd ios-simple
           mkdir -p build/Payload/LikeArt.app
           
-          # Compile Swift
           swiftc -sdk "$SDK" -target arm64-apple-ios15.0 \
             -emit-executable -o build/Payload/LikeArt.app/LikeArt \
-            App/AppDelegate.swift
+            App/AppDelegate.swift 2>&1
           
-          echo "Binary built: $(file build/Payload/LikeArt.app/LikeArt)"
+          echo "Binary:"
+          file build/Payload/LikeArt.app/LikeArt
+          ls -la build/Payload/LikeArt.app/LikeArt
           
-          # Copy Info.plist
           cp App/Info.plist build/Payload/LikeArt.app/
           
-          # Package as IPA
           cd build
-          zip -r ../LikeArt.ipa Payload/
+          zip -r ../LikeArt.ipa Payload/ 2>&1
           cd ..
           
           ls -la LikeArt.ipa
-          echo "IPA_SIZE=$(stat -f%z LikeArt.ipa)" >> $GITHUB_ENV
+          echo "Done! IPA=$(pwd)/LikeArt.ipa"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
