@@ -15,30 +15,32 @@ jobs:
         run: |
           set -e
 
+          echo "=== Extract cert + key from p12 ==="
+          openssl pkcs12 -in ios_distribution.p12 -passin pass:likeart -clcerts -nokeys -out /tmp/cert.pem 2>&1
+          openssl pkcs12 -in ios_distribution.p12 -passin pass:likeart -nocerts -nodes -out /tmp/key.pem 2>&1
+          echo "openssl extract OK"
+          ls -la /tmp/cert.pem /tmp/key.pem
+
+          echo "=== Repack as new p12 ==="
+          openssl pkcs12 -export -in /tmp/cert.pem -inkey /tmp/key.pem -out /tmp/new.p12 -passout pass:likeart 2>&1
+          echo "repack OK"
+          ls -la /tmp/new.p12
+
           echo "=== Setup keychain ==="
           security create-keychain -p "" build.keychain
           security default-keychain -s build.keychain
           security unlock-keychain -p "" build.keychain
-          security list-keychains -d user
-          echo "KEYCHAIN READY"
 
-          echo "=== Import p12 ==="
-          security import ios_distribution.p12 -k build.keychain -P "likeart" -T /usr/bin/codesign -T /usr/bin/security -A 2>&1
-          RC=$?
-          echo "import exit: $RC"
-          if [ $RC -ne 0 ]; then
-            echo "Trying without password..."
-            security import ios_distribution.p12 -k build.keychain -T /usr/bin/codesign -A 2>&1
-          fi
+          echo "=== Import ==="
+          security import /tmp/new.p12 -k build.keychain -P "likeart" -T /usr/bin/codesign -A 2>&1
+          echo "import OK"
 
-          echo "=== Set partition ==="
+          echo "=== Partition ==="
           security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain 2>&1 || true
-
-          echo "=== Find identity ==="
           security find-identity -v -p codesigning build.keychain
           echo "CERT DONE"
 
-          echo "=== Build app ==="
+          echo "=== Build ==="
           mkdir -p Payload/LikeArt.app/Base.lproj
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 -emit-executable \
