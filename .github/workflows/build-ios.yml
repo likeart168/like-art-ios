@@ -11,115 +11,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build IPA with WKWebView
+      - name: Build IPA
         run: |
-          set -e
-          APP_DIR="Payload/LikeArt.app"
-          mkdir -p "${APP_DIR}"
-
-          echo "=== Check env ==="
+          echo "=== SDK ==="
           xcrun --sdk iphoneos --show-sdk-path
-          swift --version
 
-          echo "=== 1. Compile ==="
+          echo "=== Compile ==="
+          mkdir -p Payload/LikeArt.app
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 \
             -emit-executable \
-            -o "${APP_DIR}/LikeArt" \
+            -o Payload/LikeArt.app/LikeArt \
             ios-simple/App/AppDelegate.swift \
-            ios-simple/App/ViewController.swift || {
-              echo "SWIFTC FAILED, verbose:"
-              xcrun --sdk iphoneos swiftc -v \
-                -target arm64-apple-ios15.0 \
-                -emit-executable \
-                -o "${APP_DIR}/LikeArt" \
-                ios-simple/App/AppDelegate.swift \
-                ios-simple/App/ViewController.swift 2>&1
-              exit 1
-            }
-          file "${APP_DIR}/LikeArt"
-          echo "COMPILE OK"
+            ios-simple/App/ViewController.swift
 
-          echo "=== 2. Copy Info.plist ==="
-          cp ios-simple/App/Info.plist "${APP_DIR}/Info.plist"
+          echo "Compile success:"
+          file Payload/LikeArt.app/LikeArt
 
-          echo "=== 3. LaunchScreen ==="
-          mkdir -p "${APP_DIR}/Base.lproj"
-          ibtool --compile "${APP_DIR}/Base.lproj/LaunchScreen.storyboardc" \
-            ios-simple/App/LaunchScreen.storyboard 2>&1 || {
-              echo "IBTOOL FAILED, copy raw"
-              cp ios-simple/App/LaunchScreen.storyboard "${APP_DIR}/Base.lproj/"
-            }
+          echo "=== Copy resources ==="
+          cp ios-simple/App/Info.plist Payload/LikeArt.app/
+          mkdir -p Payload/LikeArt.app/Base.lproj
+          cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
 
-          echo "=== 4. Assets ==="
-          xcrun actool --compile "${APP_DIR}" \
-            --app-icon AppIcon \
-            --output-partial-info-plist /tmp/partial.plist \
-            --minimum-deployment-target 15.0 \
-            --platform iphoneos \
-            ios-simple/App/Assets.xcassets 2>&1 || echo "ACTOOL SKIPPED"
-
-          echo "=== 5. List bundle ==="
-          find "${APP_DIR}" -type f | sort
-
-          echo "=== 6. Import cert ==="
-          [ -f ios_distribution.p12 ] && cp ios_distribution.p12 /tmp/dist.p12
-          [ -f ios_distribution.p12.b64 ] && base64 -d ios_distribution.p12.b64 > /tmp/dist.p12
-          if [ ! -f /tmp/dist.p12 ]; then
-            echo "FATAL: No p12 cert found"
-            ls -la *.p12 *.b64 2>/dev/null || true
-            exit 1
-          fi
-          security create-keychain -p "" build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p "" build.keychain
-          security import /tmp/dist.p12 -k build.keychain -P "likeart" -A -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
-          echo "CERT OK"
-
-          echo "=== 7. Profile ==="
-          [ -f likeart_appstore.mobileprovision ] && cp likeart_appstore.mobileprovision "${APP_DIR}/embedded.mobileprovision"
-          [ -f likeart_appstore.mobileprovision.b64 ] && base64 -d likeart_appstore.mobileprovision.b64 > "${APP_DIR}/embedded.mobileprovision"
-          if [ ! -f "${APP_DIR}/embedded.mobileprovision" ]; then
-            echo "FATAL: No provisioning profile"
-            ls -la *.mobileprovision *.b64 2>/dev/null || true
-            exit 1
-          fi
-          echo "PROFILE OK"
-
-          echo "=== 8. Entitlements ==="
-          security cms -D -i "${APP_DIR}/embedded.mobileprovision" > /tmp/profile.plist 2>&1 || true
-          if [ -f /tmp/profile.plist ] && [ -s /tmp/profile.plist ]; then
-            /usr/libexec/PlistBuddy -x -c 'Print :Entitlements' /tmp/profile.plist > /tmp/entitlements.plist 2>&1 || true
-          fi
-          if [ ! -f /tmp/entitlements.plist ] || [ ! -s /tmp/entitlements.plist ]; then
-            echo "Creating default entitlements"
-            echo '<?xml version="1.0" encoding="UTF-8"?>' > /tmp/entitlements.plist
-            echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> /tmp/entitlements.plist
-            echo '<plist version="1.0"><dict>' >> /tmp/entitlements.plist
-            echo '<key>application-identifier</key><string>com.likeart.app</string>' >> /tmp/entitlements.plist
-            echo '<key>get-task-allow</key><false/>' >> /tmp/entitlements.plist
-            echo '</dict></plist>' >> /tmp/entitlements.plist
-          fi
-          echo "ENTITLEMENTS OK"
-
-          echo "=== 9. Sign ==="
-          codesign --force --sign "iPhone Distribution" \
-            --entitlements /tmp/entitlements.plist \
-            --timestamp=none \
-            "${APP_DIR}" 2>&1 || {
-              echo "SIGN FAILED, trying ad-hoc"
-              codesign --force --sign - "${APP_DIR}" 2>&1
-            }
-          codesign -dvv "${APP_DIR}" 2>&1 || echo "verify warning"
-          echo "SIGN OK"
-
-          echo "=== 10. Package ==="
+          echo "=== Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
-          echo "SUCCESS: $(wc -c < LikeArt.ipa) bytes"
+          echo "DONE"
 
-      - name: Upload IPA artifact
+      - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: LikeArt-iOS-v${{ github.run_number }}
