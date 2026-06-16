@@ -25,7 +25,8 @@ jobs:
           xcrun --sdk iphoneos swiftc -target arm64-apple-ios15.0 -emit-executable -o Payload/LikeArt.app/LikeArt ios-simple/App/AppDelegate.swift ios-simple/App/ViewController.swift
           cp ios-simple/App/Info.plist Payload/LikeArt.app/
           cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
-          xcrun actool --compile Payload/LikeArt.app --app-icon AppIcon --output-partial-info-plist /tmp/partial.plist --minimum-deployment-target 15.0 --platform iphoneos ios-simple/App/Assets.xcassets 2>&1 || true
+          xcrun actool --compile Payload/LikeArt.app --app-icon AppIcon --output-partial-info-plist /tmp/partial.plist --minimum-deployment-target 15.0 --platform iphoneos ios-simple/App/Assets.xcassets 2>&1
+          echo \"actool exit: $?\"
           cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
 
           # Write entitlements using a Python script file (avoid inline escaping issues)
