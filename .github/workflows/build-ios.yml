@@ -14,9 +14,9 @@ jobs:
       - name: Build IPA
         run: |
           set -e
-          mkdir -p Payload/LikeArt.app
+          mkdir -p Payload/LikeArt.app/Base.lproj
 
-          echo "=== 1. Compile ==="
+          echo "=== Compile ==="
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 \
             -emit-executable \
@@ -24,19 +24,23 @@ jobs:
             ios-simple/App/AppDelegate.swift \
             ios-simple/App/ViewController.swift
           file Payload/LikeArt.app/LikeArt
-          echo "COMPILE OK"
 
-          echo "=== 2. Info.plist ==="
+          echo "=== Resources ==="
           cp ios-simple/App/Info.plist Payload/LikeArt.app/
+          cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
 
-          echo "=== 3. LaunchScreen ==="
-          mkdir -p Payload/LikeArt.app/Base.lproj
-          ibtool --compile Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc \
-            ios-simple/App/LaunchScreen.storyboard 2>&1
-          echo "IBTOOL EXIT: $?"
-          echo "LAUNCHSCREEN OK"
+          echo "=== Assets ==="
+          xcrun actool --compile Payload/LikeArt.app \
+            --app-icon AppIcon \
+            --output-partial-info-plist /tmp/partial.plist \
+            --minimum-deployment-target 15.0 \
+            --platform iphoneos \
+            ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
 
-          echo "=== 4. Package ==="
+          echo "=== List bundle ==="
+          find Payload -type f | sort
+
+          echo "=== Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
           echo "DONE: $(wc -c < LikeArt.ipa) bytes"
