@@ -11,12 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build IPA
+      - name: Build & Sign IPA
         run: |
           set -e
           mkdir -p Payload/LikeArt.app/Base.lproj
 
-          echo "=== Compile ==="
+          echo "=== 1. Compile ==="
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 \
             -emit-executable \
@@ -25,11 +25,11 @@ jobs:
             ios-simple/App/ViewController.swift
           file Payload/LikeArt.app/LikeArt
 
-          echo "=== Resources ==="
+          echo "=== 2. Resources ==="
           cp ios-simple/App/Info.plist Payload/LikeArt.app/
           cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
 
-          echo "=== Assets ==="
+          echo "=== 3. Assets ==="
           xcrun actool --compile Payload/LikeArt.app \
             --app-icon AppIcon \
             --output-partial-info-plist /tmp/partial.plist \
@@ -37,13 +37,67 @@ jobs:
             --platform iphoneos \
             ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
 
-          echo "=== List bundle ==="
-          find Payload -type f | sort
+          echo "=== 4. Cert ==="
+          ls -la ios_distribution.p12 ios_distribution.p12.b64 2>&1 || true
+          if [ -f ios_distribution.p12 ] && [ -s ios_distribution.p12 ]; then
+            cp ios_distribution.p12 /tmp/dist.p12
+          elif [ -f ios_distribution.p12.b64 ] && [ -s ios_distribution.p12.b64 ]; then
+            base64 -d ios_distribution.p12.b64 > /tmp/dist.p12
+          else
+            echo "FATAL: No p12 cert"
+            exit 1
+          fi
+          ls -la /tmp/dist.p12
 
-          echo "=== Package ==="
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security import /tmp/dist.p12 -k build.keychain -P "likeart" -A
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+          security find-identity -v -p codesigning build.keychain
+          echo "CERT OK"
+
+          echo "=== 5. Profile ==="
+          if [ -f likeart_appstore.mobileprovision ] && [ -s likeart_appstore.mobileprovision ]; then
+            cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
+          elif [ -f likeart_appstore.mobileprovision.b64 ] && [ -s likeart_appstore.mobileprovision.b64 ]; then
+            base64 -d likeart_appstore.mobileprovision.b64 > Payload/LikeArt.app/embedded.mobileprovision
+          else
+            echo "FATAL: No profile"
+            exit 1
+          fi
+
+          echo "=== 6. Entitlements ==="
+          security cms -D -i Payload/LikeArt.app/embedded.mobileprovision > /tmp/profile.plist 2>&1 || true
+          /usr/libexec/PlistBuddy -x -c 'Print :Entitlements' /tmp/profile.plist > /tmp/entitlements.plist 2>&1 || true
+          if [ ! -s /tmp/entitlements.plist ]; then
+            python3 -c "
+            f=open('/tmp/entitlements.plist','w')
+            f.write('<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n')
+            f.write('<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n')
+            f.write('<plist version=\"1.0\"><dict>\n')
+            f.write('<key>application-identifier</key><string>com.likeart.app</string>\n')
+            f.write('<key>get-task-allow</key><false/>\n')
+            f.write('</dict></plist>\n')
+            f.close()
+            "
+          fi
+
+          echo "=== 7. Sign ==="
+          ID=$(security find-identity -v -p codesigning build.keychain | grep "iPhone Distribution" | head -1 | awk '{print $2}')
+          if [ -n "$ID" ]; then
+            codesign --force --sign "$ID" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app
+            echo "Signed with: $ID"
+          else
+            echo "No dist cert, ad-hoc signing"
+            codesign --force --sign - Payload/LikeArt.app
+          fi
+          codesign -dvv Payload/LikeArt.app 2>&1 | head -3
+
+          echo "=== 8. Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
-          echo "DONE: $(wc -c < LikeArt.ipa) bytes"
+          echo "SUCCESS: $(wc -c < LikeArt.ipa) bytes"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
