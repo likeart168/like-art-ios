@@ -13,11 +13,17 @@ jobs:
 
       - name: Build & Sign IPA
         run: |
+          set -e
           echo "=== Cert import ==="
-          [ -f ios_distribution.p12 ] && cp ios_distribution.p12 /tmp/dist.p12
-          [ -f ios_distribution.p12.b64 ] && base64 -d ios_distribution.p12.b64 > /tmp/dist.p12
-          security import /tmp/dist.p12 -f pkcs12 -P "likeart" -A -T /usr/bin/codesign 2>&1 || echo "import failed, continuing"
-          security find-identity -v -p codesigning 2>&1 || echo "no identities"
+          if [ -f ios_distribution.p12 ] && [ -s ios_distribution.p12 ]; then
+            cp ios_distribution.p12 /tmp/dist.p12
+          else
+            base64 -D -i ios_distribution.p12.b64 -o /tmp/dist.p12
+          fi
+          security import /tmp/dist.p12 -f pkcs12 -P "likeart" -A -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/login.keychain-db
+          security find-identity -v -p codesigning
+          echo "CERT OK"
 
           echo "=== Build ==="
           mkdir -p Payload/LikeArt.app/Base.lproj
@@ -35,8 +41,11 @@ jobs:
             ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
 
           echo "=== Profile ==="
-          [ -f likeart_appstore.mobileprovision ] && cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
-          [ -f likeart_appstore.mobileprovision.b64 ] && base64 -d likeart_appstore.mobileprovision.b64 > Payload/LikeArt.app/embedded.mobileprovision
+          if [ -f likeart_appstore.mobileprovision ] && [ -s likeart_appstore.mobileprovision ]; then
+            cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
+          else
+            base64 -D -i likeart_appstore.mobileprovision.b64 -o Payload/LikeArt.app/embedded.mobileprovision
+          fi
 
           echo "=== Entitlements ==="
           python3 -c "
@@ -53,17 +62,18 @@ jobs:
           echo "=== Sign ==="
           ID=$(security find-identity -v -p codesigning 2>/dev/null | grep "iPhone Distribution" | head -1 | awk '{print $2}')
           if [ -n "$ID" ]; then
-            codesign --force --sign "$ID" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app 2>&1 && echo "DISTRIBUTION SIGNED" || echo "SIGN FAILED"
+            codesign --force --sign "$ID" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app
+            echo "DISTRIBUTION SIGNED: $ID"
           else
-            echo "No dist cert, ad-hoc"
-            codesign --force --sign - Payload/LikeArt.app 2>&1
+            codesign --force --sign - Payload/LikeArt.app
+            echo "AD-HOC SIGNED"
           fi
-          codesign -dvv Payload/LikeArt.app 2>&1 | head -2
+          codesign -dvv Payload/LikeArt.app 2>&1 | head -3
 
           echo "=== Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
-          echo "DONE: $(wc -c < LikeArt.ipa)"
+          echo "SUCCESS: $(wc -c < LikeArt.ipa)"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
