@@ -28,11 +28,10 @@ jobs:
 
           echo "=== Build ==="
           mkdir -p Payload/LikeArt.app/Base.lproj
-          xcrun --sdk iphoneos swiftc             -target arm64-apple-ios15.0 -emit-executable             -o Payload/LikeArt.app/LikeArt             ios-simple/App/AppDelegate.swift             ios-simple/App/ViewController.swift
+          xcrun --sdk iphoneos swiftc -target arm64-apple-ios15.0 -emit-executable -o Payload/LikeArt.app/LikeArt ios-simple/App/AppDelegate.swift ios-simple/App/ViewController.swift
           cp ios-simple/App/Info.plist Payload/LikeArt.app/
           cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
-          xcrun actool --compile Payload/LikeArt.app             --app-icon AppIcon --output-partial-info-plist /tmp/partial.plist             --minimum-deployment-target 15.0 --platform iphoneos             ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
-          echo "=== Profile ==="
+          xcrun actool --compile Payload/LikeArt.app --app-icon AppIcon --output-partial-info-plist /tmp/partial.plist --minimum-deployment-target 15.0 --platform iphoneos ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
           cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
 
           echo "=== Entitlements ==="
@@ -51,8 +50,6 @@ jobs:
           ID=$(security find-identity -v -p codesigning build.keychain 2>/dev/null | grep "iPhone Distribution" | head -1 | awk '{print $2}')
           codesign --force --sign "$ID" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app
           codesign -dvv Payload/LikeArt.app 2>&1 | head -3
-
-          echo "=== Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
           echo "BUILD SUCCESS"
@@ -61,17 +58,15 @@ jobs:
         run: |
           set -e
           echo "=== Decode API key ==="
-          echo "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ2VuRzVNM2g5Nk9SRUdsYjkKWS9LNTdhRXVWaytXNG5FSW9CTnNReFA3elJHZ0NnWUlLb1pJemowREFRZWhSQU5DQUFRcVJPVmNlcExkdUpRWAp6WWpvbnVqeTA3ZW5RZWhDSXFCRlBvSFJDK0krT0ZtU3BtdWpuTVd4VENsTVNxVGUrWjlOTk12YXE5WUF3ZU9VCmZtTlNqMWVBCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=" | base64 -D -o /tmp/AuthKey.p8
+          echo "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ2VuRzVNM2g5Nk9SRUdsYjkKWS9LNTdhRXVWaytXNG5FSW9CTnNReFA3elJHZ0NnWUlLb1pJemowREFRZWhSQU5DQUFRcVJPVmNlcExkdUpRWAp6WWpvbnVqeTA3ZW5RZWhDSXFCRlBvSFJDK0krT0ZtU3BtdWpuTVd4VENsTVNxVGUrWjlOTk12YXE5WUF3ZU9VCmZtTlNqMWVBCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=" > /tmp/key.b64
+          base64 -D -i /tmp/key.b64 -o /tmp/AuthKey.p8
           ls -la /tmp/AuthKey.p8
 
-          echo "=== Validate IPA ==="
-          xcrun altool --validate-app             -f LikeArt.ipa             -t ios             --apiKey 2W7A5K57L2             --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb             --apiKeyFile /tmp/AuthKey.p8             2>&1
-
           echo "=== Upload IPA ==="
-          xcrun altool --upload-app             -f LikeArt.ipa             -t ios             --apiKey 2W7A5K57L2             --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb             --apiKeyFile /tmp/AuthKey.p8             2>&1
-          echo "UPLOAD SUCCESS"
+          xcrun altool --upload-app -f LikeArt.ipa -t ios --apiKey 2W7A5K57L2 --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --apiKeyFile /tmp/AuthKey.p8 2>&1
+          echo "UPLOAD COMPLETE"
 
-      - name: Upload IPA artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: LikeArt-iOS-v${{ github.run_number }}
