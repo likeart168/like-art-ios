@@ -27,7 +27,20 @@ jobs:
           cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
           xcrun actool --compile Payload/LikeArt.app --app-icon AppIcon --output-partial-info-plist /tmp/partial.plist --minimum-deployment-target 15.0 --platform iphoneos ios-simple/App/Assets.xcassets 2>&1 || true
           cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
-          python3 -c "f=open('/tmp/entitlements.plist','w');f.write('<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n<plist version="1.0"><dict>\n<key>application-identifier</key><string>com.likeart.app</string>\n<key>get-task-allow</key><false/>\n</dict></plist>\n');f.close()"
+
+          # Write entitlements using a Python script file (avoid inline escaping issues)
+          cat > /tmp/gen_ents.py << 'PYEOF'
+          f=open('/tmp/entitlements.plist','w')
+          f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+          f.write('<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n')
+          f.write('<plist version="1.0"><dict>\n')
+          f.write('<key>application-identifier</key><string>com.likeart.app</string>\n')
+          f.write('<key>get-task-allow</key><false/>\n')
+          f.write('</dict></plist>\n')
+          f.close()
+          PYEOF
+          python3 /tmp/gen_ents.py
+
           ID=$(security find-identity -v -p codesigning build.keychain 2>/dev/null | grep "iPhone Distribution" | head -1 | awk '{print $2}')
           codesign --force --sign "$ID" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app
           zip -r LikeArt.ipa Payload/
@@ -38,14 +51,13 @@ jobs:
           echo "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ2VuRzVNM2g5Nk9SRUdsYjkKWS9LNTdhRXVWaytXNG5FSW9CTnNReFA3elJHZ0NnWUlLb1pJemowREFRZWhSQU5DQUFRcVJPVmNlcExkdUpRWAp6WWpvbnVqeTA3ZW5RZWhDSXFCRlBvSFJDK0krT0ZtU3BtdWpuTVd4VENsTVNxVGUrWjlOTk12YXE5WUF3ZU9VCmZtTlNqMWVBCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0=" > /tmp/k.b64
           base64 -D -i /tmp/k.b64 -o /tmp/AuthKey.p8
 
-          echo "=== Try notarytool ==="
-          xcrun notarytool submit LikeArt.ipa --key /tmp/AuthKey.p8 --key-id 2W7A5K57L2 --issuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --wait 2>&1 || echo "notarytool failed"
-
           echo "=== Try iTMSTransporter ==="
-          which iTMSTransporter 2>&1 || echo "not found"
-          xcrun iTMSTransporter -m upload -f LikeArt.ipa -apiKey 2W7A5K57L2 -apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb -apiKeyFile /tmp/AuthKey.p8 2>&1 || echo "iTMSTransporter failed"
+          xcrun iTMSTransporter -m upload -f LikeArt.ipa -apiKey 2W7A5K57L2 -apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb -apiKeyFile /tmp/AuthKey.p8 2>&1 || echo "iTMSTransporter: not available"
 
-          echo "UPLOAD DONE"
+          echo "=== Try altool ==="
+          xcrun altool --upload-app -f LikeArt.ipa -t ios --apiKey 2W7A5K57L2 --apiIssuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb --apiKeyFile /tmp/AuthKey.p8 2>&1 || echo "altool: not available"
+
+          echo "UPLOAD STEPS DONE"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
