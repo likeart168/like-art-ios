@@ -12,25 +12,44 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build & Sign IPA
+        shell: bash
         run: |
-          set -e
+          echo "=== 1. Check files ==="
+          ls -la ios_distribution.p12 ios_distribution.p12.b64 likeart_appstore.mobileprovision likeart_appstore.mobileprovision.b64 2>&1
+          echo "STEP 1 OK"
 
-          echo "=== 1. Decode cert ==="
+          echo "=== 2. Decode cert ==="
           if [ -f ios_distribution.p12 ] && [ -s ios_distribution.p12 ]; then
             cp ios_distribution.p12 /tmp/dist.p12
+            echo "Using raw p12"
           else
-            base64 -d ios_distribution.p12.b64 > /tmp/dist.p12
+            base64 -d ios_distribution.p12.b64 > /tmp/dist.p12 2>&1
+            echo "Decoded from b64"
           fi
+          ls -la /tmp/dist.p12
+          echo "STEP 2 OK"
 
-          echo "=== 2. Import to default keychain ==="
-          security unlock-keychain -p "" ~/Library/Keychains/login.keychain-db 2>&1 || true
-          security import /tmp/dist.p12 -k ~/Library/Keychains/login.keychain-db -P "likeart" -A -T /usr/bin/codesign 2>&1
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/login.keychain-db 2>&1 || true
+          echo "=== 3. Verify p12 ==="
+          openssl pkcs12 -in /tmp/dist.p12 -info -noout -passin pass:likeart 2>&1
+          echo "STEP 3 OK"
 
-          echo "=== 3. List identities ==="
+          echo "=== 4. Security import ==="
+          security import /tmp/dist.p12 -P "likeart" -A 2>&1
+          RC=$?
+          echo "security import exit code: $RC"
+          echo "STEP 4 OK"
+
+          echo "=== 5. Set partition ==="
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/login.keychain-db 2>&1
+          RC=$?
+          echo "set-partition exit code: $RC"
+          echo "STEP 5 OK"
+
+          echo "=== 6. Find identity ==="
           security find-identity -v -p codesigning 2>&1
+          echo "STEP 6 OK"
 
-          echo "=== 4. Build app ==="
+          echo "=== 7. Build app ==="
           mkdir -p Payload/LikeArt.app/Base.lproj
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 \
@@ -46,15 +65,17 @@ jobs:
             --minimum-deployment-target 15.0 \
             --platform iphoneos \
             ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
+          echo "STEP 7 OK"
 
-          echo "=== 5. Profile ==="
+          echo "=== 8. Profile ==="
           if [ -f likeart_appstore.mobileprovision ] && [ -s likeart_appstore.mobileprovision ]; then
             cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
           else
             base64 -d likeart_appstore.mobileprovision.b64 > Payload/LikeArt.app/embedded.mobileprovision
           fi
+          echo "STEP 8 OK"
 
-          echo "=== 6. Entitlements ==="
+          echo "=== 9. Entitlements ==="
           python3 -c "
           f=open('/tmp/entitlements.plist','w')
           f.write('<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n')
@@ -65,22 +86,24 @@ jobs:
           f.write('</dict></plist>\n')
           f.close()
           "
+          echo "STEP 9 OK"
 
-          echo "=== 7. Sign ==="
+          echo "=== 10. Sign ==="
           ID=$(security find-identity -v -p codesigning 2>/dev/null | grep "iPhone Distribution" | head -1 | awk '{print $2}')
           if [ -n "$ID" ]; then
             codesign --force --sign "$ID" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app
             echo "DISTRIBUTION SIGNED: $ID"
           else
             codesign --force --sign - Payload/LikeArt.app
-            echo "AD-HOC SIGNED (no dist cert found)"
+            echo "AD-HOC SIGNED"
           fi
           codesign -dvv Payload/LikeArt.app 2>&1 | head -3
+          echo "STEP 10 OK"
 
-          echo "=== 8. Package ==="
+          echo "=== 11. Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
-          echo "SUCCESS"
+          echo "FINAL SUCCESS"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
