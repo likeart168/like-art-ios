@@ -14,18 +14,18 @@ jobs:
       - name: Build & Sign IPA
         run: |
           set -e
-          echo "=== Cert import ==="
-          if [ -f ios_distribution.p12 ] && [ -s ios_distribution.p12 ]; then
-            cp ios_distribution.p12 /tmp/dist.p12
-          else
-            base64 -D -i ios_distribution.p12.b64 -o /tmp/dist.p12
-          fi
+
+          echo "=== Decode cert from b64 ==="
+          base64 -D -i ios_distribution.p12.b64 -o /tmp/dist.p12
+          ls -la /tmp/dist.p12
+
+          echo "=== Import cert ==="
           security import /tmp/dist.p12 -f pkcs12 -P "likeart" -A -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/login.keychain-db
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/login.keychain-db || true
           security find-identity -v -p codesigning
           echo "CERT OK"
 
-          echo "=== Build ==="
+          echo "=== Build app ==="
           mkdir -p Payload/LikeArt.app/Base.lproj
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 \
@@ -41,11 +41,7 @@ jobs:
             ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
 
           echo "=== Profile ==="
-          if [ -f likeart_appstore.mobileprovision ] && [ -s likeart_appstore.mobileprovision ]; then
-            cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
-          else
-            base64 -D -i likeart_appstore.mobileprovision.b64 -o Payload/LikeArt.app/embedded.mobileprovision
-          fi
+          base64 -D -i likeart_appstore.mobileprovision.b64 -o Payload/LikeArt.app/embedded.mobileprovision
 
           echo "=== Entitlements ==="
           python3 -c "
@@ -73,7 +69,7 @@ jobs:
           echo "=== Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
-          echo "SUCCESS: $(wc -c < LikeArt.ipa)"
+          echo "SUCCESS"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
