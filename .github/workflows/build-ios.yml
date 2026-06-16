@@ -3,8 +3,6 @@ name: Build iOS App (WKWebView)
 on:
   push:
     branches: [ios-redirect]
-    paths:
-      - 'ios-simple/**'
   workflow_dispatch:
 
 jobs:
