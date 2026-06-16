@@ -16,7 +16,7 @@ jobs:
           set -e
           mkdir -p Payload/LikeArt.app
 
-          echo "=== Compile Swift ==="
+          echo "=== 1. Compile ==="
           xcrun --sdk iphoneos swiftc \
             -target arm64-apple-ios15.0 \
             -emit-executable \
@@ -24,81 +24,22 @@ jobs:
             ios-simple/App/AppDelegate.swift \
             ios-simple/App/ViewController.swift
           file Payload/LikeArt.app/LikeArt
+          echo "COMPILE OK"
 
-          echo "=== Info.plist ==="
+          echo "=== 2. Info.plist ==="
           cp ios-simple/App/Info.plist Payload/LikeArt.app/
 
-          echo "=== LaunchScreen ==="
+          echo "=== 3. LaunchScreen ==="
           mkdir -p Payload/LikeArt.app/Base.lproj
           ibtool --compile Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc \
-            ios-simple/App/LaunchScreen.storyboard 2>&1 || \
-            cp ios-simple/App/LaunchScreen.storyboard Payload/LikeArt.app/Base.lproj/
+            ios-simple/App/LaunchScreen.storyboard 2>&1
+          echo "IBTOOL EXIT: $?"
+          echo "LAUNCHSCREEN OK"
 
-          echo "=== Assets ==="
-          xcrun actool --compile Payload/LikeArt.app \
-            --app-icon AppIcon \
-            --output-partial-info-plist /tmp/partial.plist \
-            --minimum-deployment-target 15.0 \
-            --platform iphoneos \
-            ios-simple/App/Assets.xcassets 2>&1 || echo "actool skipped"
-
-          echo "=== Check cert files ==="
-          ls -la ios_distribution.p12 ios_distribution.p12.b64 likeart_appstore.mobileprovision likeart_appstore.mobileprovision.b64 2>&1 || true
-
-          echo "=== Import cert ==="
-          if [ -f ios_distribution.p12 ] && [ -s ios_distribution.p12 ]; then
-            cp ios_distribution.p12 /tmp/dist.p12
-          elif [ -f ios_distribution.p12.b64 ] && [ -s ios_distribution.p12.b64 ]; then
-            base64 -d ios_distribution.p12.b64 > /tmp/dist.p12
-          else
-            echo "FATAL: No cert"
-            exit 1
-          fi
-          security create-keychain -p "" build.keychain 2>&1
-          security default-keychain -s build.keychain 2>&1
-          security unlock-keychain -p "" build.keychain 2>&1
-          security import /tmp/dist.p12 -k build.keychain -P "likeart" -A 2>&1
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain 2>&1
-          security find-identity -v -p codesigning build.keychain 2>&1
-
-          echo "=== Profile ==="
-          if [ -f likeart_appstore.mobileprovision ] && [ -s likeart_appstore.mobileprovision ]; then
-            cp likeart_appstore.mobileprovision Payload/LikeArt.app/embedded.mobileprovision
-          elif [ -f likeart_appstore.mobileprovision.b64 ] && [ -s likeart_appstore.mobileprovision.b64 ]; then
-            base64 -d likeart_appstore.mobileprovision.b64 > Payload/LikeArt.app/embedded.mobileprovision
-          fi
-          ls -la Payload/LikeArt.app/embedded.mobileprovision
-
-          echo "=== Entitlements ==="
-          security cms -D -i Payload/LikeArt.app/embedded.mobileprovision > /tmp/profile.plist 2>&1 || true
-          /usr/libexec/PlistBuddy -x -c 'Print :Entitlements' /tmp/profile.plist > /tmp/entitlements.plist 2>&1 || true
-          if [ ! -s /tmp/entitlements.plist ]; then
-            python3 -c "
-            f = open('/tmp/entitlements.plist', 'w')
-            f.write('<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n')
-            f.write('<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n')
-            f.write('<plist version=\"1.0\"><dict>\n')
-            f.write('<key>application-identifier</key><string>com.likeart.app</string>\n')
-            f.write('<key>get-task-allow</key><false/>\n')
-            f.write('</dict></plist>\n')
-            f.close()
-            "
-          fi
-
-          echo "=== Sign ==="
-          IDENTITY=$(security find-identity -v -p codesigning build.keychain | grep "iPhone Distribution" | head -1 | awk '{print $2}')
-          if [ -n "$IDENTITY" ]; then
-            codesign --force --sign "$IDENTITY" --entitlements /tmp/entitlements.plist --timestamp=none Payload/LikeArt.app 2>&1
-          else
-            echo "No dist identity, using ad-hoc"
-            codesign --force --sign - Payload/LikeArt.app 2>&1
-          fi
-          codesign -dvv Payload/LikeArt.app 2>&1 || true
-
-          echo "=== Package ==="
+          echo "=== 4. Package ==="
           zip -r LikeArt.ipa Payload/
           ls -la LikeArt.ipa
-          echo "SUCCESS"
+          echo "DONE: $(wc -c < LikeArt.ipa) bytes"
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
