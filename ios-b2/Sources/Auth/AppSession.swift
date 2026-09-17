@@ -2,6 +2,7 @@ import Foundation
 import WebKit
 import Combine
 import LocalAuthentication
+import UserNotifications
 
 struct APIFailure: LocalizedError {
     let status: Int
@@ -66,6 +67,8 @@ final class AppSession: ObservableObject {
         guard token == old else { return }
         KeychainStore.clear()
         KeychainStore.clearBiometrics()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         token = ""
         locked = false
         UserDefaults.standard.set(false, forKey: "biometric")

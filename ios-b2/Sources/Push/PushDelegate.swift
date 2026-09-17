@@ -73,13 +73,17 @@ final class PushDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCen
         catch { PushSettings.shared.status = error.localizedDescription }
         NotificationCenter.default.post(name: .init("LikeArtPushHistoryChanged"), object: nil)
     }
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        save(notification)
-        completionHandler(PushSettings.shared.enabled ? [.banner, .sound, .list] : [])
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        Task { @MainActor in
+            save(notification)
+            completionHandler(PushSettings.shared.enabled ? [.banner, .sound, .list] : [])
+        }
     }
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        save(response.notification)
-        AppSession.shared.selectedTab = 2
-        completionHandler()
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        Task { @MainActor in
+            save(response.notification)
+            AppSession.shared.selectedTab = 2
+            completionHandler()
+        }
     }
 }
