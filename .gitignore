@@ -11,3 +11,8 @@ dist/
 *.csr
 LikeArt.ipa
 *.cpuprofile
+
+# Isolated B2 build output
+build-b2/
+ios-b2/*.xcodeproj/
+__pycache__/

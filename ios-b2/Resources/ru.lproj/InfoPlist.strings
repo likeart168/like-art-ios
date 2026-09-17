@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "Like Art";
+"NSCameraUsageDescription" = "Съёмка и загрузка аватара или работ.";
+"NSMicrophoneUsageDescription" = "Запись звука при запуске прямого эфира.";
+"NSFaceIDUsageDescription" = "Подтверждение аккаунта с помощью Face ID.";
