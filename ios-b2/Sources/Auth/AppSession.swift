@@ -120,6 +120,10 @@ enum DiskCache {
         return directory.appendingPathComponent(safe + ".json")
     }
     static func read(_ name: String) -> Data? { try? Data(contentsOf: url(name)) }
+    static func modified(_ name: String) -> Date? {
+        let attributes = try? FileManager.default.attributesOfItem(atPath: url(name).path)
+        return attributes?[.modificationDate] as? Date
+    }
     static func write(_ data: Data, _ name: String) throws {
         try data.write(to: url(name), options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
     }

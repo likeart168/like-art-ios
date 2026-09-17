@@ -6,6 +6,8 @@ struct ProfileTab: View {
     @ObservedObject private var push = PushSettings.shared
     @State private var name = "Like Art"
     @State private var points = "—"
+    @State private var level = "—"
+    @AppStorage("biometric") private var biometricEnabled = false
     @State private var avatar: URL?
     @State private var pending: Bool?
     @State private var scheduled: Date?
@@ -23,13 +25,14 @@ struct ProfileTab: View {
                             .frame(width: 48, height: 48).clipShape(Circle())
                         VStack(alignment: .leading) {
                             Text(name).font(.headline)
+                            Text(tr("等级：", "Level: ", "Уровень: ") + level).font(.subheadline)
                             Text(tr("积分余额：", "Points: ", "Баланс баллов: ") + points)
                         }
                     }
                     if session.token.isEmpty {
                         Button(tr("登录账户", "Sign in", "Войти")) { session.open(URL(string: "https://like-art.com/?app=1")!) }
                     } else {
-                        Button(tr("开启生物识别登录", "Enable biometric sign-in", "Включить вход по биометрии")) { Task { await biometric() } }
+                        Button(biometricEnabled ? tr("关闭生物识别登录", "Disable biometric sign-in", "Отключить биометрию") : tr("开启生物识别登录", "Enable biometric sign-in", "Включить вход по биометрии")) { Task { await biometric() } }
                         Button(tr("退出登录", "Sign out", "Выйти")) { Task { await session.signOut() } }
                     }
                 }
@@ -77,6 +80,9 @@ struct ProfileTab: View {
                         Text(tr("已保存账户", "Saved account", "Сохранённый профиль"))
                         Text(name)
                         Text(tr("积分余额：", "Points: ", "Баланс баллов: ") + points)
+                        if let savedAt = DiskCache.modified("profile-" + session.account) {
+                            Text(savedAt, style: .date)
+                        }
                         Button(tr("查看已保存消息", "View saved messages", "Сохранённые сообщения")) { offline = false; session.selectedTab = 2 }
                         Text(tr("网页优先使用系统缓存；账户和消息保存在本机。离线数据可能不是最新状态。", "Web pages use system caching. Account details and messages are saved on this device and may be out of date.", "Веб-страницы используют системный кэш. Профиль и сообщения сохраняются на устройстве и могут быть устаревшими."))
                     }.navigationTitle(tr("离线内容", "Offline content", "Офлайн-данные"))
@@ -99,24 +105,27 @@ struct ProfileTab: View {
         scheduled = format.date(from: scheduledText) ?? ISO8601DateFormatter().date(from: scheduledText)
     }
     private func refresh() async {
-        name = "Like Art"; points = "—"; avatar = nil; pending = nil; status = ""
+        name = "Like Art"; points = "—"; level = "—"; avatar = nil; pending = nil; status = ""
         guard !session.token.isEmpty else { return }
         let credential = session.token
         let key = "profile-" + session.account
         if let data = DiskCache.read(key), let saved = try? JSONDecoder().decode([String: String].self, from: data) {
-            name = saved["name"] ?? name; points = saved["points"] ?? points
+            name = saved["name"] ?? name; points = saved["points"] ?? points; level = saved["level"] ?? level
         }
         do {
             let result = try await session.request("/api/auth/me")
             guard credential == session.token else { return }
-            let user = result["user"] as? [String: Any] ?? result["data"] as? [String: Any] ?? result
-            name = user["nickname"] as? String ?? user["username"] as? String ?? "Like Art"
-            avatar = (user["avatar_url"] as? String).flatMap(URL.init(string:))
+            let data = result["data"] as? [String: Any] ?? result
+            let user = data["user"] as? [String: Any] ?? data
+            name = user["nickname"] as? String ?? user["name"] as? String ?? user["username"] as? String ?? "Like Art"
+            level = "\(user["level"] ?? user["member_level"] ?? "—")"
+            avatar = (user["avatar_url"] as? String ?? user["avatar_oss_url"] as? String).flatMap(URL.init(string:))
+            try DiskCache.write(try JSONEncoder().encode(["name": name, "points": points, "level": level]), key)
             let balance = try await session.request("/dw-dev/api/points/balance")
             guard credential == session.token else { return }
             let value = balance["data"] as? [String: Any] ?? balance
             points = "\(value["balance"] ?? "—")"
-            try DiskCache.write(try JSONEncoder().encode(["name": name, "points": points]), key)
+            try DiskCache.write(try JSONEncoder().encode(["name": name, "points": points, "level": level]), key)
         } catch { if credential == session.token { status = error.localizedDescription } }
         // Deletion status must remain accessible even if points service is unavailable.
         do {
@@ -144,6 +153,12 @@ struct ProfileTab: View {
             guard try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: tr("验证您的 Like Art 账户", "Verify your Like Art account", "Подтвердите аккаунт Like Art")) else { return }
             let token = session.token
             guard !token.isEmpty else { return }
+            if biometricEnabled {
+                try KeychainStore.save(token)
+                KeychainStore.clearBiometrics()
+                status = tr("已关闭生物识别登录", "Biometric sign-in disabled", "Вход по биометрии отключён")
+                return
+            }
             _ = try await session.request("/api/auth/me", overrideToken: token)
             try KeychainStore.enrollBiometrics(token)
             status = tr("已开启，下次启动时使用生物识别解锁。", "Enabled. Unlock with biometrics on the next launch.", "Включено. При следующем запуске используйте биометрию.")

@@ -32,10 +32,7 @@ def api(path, params=None):
     return response.json()
 
 try:
-    apps = api('apps', {'filter[bundleId]': 'com.likeart.app'})
-    assert len(apps['data']) == 1, 'Expected exactly one ASC app for com.likeart.app'
-    app_id = apps['data'][0]['id']
-    (OUT / 'asc-app.json').write_text(json.dumps(apps, indent=2))
+    print(f'ASC API key ID: {KEY_ID}', flush=True)
     if '--query-only' not in sys.argv:
         ipa = next(pathlib.Path('build-b2/export').glob('*.ipa'))
         available = []
@@ -56,6 +53,11 @@ try:
             if result.returncode == 0:
                 uploaded = True
                 break
+    apps = api('apps', {'filter[bundleId]': 'com.likeart.app'})
+    assert len(apps['data']) == 1, 'Expected exactly one ASC app for com.likeart.app'
+    app_id = apps['data'][0]['id']
+    (OUT / 'asc-app.json').write_text(json.dumps(apps, indent=2))
+    if '--query-only' not in sys.argv:
         assert uploaded, 'Apple upload tools failed; see asc-upload.txt. IPA artifact is retained.'
     build_number = os.environ['BUILD_NUMBER']
     for attempt in range(40):
