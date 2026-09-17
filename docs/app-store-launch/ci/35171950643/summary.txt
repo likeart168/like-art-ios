@@ -1,0 +1,18 @@
+Run: https://github.com/likeart168/like-art-ios/actions/runs/35171950643
+SHA: 54780155e20d91fc024719c31383f4f53d520a21
+Build number: 202609170148
+Build status before evidence publication: success
+ASC step outcome: failure
+ASC HTTP 403: {
+"errors" : [ {
+"id" : "CCH4YMGZYDKYBXNWEDK6FB2HHE",
+"status" : "403",
+"code" : "FORBIDDEN.REQUIRED_AGREEMENTS_MISSING_OR_EXPIRED",
+"title" : "A required agreement is missing or has expired.",
+"detail" : "This request requires an in-effect agreement that has not been signed or has expired.",
+"links" : {
+"see" : "/business"
+}
+} ]
+}
+
