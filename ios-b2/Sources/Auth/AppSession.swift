@@ -18,7 +18,8 @@ final class NoRedirect: NSObject, URLSessionTaskDelegate {
 @MainActor
 final class AppSession: ObservableObject {
     static let shared = AppSession()
-    @Published var token: String = KeychainStore.read() ?? ""
+    @Published var token: String = UserDefaults.standard.bool(forKey: "biometric") ? "" : KeychainStore.read() ?? ""
+    @Published var locked = UserDefaults.standard.bool(forKey: "biometric")
     @Published var selectedTab = 0
     @Published var destination: URL?
     @Published var revision = UUID()
@@ -44,12 +45,15 @@ final class AppSession: ObservableObject {
         destination = url
     }
     func accept(_ value: String) async {
+        guard !locked else { return }
         guard value != token else { return }
         if value.isEmpty { await signOut(); return }
         let previous = token
         do {
             _ = try await request("/api/auth/me", overrideToken: value)
             guard token == previous else { return }
+            // A new web login changes the credential; biometric protection must be enrolled again.
+            KeychainStore.clearBiometrics()
             try KeychainStore.save(value)
             token = value
             revision = UUID()
@@ -61,10 +65,21 @@ final class AppSession: ObservableObject {
         if !old.isEmpty { await PushSettings.shared.disableForLogout() }
         guard token == old else { return }
         KeychainStore.clear()
+        KeychainStore.clearBiometrics()
         token = ""
+        locked = false
         UserDefaults.standard.set(false, forKey: "biometric")
         HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
         await WKWebsiteDataStore.default().removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast)
+        revision = UUID()
+    }
+    func unlock() async throws {
+        let context = LAContext()
+        guard try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: tr("解锁 Like Art", "Unlock Like Art", "Разблокировать Like Art")) else { return }
+        let saved = try KeychainStore.unlockBiometrics(context: context)
+        // Keep offline access usable after successful local authentication. Each server request still validates the JWT.
+        token = saved
+        locked = false
         revision = UUID()
     }
     func request(_ path: String, body: [String: Any]? = nil, overrideToken: String? = nil) async throws -> [String: Any] {

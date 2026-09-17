@@ -10,6 +10,6 @@ if [ -z "$selected" ]; then
 fi
 sudo xcode-select -s "$selected/Contents/Developer"
 xcodebuild -version | tee build-b2/evidence/xcode-version.txt
-xcodebuild -version | head -1 | grep -E '^Xcode 26\.'
+grep -E '^Xcode 26\.' build-b2/evidence/xcode-version.txt
 echo "DEVELOPER_DIR=$selected/Contents/Developer" >> "$GITHUB_ENV"
 echo "BUILD_NUMBER=$(date -u +%Y%m%d%H%M)" >> "$GITHUB_ENV"

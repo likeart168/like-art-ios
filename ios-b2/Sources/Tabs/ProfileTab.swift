@@ -29,7 +29,7 @@ struct ProfileTab: View {
                     if session.token.isEmpty {
                         Button(tr("登录账户", "Sign in", "Войти")) { session.open(URL(string: "https://like-art.com/?app=1")!) }
                     } else {
-                        Button(tr("生物识别验证账户", "Verify account with biometrics", "Подтвердить аккаунт биометрией")) { Task { await biometric() } }
+                        Button(tr("开启生物识别登录", "Enable biometric sign-in", "Включить вход по биометрии")) { Task { await biometric() } }
                         Button(tr("退出登录", "Sign out", "Выйти")) { Task { await session.signOut() } }
                     }
                 }
@@ -142,9 +142,11 @@ struct ProfileTab: View {
         let context = LAContext()
         do {
             guard try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: tr("验证您的 Like Art 账户", "Verify your Like Art account", "Подтвердите аккаунт Like Art")) else { return }
-            guard let token = KeychainStore.read(), token == session.token else { return }
+            let token = session.token
+            guard !token.isEmpty else { return }
             _ = try await session.request("/api/auth/me", overrideToken: token)
-            status = tr("账户验证成功", "Account verified", "Аккаунт подтверждён")
+            try KeychainStore.enrollBiometrics(token)
+            status = tr("已开启，下次启动时使用生物识别解锁。", "Enabled. Unlock with biometrics on the next launch.", "Включено. При следующем запуске используйте биометрию.")
         } catch { status = error.localizedDescription }
     }
 }
