@@ -1,0 +1,2 @@
+build-b2/verify/Payload/LikeArt.app: valid on disk
+build-b2/verify/Payload/LikeArt.app: satisfies its Designated Requirement

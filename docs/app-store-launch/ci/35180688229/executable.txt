@@ -1,0 +1,1 @@
+build-b2/verify/Payload/LikeArt.app/LikeArt: Mach-O 64-bit executable arm64
