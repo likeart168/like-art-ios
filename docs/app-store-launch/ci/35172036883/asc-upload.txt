@@ -1,0 +1,3 @@
+Running altool at path '/Applications/Xcode_26.3.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources/altool'...
+
+2026-09-17 01:53:46.196 ERROR: [altool.60000216C4C0] Failed to determine the Apple ID from Bundle ID 'com.likeart.app' with platform 'IOS'. A required agreement is missing or has expired. (403) (12)
