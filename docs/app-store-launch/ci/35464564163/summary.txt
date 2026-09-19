@@ -1,0 +1,14 @@
+Run: https://github.com/likeart168/like-art-ios/actions/runs/35464564163
+SHA: fe056eca77d2d9c9233204f03afa599d77916c1e
+Build number: 202609191930
+Build status before evidence publication: success
+ASC step outcome: failure
+ASC HTTP 403: {
+  "errors" : [ {
+    "id" : "57f56b8b-f3d7-464a-a4fa-db0bd779b516",
+    "status" : "403",
+    "code" : "FORBIDDEN_ERROR",
+    "title" : "The given operation is not allowed",
+    "detail" : "The relationship 'betaGroups' does not allow 'GET_RELATED'. Allowed operations are: CREATE, DELETE"
+  } ]
+}
