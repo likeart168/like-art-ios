@@ -59,6 +59,7 @@ struct WebContent: UIViewRepresentable {
         configuration.applicationNameForUserAgent = "LikeArtApp/1.0"
         configuration.userContentController.add(context.coordinator.bridge, name: "likeArtSession")
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.auctionKillJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         let view = WKWebView(frame: .zero, configuration: configuration)
         view.allowsLinkPreview = false
         view.allowsBackForwardNavigationGestures = true

@@ -28,6 +28,40 @@ final class JSBridge: NSObject, WKScriptMessageHandler {
         })();
         """
     }
+    static let auctionKillJS = #"""
+(() => {
+  if (!['like-art.com','www.like-art.com'].includes(location.hostname)) return;
+  const RE_TEXT = /(喜欢就出价|Place Your Bid|Сделайте ставку|我的拍卖|My Auctions|на аукцион|Auctions)/i;
+  const KILL_TEXT = /(喜欢就出价|Place Your Bid|Сделайте ставку)/i;
+  const RM_TEXT = /(我的拍卖|My Auctions|Моих аукционов|查看出价|出价记录)/i;
+  const isAuctionPath = (p) => /^\/(auctions|account\/auctions)/.test(p || '');
+  function killNode(node) {
+    if (!node || !node.querySelectorAll) return;
+    for (const a of node.querySelectorAll('a[href^="/auctions"],a[href^="/account/auctions"]')) a.remove();
+    for (const b of node.querySelectorAll('header button,div[class*=grid] button,button')) {
+      const t = (b.textContent || '').trim();
+      if (KILL_TEXT.test(t)) b.remove();
+    }
+    for (const card of node.querySelectorAll('h3')) {
+      const t = (card.textContent || '').trim();
+      if (RM_TEXT.test(t)) {
+        const box = card.closest('div.bg-white') || card.parentElement;
+        if (box && box !== card) box.remove();
+      }
+    }
+  }
+  killNode(document);
+  if (isAuctionPath(location.pathname)) { location.replace('/'); return; }
+  const psh = history.pushState, rpl = history.replaceState;
+  history.pushState = function (s, t, u) { if (isAuctionPath(String(u || ''))) { try { psh.call(history, s, t, '/'); location.assign('/'); } catch (e) {} return; } return psh.apply(history, arguments); };
+  history.replaceState = function (s, t, u) { if (isAuctionPath(String(u || ''))) { try { rpl.call(history, s, t, '/'); location.assign('/'); } catch (e) {} return; } return rpl.apply(history, arguments); };
+  let mq = 0;
+  new MutationObserver(() => {
+    if (mq) return; mq = 1; setTimeout(() => { mq = 0; killNode(document.documentElement); }, 150);
+  }).observe(document, { childList: true, subtree: true });
+})();
+"""#
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard message.frameInfo.isMainFrame,
               let url = message.frameInfo.request.url, AppSession.allowed(url),
