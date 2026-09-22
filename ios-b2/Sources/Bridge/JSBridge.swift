@@ -31,34 +31,38 @@ final class JSBridge: NSObject, WKScriptMessageHandler {
     static let auctionKillJS = #"""
 (() => {
   if (!['like-art.com','www.like-art.com'].includes(location.hostname)) return;
-  const RE_TEXT = /(喜欢就出价|Place Your Bid|Сделайте ставку|我的拍卖|My Auctions|на аукцион|Auctions)/i;
-  const KILL_TEXT = /(喜欢就出价|Place Your Bid|Сделайте ставку)/i;
-  const RM_TEXT = /(我的拍卖|My Auctions|Моих аукционов|查看出价|出价记录)/i;
-  const isAuctionPath = (p) => /^\/(auctions|account\/auctions)/.test(p || '');
-  function killNode(node) {
-    if (!node || !node.querySelectorAll) return;
-    for (const a of node.querySelectorAll('a[href^="/auctions"],a[href^="/account/auctions"]')) a.remove();
-    for (const b of node.querySelectorAll('header button,div[class*=grid] button,button')) {
-      const t = (b.textContent || '').trim();
-      if (KILL_TEXT.test(t)) b.remove();
+  try { sessionStorage.setItem('likeart_ios_app', '1'); } catch (_) {}
+  const RE_TEXT = /拍卖|竞拍|喜欢就出价|出价|auction|аукцион|\bbid(?:s|ding)?\b|オークション|入札|경매|입찰/i;
+  const isAuctionPath = (url) => {
+    try { return /\/(?:auctions|auction-permissions)/i.test(decodeURIComponent(new URL(url, location.href).pathname)); }
+    catch (_) { return false; }
+  };
+  function killNode() {
+    for (const a of document.querySelectorAll('a[href^="/auctions"],a[href^="/account/auctions"]')) a.remove();
+    for (const a of document.querySelectorAll('a[href]')) {
+      if (isAuctionPath(a.href)) a.style.setProperty('display', 'none', 'important');
     }
-    for (const card of node.querySelectorAll('h3')) {
-      const t = (card.textContent || '').trim();
-      if (RM_TEXT.test(t)) {
-        const box = card.closest('div.bg-white') || card.parentElement;
-        if (box && box !== card) box.remove();
-      }
+    if (!document.body) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode, parent = node.parentElement;
+      if (!parent || parent.closest('script,style,textarea') || !RE_TEXT.test(node.textContent || '')) continue;
+      const target = parent.closest('a,button,[role="button"],[role="link"],[onclick],.cursor-pointer') || parent;
+      target.style.setProperty('display', 'none', 'important');
     }
   }
-  killNode(document);
-  if (isAuctionPath(location.pathname)) { location.replace('/'); return; }
-  const psh = history.pushState, rpl = history.replaceState;
-  history.pushState = function (s, t, u) { if (isAuctionPath(String(u || ''))) { try { psh.call(history, s, t, '/'); location.assign('/'); } catch (e) {} return; } return psh.apply(history, arguments); };
-  history.replaceState = function (s, t, u) { if (isAuctionPath(String(u || ''))) { try { rpl.call(history, s, t, '/'); location.assign('/'); } catch (e) {} return; } return rpl.apply(history, arguments); };
-  let mq = 0;
-  new MutationObserver(() => {
-    if (mq) return; mq = 1; setTimeout(() => { mq = 0; killNode(document.documentElement); }, 150);
-  }).observe(document, { childList: true, subtree: true });
+  for (const method of ['pushState', 'replaceState']) {
+    const original = history[method];
+    history[method] = function(s, t, u) {
+      if (u != null && isAuctionPath(String(u))) { location.replace('/'); return; }
+      return original.apply(this, arguments);
+    };
+  }
+  const checkLocation = () => { if (isAuctionPath(location.href)) location.replace('/'); };
+  window.addEventListener('popstate', checkLocation);
+  new MutationObserver(killNode).observe(document, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href'] });
+  killNode();
+  checkLocation();
 })();
 """#
 
