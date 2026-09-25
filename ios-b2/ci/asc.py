@@ -66,8 +66,15 @@ try:
         for build in result['data']:
             state = build['attributes']['processingState']
             if state == 'VALID':
-                groups = api('builds/' + build['id'] + '/betaGroups')
-                (OUT / 'asc-beta-groups.json').write_text(json.dumps(groups, indent=2))
+                # Apple no longer allows GET_RELATED on the betaGroups relationship
+                # (403 FORBIDDEN_ERROR; only CREATE/DELETE are permitted). This lookup is
+                # informational evidence only: it must never mask a successful VALID upload.
+                try:
+                    groups = api('builds/' + build['id'] + '/betaGroups')
+                    (OUT / 'asc-beta-groups.json').write_text(json.dumps(groups, indent=2))
+                except Exception as groups_error:
+                    print(f'betaGroups lookup skipped (non-fatal): {groups_error}', flush=True)
+                    (OUT / 'asc-beta-groups.json').write_text(json.dumps({'skipped': str(groups_error)}, indent=2))
                 (OUT / 'asc-upload-status.txt').write_text(f'VALID build {build_number}; build id {build["id"]}\n')
                 sys.exit(0)
             if state in ['INVALID', 'FAILED']:
