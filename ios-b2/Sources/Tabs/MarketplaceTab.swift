@@ -15,10 +15,24 @@ final class WebState: ObservableObject {
 
 struct WebTab: View {
     @EnvironmentObject var session: AppSession
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var state = WebState()
     let url: URL
     let title: String
     let tab: Int
+
+    // A195: 切 Tab / 进后台时挂起本 WebView 的音频（iOS WebView 在被遮挡时不自发 visibilitychange）
+    private func applyAudioActive(_ active: Bool) {
+        guard let view = state.view else { return }
+        if active {
+            if #available(iOS 15.0, *) { view.setAllMediaPlaybackSuspended(false, completionHandler: nil) }
+            view.evaluateJavaScript("try{globalThis.__v6Bgm&&globalThis.__v6Bgm.resumeFromBackground&&globalThis.__v6Bgm.resumeFromBackground()}catch(e){}", completionHandler: nil)
+        } else {
+            view.evaluateJavaScript("try{globalThis.__v6Bgm&&globalThis.__v6Bgm.suspendForBackground&&globalThis.__v6Bgm.suspendForBackground()}catch(e){}", completionHandler: nil)
+            if #available(iOS 15.0, *) { view.setAllMediaPlaybackSuspended(true, completionHandler: nil) }
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -30,7 +44,7 @@ struct WebTab: View {
                         if state.failed {
                             Text(tr("网络不可用，可查看已保存的消息和账户。", "You are offline. Saved messages and account details remain available.", "Нет сети. Сохранённые сообщения и данные профиля доступны."))
                             Button(tr("重试", "Retry", "Повторить")) { state.reload = UUID() }
-                            Button(tr("离线内容", "Offline content", "Офлайн-данные")) { session.selectedTab = 3 }
+                            Button(tr("离线内容", "Offline content", "Офлайн-данные")) { session.selectedTab = session.tabIndex(for: "profile") }
                         } else {
                             ProgressView()
                             Text(tr("正在加载…", "Loading…", "Загрузка…"))
@@ -44,6 +58,9 @@ struct WebTab: View {
                 ToolbarItem(placement: .navigationBarTrailing) { ShareLink(item: state.view?.url ?? url) }
             }
         }
+        .onChange(of: session.selectedTab) { newTab in applyAudioActive(newTab == tab && scenePhase == .active) }
+        .onChange(of: scenePhase) { phase in applyAudioActive(session.selectedTab == tab && phase == .active) }
+        .onAppear { applyAudioActive(session.selectedTab == tab) }
     }
 }
 

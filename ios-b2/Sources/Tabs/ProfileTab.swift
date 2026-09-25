@@ -83,7 +83,7 @@ struct ProfileTab: View {
                         if let savedAt = DiskCache.modified("profile-" + session.account) {
                             Text(savedAt, style: .date)
                         }
-                        Button(tr("查看已保存消息", "View saved messages", "Сохранённые сообщения")) { offline = false; session.selectedTab = 2 }
+                        Button(tr("查看已保存消息", "View saved messages", "Сохранённые сообщения")) { offline = false; session.selectedTab = session.tabIndex(for: "messages") }
                         Text(tr("网页优先使用系统缓存；账户和消息保存在本机。离线数据可能不是最新状态。", "Web pages use system caching. Account details and messages are saved on this device and may be out of date.", "Веб-страницы используют системный кэш. Профиль и сообщения сохраняются на устройстве и могут быть устаревшими."))
                     }.navigationTitle(tr("离线内容", "Offline content", "Офлайн-данные"))
                     .toolbar { Button(tr("完成", "Done", "Готово")) { offline = false } }

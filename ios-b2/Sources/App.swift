@@ -9,6 +9,25 @@ func tr(_ zh: String, _ en: String, _ ru: String) -> String {
 struct LikeArtApp: App {
     @UIApplicationDelegateAdaptor(PushDelegate.self) private var delegate
     @StateObject private var session = AppSession.shared
+    @StateObject private var tabs = AppTabsStore.shared
+    @Environment(\.scenePhase) private var scenePhase
+
+    /// A196: 按配置渲染每个 Tab（web → WebView；native → 原生页）
+    @ViewBuilder
+    private func tabContent(_ item: AppTabItem, index: Int) -> some View {
+        switch item.nativeKey ?? "" {
+        case "messages":
+            MessagesTab()
+        case "profile":
+            ProfileTab()
+        default:
+            if let s = item.url, let u = URL(string: s) {
+                WebTab(url: u, title: item.labelText(), tab: index)
+            } else {
+                WebTab(url: URL(string: "https://like-art.com/?app=1")!, title: item.labelText(), tab: index)
+            }
+        }
+    }
     var body: some Scene {
         WindowGroup {
             Group {
@@ -23,11 +42,17 @@ struct LikeArtApp: App {
                         if let error = session.error { Text(error).font(.footnote).multilineTextAlignment(.center) }
                     }.padding()
                 } else {
+                    // A196: 底部菜单由服务端配置驱动（/api/app-tabs），可随时改、可隐藏
                     TabView(selection: $session.selectedTab) {
-                MarketplaceTab().tabItem { Label(tr("商城", "Shop", "Магазин"), systemImage: "bag") }.tag(0)
-                WorldTab().tabItem { Label(tr("世界", "World", "Мир"), systemImage: "globe") }.tag(1)
-                MessagesTab().tabItem { Label(tr("消息", "Messages", "Сообщения"), systemImage: "bell") }.tag(2)
-                ProfileTab().tabItem { Label(tr("我的", "Profile", "Профиль"), systemImage: "person.crop.circle") }.tag(3)
+                        ForEach(Array(tabs.tabs.enumerated()), id: \.element.key) { idx, item in
+                            tabContent(item, index: idx)
+                                .tabItem { Label(item.labelText(), systemImage: item.icon) }
+                                .tag(idx)
+                        }
+                    }
+                    .onAppear { AppTabsStore.shared.load() }
+                    .onChange(of: scenePhase) { phase in
+                        if phase == .active { AppTabsStore.shared.load() }
                     }
                 }
             }

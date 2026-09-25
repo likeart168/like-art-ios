@@ -82,7 +82,7 @@ final class PushDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCen
     nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         Task { @MainActor in
             save(response.notification)
-            AppSession.shared.selectedTab = 2
+            AppSession.shared.selectedTab = AppSession.shared.tabIndex(for: "messages")
             completionHandler()
         }
     }

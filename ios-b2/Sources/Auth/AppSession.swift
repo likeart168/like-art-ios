@@ -40,9 +40,17 @@ final class AppSession: ObservableObject {
               let claims = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return "guest" }
         return "\(claims["role"] ?? "buyer"):\(claims["id"] ?? claims["userId"] ?? "guest")"
     }
+    /// A196: 按标识找当前菜单里的序号（菜单可配置，位置会变）
+    func tabIndex(for key: String) -> Int {
+        if let i = AppTabsStore.shared.tabs.firstIndex(where: { $0.key == key || ($0.nativeKey ?? "") == key }) {
+            return i
+        }
+        return 0
+    }
+
     func open(_ url: URL) {
         guard Self.allowed(url) else { return }
-        selectedTab = url.path.hasPrefix("/v6") ? 1 : 0
+        selectedTab = tabIndex(for: url.path.hasPrefix("/v6") ? "world" : "shop")
         destination = url
     }
     func accept(_ value: String) async {
