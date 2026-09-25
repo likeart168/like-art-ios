@@ -1,0 +1,6 @@
+Run: https://github.com/likeart168/like-art-ios/actions/runs/36182477529
+SHA: 70c5a03e3dc1833a0a2027835c039840f9965107
+Build number: 202609251954
+Build status before evidence publication: success
+ASC step outcome: failure
+Build 202609251954 did not become VALID within 20 minutes
