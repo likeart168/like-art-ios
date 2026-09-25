@@ -9,7 +9,7 @@ xcodegen generate --spec ios-b2/project.yml
 xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -sdk iphoneos -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO
 ```
 
-Push `ios-b2/**` or `.github/workflows/build-b2.yml` to `b2-native-shell`, or dispatch **B2 Native iOS — Xcode 26**. The workflow selects an installed Xcode 26.x, compiles the asset catalog, builds unsigned, imports signing credentials, archives/signs, exports an App Store IPA, and retains it **before** attempting ASC upload. Version is 1.0.0; build number is the UTC minute timestamp. Workflow runs are serialized.
+Push `ios-b2/**` or `.github/workflows/build-b2.yml` to `b2-native-shell`, or dispatch **B2 Native iOS — Xcode 26**. The workflow selects an installed Xcode 26.x, compiles the asset catalog, builds unsigned, imports signing credentials, archives/signs, exports an App Store IPA, and retains it **before** attempting ASC upload. Version is 2.0.2; build number is the UTC minute timestamp. Workflow runs are serialized.
 
 Existing secret names: `P12_CERTIFICATE`, `P12_PASSWORD`, `PROVISIONING_PROFILE`, `AUTHKEY_BASE64`, `APPSTORE_KEY_ID`, `APPSTORE_ISSUER_ID`. Signing can use the distribution certificate/profile already tracked by the original repository and its documented password. No private key is added by B2. ASC requires the current key in `AUTHKEY_BASE64`; the known fallback identifiers are RA48U82CSV and issuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb. No JWT or P8 content is printed.
 
