@@ -46,14 +46,15 @@ final class AppTabsStore: ObservableObject {
         loading = true
         let stamp = Int(Date().timeIntervalSince1970)
         guard let u = URL(string: "https://like-art.com/api/app-tabs?t=\(stamp)") else { loading = false; return }
-        var req = URLRequest(u)
+        var req = URLRequest(url: u)
         req.timeoutInterval = 6
-        req.cachePolicy = .reloadIgnoringLocalCacheData
+        req.cachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalCacheData
         req.setValue("LikeArtApp/1.0", forHTTPHeaderField: "User-Agent")
         URLSession.shared.dataTask(with: req) { data, _, _ in
             defer { DispatchQueue.main.async { AppTabsStore.shared.loading = false } }
             guard let data = data,
-                  let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let raw = try? JSONSerialization.jsonObject(with: data),
+                  let obj = raw as? [String: Any],
                   let arr = obj["data"] as? [[String: Any]] else { return }
             var items: [AppTabItem] = []
             for a in arr {
