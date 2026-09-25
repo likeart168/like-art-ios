@@ -1,0 +1,30 @@
+Archive:  build-b2/export/LikeArt.ipa
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  09-25-2026 20:37   Payload/
+        0  09-25-2026 20:37   Payload/LikeArt.app/
+        0  09-25-2026 20:36   Payload/LikeArt.app/_CodeSignature/
+     5000  09-25-2026 20:37   Payload/LikeArt.app/_CodeSignature/CodeResources
+        0  09-25-2026 20:36   Payload/LikeArt.app/zh-Hans.lproj/
+      255  09-25-2026 20:36   Payload/LikeArt.app/zh-Hans.lproj/InfoPlist.strings
+        0  09-25-2026 20:36   Payload/LikeArt.app/en.lproj/
+      312  09-25-2026 20:36   Payload/LikeArt.app/en.lproj/InfoPlist.strings
+    17759  09-25-2026 20:36   Payload/LikeArt.app/AppIcon60x60@2x.png
+   468176  09-25-2026 20:37   Payload/LikeArt.app/LikeArt
+        0  09-25-2026 20:36   Payload/LikeArt.app/Base.lproj/
+        0  09-25-2026 20:36   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/
+     2745  09-25-2026 20:36   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/launch-controller-view-launch-view.nib
+      932  09-25-2026 20:36   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-launch-controller.nib
+      279  09-25-2026 20:36   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+  1168728  09-25-2026 20:36   Payload/LikeArt.app/Assets.car
+    27215  09-25-2026 20:36   Payload/LikeArt.app/AppIcon76x76@2x~ipad.png
+     4231  09-25-2026 20:36   Payload/LikeArt.app/PrivacyInfo.xcprivacy
+        0  09-25-2026 20:36   Payload/LikeArt.app/ru.lproj/
+      424  09-25-2026 20:36   Payload/LikeArt.app/ru.lproj/InfoPlist.strings
+    12064  09-25-2026 20:37   Payload/LikeArt.app/embedded.mobileprovision
+     2374  09-25-2026 20:37   Payload/LikeArt.app/Info.plist
+        8  09-25-2026 20:36   Payload/LikeArt.app/PkgInfo
+        0  09-25-2026 20:37   Symbols/
+   868484  09-25-2026 20:37   Symbols/015A2EA0-A095-392D-9BBC-BC8AA2219F09.symbols
+---------                     -------
+  2578986                     25 files

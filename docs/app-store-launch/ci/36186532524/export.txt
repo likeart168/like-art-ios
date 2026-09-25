@@ -1,0 +1,4 @@
+2026-09-25 20:37:01.716 xcodebuild[33632:89816] [MT] IDEDistribution: -[IDEDistributionLogging _createLoggingBundleAtPath:]: Created bundle at path "/var/folders/nj/vtw8zd2j31d1gdrtntc5y4600000gn/T/LikeArt_2026-09-25_20-37-01.710.xcdistributionlogs".
+Exported LikeArt to: /Users/runner/work/like-art-ios/like-art-ios/build-b2/export
+** EXPORT SUCCEEDED **
+

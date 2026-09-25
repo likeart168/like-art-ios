@@ -1,0 +1,81 @@
+{
+  "BuildMachineOSBuild" => "24G830"
+  "CFBundleDevelopmentRegion" => "en"
+  "CFBundleDisplayName" => "Like Art"
+  "CFBundleExecutable" => "LikeArt"
+  "CFBundleIcons" => {
+    "CFBundlePrimaryIcon" => {
+      "CFBundleIconFiles" => [
+        0 => "AppIcon60x60"
+      ]
+      "CFBundleIconName" => "AppIcon"
+    }
+  }
+  "CFBundleIcons~ipad" => {
+    "CFBundlePrimaryIcon" => {
+      "CFBundleIconFiles" => [
+        0 => "AppIcon60x60"
+        1 => "AppIcon76x76"
+      ]
+      "CFBundleIconName" => "AppIcon"
+    }
+  }
+  "CFBundleIdentifier" => "com.likeart.app"
+  "CFBundleInfoDictionaryVersion" => "6.0"
+  "CFBundleLocalizations" => [
+    0 => "en"
+    1 => "zh-Hans"
+    2 => "ru"
+  ]
+  "CFBundleName" => "LikeArt"
+  "CFBundlePackageType" => "APPL"
+  "CFBundleShortVersionString" => "2.0.2"
+  "CFBundleSupportedPlatforms" => [
+    0 => "iPhoneOS"
+  ]
+  "CFBundleVersion" => "202609252034"
+  "DTCompiler" => "com.apple.compilers.llvm.clang.1_0"
+  "DTPlatformBuild" => "23C57"
+  "DTPlatformName" => "iphoneos"
+  "DTPlatformVersion" => "26.2"
+  "DTSDKBuild" => "23C57"
+  "DTSDKName" => "iphoneos26.2"
+  "DTXcode" => "2630"
+  "DTXcodeBuild" => "17C529"
+  "ITSAppUsesNonExemptEncryption" => 0
+  "LSRequiresIPhoneOS" => 1
+  "MinimumOSVersion" => "16.0"
+  "NSAppTransportSecurity" => {
+    "NSAllowsArbitraryLoads" => 0
+    "NSExceptionDomains" => {
+      "like-art.com" => {
+        "NSExceptionAllowsInsecureHTTPLoads" => 0
+        "NSExceptionMinimumTLSVersion" => "TLSv1.2"
+        "NSIncludesSubdomains" => 1
+      }
+    }
+  }
+  "NSCameraUsageDescription" => "用于拍摄并上传头像或作品。 / Take photos to upload your avatar or artwork. / Съёмка и загрузка аватара или работ."
+  "NSFaceIDUsageDescription" => "使用面容识别验证您的账户。 / Verify your account with Face ID. / Подтверждение аккаунта с помощью Face ID."
+  "NSMicrophoneUsageDescription" => "仅在您使用直播时录制声音。 / Record audio when you start a live stream. / Запись звука при запуске прямого эфира."
+  "UIApplicationSupportsIndirectInputEvents" => 1
+  "UIDeviceFamily" => [
+    0 => 1
+    1 => 2
+  ]
+  "UILaunchStoryboardName" => "LaunchScreen"
+  "UIRequiredDeviceCapabilities" => [
+    0 => "arm64"
+  ]
+  "UISupportedInterfaceOrientations" => [
+    0 => "UIInterfaceOrientationPortrait"
+    1 => "UIInterfaceOrientationLandscapeLeft"
+    2 => "UIInterfaceOrientationLandscapeRight"
+  ]
+  "UISupportedInterfaceOrientations~ipad" => [
+    0 => "UIInterfaceOrientationPortrait"
+    1 => "UIInterfaceOrientationPortraitUpsideDown"
+    2 => "UIInterfaceOrientationLandscapeLeft"
+    3 => "UIInterfaceOrientationLandscapeRight"
+  ]
+}
