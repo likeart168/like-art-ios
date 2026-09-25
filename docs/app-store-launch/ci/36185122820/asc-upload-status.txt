@@ -1,0 +1,9 @@
+ASC HTTP 403: {
+  "errors" : [ {
+    "id" : "e30f36b1-5a14-45b9-9586-76f3a11d79e3",
+    "status" : "403",
+    "code" : "FORBIDDEN_ERROR",
+    "title" : "The given operation is not allowed",
+    "detail" : "The relationship 'betaGroups' does not allow 'GET_RELATED'. Allowed operations are: CREATE, DELETE"
+  } ]
+}
