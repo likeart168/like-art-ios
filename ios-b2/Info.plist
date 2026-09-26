@@ -22,6 +22,6 @@
 <key>NSFaceIDUsageDescription</key><string>使用面容识别验证您的账户。 / Verify your account with Face ID. / Подтверждение аккаунта с помощью Face ID.</string>
 <key>NSAppTransportSecurity</key><dict><key>NSAllowsArbitraryLoads</key><false/><key>NSExceptionDomains</key><dict><key>like-art.com</key><dict><key>NSIncludesSubdomains</key><true/><key>NSExceptionAllowsInsecureHTTPLoads</key><false/><key>NSExceptionMinimumTLSVersion</key><string>TLSv1.2</string></dict></dict></dict>
 <key>V6PackVersion</key><string>186</string>
-<key>V6PackSize</key><integer>61912957</integer>
-<key>V6PackSHA256</key><string>362c889f588077b5811263fc03a721d6b7ce55295faae786b237031236e6d16e</string>
+<key>V6PackSize</key><integer>72845579</integer>
+<key>V6PackSHA256</key><string>83f16e386427a97f84f801b35230112c1f149e39be465980cfd81fa570dbd989</string>
 </dict></plist>
