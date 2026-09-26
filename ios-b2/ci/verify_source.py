@@ -28,3 +28,18 @@ icons=json.loads((root/'Resources/Assets.xcassets/AppIcon.appiconset/Contents.js
 for size in [76,152,167,1024]:
     assert any(x['filename']==f'icon-{size}.png' for x in icons)
 print('PASS source Info.plist, three languages, launch screen, privacy manifest and all iPad icon sizes')
+
+# A197: V6 基础资源包预装（iOS 与安卓 2.1.2-b2a 同源）—— 包体必须在源内、尺寸/版本锚点必须对齐
+pak = root / 'Resources' / 'v6-base-assets.pak'
+assert pak.exists(), 'v6-base-assets.pak must live in ios-b2/Resources'
+assert pak.stat().st_size == 61912957, f'pak size mismatch: {pak.stat().st_size}'
+assert 'PackSchemeHandler' in swift, 'pack scheme handler missing'
+assert 'WorldPack.shared' in swift, 'WorldPack wiring missing'
+assert 'WorldPack.mime' in swift, 'pack mime table missing'
+assert 'v6pack' in swift, 'sandbox extract path missing'
+assert 'setURLSchemeHandler' in swift, 'scheme handler registration missing'
+_info = plistlib.loads((root / 'Info.plist').read_bytes())
+assert _info['V6PackVersion'] == '186', 'V6PackVersion anchor'
+assert _info['V6PackSize'] == 61912957, 'V6PackSize anchor'
+print('PASS V6 base asset pack (bundled pak + scheme handler + sandbox extract + size anchors)')
+

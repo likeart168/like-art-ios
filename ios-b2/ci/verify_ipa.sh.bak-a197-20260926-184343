@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+ipa=$(find build-b2/export -name '*.ipa' -maxdepth 1 -print -quit)
+test -n "$ipa"
+unzip -l "$ipa" | tee build-b2/evidence/ipa-contents.txt
+mkdir -p build-b2/verify
+unzip -q "$ipa" -d build-b2/verify
+app=build-b2/verify/Payload/LikeArt.app
+test -s "$app/LikeArt"
+test -s "$app/Assets.car"
+test -s "$app/PrivacyInfo.xcprivacy"
+test -d "$app/Base.lproj/LaunchScreen.storyboardc"
+test ! -e "$app/__preview.gif"
+plutil -lint "$app/Info.plist" "$app/PrivacyInfo.xcprivacy"
+plutil -p "$app/Info.plist" | tee build-b2/evidence/ipa-info-plist.txt
+plutil -p "$app/PrivacyInfo.xcprivacy" | tee build-b2/evidence/privacy-manifest.txt
+for lang in en zh-Hans ru; do
+  plutil -p "$app/$lang.lproj/InfoPlist.strings" | tee "build-b2/evidence/permissions-$lang.txt"
+done
+test "$(/usr/libexec/PlistBuddy -c 'Print CFBundleVersion' "$app/Info.plist")" = "$BUILD_NUMBER"
+test "$(/usr/libexec/PlistBuddy -c 'Print CFBundleDisplayName' "$app/Info.plist")" = 'Like Art'
+codesign --verify --deep --strict --verbose=2 "$app" 2>&1 | tee build-b2/evidence/codesign-verify.txt
+codesign -d --entitlements :- "$app" > build-b2/evidence/signed-entitlements.plist 2> build-b2/evidence/codesign-details.txt
+shasum -a 256 "$ipa" | tee build-b2/evidence/ipa-sha256.txt
+file "$app/LikeArt" | tee build-b2/evidence/executable.txt

@@ -11,6 +11,11 @@ test -s "$app/Assets.car"
 test -s "$app/PrivacyInfo.xcprivacy"
 test -d "$app/Base.lproj/LaunchScreen.storyboardc"
 test ! -e "$app/__preview.gif"
+# A197: V6 基础资源包必须进 .app 且字节数一致（安卓 APK 同款验收）
+test -s "$app/v6-base-assets.pak"
+test "$(stat -f%z "$app/v6-base-assets.pak")" = "61912957"
+shasum -a 256 "$app/v6-base-assets.pak" | tee build-b2/evidence/pak-sha256.txt
+
 plutil -lint "$app/Info.plist" "$app/PrivacyInfo.xcprivacy"
 plutil -p "$app/Info.plist" | tee build-b2/evidence/ipa-info-plist.txt
 plutil -p "$app/PrivacyInfo.xcprivacy" | tee build-b2/evidence/privacy-manifest.txt
