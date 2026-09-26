@@ -1,0 +1,9 @@
+{
+  "errors" : [ {
+    "id" : "8f49c74c-cfef-493b-8323-c90ddc23b885",
+    "status" : "403",
+    "code" : "FORBIDDEN_ERROR",
+    "title" : "The given operation is not allowed",
+    "detail" : "The relationship 'betaGroups' does not allow 'GET_RELATED'. Allowed operations are: CREATE, DELETE"
+  } ]
+}
