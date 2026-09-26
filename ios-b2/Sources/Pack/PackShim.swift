@@ -30,7 +30,7 @@ enum PackShim {
       try {
         if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
           navigator.serviceWorker.getRegistrations().then(function (rs) {
-            for (var i = 0; i < rs.length; i++) { try { rs[i].unregister(); } catch (e) {} }
+            for (var i = 0; i < rs.length; i++) { try { if (new URL(rs[i].scope).pathname === "/v6/") rs[i].unregister(); } catch (e) {} }
           }).catch(function () {});
         }
       } catch (e) {}
@@ -40,13 +40,16 @@ enum PackShim {
       var PREFIX = location.origin + '/v6/';
       var stats = { hits: 0, fallbacks: 0, entries: ENTRIES.length, ready: ENTRIES.length > 0 };
       window.__v6PackShim = stats;
+      window.__V6_PACK_PATHS__ = new Set(ENTRIES.map(function (p) { return "/v6/" + p; }));
       if (!ENTRIES.length || !window.fetch) { return; }
 
       var inPack = {};
       for (var i = 0; i < ENTRIES.length; i++) { inPack[ENTRIES[i]] = 1; }
 
       function rewrite(u) {
-        if (typeof u !== 'string' || u.length < PREFIX.length || u.indexOf(PREFIX) !== 0) { return null; }
+        if (typeof u !== 'string') { return null; }
+        try { u = new URL(u, location.href).href; } catch (e) { return null; }
+        if (u.indexOf(PREFIX) !== 0) { return null; }
         var rest = u.slice(PREFIX.length);
         var cut = rest.length, q = rest.indexOf('?'), h = rest.indexOf('#');
         if (q >= 0 && q < cut) { cut = q; }
@@ -59,13 +62,13 @@ enum PackShim {
       var origFetch = window.fetch;
       if (typeof origFetch === 'function') {
         window.fetch = function (input, init) {
-          var url = (typeof input === 'string') ? input : (input && input.url);
+          var url = (typeof input === 'string') ? input : (input instanceof URL ? input.href : (input && input.url));
           var local = null;
           try { local = rewrite(url); } catch (e) { local = null; }
           if (local) {
             var o = init || {};
             // 不透明响应 / 带凭据 的语义会因跨源改写而变 → 这类请求不改写（走网络）
-            if (o.mode !== 'no-cors' && o.credentials !== 'include') {
+            if ((o.method || (input && input.method) || 'GET').toUpperCase() === 'GET' && o.mode !== 'no-cors' && o.credentials !== 'include') {
               var self = this, args = arguments;
               stats.hits++;
               return origFetch.call(this, local, init).catch(function () {
@@ -83,7 +86,7 @@ enum PackShim {
       var origSend = XMLHttpRequest.prototype.send;
       XMLHttpRequest.prototype.open = function (method, url) {
         var local = null;
-        try { if (!this.withCredentials) { local = rewrite(url); } } catch (e) { local = null; }
+        try { if (!this.withCredentials && String(method).toUpperCase() === 'GET') { local = rewrite(url); } } catch (e) { local = null; }
         if (local) {
           stats.hits++;
           this.__v6PackMethod = method;
@@ -111,23 +114,45 @@ enum PackShim {
         return origSend.apply(this, arguments);
       };
 
-      // ④ <img src>（three.js TextureLoader / 贴图走 img 元素）
+      // Images and approved BGM share local bytes; runtime media behavior stays unchanged.
+      [HTMLImageElement, HTMLMediaElement].forEach(function (ElementType) {
       try {
-        var desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+        var desc = Object.getOwnPropertyDescriptor(ElementType.prototype, 'src');
         if (desc && desc.set) {
-          Object.defineProperty(HTMLImageElement.prototype, 'src', {
+          Object.defineProperty(ElementType.prototype, 'src', {
             configurable: true,
             enumerable: desc.enumerable,
             get: function () { return desc.get.call(this); },
             set: function (v) {
               var local = null;
               try { local = rewrite(v); } catch (e) { local = null; }
-              if (local) { stats.hits++; try { return desc.set.call(this, local); } catch (e) {} }
+              if (local) {
+                stats.hits++; var element = this;
+                var fallback = function () {
+                  element.removeEventListener('error', fallback);
+                  if (desc.get.call(element) === local) { stats.fallbacks++; desc.set.call(element, v); }
+                };
+                element.addEventListener('error', fallback, {once:true});
+                try { return desc.set.call(this, local); } catch (e) { element.removeEventListener('error', fallback); }
+              }
               return desc.set.call(this, v);
             }
           });
         }
       } catch (e) {}
+      });
+      // The native Audio(src) constructor does not invoke the JS src setter.
+      if (window.Audio) {
+        var NativeAudio = window.Audio;
+        var LocalAudio = function Audio(src) {
+          var element = new NativeAudio();
+          if (src !== undefined) element.src = src;
+          return element;
+        };
+        LocalAudio.prototype = NativeAudio.prototype;
+        Object.setPrototypeOf(LocalAudio, NativeAudio);
+        window.Audio = LocalAudio;
+      }
     })();
     """#
 }

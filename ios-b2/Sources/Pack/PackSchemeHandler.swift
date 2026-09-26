@@ -26,19 +26,39 @@ final class PackSchemeHandler: NSObject, WKURLSchemeHandler {
             task.didFailWithError(URLError(.fileDoesNotExist))
             return
         }
-        let headers: [String: String] = [
+        var body = data
+        var status = 200
+        var headers: [String: String] = [
             "Content-Type": WorldPack.mime(key),
             "Content-Length": String(data.count),
             "Access-Control-Allow-Origin": "*",
             "Cache-Control": "public, max-age=31536000",
             "X-LikeArt-Pack": "hit",
+            "Accept-Ranges": "bytes",
         ]
-        guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headers) else {
+        if let range = task.request.value(forHTTPHeaderField: "Range"), range.hasPrefix("bytes=") {
+            let parts = range.dropFirst(6).split(separator: "-", omittingEmptySubsequences: false)
+            if parts.count == 2 {
+                let start = parts[0].isEmpty ? max(0, data.count - (Int(parts[1]) ?? 0)) : (Int(parts[0]) ?? data.count)
+                let end = parts[0].isEmpty || parts[1].isEmpty ? data.count - 1 : min(data.count - 1, Int(parts[1]) ?? -1)
+                if start >= 0 && start <= end && start < data.count {
+                    body = data.subdata(in: start..<(end + 1))
+                    status = 206
+                    headers["Content-Range"] = "bytes \(start)-\(end)/\(data.count)"
+                } else {
+                    status = 416
+                    body = Data()
+                    headers["Content-Range"] = "bytes */\(data.count)"
+                }
+            }
+        }
+        headers["Content-Length"] = String(body.count)
+        guard let response = HTTPURLResponse(url: url, statusCode: status, httpVersion: "HTTP/1.1", headerFields: headers) else {
             task.didFailWithError(URLError(.badServerResponse))
             return
         }
         task.didReceive(response)
-        task.didReceive(data)
+        task.didReceive(body)
         task.didFinish()
     }
 
@@ -48,7 +68,7 @@ final class PackSchemeHandler: NSObject, WKURLSchemeHandler {
 
     /// `likeartpack://local/v6/assets/x.glb` → `assets/x.glb`（相对 /v6/ 的条目名）
     static func key(for url: URL) -> String? {
-        guard url.scheme?.lowercased() == scheme else { return nil }
+        guard url.scheme?.lowercased() == scheme, url.host == host else { return nil }
         var path = url.path                      // "/v6/assets/x.glb"
         if !path.hasPrefix(pathPrefix) { return nil }
         path = String(path.dropFirst(pathPrefix.count))

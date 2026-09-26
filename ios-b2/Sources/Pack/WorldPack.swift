@@ -17,9 +17,9 @@ final class WorldPack {
 
     /// 与打包器 / 安卓 APK / CI 断言一致的事实（改动必须同步 `ios-b2/ci/verify_source.py`）
     static let fileName = "v6-base-assets.pak"
-    static let expectedSize: Int64 = 61_912_957          // 59.04 MiB
-    static let packVersion = "186"                        // 版本锚点（写入 Info.plist `V6PackVersion`）
-    static let packSHA256 = "362c889f588077b5811263fc03a721d6b7ce55295faae786b237031236e6d16e"
+    static let expectedSize: Int64 = 104850681
+    static let packVersion = "207-20260927"
+    static let packSHA256 = "d0f5e791629ae1e5041f0121dafc2f3a6989d9f5eb2329d1de0ed320bccb205f"
 
     private struct Entry {
         let method: UInt16        // 0 = stored（本包全部 stored；其它方法一律不读 → 回落网络）
@@ -32,7 +32,7 @@ final class WorldPack {
     private var entries: [String: Entry] = [:]
     private var handle: FileHandle?
     private var prepared = false
-    private var preparing = false
+    private let preparationLock = NSLock()
     private var served = 0
     private var missed = 0
 
@@ -46,43 +46,25 @@ final class WorldPack {
 
     /// 幂等：已在准备中/已完成则直接返回。**必须在非主线程调用**（首次要拷 ~59 MiB）。
     func prepare() {
-        let shouldStart: Bool = queue.sync {
-            if prepared || preparing { return false }
-            preparing = true
-            return true
+        // Warm-up and an immediate world-tab open join the same preparation.
+        // This method is only called on background queues.
+        preparationLock.lock()
+        defer { preparationLock.unlock() }
+        if isReady { return }
+        guard let bundled = Bundle.main.url(forResource: "v6-base-assets", withExtension: "pak") else { return }
+        try? FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let cachedValid = fileSize(fileURL) == Self.expectedSize && verifyChecksum(fileURL)
+        if !cachedValid {
+            guard copy(from: bundled, to: fileURL), verifyChecksum(fileURL) else { return }
         }
-        guard shouldStart else { return }
-
-        var newHandle: FileHandle?
-        var newEntries: [String: Entry]?
-
-        if let bundled = Bundle.main.url(forResource: "v6-base-assets", withExtension: "pak") {
-            try? FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(),
-                                                     withIntermediateDirectories: true)
-            if fileSize(fileURL) != Self.expectedSize, !copy(from: bundled, to: fileURL) {
-                NSLog("[WorldPack] extract failed — 将回落网络")
-            }
-            if let h = try? FileHandle(forReadingFrom: fileURL) {
-                newEntries = Self.readIndex(h)
-                if newEntries != nil { newHandle = h }
-            }
-        } else {
-            NSLog("[WorldPack] \(Self.fileName) 不在 bundle 内 — 将回落网络")
-        }
-
+        guard let h = try? FileHandle(forReadingFrom: fileURL) else { return }
+        guard let e = Self.readIndex(h) else { try? h.close(); return }
         queue.sync {
-            preparing = false
-            if let h = newHandle, let e = newEntries {
-                handle = h
-                entries = e
-                prepared = true
-                NSLog("[WorldPack] ready version=\(Self.packVersion) entries=\(e.count) bytes=\(Self.expectedSize)")
-            }
+            handle = h
+            entries = e
+            prepared = true
         }
-
-        if newHandle != nil, let h = newHandle {
-            verifyChecksum(h)     // 后台校验（不阻塞、失败只记日志）
-        }
+        NSLog("[WorldPack] ready version=\(Self.packVersion) entries=\(e.count)")
     }
 
     /// 后台准备 + 主线程回调（用于「先备好包再加载世界页」，保证首启也能命中本地包）
@@ -146,6 +128,7 @@ final class WorldPack {
         if p.hasSuffix(".css") { return "text/css" }
         if p.hasSuffix(".bin") { return "application/octet-stream" }
         if p.hasSuffix(".mp3") { return "audio/mpeg" }
+        if p.hasSuffix(".m4a") { return "audio/mp4" }
         return "application/octet-stream"
     }
 
@@ -183,25 +166,15 @@ final class WorldPack {
         }
     }
 
-    private func verifyChecksum(_ h: FileHandle) {
-        DispatchQueue.global(qos: .utility).async {
-            defer { try? h.close() }
-            do {
-                try h.seek(toOffset: 0)
-                var hasher = SHA256()
-                while let chunk = try h.read(upToCount: 1 << 20), !chunk.isEmpty {
-                    hasher.update(data: chunk)
-                }
-                let hex = hasher.finalize().map { String(format: "%02x", $0) }.joined()
-                if hex != Self.packSHA256 {
-                    NSLog("[WorldPack] sha256 mismatch (拷贝受损) — 未命中条目仍会回落网络")
-                } else {
-                    NSLog("[WorldPack] sha256 ok")
-                }
-            } catch {
-                NSLog("[WorldPack] sha256 check error: \(error)")
-            }
-        }
+    private func verifyChecksum(_ url: URL) -> Bool {
+        // Own handle: never seek or close the handle serving WebKit requests.
+        guard let h = try? FileHandle(forReadingFrom: url) else { return false }
+        defer { try? h.close() }
+        do {
+            var hasher = SHA256()
+            while let chunk = try h.read(upToCount: 1 << 20), !chunk.isEmpty { hasher.update(data: chunk) }
+            return hasher.finalize().map { String(format: "%02x", $0) }.joined() == Self.packSHA256
+        } catch { return false }
     }
 
     /// 解析中央目录；只读 11 KB 索引，数据按需 seek。返回 nil = 包不可用（→ 全局回落网络）
