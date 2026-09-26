@@ -1,0 +1,14 @@
+PASS tab items: 1
+PASS KeychainStore: 2
+PASS APNs registration: 1
+PASS deletion status: 2
+PASS request deletion: 1
+PASS cancel deletion: 1
+PASS domain whitelist: 1
+PASS UA: 5
+PASS native table: 9
+PASS cookie store: 2
+PASS bridge: 5
+PASS config-driven tab bar (app-tabs api + fallback + key-based lookup)
+PASS source Info.plist, three languages, launch screen, privacy manifest and all iPad icon sizes
+PASS V6 base asset pack (bundled pak + scheme handler + sandbox extract + size anchors)
