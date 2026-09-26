@@ -1,0 +1,9 @@
+Running altool at path '/Applications/Xcode_26.3.app/Contents/SharedFrameworks/ContentDelivery.framework/Resources/altool'...
+
+2026-09-26 16:02:25.922  INFO: [ContentDelivery.Uploader.6000022404C0] 
+==========================================
+UPLOAD SUCCEEDED with no errors
+Delivery UUID: 90c13ec1-04d2-4e72-90ea-2fc4759f5011
+Transferred 155040694 bytes in 2.639 seconds (58.7MB/s, 469.918Mbps)
+==========================================
+No errors uploading archive at 'build-b2/export/LikeArt.ipa'.
