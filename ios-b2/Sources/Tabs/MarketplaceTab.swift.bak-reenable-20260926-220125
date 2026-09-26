@@ -78,7 +78,8 @@ struct WebContent: UIViewRepresentable {
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.auctionKillJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         // A197: V6 基础资源包 —— 自定义 scheme + 世界页 JS 改写的请求拦截（安卓 WorldPack.java 同源）
-        configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
+        // [pack-killswitch-20260926] iOS 资源包方案暂缓：真机进世界崩溃，先关闭（代码保留在 Sources/Pack/）
+        // configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
         let view = WKWebView(frame: .zero, configuration: configuration)
         view.allowsLinkPreview = false
         view.allowsBackForwardNavigationGestures = true
@@ -89,17 +90,8 @@ struct WebContent: UIViewRepresentable {
         context.coordinator.reload = state.reload
         view.evaluateJavaScript("navigator.userAgent") { value, _ in
             if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
-            let load = { view.load(URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)) }
-            if url.path.hasPrefix("/v6") {
-                // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
-                WorldPack.shared.prepareAsync { _ in
-                    let entries = WorldPack.shared.entryNames()
-                    view.configuration.userContentController.addUserScript(
-                        WKUserScript(source: PackShim.script(entries: entries), injectionTime: .atDocumentStart, forMainFrameOnly: false))
-                    NSLog("[WorldPack] world tab load entries=\(entries.count)")
-                    load()
-                }
-            } else { load() }
+            // [pack-killswitch-20260926] 世界页不再注入 pack shim / 不再等待包就绪（直连网络）
+            view.load(URLRequest(url: url, cachePolicy: .useProtocolCachePolicy))
         }
         return view
     }
