@@ -51,6 +51,7 @@ struct LikeArtApp: App {
                         }
                     }
                     .onAppear { AppTabsStore.shared.load() }
+                    .onAppear { DispatchQueue.global(qos: .utility).async { WorldPack.shared.prepare() } }
                     .onChange(of: scenePhase) { phase in
                         if phase == .active { AppTabsStore.shared.load() }
                     }
