@@ -1,0 +1,46 @@
+Archive:  build-b2/export/LikeArt.ipa
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  09-26-2026 14:03   Payload/
+        0  09-26-2026 14:03   Payload/LikeArt.app/
+        0  09-26-2026 14:03   Payload/LikeArt.app/_CodeSignature/
+     9246  09-26-2026 14:03   Payload/LikeArt.app/_CodeSignature/CodeResources
+        0  09-26-2026 14:03   Payload/LikeArt.app/zh-Hans.lproj/
+      255  09-26-2026 14:03   Payload/LikeArt.app/zh-Hans.lproj/InfoPlist.strings
+        0  09-26-2026 14:03   Payload/LikeArt.app/en.lproj/
+      312  09-26-2026 14:03   Payload/LikeArt.app/en.lproj/InfoPlist.strings
+    12326  09-26-2026 14:03   Payload/LikeArt.app/ProfileTab.swift.bak-a196-20260926-033808
+     6732  09-26-2026 14:03   Payload/LikeArt.app/MarketplaceTab.swift.bak-a195-20260926-030035
+     7968  09-26-2026 14:03   Payload/LikeArt.app/MarketplaceTab.swift.bak-a197-20260926-184343
+     2118  09-26-2026 14:03   Payload/LikeArt.app/App.swift.bak-a196-20260926-033808
+     2392  09-26-2026 14:03   Payload/LikeArt.app/JSBridge.swift.bak-20260920-032947
+    17759  09-26-2026 14:03   Payload/LikeArt.app/AppIcon60x60@2x.png
+     6571  09-26-2026 14:03   Payload/LikeArt.app/MarketplaceTab.swift.bak-20260920-032947
+   490240  09-26-2026 14:03   Payload/LikeArt.app/LikeArt
+     3878  09-26-2026 14:03   Payload/LikeArt.app/TabConfig.swift.bak-fix2-20260926-035359
+     3008  09-26-2026 14:03   Payload/LikeArt.app/App.swift.bak-a197-20260926-184343
+     4705  09-26-2026 14:03   Payload/LikeArt.app/PushDelegate.swift.bak-a196-20260926-033808
+     7937  09-26-2026 14:03   Payload/LikeArt.app/MarketplaceTab.swift.bak-a196-20260926-033808
+     8891  09-26-2026 14:03   Payload/LikeArt.app/MarketplaceTab.swift.bak-packkill-20260926-190034
+        0  09-26-2026 14:03   Payload/LikeArt.app/Base.lproj/
+        0  09-26-2026 14:03   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/
+     2745  09-26-2026 14:03   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/launch-controller-view-launch-view.nib
+      932  09-26-2026 14:03   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-launch-controller.nib
+      279  09-26-2026 14:03   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+     3851  09-26-2026 14:03   Payload/LikeArt.app/TabConfig.swift.bak-fix-20260926-035340
+  1168728  09-26-2026 14:03   Payload/LikeArt.app/Assets.car
+    27215  09-26-2026 14:03   Payload/LikeArt.app/AppIcon76x76@2x~ipad.png
+     4231  09-26-2026 14:03   Payload/LikeArt.app/PrivacyInfo.xcprivacy
+        0  09-26-2026 14:03   Payload/LikeArt.app/ru.lproj/
+      424  09-26-2026 14:03   Payload/LikeArt.app/ru.lproj/InfoPlist.strings
+ 61912957  09-26-2026 14:03   Payload/LikeArt.app/v6-base-assets.pak
+     8456  09-26-2026 14:03   Payload/LikeArt.app/MarketplaceTab.swift.bak-reenable-20260926-220125
+    12064  09-26-2026 14:03   Payload/LikeArt.app/embedded.mobileprovision
+     7124  09-26-2026 14:03   Payload/LikeArt.app/AppSession.swift.bak-a196-20260926-033808
+     2506  09-26-2026 14:03   Payload/LikeArt.app/Info.plist
+     3115  09-26-2026 14:03   Payload/LikeArt.app/App.swift.bak-packkill-20260926-190034
+        8  09-26-2026 14:03   Payload/LikeArt.app/PkgInfo
+        0  09-26-2026 14:03   Symbols/
+   939812  09-26-2026 14:03   Symbols/03F100A5-5493-32D7-92CC-0CD2840D10B2.symbols
+---------                     -------
+ 64678785                     41 files
