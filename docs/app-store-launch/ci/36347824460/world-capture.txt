@@ -1,0 +1,39 @@
+Monitoring boot status for LikeArt World Evidence (5465C8D4-842E-4719-91C3-5C39043F35E9).
+[2026-09-27 20:26:06 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.VoiceShortcuts.ShortcutsMigrator (Shortcuts.migrator)
+		Migration Elapsed:00:48 seconds
+
+[2026-09-27 20:26:07 +0000] Status=4, isTerminal=NO, Elapsed=01:04.
+	Waiting on System App
+
+[2026-09-27 20:26:07 +0000] Status=4, isTerminal=NO, Elapsed=01:05.
+	Waiting on System App
+
+[2026-09-27 20:26:08 +0000] Status=4, isTerminal=NO, Elapsed=01:06.
+	Waiting on System App
+
+[2026-09-27 20:26:09 +0000] Status=4, isTerminal=NO, Elapsed=01:07.
+	Waiting on System App
+
+[2026-09-27 20:26:10 +0000] Status=4, isTerminal=NO, Elapsed=01:07.
+	Waiting on System App
+
+[2026-09-27 20:26:11 +0000] Status=4, isTerminal=NO, Elapsed=01:08.
+	Waiting on System App
+
+[2026-09-27 20:26:12 +0000] Status=4, isTerminal=NO, Elapsed=01:09.
+	Waiting on System App
+
+[2026-09-27 20:26:13 +0000] Status=4, isTerminal=NO, Elapsed=01:10.
+	Waiting on System App
+
+[2026-09-27 20:26:18 +0000] Status=4, isTerminal=NO, Elapsed=01:15.
+	Waiting on System App
+
+[2026-09-27 20:26:27 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:24.
+	Finished
+
+com.likeart.app: 4839
+
+{"device": "iPhone 13 Pro", "captureWallSeconds": 63.63275887499998, "captureErrors": [{"second": 40, "error": "Command '('xcrun', 'simctl', 'io', '5465C8D4-842E-4719-91C3-5C39043F35E9', 'screenshot', 'build-b2/evidence/world-entry-20/40-seconds.png')' timed out after 5.106084667000005 seconds"}], "readyMs": null, "firstReadySample": null, "webkitTerminations": 0}
