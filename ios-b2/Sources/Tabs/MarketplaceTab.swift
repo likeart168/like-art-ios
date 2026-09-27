@@ -16,6 +16,21 @@ final class WebState: ObservableObject {
     @Published var failed = false
     @Published var reload = UUID()
     @Published var currentURL: URL?
+    @Published var failureReason = ""
+    @Published var retryAttempts = 0
+    @Published var retryPending = false
+    private var retryTask: Task<Void, Never>?
+    func retry() {
+        guard failed, !retryPending, retryAttempts < 3 else { return }
+        retryAttempts += 1; retryPending = true
+        let delay = UInt64(1 << (retryAttempts - 1)) * 1_000_000_000
+        retryTask = Task { @MainActor [weak self] in
+            try? await Task.sleep(nanoseconds: delay)
+            guard !Task.isCancelled, let self else { return }
+            self.retryPending = false; self.reload = UUID()
+        }
+    }
+    func cancelRetry() { retryTask?.cancel(); retryTask = nil; retryPending = false }
     weak var view: WKWebView?
 }
 
@@ -70,9 +85,11 @@ struct WebTab: View {
                         BrandMark(size: 88)
                         Text("Like Art").font(.system(size: 32, weight: .semibold, design: .serif)).foregroundStyle(AppTheme.ink)
                         if state.failed {
-                            Text(tr("暂时无法连接", "A little pause", "Небольшая пауза")).font(.headline)
-                            Text(tr("请检查网络后重试。保存的账户和消息仍可查看。", "Check your connection and try again. Your saved account and messages are still available.", "Проверьте подключение. Сохранённый профиль и сообщения по-прежнему доступны.")).font(.subheadline).foregroundStyle(AppTheme.muted)
-                            Button(tr("重新连接", "Try again", "Попробовать снова")) { state.reload = UUID() }.buttonStyle(ArtPrimaryButton())
+                            Text(tr("页面未能打开", "Page could not open", "Не удалось открыть страницу")).font(.headline)
+                            Text(state.failureReason).font(.subheadline).foregroundStyle(AppTheme.muted)
+                            Button(state.retryPending ? tr("正在等待重试…", "Waiting to retry…", "Ожидание повтора…") : tr("重新连接", "Try again", "Попробовать снова")) { state.retry() }.buttonStyle(ArtPrimaryButton())
+                                .disabled(state.retryPending || state.retryAttempts >= 3)
+                            if state.retryAttempts >= 3 { Text(tr("已连续重试三次，请稍后再打开。", "Three retries used. Please try again later.", "Три попытки использованы. Повторите позже.")) }
                             Button(tr("查看离线内容", "View saved content", "Сохранённые данные")) { profileVisible = true }.padding(10)
                         } else {
                             Text(tr("发现手作的温度", "A world of handmade wonder", "Мир искусства ручной работы")).font(.subheadline).foregroundStyle(AppTheme.muted)
@@ -135,6 +152,11 @@ struct WebContent: UIViewRepresentable {
         } catch (_) {}
         """
         configuration.userContentController.addUserScript(WKUserScript(source: languageScript, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1" {
+            configuration.userContentController.addUserScript(WKUserScript(source: WorldCaptureProbe.errorScript, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
+        #endif
         configuration.applicationNameForUserAgent = "LikeArtApp/1.0"
         configuration.userContentController.add(context.coordinator.bridge, name: "likeArtSession")
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
@@ -194,6 +216,7 @@ struct WebContent: UIViewRepresentable {
     }
     static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) {
         coordinator.urlObservation?.invalidate()
+        coordinator.state.cancelRetry()
         view.stopLoading()
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtSession")
     }
@@ -204,6 +227,10 @@ struct WebContent: UIViewRepresentable {
         var urlObservation: NSKeyValueObservation?
         var destination: URL?
         var initialNavigationStarted = false
+        weak var currentNavigation: WKNavigation?
+        #if DEBUG
+        let worldCapture = WorldCaptureProbe()
+        #endif
         init(state: WebState) { self.state = state }
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             guard let url = action.request.url else { decisionHandler(.cancel); return }
@@ -217,18 +244,38 @@ struct WebContent: UIViewRepresentable {
             if let url = action.request.url, AppSession.allowed(url) { webView.load(action.request) }
             return nil
         }
-        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) { state.loading = true; state.failed = false }
+        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+            currentNavigation = navigation; state.cancelRetry()
+            state.loading = true; state.failed = false; state.failureReason = ""
+            #if DEBUG
+            worldCapture.start(webView, state: state)
+            #endif
+        }
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            guard navigation === currentNavigation, !state.failed else { return }
             state.loading = false; bridge.refresh()
             (webView as? ClipsViewportWebView)?.syncClipsInsets(force: true)
             #if DEBUG
             scheduleClipsCaptureProbe(webView)
             #endif
         }
-        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { fail(error) }
-        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { fail(error) }
-        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { state.loading = false; state.failed = true }
-        func fail(_ error: Error) { if (error as NSError).code != NSURLErrorCancelled { state.loading = false; state.failed = true } }
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { guard navigation === currentNavigation else { return }; fail(error) }
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { guard navigation === currentNavigation else { return }; fail(error) }
+        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            state.cancelRetry(); state.loading = false; state.failed = true
+            state.failureReason = tr("页面渲染进程意外停止。", "The page renderer stopped unexpectedly.", "Процесс отображения страницы неожиданно остановлен.") + " (WebKit renderer terminated)"
+            NSLog("[WorldEntry20] WebKit renderer terminated path=%@", webView.url?.path ?? "")
+            #if DEBUG
+            worldCapture.terminated()
+            #endif
+        }
+        func fail(_ error: Error) {
+            let detail = error as NSError
+            if detail.domain == NSURLErrorDomain && detail.code == NSURLErrorCancelled { return }
+            state.cancelRetry(); state.loading = false; state.failed = true
+            state.failureReason = "\(detail.localizedDescription) (\(detail.domain) \(detail.code))"
+            NSLog("[WorldEntry20] navigation failure domain=%@ code=%ld", detail.domain, detail.code)
+        }
     }
 }
 

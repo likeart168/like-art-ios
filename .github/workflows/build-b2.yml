@@ -53,6 +53,13 @@ jobs:
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/simulator-build.txt
           python3 -u ios-b2/ci/capture_store.py 2>&1 | tee build-b2/evidence/store-capture.txt
+      - name: Diagnose real iOS world entry
+        if: contains(github.event.head_commit.message, '[world-probe]')
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/world-simulator-build.txt
+          python3 -u ios-b2/ci/capture_world.py 2>&1 | tee build-b2/evidence/world-capture.txt
       - name: Preserve native screenshots
         if: ${{ always() && hashFiles('build-b2/evidence/store-screenshots/**/*.png') != '' }}
         uses: actions/upload-artifact@v4
@@ -64,6 +71,7 @@ jobs:
         if: ${{ success() && hashFiles('build-b2/evidence/store-screenshots/manifest.json') != '' }}
         run: bash ios-b2/ci/publish_evidence.sh
       - name: Import distribution certificate and profile
+        if: ${{ !contains(github.event.head_commit.message, '[world-probe]') }}
         env:
           P12_CERTIFICATE: ${{ secrets.P12_CERTIFICATE }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
@@ -73,10 +81,12 @@ jobs:
           python3 ios-b2/ci/signing.py
           bash ios-b2/ci/import_certificate.sh
       - name: Archive and codesign
+        if: ${{ !contains(github.event.head_commit.message, '[world-probe]') }}
         run: |
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -archivePath build-b2/LikeArt.xcarchive archive CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY='Apple Distribution' DEVELOPMENT_TEAM=2JZCL349AG PROVISIONING_PROFILE_SPECIFIER="$PROFILE_UUID" CODE_SIGN_ENTITLEMENTS="$GITHUB_WORKSPACE/build-b2/LikeArt.entitlements" CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/archive.txt
       - name: Export App Store IPA
+        if: ${{ !contains(github.event.head_commit.message, '[world-probe]') }}
         run: |
           set -euo pipefail
           xcodebuild -exportArchive -archivePath build-b2/LikeArt.xcarchive -exportPath build-b2/export -exportOptionsPlist build-b2/ExportOptions.plist 2>&1 | tee build-b2/evidence/export.txt
@@ -90,6 +100,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
       - name: Upload with ASC API key and verify VALID
+        if: ${{ !contains(github.event.head_commit.message, '[world-probe]') }}
         id: asc
         continue-on-error: true
         env:
