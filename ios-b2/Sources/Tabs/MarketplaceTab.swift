@@ -28,6 +28,12 @@ struct WebTab: View {
     let title: String
     let tab: Int
 
+    private var clipsImmersive: Bool {
+        guard let current = state.currentURL ?? Optional(url), AppSession.allowed(current) else { return false }
+        let path = current.path
+        return path == "/clips" || (path.hasPrefix("/clips/") && path != "/clips/upload" && !path.hasPrefix("/clips/upload/")) || path == "/v6/clips/watch.html"
+    }
+
     private var pageTitle: String {
         let path = (state.currentURL ?? url).path
         if path.hasPrefix("/clips/upload") { return tr("发布视频", "Share a video", "Поделиться видео") }
@@ -55,7 +61,9 @@ struct WebTab: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                WebContent(url: url, tab: tab, state: state).id(session.revision)
+                WebContent(url: url, tab: tab, state: state, clipsImmersive: clipsImmersive)
+                    .id(session.revision)
+                    .ignoresSafeArea(.container, edges: clipsImmersive ? .vertical : [])
                 if state.loading || state.failed {
                     VStack(spacing: 22) {
                         BrandMark(size: 88)
@@ -75,12 +83,15 @@ struct WebTab: View {
                 }
             }
             .navigationTitle(pageTitle).navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(clipsImmersive ? .hidden : .visible, for: .navigationBar, .tabBar)
+            .toolbarColorScheme(clipsImmersive ? .dark : nil, for: .navigationBar, .tabBar)
+            .tint(clipsImmersive ? .white : AppTheme.tint)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) { Button { state.view?.goBack() } label: { Image(systemName: "chevron.left") }.accessibilityLabel(tr("返回", "Back", "Назад")) }
                 ToolbarItem(placement: .principal) {
                     HStack(spacing: 8) {
-                        Image(systemName: "leaf.fill").foregroundStyle(AppTheme.tint).font(.caption)
-                        Text(pageTitle).font(.system(.headline, design: .rounded)).foregroundStyle(AppTheme.ink).lineLimit(1)
+                        Image(systemName: "leaf.fill").foregroundStyle(clipsImmersive ? .white : AppTheme.tint).font(.caption)
+                        Text(pageTitle).font(.system(.headline, design: .rounded)).foregroundStyle(clipsImmersive ? .white : AppTheme.ink).lineLimit(1)
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -103,6 +114,7 @@ struct WebContent: UIViewRepresentable {
     let url: URL
     let tab: Int
     @ObservedObject var state: WebState
+    let clipsImmersive: Bool
     func makeCoordinator() -> Coordinator { Coordinator(state: state) }
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
@@ -130,7 +142,8 @@ struct WebContent: UIViewRepresentable {
         if NativeReleasePolicy.bundledWorldPackEnabled {
             configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
         }
-        let view = WKWebView(frame: .zero, configuration: configuration)
+        let view = ClipsViewportWebView(frame: .zero, configuration: configuration)
+        view.clipsImmersive = clipsImmersive
         view.allowsLinkPreview = false
         view.allowsBackForwardNavigationGestures = true
         view.navigationDelegate = context.coordinator
@@ -159,6 +172,7 @@ struct WebContent: UIViewRepresentable {
         return view
     }
     func updateUIView(_ view: WKWebView, context: Context) {
+        if let clipsView = view as? ClipsViewportWebView { clipsView.clipsImmersive = clipsImmersive }
         if let destination = session.destination, session.selectedTab == tab, destination != context.coordinator.destination {
             context.coordinator.destination = destination
             view.load(URLRequest(url: destination))
@@ -193,10 +207,64 @@ struct WebContent: UIViewRepresentable {
             return nil
         }
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) { state.loading = true; state.failed = false }
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { state.loading = false; bridge.refresh() }
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            state.loading = false; bridge.refresh()
+            (webView as? ClipsViewportWebView)?.syncClipsInsets(force: true)
+            #if DEBUG
+            scheduleClipsCaptureProbe(webView)
+            #endif
+        }
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { fail(error) }
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { fail(error) }
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { state.loading = false; state.failed = true }
         func fail(_ error: Error) { if (error as NSError).code != NSURLErrorCancelled { state.loading = false; state.failed = true } }
+    }
+}
+
+// IMMERSIVE19: extend the video beneath native bars, while keeping the webpage
+// controls inside their real safe area. Same-origin child frames request refresh.
+@MainActor
+final class ClipsViewportWebView: WKWebView {
+    var clipsImmersive = false {
+        didSet {
+            guard clipsImmersive != oldValue else { return }
+            scrollView.contentInsetAdjustmentBehavior = clipsImmersive ? .never : .automatic
+            lastInsets = nil
+            setNeedsLayout()
+            syncClipsInsets(force: true)
+        }
+    }
+    private var lastInsets: String?
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        syncClipsInsets()
+    }
+    override func safeAreaInsetsDidChange() {
+        super.safeAreaInsetsDidChange()
+        syncClipsInsets(force: true)
+    }
+    func syncClipsInsets(force: Bool = false) {
+        guard clipsImmersive, let current = url, AppSession.allowed(current) else { return }
+        let top = max(0, safeAreaInsets.top), bottom = max(0, safeAreaInsets.bottom)
+        let signature = "\(top):\(bottom):\(bounds.width):\(bounds.height):\(current.absoluteString)"
+        guard force || lastInsets != signature else { return }
+        lastInsets = signature
+        let script = """
+        (() => {
+          const data = {type:'likeart-clips-insets-19',top:\(top),bottom:\(bottom)};
+          window.__likeArtClipsInsets19 = data;
+          if (!window.__likeArtClipsListener19) {
+            window.__likeArtClipsListener19 = true;
+            addEventListener('message', event => {
+              if (event.origin !== location.origin || event.data?.type !== 'likeart-clips-ready-19') return;
+              const frames = [...document.querySelectorAll('iframe')];
+              if (frames.some(f => f.contentWindow === event.source)) event.source.postMessage(window.__likeArtClipsInsets19, location.origin);
+            });
+          }
+          if (location.pathname === '/v6/clips/watch.html') window.postMessage(data, location.origin);
+          for (const frame of document.querySelectorAll('iframe')) frame.contentWindow?.postMessage(data, location.origin);
+        })();
+        """
+        evaluateJavaScript(script, completionHandler: nil)
     }
 }

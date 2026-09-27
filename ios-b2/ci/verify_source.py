@@ -62,3 +62,13 @@ project = (root / 'project.yml').read_text()
 assert "MARKETING_VERSION: '2.0.3'" in project
 assert project.count('"**/*.bak*"') == 2
 print('PASS 2.0.3 TestFlight train, backup exclusions, safe-build pack channel disabled')
+
+# IMMERSIVE19: retain inline playback, native entry points and route-scoped layout.
+assert 'final class ClipsViewportWebView: WKWebView' in market
+assert '.ignoresSafeArea(.container, edges: clipsImmersive ? .vertical : [])' in market
+assert '.toolbarBackground(clipsImmersive ? .hidden : .visible, for: .navigationBar, .tabBar)' in market
+assert 'path != "/clips/upload"' in market
+assert 'likeart-clips-insets-19' in market and 'safeAreaInsets.top' in market
+assert 'event.origin !== location.origin' in market
+assert 'ShareLink' in market and 'native.profile' in market
+print('PASS IMMERSIVE19 full viewport, floating native bars, upload exclusion and same-origin safe-area bridge')

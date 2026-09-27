@@ -11,7 +11,7 @@ def verify(source):
     start = source.index('func makeUIView(')
     end = source.index('func updateUIView(', start)
     factory = source[start:end]
-    creation = re.search(r'let\s+view\s*=\s*WKWebView\(frame:\s*\.zero,\s*configuration:\s*configuration\)', factory)
+    creation = re.search(r'let\s+view\s*=\s*(?:WKWebView|ClipsViewportWebView)\(frame:\s*\.zero,\s*configuration:\s*configuration\)', factory)
     assert creation, 'Native WebView construction must remain auditable'
     for key, value in [('allowsInlineMediaPlayback', 'true'), ('mediaTypesRequiringUserActionForPlayback', '[]')]:
         assignments = list(re.finditer(r'configuration\.' + key + r'\s*=\s*([^\n;]+)', factory))

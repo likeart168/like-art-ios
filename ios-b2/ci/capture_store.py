@@ -34,6 +34,19 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
                 run('xcrun','simctl','io',udid,'screenshot',str(target))
                 manifest.append({'file':str(target.relative_to(out)), 'device':device['name'], 'language':language, 'path':route, 'method':'simctl actual native app screenshot', 'data':'live public guest pages; no fixtures'})
                 print('CAPTURED', str(target), flush=True)
+                if scene == '02-clips':
+                    container = pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data').strip())
+                    probe = json.loads((container/'Documents/clips-immersive-19.json').read_text())
+                    (target.with_suffix('.json')).write_text(json.dumps(probe,indent=2)+'\n')
+                    assert not probe['error'], probe
+                    assert abs(probe['webY']) < 2 and abs(probe['webHeight']-probe['windowHeight']) < 2, probe
+                    page = probe['page']
+                    assert page['native'] == '19' and not page['fullscreen'], probe
+                    assert abs(page['video']['height']-probe['windowHeight']) < 2, probe
+                    assert page['playback']['inline'] and not page['playback']['controls'] and page['playback']['fit']=='cover', probe
+                    assert page['playback']['time'] > 0 and not page['playback']['paused'], probe
+                    assert page['meta']['bottom'] < page['footer']['y'], probe
+                    print('PASS IMMERSIVE19 native viewport and real inline playback',language,kind,flush=True)
     finally:
         subprocess.run(['xcrun','simctl','shutdown',udid],check=False,timeout=90)
 (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
