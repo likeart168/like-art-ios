@@ -1,0 +1,7 @@
+Monitoring boot status for LikeArt World Evidence (989F613D-FF5C-42A0-94C5-FAE3ACBA4BAC).
+Device already booted, nothing to do.
+
+Settling new simulator OS for 45 seconds before app launch
+com.likeart.app: 7392
+
+{"device": "iPhone 13 Pro", "captureWallSeconds": 52.672437, "captureErrors": [], "readyMs": null, "firstReadySample": null, "webkitTerminations": 0}

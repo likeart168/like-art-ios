@@ -1,0 +1,5 @@
+Run: https://github.com/likeart168/like-art-ios/actions/runs/36356080591
+SHA: 280d56673f7d3bd09a7f04c77a6529e7e1aca218
+Build number: 202609272240
+Build status before evidence publication: success
+ASC step outcome: skipped
