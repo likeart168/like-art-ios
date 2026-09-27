@@ -90,3 +90,14 @@ assert market.count('session.destinationTab == tab') == 3, 'deep links must stay
 assert 'detail.domain == NSURLErrorDomain && detail.code == NSURLErrorCancelled' in market
 assert 'retryAttempts < 3' in market and 'guard navigation === currentNavigation' in market
 print('PASS world navigation target, stale-error isolation and bounded manual retries')
+
+transport = (root/'Resources/world-pack-transport.js').read_text()
+handler = (root/'Sources/Pack/PackMessageHandler.swift').read_text()
+assert 'WKScriptMessageHandlerWithReply' in handler
+assert 'origin.protocol == "https"' in handler and '"like-art.com", "www.like-art.com"' in handler
+assert 'inFlight < 4' in handler and 'active < 2' in transport
+assert '1024 * 1024' in (root/'Sources/Pack/WorldPack.swift').read_text()
+assert 'likeartpack://' not in transport, 'native reads must not depend on cross-scheme fetch/XHR'
+assert 'applicationNameForUserAgent = "LikeArtApp/1.0"' in market
+assert 'evaluateJavaScript("navigator.userAgent")' not in market
+print('PASS origin-checked bounded native transport and direct UA configuration')

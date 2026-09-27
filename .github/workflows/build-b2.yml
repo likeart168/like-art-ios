@@ -35,6 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 ios-b2/ci/fetch_world_pack.py
+          node --test ios-b2/ci/test_pack_transport.mjs
           python3 ios-b2/ci/verify_source.py | tee build-b2/evidence/source-assertions.txt
           xcodegen generate --spec ios-b2/project.yml
       - name: Compile asset catalog

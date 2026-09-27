@@ -85,6 +85,20 @@ final class WorldPack {
 
     // MARK: - 读取
 
+    func chunk(for path: String, offset: Int) -> (data: Data, total: Int)? {
+        queue.sync {
+            guard prepared, offset >= 0, let entry = entries[path], entry.method == 0,
+                  offset < Int(entry.size), let handle else { missed += 1; return nil }
+            let count = min(1024 * 1024, Int(entry.size) - offset)
+            do {
+                try handle.seek(toOffset: entry.dataOffset + UInt64(offset))
+                guard let data = try handle.read(upToCount: count), data.count == count else { return nil }
+                served += 1
+                return (data, Int(entry.size))
+            } catch { missed += 1; return nil }
+        }
+    }
+
     /// 读一个条目；不存在 / 未就绪 / 压缩方式不支持 → nil（调用方回落网络）
     func data(for path: String) -> Data? {
         let key = path.hasPrefix("/") ? String(path.dropFirst()) : path

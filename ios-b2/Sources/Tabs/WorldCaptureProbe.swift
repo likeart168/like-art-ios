@@ -56,8 +56,8 @@ final class WorldCaptureProbe {
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
-                assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY_211__,
-                viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,canvas:[...document.querySelectorAll('canvas')].map(c=>({id:c.id,width:c.width,height:c.height}))},
+                assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY__,
+                navigation:performance.getEntriesByType('navigation').map(n=>({fetchStart:n.fetchStart,domainLookupStart:n.domainLookupStart,domainLookupEnd:n.domainLookupEnd,connectStart:n.connectStart,connectEnd:n.connectEnd,requestStart:n.requestStart,responseStart:n.responseStart,responseEnd:n.responseEnd,domInteractive:n.domInteractive,domComplete:n.domComplete})),viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,canvas:[...document.querySelectorAll('canvas')].map(c=>({id:c.id,width:c.width,height:c.height}))},
                 renderTargets:Array.from(a?.graphicsDevice?.targets||[]).map(t=>({name:t.name,w:t.width,h:t.height,samples:t.samples})),
                 textures:Array.from(a?.graphicsDevice?.textures||[]).map(t=>({name:t.name,w:t.width,h:t.height,bytes:t._gpuSize})).sort((a,b)=>(b.bytes||0)-(a.bytes||0)).slice(0,24),
                 player:p?.playerSystem?.state,
@@ -65,6 +65,8 @@ final class WorldCaptureProbe {
             """
             view.evaluateJavaScript(script) { value, error in
                 var record: [String: Any] = ["elapsed":Date().timeIntervalSince(self.began),"nativeLoading":state.loading,"nativeFailed":state.failed,"nativeFailure":state.failureReason,"jsError":error?.localizedDescription ?? "", "jsErrorDetail":(error as NSError?)?.userInfo["WKJavaScriptExceptionMessage"] as? String ?? ""]
+                let pack = WorldPack.shared.stats
+                record["nativePack"] = ["served":pack.served,"missed":pack.missed,"ready":pack.ready]
                 if let text = value as? String, let data = text.data(using: .utf8), let page = try? JSONSerialization.jsonObject(with: data) { record["page"] = page }
                 self.samples.append(record); self.save()
                 self.sample(view, state: state, remaining:remaining-1)

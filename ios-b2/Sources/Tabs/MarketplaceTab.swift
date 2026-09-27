@@ -192,6 +192,7 @@ struct WebContent: UIViewRepresentable {
         // A197: V6 基础资源包 —— 自定义 scheme + 世界页 JS 改写的请求拦截（安卓 WorldPack.java 同源）
         if NativeReleasePolicy.bundledWorldPackEnabled {
             configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
+            configuration.userContentController.addScriptMessageHandler(PackMessageHandler(), contentWorld: .page, name: "likeArtWorldPack")
         }
         let view = ClipsViewportWebView(frame: .zero, configuration: configuration)
         view.clipsImmersive = clipsImmersive
@@ -206,8 +207,9 @@ struct WebContent: UIViewRepresentable {
         }
         context.coordinator.bridge.webView = view
         context.coordinator.reload = state.reload
-        view.evaluateJavaScript("navigator.userAgent") { value, _ in
-            if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
+        // applicationNameForUserAgent already supplies the native marker. Do not
+        // wait for an empty WebContent process/JS round trip before navigation.
+        do {
             let load = {
                 // A requested deep link wins over the delayed initial UA/pack load.
                 let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
@@ -251,6 +253,7 @@ struct WebContent: UIViewRepresentable {
         coordinator.initialNavigation.cancel()
         view.stopLoading()
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtSession")
+        view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtWorldPack", contentWorld: .page)
     }
     @MainActor final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         let state: WebState
