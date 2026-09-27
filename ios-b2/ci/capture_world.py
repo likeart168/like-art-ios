@@ -31,7 +31,7 @@ try:
  app_pid=int(match[1])
  watchdog=threading.Timer(max(0,began+55-time.monotonic()),stop_app);watchdog.daemon=True;watchdog.start()
  # A screenshot/blocked WebKit must not extend this into a 90+ second run.
- captured=set();capture_errors=[];process_samples=[];last_process=-5
+ captured=set();capture_errors=[];process_samples=[];last_process=-5;gpu_profile=None
  while time.monotonic()<deadline:
   time.sleep(min(1,max(0,deadline-time.monotonic())))
   elapsed=time.monotonic()-began
@@ -41,6 +41,11 @@ try:
     processes=subprocess.check_output(['ps','-axo','pid,ppid,rss,pcpu,comm'],text=True,timeout=2)
     process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer'])]})
     (out/'processes.json').write_text(json.dumps(process_samples,indent=2))
+    if elapsed>=25 and gpu_profile is None:
+     parsed=[line.split(None,4) for line in processes.splitlines()[1:]]
+     owner=next((line[1] for line in parsed if line[0]==str(app_pid)),None)
+     gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.GPU' in line[-1]),None)
+     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','-file',str(out/'gpu-stack.txt')],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
    except (subprocess.TimeoutExpired,subprocess.CalledProcessError):pass
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
@@ -49,8 +54,13 @@ try:
   for second in (40,):
    if second not in captured and time.monotonic()-began>=second and deadline-time.monotonic()>0.1:
     captured.add(second)
+    # An unready GPU can wedge simctl screenshot itself and perturb the remaining
+    # startup evidence. Capture the actual world only after a ready observation.
+    observed=json.loads(source.read_text()) if source.exists() else {}
+    if not any(row.get('page',{}).get('ready') for row in observed.get('samples',[])):continue
     try:run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'),timeout=min(8,deadline-time.monotonic()))
     except (subprocess.TimeoutExpired,subprocess.CalledProcessError) as error:capture_errors.append({'second':second,'error':str(error)})
+ if gpu_profile is not None and gpu_profile.poll() is None:gpu_profile.terminate()
  # Stop the actual application before parsing evidence, even if assertions fail.
  stop_app()
  assert json.loads((out/'native-checks.json').read_text())['pass'], 'Native navigation/retry checks failed'
