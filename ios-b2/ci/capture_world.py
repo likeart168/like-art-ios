@@ -43,9 +43,9 @@ try:
    last_process=elapsed
    try:
     processes=subprocess.check_output(['ps','-axo','pid,ppid,rss,pcpu,comm'],text=True,timeout=2)
-    process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer'])]})
+    process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer','MTLCompilerService'])]})
     (out/'processes.json').write_text(json.dumps(process_samples,indent=2))
-    if elapsed>=25 and gpu_profile is None:
+    if os.environ.get('WORLD_GPU_PROFILE') == '1' and elapsed>=25 and gpu_profile is None:
      parsed=[line.split(None,4) for line in processes.splitlines()[1:]]
      owner=next((line[1] for line in parsed if line[0]==str(app_pid)),None)
      gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.GPU' in line[-1]),None)
