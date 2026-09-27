@@ -19,7 +19,7 @@ func scheduleClipsCaptureProbe(_ webView: WKWebView) {
           const d = frame?.contentDocument || document, w = d.defaultView;
           const rect = s => { const r = d.querySelector(s)?.getBoundingClientRect(); return r ? {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom} : null; };
           const v = d.querySelector('video[src]');
-          return {url:location.pathname,viewport:{width:w.innerWidth,height:w.innerHeight},video:rect('video[src]'),feed:rect('#feed'),header:rect('.viewer-top'),footer:rect('.viewer-bottom'),meta:rect('.video-meta'),native:d.documentElement.dataset.nativeClips || null,insets:{top:getComputedStyle(d.documentElement).getPropertyValue('--clips-safe-top'),bottom:getComputedStyle(d.documentElement).getPropertyValue('--clips-safe-bottom')},playback:v?{paused:v.paused,time:v.currentTime,ready:v.readyState,inline:v.playsInline,controls:v.controls,fit:getComputedStyle(v).objectFit}:null,fullscreen:!!d.fullscreenElement};
+          return {url:location.pathname,viewport:{width:w.innerWidth,height:w.innerHeight},video:rect('video[src]'),feed:rect('#feed'),header:rect('.viewer-top'),tabs:rect('.feed-tabs'),compact:d.documentElement.hasAttribute('data-clips-compact-header'),footer:rect('.viewer-bottom'),meta:rect('.video-meta'),native:d.documentElement.dataset.nativeClips || null,insets:{top:getComputedStyle(d.documentElement).getPropertyValue('--clips-safe-top'),bottom:getComputedStyle(d.documentElement).getPropertyValue('--clips-safe-bottom')},playback:v?{paused:v.paused,time:v.currentTime,ready:v.readyState,inline:v.playsInline,controls:v.controls,fit:getComputedStyle(v).objectFit}:null,fullscreen:!!d.fullscreenElement};
         })();
         """
         view.evaluateJavaScript(script) { value, error in

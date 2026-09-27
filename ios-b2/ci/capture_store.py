@@ -68,6 +68,10 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
                 if scene == '02-clips':
                     container = pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data').strip())
                     probe = json.loads((container/'Documents/clips-immersive-19.json').read_text())
+                    assert probe['page']['compact'], 'Compact native header missing'
+                    tabs = probe['page']['tabs']
+                    assert probe['safeTop'] <= tabs['y'] <= probe['safeTop']+4, 'Feed tabs displaced below hardware safe area'
+                    assert tabs['x'] >= 44 and tabs['x']+tabs['width'] <= probe['windowWidth']-88, 'Feed tabs overlap native actions'
                     (target.with_suffix('.json')).write_text(json.dumps(probe,indent=2)+'\n')
                     assert probe.get('ready') and not probe['error'], probe
                     assert abs(probe['webY']) < 2 and abs(probe['webHeight']-probe['windowHeight']) < 2, probe

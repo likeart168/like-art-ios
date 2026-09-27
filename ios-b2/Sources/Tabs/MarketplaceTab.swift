@@ -123,7 +123,20 @@ struct WebTab: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity).background(AppTheme.paper)
                 }
             }
+            .overlay(alignment: .top) {
+                if clipsImmersive && !state.loading && !state.failed {
+                    HStack(spacing: 0) {
+                        Button { state.view?.goBack() } label: { Image(systemName: "chevron.left").frame(width: 44, height: 44) }
+                            .accessibilityLabel(tr("返回", "Back", "Назад"))
+                        Spacer(minLength: 0)
+                        ShareLink(item: state.view?.url ?? url) { Image(systemName: "square.and.arrow.up").frame(width: 44, height: 44) }
+                        Button { profileVisible = true } label: { Image(systemName: "person.crop.circle").frame(width: 44, height: 44) }
+                            .accessibilityLabel(tr("我的账户", "My account", "Мой профиль")).accessibilityIdentifier("native.profile")
+                    }.foregroundStyle(.white).padding(.horizontal, 4)
+                }
+            }
             .navigationTitle(pageTitle).navigationBarTitleDisplayMode(.inline)
+            .toolbar(clipsImmersive ? .hidden : .visible, for: .navigationBar)
             .toolbarBackground(clipsImmersive ? .hidden : .visible, for: .navigationBar, .tabBar)
             .toolbarColorScheme(clipsImmersive ? .dark : nil, for: .navigationBar, .tabBar)
             .tint(clipsImmersive ? .white : AppTheme.tint)
@@ -355,7 +368,7 @@ final class ClipsViewportWebView: WKWebView {
         lastInsets = signature
         let script = """
         (() => {
-          const data = {type:'likeart-clips-insets-19',top:\(top),bottom:\(bottom)};
+          const data = {type:'likeart-clips-insets-19',top:\(top),bottom:\(bottom),compactHeader:true};
           window.__likeArtClipsInsets19 = data;
           if (!window.__likeArtClipsListener19) {
             window.__likeArtClipsListener19 = true;
