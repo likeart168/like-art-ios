@@ -1,0 +1,114 @@
+Monitoring boot status for LikeArt World Evidence (AA0B1B87-F92D-4EE2-97CF-9C9258C34FD8).
+[2026-09-27 16:48:13 +0000] Status=2, isTerminal=NO, Elapsed=01:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:32 seconds
+
+[2026-09-27 16:48:14 +0000] Status=2, isTerminal=NO, Elapsed=01:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:33 seconds
+
+[2026-09-27 16:48:15 +0000] Status=2, isTerminal=NO, Elapsed=01:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:34 seconds
+
+[2026-09-27 16:48:17 +0000] Status=2, isTerminal=NO, Elapsed=01:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:35 seconds
+
+[2026-09-27 16:48:18 +0000] Status=2, isTerminal=NO, Elapsed=01:47.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:36 seconds
+
+[2026-09-27 16:48:18 +0000] Status=2, isTerminal=NO, Elapsed=01:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:37 seconds
+
+[2026-09-27 16:48:19 +0000] Status=2, isTerminal=NO, Elapsed=01:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:38 seconds
+
+[2026-09-27 16:48:20 +0000] Status=2, isTerminal=NO, Elapsed=01:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:39 seconds
+
+[2026-09-27 16:48:21 +0000] Status=2, isTerminal=NO, Elapsed=01:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:40 seconds
+
+[2026-09-27 16:48:22 +0000] Status=2, isTerminal=NO, Elapsed=01:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:41 seconds
+
+[2026-09-27 16:48:29 +0000] Status=2, isTerminal=NO, Elapsed=01:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:42 seconds
+
+[2026-09-27 16:48:31 +0000] Status=2, isTerminal=NO, Elapsed=02:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:47 seconds
+
+[2026-09-27 16:48:31 +0000] Status=2, isTerminal=NO, Elapsed=02:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.cloudrecents.migrator (CloudRecentsMigrator.migrator)
+		Migration Elapsed:01:50 seconds
+
+[2026-09-27 16:48:33 +0000] Status=2, isTerminal=NO, Elapsed=02:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.CloudTabsMigrator.migrator (CloudTabsMigrator.migrator)
+		Migration Elapsed:01:51 seconds
+
+[2026-09-27 16:48:34 +0000] Status=2, isTerminal=NO, Elapsed=02:04.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.keyboards.migrator (KeyboardMigrator.migrator)
+		Migration Elapsed:01:52 seconds
+
+[2026-09-27 16:48:36 +0000] Status=2, isTerminal=NO, Elapsed=02:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.accounts.obsolescencemigrator (AccountsObsolescence.migrator)
+		Migration Elapsed:01:53 seconds
+
+[2026-09-27 16:48:37 +0000] Status=4, isTerminal=NO, Elapsed=02:06.
+	Waiting on System App
+
+[2026-09-27 16:48:37 +0000] Status=4, isTerminal=NO, Elapsed=02:07.
+	Waiting on System App
+
+[2026-09-27 16:48:38 +0000] Status=4, isTerminal=NO, Elapsed=02:07.
+	Waiting on System App
+
+[2026-09-27 16:48:39 +0000] Status=4, isTerminal=NO, Elapsed=02:08.
+	Waiting on System App
+
+[2026-09-27 16:48:39 +0000] Status=4, isTerminal=NO, Elapsed=02:09.
+	Waiting on System App
+
+[2026-09-27 16:48:40 +0000] Status=4, isTerminal=NO, Elapsed=02:10.
+	Waiting on System App
+
+[2026-09-27 16:48:41 +0000] Status=4, isTerminal=NO, Elapsed=02:11.
+	Waiting on System App
+
+[2026-09-27 16:48:42 +0000] Status=4, isTerminal=NO, Elapsed=02:12.
+	Waiting on System App
+
+[2026-09-27 16:48:44 +0000] Status=4, isTerminal=NO, Elapsed=02:13.
+	Waiting on System App
+
+[2026-09-27 16:48:53 +0000] Status=4294967295, isTerminal=YES, Elapsed=02:22.
+	Finished
+
+com.likeart.app: 9963
+
+{"device": "iPhone 13 Pro", "captureWallSeconds": 51.165156207999985, "captureErrors": [{"second": 10, "error": "Command '('xcrun', 'simctl', 'io', 'AA0B1B87-F92D-4EE2-97CF-9C9258C34FD8', 'screenshot', 'build-b2/evidence/world-entry-20/10-seconds.png')' timed out after 2 seconds"}, {"second": 30, "error": "Command '('xcrun', 'simctl', 'io', 'AA0B1B87-F92D-4EE2-97CF-9C9258C34FD8', 'screenshot', 'build-b2/evidence/world-entry-20/30-seconds.png')' timed out after 2 seconds"}, {"second": 48, "error": "Command '('xcrun', 'simctl', 'io', 'AA0B1B87-F92D-4EE2-97CF-9C9258C34FD8', 'screenshot', 'build-b2/evidence/world-entry-20/48-seconds.png')' timed out after 0.40805058299997654 seconds"}], "readyMs": null, "firstReadySample": null, "webkitTerminations": 0}
