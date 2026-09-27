@@ -1,9 +1,32 @@
 import SwiftUI
 import WebKit
 
-// CLIPS17: keep the approved safe-build network path until pack acceptance.
+// WORLD22: the pinned pack is verified against the public byte inventory.
 enum NativeReleasePolicy {
-    static let bundledWorldPackEnabled = false
+    static let bundledWorldPackEnabled = true
+}
+
+// Queue the latest destination until native UA/pack setup finishes. A SwiftUI
+// update can arrive before makeUIView's asynchronous preparation callback.
+@MainActor
+final class InitialWebNavigation {
+    private(set) var prepared = false
+    private var cancelled = false
+    private var pending: URL?
+    func request(_ url: URL) -> URL? {
+        guard !cancelled else { return nil }
+        if prepared { return url }
+        pending = url
+        return nil
+    }
+    func finish(defaultURL: URL) -> URL? {
+        guard !cancelled, !prepared else { return nil }
+        prepared = true
+        let target = pending ?? defaultURL
+        pending = nil
+        return target
+    }
+    func cancel() { cancelled = true; pending = nil }
 }
 
 struct MarketplaceTab: View {
@@ -135,6 +158,11 @@ struct WebContent: UIViewRepresentable {
     let clipsImmersive: Bool
     func makeCoordinator() -> Coordinator { Coordinator(state: state) }
     func makeUIView(context: Context) -> WKWebView {
+        #if DEBUG
+        if ["/v6", "/v6/", "/v6/index.html"].contains(url.path) {
+            context.coordinator.worldCapture.markEntryRequested()
+        }
+        #endif
         let configuration = WKWebViewConfiguration()
         // CLIPS16: keep visible video inline and let the page control autoplay.
         configuration.allowsInlineMediaPlayback = true
@@ -182,15 +210,16 @@ struct WebContent: UIViewRepresentable {
             if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
             let load = {
                 // A requested deep link wins over the delayed initial UA/pack load.
-                guard !context.coordinator.initialNavigationStarted else { return }
-                context.coordinator.initialNavigationStarted = true
                 let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
                 if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
-                view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
+                guard let preparedTarget = context.coordinator.initialNavigation.finish(defaultURL: target) else { return }
+                view.load(URLRequest(url: preparedTarget, cachePolicy: .useProtocolCachePolicy))
             }
-            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") {
+            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/") {
                 // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: load)
                 WorldPack.shared.prepareAsync { _ in
+                    guard !context.coordinator.initialNavigation.prepared else { return }
                     let entries = WorldPack.shared.entryNames()
                     view.configuration.userContentController.addUserScript(
                         WKUserScript(source: PackShim.script(entries: entries), injectionTime: .atDocumentStart, forMainFrameOnly: false))
@@ -205,18 +234,21 @@ struct WebContent: UIViewRepresentable {
         if let clipsView = view as? ClipsViewportWebView { clipsView.clipsImmersive = clipsImmersive }
         if let destination = session.destination, session.destinationTab == tab, session.selectedTab == tab, destination != context.coordinator.destination {
             context.coordinator.destination = destination
-            context.coordinator.initialNavigationStarted = true
-            view.load(URLRequest(url: destination))
+            if let target = context.coordinator.initialNavigation.request(destination) {
+                view.load(URLRequest(url: target))
+            }
         }
         if context.coordinator.reload != state.reload {
             context.coordinator.reload = state.reload
-            context.coordinator.initialNavigationStarted = true
-            view.load(URLRequest(url: view.url ?? url))
+            if let target = context.coordinator.initialNavigation.request(view.url ?? url) {
+                view.load(URLRequest(url: target))
+            }
         }
     }
     static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) {
         coordinator.urlObservation?.invalidate()
         coordinator.state.cancelRetry()
+        coordinator.initialNavigation.cancel()
         view.stopLoading()
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtSession")
     }
@@ -226,7 +258,7 @@ struct WebContent: UIViewRepresentable {
         var reload = UUID()
         var urlObservation: NSKeyValueObservation?
         var destination: URL?
-        var initialNavigationStarted = false
+        let initialNavigation = InitialWebNavigation()
         weak var currentNavigation: WKNavigation?
         #if DEBUG
         let worldCapture = WorldCaptureProbe()

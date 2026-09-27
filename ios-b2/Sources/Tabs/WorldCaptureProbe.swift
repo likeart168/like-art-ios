@@ -24,7 +24,12 @@ final class WorldCaptureProbe {
     private var started = false
     private var samples: [[String: Any]] = []
     private var began = Date()
+    private var preparationBegan: Date?
     private var terminations = 0
+    func markEntryRequested() {
+        guard preparationBegan == nil else { return }
+        preparationBegan = Date()
+    }
     func terminated() { terminations += 1; save() }
     private func save() {
         let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "terminations": terminations, "elapsed": Date().timeIntervalSince(began)]
@@ -37,7 +42,7 @@ final class WorldCaptureProbe {
         guard ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1", !started,
               let url = view.url, AppSession.allowed(url),
               ["/v6", "/v6/", "/v6/index.html"].contains(url.path) else { return }
-        started = true; began = Date(); save()
+        started = true; began = preparationBegan ?? Date(); save()
         Task { await worldEntryNativeChecks20() }
         sample(view, state: state, remaining: 48)
     }
@@ -51,7 +56,7 @@ final class WorldCaptureProbe {
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
-                assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,
+                assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY_211__,
                 viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,canvas:[...document.querySelectorAll('canvas')].map(c=>({id:c.id,width:c.width,height:c.height}))},
                 renderTargets:Array.from(a?.graphicsDevice?.targets||[]).map(t=>({name:t.name,w:t.width,h:t.height,samples:t.samples})),
                 textures:Array.from(a?.graphicsDevice?.textures||[]).map(t=>({name:t.name,w:t.width,h:t.height,bytes:t._gpuSize})).sort((a,b)=>(b.bytes||0)-(a.bytes||0)).slice(0,24),

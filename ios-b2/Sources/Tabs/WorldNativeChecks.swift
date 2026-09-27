@@ -13,6 +13,15 @@ func worldEntryNativeChecks20() async {
     checks["untrustedLinkRejected"] = session.destination == world
     session.open(URL(string:"https://like-art.com/clips?app=1")!)
     checks["clipsTargetsShop"] = session.destinationTab == session.tabIndex(for:"shop")
+    let navigation = InitialWebNavigation()
+    checks["deepLinkWaitsForPack"] = navigation.request(world) == nil
+    let newer = URL(string:"https://like-art.com/v6/?app=1&entry=latest")!
+    checks["latestPendingLinkWins"] = navigation.request(newer) == nil && navigation.finish(defaultURL:world) == newer
+    checks["latePackOrTimeoutCannotReload"] = navigation.finish(defaultURL:world) == nil
+    checks["subsequentNavigationRemainsAvailable"] = navigation.request(world) == world
+    let cancelled = InitialWebNavigation()
+    _ = cancelled.request(world); cancelled.cancel()
+    checks["disposedViewCannotNavigateLate"] = cancelled.finish(defaultURL:world) == nil && cancelled.request(world) == nil
     let state = WebState(), initial = state.reload
     state.retry()
     checks["healthyPageDoesNotRetry"] = state.retryAttempts == 0 && state.reload == initial

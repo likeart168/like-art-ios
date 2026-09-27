@@ -19,7 +19,10 @@ enum PackShim {
         } else {
             json = "[]"
         }
+        let queries = Bundle.main.url(forResource: "v6-pack-queries", withExtension: "json")
+            .flatMap { try? Data(contentsOf: $0) }.flatMap { String(data: $0, encoding: .utf8) } ?? "{}"
         return template.replacingOccurrences(of: "__ENTRIES__", with: json)
+            .replacingOccurrences(of: "__QUERIES__", with: queries)
     }
 
     private static let template = #"""
@@ -35,7 +38,8 @@ enum PackShim {
         }
       } catch (e) {}
 
-      var ENTRIES = __ENTRIES__;
+      var QUERIES = __QUERIES__;
+      var ENTRIES = __ENTRIES__.filter(function(p){return Object.prototype.hasOwnProperty.call(QUERIES,p);});
       var SCHEME_URL = 'likeartpack://local/v6/';
       var PREFIX = location.origin + '/v6/';
       var stats = { hits: 0, fallbacks: 0, entries: ENTRIES.length, ready: ENTRIES.length > 0 };
@@ -55,6 +59,8 @@ enum PackShim {
         if (q >= 0 && q < cut) { cut = q; }
         if (h >= 0 && h < cut) { cut = h; }
         rest = rest.slice(0, cut);
+        var query = new URL(u).search;
+        if (!QUERIES[rest] || (query && QUERIES[rest].indexOf(query) < 0)) return null;
         return inPack[rest] ? SCHEME_URL + rest : null;
       }
 
@@ -71,7 +77,7 @@ enum PackShim {
             if ((o.method || (input && input.method) || 'GET').toUpperCase() === 'GET' && o.mode !== 'no-cors' && o.credentials !== 'include') {
               var self = this, args = arguments;
               stats.hits++;
-              return origFetch.call(this, local, init).catch(function () {
+              return origFetch.call(this, local, init).then(function(r){ if (!r.ok) throw new Error('Local pack HTTP '+r.status); return r; }).catch(function () {
                 stats.hits--; stats.fallbacks++;
                 return origFetch.apply(self, args);
               });

@@ -16,3 +16,6 @@ LikeArt.ipa
 build-b2/
 ios-b2/*.xcodeproj/
 __pycache__/
+
+# Versioned public artifact is verified/materialized before every native build.
+ios-b2/Resources/v6-base-assets.pak
