@@ -9,7 +9,7 @@ xcodegen generate --spec ios-b2/project.yml
 xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -sdk iphoneos -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO
 ```
 
-Push `ios-b2/**` or `.github/workflows/build-b2.yml` to `b2-native-shell`, or dispatch **B2 Native iOS — Xcode 26**. The workflow selects an installed Xcode 26.x, compiles the asset catalog, builds unsigned, imports signing credentials, archives/signs, exports an App Store IPA, and retains it **before** attempting ASC upload. Version is 2.0.2; build number is the UTC minute timestamp. Workflow runs are serialized.
+Push `ios-b2/**` or `.github/workflows/build-b2.yml` to `b2-native-shell`, or dispatch **B2 Native iOS — Xcode 26**. The workflow selects an installed Xcode 26.x, compiles the asset catalog, builds unsigned, imports signing credentials, archives/signs, exports an App Store IPA, and retains it **before** attempting ASC upload. Version is 2.0.3; build number is the UTC minute timestamp. Workflow runs are serialized.
 
 Existing secret names: `P12_CERTIFICATE`, `P12_PASSWORD`, `PROVISIONING_PROFILE`, `AUTHKEY_BASE64`, `APPSTORE_KEY_ID`, `APPSTORE_ISSUER_ID`. Signing can use the distribution certificate/profile already tracked by the original repository and its documented password. No private key is added by B2. ASC requires the current key in `AUTHKEY_BASE64`; the known fallback identifiers are RA48U82CSV and issuer 8ad4234e-2fc0-4943-8cde-e8bff3541efb. No JWT or P8 content is printed.
 
@@ -34,3 +34,7 @@ The manifest declares the requested nine categories, functionality purpose, no t
 Sources: [Apple required-reason API types](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitype), [Apple collected data types](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacycollecteddatatypes/nsprivacycollecteddatatype), [GitHub macOS 15 image](https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md).
 
 Static checks: `python3 ios-b2/ci/verify_source.py`. The authoritative compiler/signing/package checks run on macOS in CI. Device testing (push reception, biometric hardware, WebKit sign-in and deletion interaction) remains distinct from successful compilation and ASC processing.
+
+## Clips inline playback (2.0.3)
+
+WKWebView enables inline media and page-controlled autoplay before creation. The website keeps the current card muted by default and owns vertical swiping. The native source gate rejects missing/reordered policies; phone acceptance is separate from CI. This build preserves the approved safe-build network path: `NativeReleasePolicy.bundledWorldPackEnabled = false` gates registration, injection and prewarming. Existing pack code/data stay available for separately approved work. Source/resource backup files are excluded and IPA verification rejects any `.bak` file. No App Store release or external TestFlight approval is triggered by these source changes.

@@ -1,6 +1,11 @@
 import SwiftUI
 import WebKit
 
+// CLIPS17: keep the approved safe-build network path until pack acceptance.
+enum NativeReleasePolicy {
+    static let bundledWorldPackEnabled = false
+}
+
 struct MarketplaceTab: View {
     var body: some View { WebTab(url: URL(string: "https://like-art.com/?app=1")!, title: tr("商城", "Shop", "Магазин"), tab: 0) }
 }
@@ -72,13 +77,18 @@ struct WebContent: UIViewRepresentable {
     func makeCoordinator() -> Coordinator { Coordinator(state: state) }
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
+        // CLIPS16: keep visible video inline and let the page control autoplay.
+        configuration.allowsInlineMediaPlayback = true
+        configuration.mediaTypesRequiringUserActionForPlayback = []
         configuration.websiteDataStore = .default()
         configuration.applicationNameForUserAgent = "LikeArtApp/1.0"
         configuration.userContentController.add(context.coordinator.bridge, name: "likeArtSession")
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.auctionKillJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         // A197: V6 基础资源包 —— 自定义 scheme + 世界页 JS 改写的请求拦截（安卓 WorldPack.java 同源）
-        configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
+        if NativeReleasePolicy.bundledWorldPackEnabled {
+            configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
+        }
         let view = WKWebView(frame: .zero, configuration: configuration)
         view.allowsLinkPreview = false
         view.allowsBackForwardNavigationGestures = true
@@ -90,7 +100,7 @@ struct WebContent: UIViewRepresentable {
         view.evaluateJavaScript("navigator.userAgent") { value, _ in
             if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
             let load = { view.load(URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)) }
-            if url.path.hasPrefix("/v6") {
+            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") {
                 // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
                 WorldPack.shared.prepareAsync { _ in
                     let entries = WorldPack.shared.entryNames()

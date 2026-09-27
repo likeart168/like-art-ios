@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import json, pathlib, plistlib, re
 root = pathlib.Path('ios-b2')
+# CLIPS16: stop the signed build if native playback policies regress.
+import runpy
+runpy.run_path(str(root / 'ci/verify_clips_playback.py'), run_name='__main__')
 swift = '\n'.join(p.read_text() for p in (root / 'Sources').rglob('*.swift'))
 for label, pattern in [('tab items', r'\.tabItem'), ('KeychainStore', r'kSecClassGenericPassword'), ('APNs registration', r'/api/auth/push-register'), ('deletion status', r'/api/auth/deletion-status'), ('request deletion', r'request-deletion'), ('cancel deletion', r'cancel-deletion'), ('domain whitelist', r'\["like-art.com", "www.like-art.com"\]'), ('UA', r'LikeArtApp/1.0'), ('native table', r'UITableView'), ('cookie store', r'httpCookieStore'), ('bridge', r'LikeAppNative')]:
     count = len(re.findall(pattern, swift))
@@ -47,3 +50,15 @@ assert info['V6PackSHA256'] == meta['sha256']
 for symbol in ['setURLSchemeHandler', 'WorldPack.shared', 'PackShim.script', 'preparationLock', 'verifyChecksum(fileURL)']:
     assert symbol in swift, symbol
 print('PASS bundled archive/descriptor/Swift/Info.plist contract')
+
+# CLIPS17: preserve the 1100 safe-build behavior while shipping only the playback fix.
+market = (root / 'Sources/Tabs/MarketplaceTab.swift').read_text()
+app_source = (root / 'Sources/App.swift').read_text()
+assert 'static let bundledWorldPackEnabled = false' in market
+assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n            configuration.setURLSchemeHandler' in market
+assert 'if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix' in market
+assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n                            DispatchQueue.global' in app_source
+project = (root / 'project.yml').read_text()
+assert "MARKETING_VERSION: '2.0.3'" in project
+assert project.count('"**/*.bak*"') == 2
+print('PASS 2.0.3 TestFlight train, backup exclusions, safe-build pack channel disabled')

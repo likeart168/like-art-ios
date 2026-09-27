@@ -15,7 +15,7 @@ test ! -e "$app/__preview.gif"
 test -s "$app/v6-base-assets.pak"
 python3 - "$app" <<'PYCODE'
 import sys, pathlib, json, hashlib, plistlib, zipfile
-app = pathlib.Path(sys.argv[1]); meta = json.loads((app/'v6-pack.json').read_text()); pak = app/'v6-base-assets.pak'
+app = pathlib.Path(sys.argv[1]); assert not list(app.rglob('*.bak*')), 'Backup files must not enter the IPA'; meta = json.loads((app/'v6-pack.json').read_text()); pak = app/'v6-base-assets.pak'
 assert pak.stat().st_size == meta['bytes']
 assert hashlib.sha256(pak.read_bytes()).hexdigest() == meta['sha256']
 assert plistlib.loads((app/'Info.plist').read_bytes())['V6PackVersion'] == meta['version']
