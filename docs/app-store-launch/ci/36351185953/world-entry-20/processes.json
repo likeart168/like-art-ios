@@ -1,0 +1,51 @@
+[
+  {
+    "elapsed": 3.8736765419999983,
+    "rows": [
+      "  166     1  20096   0.0 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+      " 7750  5386 390880  52.8 /Users/runner/Library/Developer/CoreSimulator/Devices/1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512/data/Containers/Bundle/Application/A98A1A26-76FB-4378-8CA5-AA4F17C1FD01/LikeArt.app/LikeArt",
+      " 7808  5386 119968   5.0 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/WebContentExtension.appex/com.apple.WebKit.WebContent",
+      " 7811  5386  77584  10.8 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/GPUExtension.appex/com.apple.WebKit.GPU"
+    ]
+  },
+  {
+    "elapsed": 9.024275499999987,
+    "rows": [
+      "  166     1  20864   1.4 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+      " 7750  5386 259824   7.8 /Users/runner/Library/Developer/CoreSimulator/Devices/1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512/data/Containers/Bundle/Application/A98A1A26-76FB-4378-8CA5-AA4F17C1FD01/LikeArt.app/LikeArt",
+      " 7808  5386 131392   0.7 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/WebContentExtension.appex/com.apple.WebKit.WebContent",
+      " 7811  5386 110560   0.0 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/GPUExtension.appex/com.apple.WebKit.GPU",
+      " 7815  5386 109520   0.0 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/NetworkingExtension.appex/com.apple.WebKit.Networking"
+    ]
+  },
+  {
+    "elapsed": 14.503137833999972,
+    "rows": [
+      "  166     1  16848   0.0 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+      " 7750  5386 256400   4.3 /Users/runner/Library/Developer/CoreSimulator/Devices/1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512/data/Containers/Bundle/Application/A98A1A26-76FB-4378-8CA5-AA4F17C1FD01/LikeArt.app/LikeArt",
+      " 7808  5386 184192  37.0 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/WebContentExtension.appex/com.apple.WebKit.WebContent",
+      " 7811  5386 104176   0.0 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/GPUExtension.appex/com.apple.WebKit.GPU",
+      " 7815  5386 129744  21.7 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/NetworkingExtension.appex/com.apple.WebKit.Networking"
+    ]
+  },
+  {
+    "elapsed": 19.59683775000002,
+    "rows": [
+      "  166     1  15888   0.0 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+      " 7750  5386 266800  12.9 /Users/runner/Library/Developer/CoreSimulator/Devices/1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512/data/Containers/Bundle/Application/A98A1A26-76FB-4378-8CA5-AA4F17C1FD01/LikeArt.app/LikeArt",
+      " 7808  5386 388624 134.9 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/WebContentExtension.appex/com.apple.WebKit.WebContent",
+      " 7811  5386 148752   3.2 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/GPUExtension.appex/com.apple.WebKit.GPU",
+      " 7815  5386 113856   8.2 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/NetworkingExtension.appex/com.apple.WebKit.Networking"
+    ]
+  },
+  {
+    "elapsed": 25.83921612499995,
+    "rows": [
+      "  166     1  11280   0.0 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer",
+      " 7750  5386 204032   4.9 /Users/runner/Library/Developer/CoreSimulator/Devices/1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512/data/Containers/Bundle/Application/A98A1A26-76FB-4378-8CA5-AA4F17C1FD01/LikeArt.app/LikeArt",
+      " 7808  5386 840256  27.8 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/WebContentExtension.appex/com.apple.WebKit.WebContent",
+      " 7811  5386 376896   1.2 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/GPUExtension.appex/com.apple.WebKit.GPU",
+      " 7815  5386 101200   0.4 /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/ExtensionKit/Extensions/NetworkingExtension.appex/com.apple.WebKit.Networking"
+    ]
+  }
+]

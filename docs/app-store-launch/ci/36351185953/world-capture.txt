@@ -1,0 +1,91 @@
+Monitoring boot status for LikeArt World Evidence (1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512).
+[2026-09-27 21:20:11 +0000] Status=2, isTerminal=NO, Elapsed=00:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:32 seconds
+
+[2026-09-27 21:20:12 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:33 seconds
+
+[2026-09-27 21:20:16 +0000] Status=2, isTerminal=NO, Elapsed=00:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:34 seconds
+
+[2026-09-27 21:20:17 +0000] Status=2, isTerminal=NO, Elapsed=00:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:37 seconds
+
+[2026-09-27 21:20:19 +0000] Status=2, isTerminal=NO, Elapsed=00:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:38 seconds
+
+[2026-09-27 21:20:20 +0000] Status=2, isTerminal=NO, Elapsed=00:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:40 seconds
+
+[2026-09-27 21:20:21 +0000] Status=2, isTerminal=NO, Elapsed=00:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:41 seconds
+
+[2026-09-27 21:20:22 +0000] Status=2, isTerminal=NO, Elapsed=00:54.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:42 seconds
+
+[2026-09-27 21:20:23 +0000] Status=2, isTerminal=NO, Elapsed=00:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:43 seconds
+
+[2026-09-27 21:20:23 +0000] Status=2, isTerminal=NO, Elapsed=00:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:44 seconds
+
+[2026-09-27 21:20:24 +0000] Status=2, isTerminal=NO, Elapsed=00:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:45 seconds
+
+[2026-09-27 21:20:25 +0000] Status=2, isTerminal=NO, Elapsed=00:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:46 seconds
+
+[2026-09-27 21:20:27 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)
+		Migration Elapsed:00:47 seconds
+
+[2026-09-27 21:20:28 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.appleaccount.mergebuddyprovisioningresponse.migrator (MergeBuddyProvisioningResponse.migrator)
+		Migration Elapsed:00:48 seconds
+
+[2026-09-27 21:20:30 +0000] Status=2, isTerminal=NO, Elapsed=01:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
+		Migration Elapsed:00:49 seconds
+
+[2026-09-27 21:20:32 +0000] Status=4, isTerminal=NO, Elapsed=01:04.
+	Waiting on System App
+
+[2026-09-27 21:20:38 +0000] Status=4, isTerminal=NO, Elapsed=01:10.
+	Waiting on System App
+
+[2026-09-27 21:20:45 +0000] Status=4, isTerminal=NO, Elapsed=01:16.
+	Waiting on System App
+
+[2026-09-27 21:20:56 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:27.
+	Finished
+
+com.likeart.app: 7750
+
+{"device": "iPhone 13 Pro", "captureWallSeconds": 52.007201333999944, "captureErrors": [{"second": 40, "error": "Command '('xcrun', 'simctl', 'io', '1EA1D1C4-EDB2-4F73-92A2-EE0ABB119512', 'screenshot', 'build-b2/evidence/world-entry-20/40-seconds.png')' timed out after 6.537075125000001 seconds"}], "readyMs": null, "firstReadySample": null, "webkitTerminations": 0}
