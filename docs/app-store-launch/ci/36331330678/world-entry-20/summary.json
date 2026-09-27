@@ -1,0 +1,11 @@
+{
+  "firstReadySample": null,
+  "webkitTerminations": 0,
+  "last": {
+    "elapsed": 99.86574602127075,
+    "jsError": "\u53d1\u751f\u4e86JavaScript\u5f02\u5e38",
+    "nativeFailed": false,
+    "nativeFailure": "",
+    "nativeLoading": false
+  }
+}
