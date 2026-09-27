@@ -26,9 +26,16 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
             subprocess.run(['xcrun','simctl','uninstall',udid,'com.likeart.app'],check=False,timeout=90)
             run('xcrun','simctl','install',udid,app)
             for scene, route, wait in scenes:
+                container = pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data').strip())
+                probe_path = container/'Documents/clips-immersive-19.json'
+                if probe_path.exists(): probe_path.unlink()
                 environment = dict(os.environ, SIMCTL_CHILD_STORE_CAPTURE_PATH=route)
                 run('xcrun','simctl','launch','--terminate-running-process',udid,'com.likeart.app','-AppleLanguages','('+apple+')','-AppleLocale',language,env=environment)
                 time.sleep(wait)
+                if scene == '02-clips':
+                    deadline = time.monotonic()+25
+                    while not probe_path.exists() and time.monotonic()<deadline: time.sleep(1)
+                    assert probe_path.exists(), 'Clips did not produce live native evidence before the capture deadline' 
                 target = out / language / kind / (scene + '.png')
                 target.parent.mkdir(parents=True,exist_ok=True)
                 run('xcrun','simctl','io',udid,'screenshot',str(target))

@@ -72,3 +72,6 @@ assert 'likeart-clips-insets-19' in market and 'safeAreaInsets.top' in market
 assert 'event.origin !== location.origin' in market
 assert 'ShareLink' in market and 'native.profile' in market
 print('PASS IMMERSIVE19 full viewport, floating native bars, upload exclusion and same-origin safe-area bridge')
+assert 'guard !context.coordinator.initialNavigationStarted else { return }' in market
+assert 'context.coordinator.initialNavigationStarted = true' in market
+print('PASS requested deep links win over delayed initial WebView loads')

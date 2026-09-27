@@ -6,7 +6,7 @@ import WebKit
 func scheduleClipsCaptureProbe(_ webView: WKWebView) {
     guard ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"]?.hasPrefix("/clips") == true else { return }
     DispatchQueue.main.asyncAfter(deadline: .now() + 15) { [weak webView] in
-        guard let view = webView, let window = view.window else { return }
+        guard let view = webView, let window = view.window, view.url?.path.hasPrefix("/clips") == true else { return }
         let script = """
         (() => {
           const frame = document.querySelector('.clips-frame');

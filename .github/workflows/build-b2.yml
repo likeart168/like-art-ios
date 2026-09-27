@@ -52,7 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/simulator-build.txt
-          python3 -u ios-b2/ci/capture_store.py 2>&1 | tee build-b2/evidence/store-capture.log
+          python3 -u ios-b2/ci/capture_store.py 2>&1 | tee build-b2/evidence/store-capture.txt
       - name: Preserve native screenshots
         if: ${{ always() && hashFiles('build-b2/evidence/store-screenshots/**/*.png') != '' }}
         uses: actions/upload-artifact@v4

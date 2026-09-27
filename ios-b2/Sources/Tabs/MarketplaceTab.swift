@@ -29,7 +29,8 @@ struct WebTab: View {
     let tab: Int
 
     private var clipsImmersive: Bool {
-        guard let current = state.currentURL ?? Optional(url), AppSession.allowed(current) else { return false }
+        let current = state.currentURL ?? url
+        guard AppSession.allowed(current) else { return false }
         let path = current.path
         return path == "/clips" || (path.hasPrefix("/clips/") && path != "/clips/upload" && !path.hasPrefix("/clips/upload/")) || path == "/v6/clips/watch.html"
     }
@@ -157,7 +158,14 @@ struct WebContent: UIViewRepresentable {
         context.coordinator.reload = state.reload
         view.evaluateJavaScript("navigator.userAgent") { value, _ in
             if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
-            let load = { view.load(URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)) }
+            let load = {
+                // A requested deep link wins over the delayed initial UA/pack load.
+                guard !context.coordinator.initialNavigationStarted else { return }
+                context.coordinator.initialNavigationStarted = true
+                let target = session.selectedTab == tab ? (session.destination ?? url) : url
+                if session.selectedTab == tab { context.coordinator.destination = session.destination }
+                view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
+            }
             if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") {
                 // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
                 WorldPack.shared.prepareAsync { _ in
@@ -175,10 +183,12 @@ struct WebContent: UIViewRepresentable {
         if let clipsView = view as? ClipsViewportWebView { clipsView.clipsImmersive = clipsImmersive }
         if let destination = session.destination, session.selectedTab == tab, destination != context.coordinator.destination {
             context.coordinator.destination = destination
+            context.coordinator.initialNavigationStarted = true
             view.load(URLRequest(url: destination))
         }
         if context.coordinator.reload != state.reload {
             context.coordinator.reload = state.reload
+            context.coordinator.initialNavigationStarted = true
             view.load(URLRequest(url: view.url ?? url))
         }
     }
@@ -193,6 +203,7 @@ struct WebContent: UIViewRepresentable {
         var reload = UUID()
         var urlObservation: NSKeyValueObservation?
         var destination: URL?
+        var initialNavigationStarted = false
         init(state: WebState) { self.state = state }
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             guard let url = action.request.url else { decisionHandler(.cancel); return }
