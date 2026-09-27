@@ -24,16 +24,24 @@ try:
  env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
  began=time.monotonic();deadline=began+50
- launch=subprocess.check_output(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,text=True,timeout=10)
+ launch=subprocess.check_output(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,text=True,timeout=30)
  print(launch,flush=True)
  match=re.search(r'com\.likeart\.app:\s*(\d+)',launch)
  assert match, 'Missing launched app PID; cannot enforce the watchdog'
  app_pid=int(match[1])
  watchdog=threading.Timer(max(0,began+55-time.monotonic()),stop_app);watchdog.daemon=True;watchdog.start()
  # A screenshot/blocked WebKit must not extend this into a 90+ second run.
- captured=set();capture_errors=[]
+ captured=set();capture_errors=[];process_samples=[];last_process=-5
  while time.monotonic()<deadline:
   time.sleep(min(1,max(0,deadline-time.monotonic())))
+  elapsed=time.monotonic()-began
+  if elapsed-last_process>=5:
+   last_process=elapsed
+   try:
+    processes=subprocess.check_output(['ps','-axo','pid,ppid,rss,pcpu,comm'],text=True,timeout=2)
+    process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer'])]})
+    (out/'processes.json').write_text(json.dumps(process_samples,indent=2))
+   except (subprocess.TimeoutExpired,subprocess.CalledProcessError):pass
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
   checks=container/'Documents/world-native-checks-20.json'
