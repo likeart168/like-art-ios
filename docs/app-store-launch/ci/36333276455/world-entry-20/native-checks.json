@@ -1,0 +1,15 @@
+{
+  "checks" : {
+    "cancelPreventsReload" : true,
+    "clipsTargetsShop" : true,
+    "doubleTapCoalescedWithDelay" : true,
+    "firstRetryExecutedOnce" : true,
+    "fourthRetryBlocked" : true,
+    "healthyPageDoesNotRetry" : true,
+    "switchShopDoesNotRetargetWorldLink" : true,
+    "thirdAttemptBudget" : true,
+    "untrustedLinkRejected" : true,
+    "worldLinkTargetsWorld" : true
+  },
+  "pass" : true
+}
