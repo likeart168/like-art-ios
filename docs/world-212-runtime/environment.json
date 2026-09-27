@@ -406,7 +406,7 @@
     "bundlePath": "/Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime",
     "runtimeRoot": "/Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot",
     "lastUsage": {
-      "arm64": "2026-09-27T16:41:04Z",
+      "arm64": "2026-09-27T16:52:14Z",
       "x86_64": "0001-01-01T00:00:00Z"
     },
     "name": "iOS 26.5"
