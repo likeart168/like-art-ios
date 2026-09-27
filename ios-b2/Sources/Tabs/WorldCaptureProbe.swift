@@ -12,8 +12,11 @@ final class WorldCaptureProbe {
     window.__world20Errors=[];window.__world20Gpu=[];
     addEventListener('webglcontextlost',e=>__world20Gpu.push({kind:'contextlost',at:performance.now(),message:e.statusMessage}),true);
     addEventListener('webglcontextrestored',()=>__world20Gpu.push({kind:'contextrestored',at:performance.now()}),true);
-    const original=WebGL2RenderingContext.prototype.createRenderbuffer;
-    WebGL2RenderingContext.prototype.createRenderbuffer=function(){const value=original.call(this);if(!value && __world20Gpu.length<30)__world20Gpu.push({kind:'null-renderbuffer',at:performance.now(),lost:this.isContextLost(),error:this.getError(),width:this.drawingBufferWidth,height:this.drawingBufferHeight});return value;};
+    if(window.WebGL2RenderingContext){
+      const original=WebGL2RenderingContext.prototype.createRenderbuffer;
+      // Do not call getError(): it consumes the error before the engine can inspect it.
+      WebGL2RenderingContext.prototype.createRenderbuffer=function(){const value=original.call(this);if(!value && __world20Gpu.length<30)__world20Gpu.push({kind:'null-renderbuffer',at:performance.now(),lost:this.isContextLost(),width:this.drawingBufferWidth,height:this.drawingBufferHeight});return value;};
+    }
     addEventListener('error',e=>{if(__world20Errors.length<30)__world20Errors.push(String(e.message||'resource error'));});
     addEventListener('unhandledrejection',e=>{if(__world20Errors.length<30)__world20Errors.push(String(e.reason));});
     })();
@@ -31,7 +34,9 @@ final class WorldCaptureProbe {
         }
     }
     func start(_ view: WKWebView, state: WebState) {
-        guard ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1", !started else { return }
+        guard ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1", !started,
+              let url = view.url, AppSession.allowed(url),
+              ["/v6", "/v6/", "/v6/index.html"].contains(url.path) else { return }
         started = true; began = Date(); save()
         Task { await worldEntryNativeChecks20() }
         sample(view, state: state, remaining: 48)
@@ -47,6 +52,8 @@ final class WorldCaptureProbe {
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
                 assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,
+                viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,canvas:[...document.querySelectorAll('canvas')].map(c=>({id:c.id,width:c.width,height:c.height}))},
+                renderTargets:Array.from(a?.graphicsDevice?.targets||[]).map(t=>({name:t.name,w:t.width,h:t.height,samples:t.samples})),
                 textures:Array.from(a?.graphicsDevice?.textures||[]).map(t=>({name:t.name,w:t.width,h:t.height,bytes:t._gpuSize})).sort((a,b)=>(b.bytes||0)-(a.bytes||0)).slice(0,24),
                 player:p?.playerSystem?.state,
                 resources:performance.getEntriesByType('resource').map(x=>({name:new URL(x.name).pathname,start:x.startTime,duration:x.duration,bytes:x.transferSize}))});})();

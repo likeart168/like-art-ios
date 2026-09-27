@@ -7,7 +7,8 @@ def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeou
 sdk=get('xcrun','--sdk','iphonesimulator','--show-sdk-version')
 catalog=json.loads(get('xcrun','simctl','list','--json'))
 runtime=next(r for r in reversed(catalog['runtimes']) if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[:2]==sdk.split('.')[:2])
-type_=next(d for d in catalog['devicetypes'] if d['name']=='iPhone 17 Pro Max')
+device_name=os.environ.get('WORLD_DEVICE','iPhone 13 Pro')
+type_=next(d for d in catalog['devicetypes'] if d['name']==device_name)
 udid=get('xcrun','simctl','create','LikeArt World Evidence',type_['identifier'],runtime['identifier'])
 (out/'environment.json').write_text(json.dumps({'sdk':sdk,'runtime':runtime,'device':type_},indent=2))
 try:
@@ -16,18 +17,26 @@ try:
  env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
  run('xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)',env=env)
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
- for second in range(1,51):
-  time.sleep(1)
+ # A screenshot/blocked WebKit must not extend this into a 90+ second run.
+ began=time.monotonic();deadline=began+50;captured=set();capture_errors=[]
+ while time.monotonic()<deadline:
+  time.sleep(min(1,max(0,deadline-time.monotonic())))
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
   checks=container/'Documents/world-native-checks-20.json'
   if checks.exists():shutil.copy2(checks,out/'native-checks.json')
-  if second in (10,30,50):run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'))
+  for second in (10,30,48):
+   if second not in captured and time.monotonic()-began>=second and deadline-time.monotonic()>0.1:
+    captured.add(second)
+    try:run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'),timeout=min(2,deadline-time.monotonic()))
+    except (subprocess.TimeoutExpired,subprocess.CalledProcessError) as error:capture_errors.append({'second':second,'error':str(error)})
+ # Stop the actual application before parsing evidence, even if assertions fail.
+ subprocess.run(['xcrun','simctl','terminate',udid,'com.likeart.app'],timeout=5)
  assert json.loads((out/'native-checks.json').read_text())['pass'], 'Native navigation/retry checks failed'
  data=json.loads((out/'samples.json').read_text())
  ready=next((s for s in data['samples'] if s.get('page',{}).get('ready')),None)
  ready_ms=None if not ready else ready['page'].get('readyWall',0)-data['beganEpochMs']
- summary={'readyMs':ready_ms,'firstReadySample':None if not ready else ready['elapsed'],'webkitTerminations':data['terminations'],'last':data['samples'][-1]}
+ summary={'device':device_name,'captureWallSeconds':time.monotonic()-began,'captureErrors':capture_errors,'readyMs':ready_ms,'firstReadySample':None if not ready else ready['elapsed'],'webkitTerminations':data['terminations'],'last':data['samples'][-1]}
  (out/'summary.json').write_text(json.dumps(summary,indent=2))
  print(json.dumps({k:v for k,v in summary.items() if k!='last'}),flush=True)
  if os.environ.get('WORLD_ACCEPTANCE') == '1':
