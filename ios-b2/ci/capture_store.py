@@ -15,7 +15,7 @@ phone = next((d for d in devices if d['name'] == 'iPhone 17 Pro Max'), None) or 
 tablet = next(d for d in devices if 'iPad Pro 13-inch' in d['name'])
 app = 'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app'
 manifest = []
-scenes = [('01-art-market', '/?app=1', 25), ('02-clips', '/clips?app=1', 25), ('03-community', '/community?app=1', 25), ('04-live', '/live?app=1', 25), ('05-profile', 'profile', 10), ('06-world', '/v6/?app=1', 45)]
+scenes = [('01-art-market', '/?app=1', 25), ('02-clips', '/clips?app=1', 25), ('05-profile', 'profile', 12)]
 for kind, device in [('iphone', phone), ('ipad', tablet)]:
     udid = device['udid']
     try:

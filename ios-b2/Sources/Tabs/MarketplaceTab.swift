@@ -15,6 +15,7 @@ final class WebState: ObservableObject {
     @Published var loading = true
     @Published var failed = false
     @Published var reload = UUID()
+    @Published var currentURL: URL?
     weak var view: WKWebView?
 }
 
@@ -26,6 +27,18 @@ struct WebTab: View {
     let url: URL
     let title: String
     let tab: Int
+
+    private var pageTitle: String {
+        let path = (state.currentURL ?? url).path
+        if path.hasPrefix("/clips/upload") { return tr("发布视频", "Share a video", "Поделиться видео") }
+        if path.hasPrefix("/clips") { return tr("短视频", "Clips", "Видео") }
+        if path.hasPrefix("/community") { return tr("收藏家俱乐部", "Collectors Club", "Клуб коллекционеров") }
+        if path.hasPrefix("/live") { return tr("直播", "Live", "Эфиры") }
+        if path.hasPrefix("/login") { return tr("登录", "Sign in", "Вход") }
+        if path.hasPrefix("/account") { return tr("我的", "My space", "Мой профиль") }
+        if path.hasPrefix("/v6") { return tr("玩偶世界", "Doll World", "Мир кукол") }
+        return title
+    }
 
     // A195: 切 Tab / 进后台时挂起本 WebView 的音频（iOS WebView 在被遮挡时不自发 visibilitychange）
     private func applyAudioActive(_ active: Bool) {
@@ -61,13 +74,13 @@ struct WebTab: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity).background(AppTheme.paper)
                 }
             }
-            .navigationTitle(title).navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(pageTitle).navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) { Button { state.view?.goBack() } label: { Image(systemName: "chevron.left") }.accessibilityLabel(tr("返回", "Back", "Назад")) }
                 ToolbarItem(placement: .principal) {
                     HStack(spacing: 8) {
                         Image(systemName: "leaf.fill").foregroundStyle(AppTheme.tint).font(.caption)
-                        Text(title).font(.system(.headline, design: .rounded)).foregroundStyle(AppTheme.ink).lineLimit(1)
+                        Text(pageTitle).font(.system(.headline, design: .rounded)).foregroundStyle(AppTheme.ink).lineLimit(1)
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -97,6 +110,18 @@ struct WebContent: UIViewRepresentable {
         configuration.allowsInlineMediaPlayback = true
         configuration.mediaTypesRequiringUserActionForPlayback = []
         configuration.websiteDataStore = .default()
+        // Initial App language comes from the device; keep any saved website choice.
+        let preferred = (Locale.preferredLanguages.first ?? "en").split(separator: "-").first.map(String.init) ?? "en"
+        let language = ["zh", "en", "ru", "ja", "ko"].contains(preferred) ? preferred : "en"
+        let languageScript = """
+        try {
+          if (!localStorage.getItem('app_locale') && !new URL(location.href).searchParams.has('lang')) {
+            localStorage.setItem('app_locale', '\(language)');
+            localStorage.setItem('app_locale_user_set', '1');
+          }
+        } catch (_) {}
+        """
+        configuration.userContentController.addUserScript(WKUserScript(source: languageScript, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.applicationNameForUserAgent = "LikeArtApp/1.0"
         configuration.userContentController.add(context.coordinator.bridge, name: "likeArtSession")
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
@@ -111,6 +136,10 @@ struct WebContent: UIViewRepresentable {
         view.navigationDelegate = context.coordinator
         view.uiDelegate = context.coordinator
         state.view = view
+        context.coordinator.urlObservation = view.observe(\.url, options: [.initial, .new]) { [weak state] webView, _ in
+            let current = webView.url
+            DispatchQueue.main.async { state?.currentURL = current }
+        }
         context.coordinator.bridge.webView = view
         context.coordinator.reload = state.reload
         view.evaluateJavaScript("navigator.userAgent") { value, _ in
@@ -140,6 +169,7 @@ struct WebContent: UIViewRepresentable {
         }
     }
     static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) {
+        coordinator.urlObservation?.invalidate()
         view.stopLoading()
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtSession")
     }
@@ -147,6 +177,7 @@ struct WebContent: UIViewRepresentable {
         let state: WebState
         let bridge = JSBridge()
         var reload = UUID()
+        var urlObservation: NSKeyValueObservation?
         var destination: URL?
         init(state: WebState) { self.state = state }
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

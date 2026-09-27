@@ -60,6 +60,9 @@ jobs:
           name: LikeArt-Store-${{ env.BUILD_NUMBER }}
           path: build-b2/evidence/store-screenshots/
           retention-days: 30
+      - name: Publish captured screenshot preview
+        if: ${{ success() && hashFiles('build-b2/evidence/store-screenshots/manifest.json') != '' }}
+        run: bash ios-b2/ci/publish_evidence.sh
       - name: Import distribution certificate and profile
         env:
           P12_CERTIFICATE: ${{ secrets.P12_CERTIFICATE }}

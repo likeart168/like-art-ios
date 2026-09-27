@@ -3,7 +3,9 @@ set -euo pipefail
 # Publish only explicit non-secret evidence files so public API readers can audit stdout.
 evidence="$GITHUB_WORKSPACE/build-b2/evidence"
 worktree="$RUNNER_TEMP/b2-evidence-tree"
-if git ls-remote --exit-code origin refs/heads/b2-build-evidence >/dev/null 2>&1; then
+if [ -e "$worktree/.git" ]; then
+  : # Reuse the worktree when final build evidence follows screenshot preview.
+elif git ls-remote --exit-code origin refs/heads/b2-build-evidence >/dev/null 2>&1; then
   git fetch origin b2-build-evidence
   git worktree add -b b2-evidence-publish "$worktree" FETCH_HEAD
 else
@@ -15,5 +17,7 @@ cd "$worktree"
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 git add docs/app-store-launch/ci
-git commit -m "docs(b2b): build evidence $GITHUB_RUN_ID [skip ci]"
+if ! git diff --cached --quiet; then
+  git commit -m "docs(b2b): build evidence $GITHUB_RUN_ID [skip ci]"
+fi
 git push origin HEAD:refs/heads/b2-build-evidence

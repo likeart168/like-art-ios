@@ -91,7 +91,7 @@ struct ProfileTab: View {
                 if !status.isEmpty { Section { Text(status).font(.footnote).foregroundStyle(AppTheme.muted) }.listRowBackground(AppTheme.surface) }
             }
             .scrollContentBackground(.hidden).background(AppTheme.paper).listStyle(.insetGrouped)
-            .navigationTitle(tr("我的", "My space", "Мой профиль"))
+            .navigationTitle(tr("我的", "My space", "Мой профиль")).navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button(tr("完成", "Done", "Готово")) { dismiss() } } }
             .refreshable { await refresh() }
             .task(id: session.token) { await refresh() }
