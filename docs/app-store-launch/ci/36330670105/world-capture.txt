@@ -1,0 +1,106 @@
+Monitoring boot status for LikeArt World Evidence (293F712F-1572-4343-AB06-3B34192101DB).
+[2026-09-27 15:47:41 +0000] Status=2, isTerminal=NO, Elapsed=01:08.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:55 seconds
+
+[2026-09-27 15:47:42 +0000] Status=2, isTerminal=NO, Elapsed=01:09.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:56 seconds
+
+[2026-09-27 15:47:43 +0000] Status=2, isTerminal=NO, Elapsed=01:10.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:57 seconds
+
+[2026-09-27 15:47:44 +0000] Status=2, isTerminal=NO, Elapsed=01:11.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:58 seconds
+
+[2026-09-27 15:47:45 +0000] Status=2, isTerminal=NO, Elapsed=01:12.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:59 seconds
+
+[2026-09-27 15:47:46 +0000] Status=2, isTerminal=NO, Elapsed=01:13.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:00 seconds
+
+[2026-09-27 15:47:47 +0000] Status=2, isTerminal=NO, Elapsed=01:14.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:01 seconds
+
+[2026-09-27 15:47:48 +0000] Status=2, isTerminal=NO, Elapsed=01:15.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:02 seconds
+
+[2026-09-27 15:47:49 +0000] Status=2, isTerminal=NO, Elapsed=01:16.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:03 seconds
+
+[2026-09-27 15:47:55 +0000] Status=2, isTerminal=NO, Elapsed=01:21.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:05 seconds
+
+[2026-09-27 15:47:57 +0000] Status=2, isTerminal=NO, Elapsed=01:23.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:08 seconds
+
+[2026-09-27 15:47:59 +0000] Status=2, isTerminal=NO, Elapsed=01:26.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:11 seconds
+
+[2026-09-27 15:48:01 +0000] Status=2, isTerminal=NO, Elapsed=01:28.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.accounts.migrator (Accounts.migrator)
+		Migration Elapsed:01:13 seconds
+
+[2026-09-27 15:48:04 +0000] Status=2, isTerminal=NO, Elapsed=01:30.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.vibration.migrator (Vibrations.migrator)
+		Migration Elapsed:01:15 seconds
+
+[2026-09-27 15:48:07 +0000] Status=4, isTerminal=NO, Elapsed=01:33.
+	Waiting on System App
+
+[2026-09-27 15:48:07 +0000] Status=4, isTerminal=NO, Elapsed=01:34.
+	Waiting on System App
+
+[2026-09-27 15:48:08 +0000] Status=4, isTerminal=NO, Elapsed=01:35.
+	Waiting on System App
+
+[2026-09-27 15:48:09 +0000] Status=4, isTerminal=NO, Elapsed=01:35.
+	Waiting on System App
+
+[2026-09-27 15:48:10 +0000] Status=4, isTerminal=NO, Elapsed=01:36.
+	Waiting on System App
+
+[2026-09-27 15:48:11 +0000] Status=4, isTerminal=NO, Elapsed=01:37.
+	Waiting on System App
+
+[2026-09-27 15:48:16 +0000] Status=4, isTerminal=NO, Elapsed=01:42.
+	Waiting on System App
+
+[2026-09-27 15:48:26 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:52.
+	Finished
+
+com.likeart.app: 5263
+Detected file type from extension: PNG
+Note: No display specified. Defaulting to display: 15C84A28-4D21-4860-AAD2-2A8C6FDE6819 (screenID: 1, name: LCD)
+Wrote screenshot to: /Users/runner/work/like-art-ios/like-art-ios/build-b2/evidence/world-entry-20/10-seconds.png
+Detected file type from extension: PNG
+Note: No display specified. Defaulting to display: 15C84A28-4D21-4860-AAD2-2A8C6FDE6819 (screenID: 1, name: LCD)
+Wrote screenshot to: /Users/runner/work/like-art-ios/like-art-ios/build-b2/evidence/world-entry-20/30-seconds.png
+Detected file type from extension: PNG
+Note: No display specified. Defaulting to display: 15C84A28-4D21-4860-AAD2-2A8C6FDE6819 (screenID: 1, name: LCD)
+Wrote screenshot to: /Users/runner/work/like-art-ios/like-art-ios/build-b2/evidence/world-entry-20/50-seconds.png
+{"firstReadySample": null, "webkitTerminations": 0}
