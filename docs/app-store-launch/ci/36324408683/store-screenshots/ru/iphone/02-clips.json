@@ -1,0 +1,30 @@
+{
+  "error": "",
+  "page": {
+    "feed": null,
+    "footer": null,
+    "fullscreen": false,
+    "header": null,
+    "insets": {
+      "bottom": "",
+      "top": ""
+    },
+    "meta": null,
+    "native": null,
+    "playback": null,
+    "url": "/",
+    "video": null,
+    "viewport": {
+      "height": 757,
+      "width": 440
+    }
+  },
+  "safeBottom": 0,
+  "safeTop": 0,
+  "webHeight": 757,
+  "webWidth": 440,
+  "webX": 0,
+  "webY": 116,
+  "windowHeight": 956,
+  "windowWidth": 440
+}
