@@ -5,8 +5,10 @@ import WebKit
 @MainActor
 func scheduleClipsCaptureProbe(_ webView: WKWebView) {
     guard ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"]?.hasPrefix("/clips") == true else { return }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 15) { [weak webView] in
-        guard let view = webView, let window = view.window, view.url?.path.hasPrefix("/clips") == true else { return }
+    guard let tracked = webView as? ClipsViewportWebView, tracked.window != nil, !tracked.captureProbeStarted else { return }
+    tracked.captureProbeStarted = true
+    func sample(_ remaining: Int) {
+        guard let view = webView as? ClipsViewportWebView, let window = view.window else { return }
         let script = """
         (() => {
           const frame = document.querySelector('.clips-frame');
@@ -23,11 +25,24 @@ func scheduleClipsCaptureProbe(_ webView: WKWebView) {
                 "safeTop": view.safeAreaInsets.top, "safeBottom": view.safeAreaInsets.bottom,
                 "error": error?.localizedDescription ?? ""]
             record["page"] = value ?? NSNull()
+            let page = value as? [String: Any]
+            let playback = page?["playback"] as? [String: Any]
+            let video = page?["video"] as? [String: Any]
+            let ready = error == nil && page?["native"] as? String == "19"
+                && playback?["paused"] as? Bool == false && (playback?["time"] as? Double ?? 0) > 0
+                && abs(frame.minY) < 2 && abs(frame.height - window.bounds.height) < 2
+                && abs(CGFloat(video?["height"] as? Double ?? 0) - window.bounds.height) < 2
+            record["ready"] = ready
+            record["samplesRemaining"] = remaining
             if let data = try? JSONSerialization.data(withJSONObject: record, options: [.prettyPrinted, .sortedKeys]),
                let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                 try? data.write(to: directory.appendingPathComponent("clips-immersive-19.json"))
             }
+            if !ready && remaining > 0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { sample(remaining - 1) }
+            }
         }
     }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { sample(24) }
 }
 #endif

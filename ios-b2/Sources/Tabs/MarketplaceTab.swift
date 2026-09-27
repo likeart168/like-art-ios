@@ -245,6 +245,13 @@ final class ClipsViewportWebView: WKWebView {
             syncClipsInsets(force: true)
         }
     }
+    #if DEBUG
+    var captureProbeStarted = false
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window != nil { scheduleClipsCaptureProbe(self) }
+    }
+    #endif
     private var lastInsets: String?
     override func layoutSubviews() {
         super.layoutSubviews()

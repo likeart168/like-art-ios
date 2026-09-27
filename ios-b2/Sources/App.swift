@@ -7,7 +7,14 @@ func tr(_ zh: String, _ en: String, _ ru: String) -> String {
 
 @main
 struct LikeArtApp: App {
-    init() { AppTheme.configure() }
+    init() {
+        AppTheme.configure()
+        #if DEBUG
+        // Deterministic cold deep link for real simulator capture; no page fixture.
+        if let capture = ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"], capture != "profile",
+           let target = URL(string: "https://like-art.com" + capture) { AppSession.shared.open(target) }
+        #endif
+    }
     @State private var captureProfile = false
     @UIApplicationDelegateAdaptor(PushDelegate.self) private var delegate
     @StateObject private var session = AppSession.shared
@@ -73,7 +80,7 @@ struct LikeArtApp: App {
                 if let capture = ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"] {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         if capture == "profile" { captureProfile = true }
-                        else if let url = URL(string: "https://like-art.com" + capture) { session.open(url) }
+                        // Non-profile capture routes are initialized before the first WebView.
                     }
                 }
                 #endif
