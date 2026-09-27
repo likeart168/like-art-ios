@@ -137,6 +137,7 @@ struct WebContent: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let initialTarget = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
         let isWorldEntry = ["/v6", "/v6/", "/v6/index.html"].contains(initialTarget.path)
+            && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/")
         let configuration = WKWebViewConfiguration()
         // CLIPS16: keep visible video inline and let the page control autoplay.
         configuration.allowsInlineMediaPlayback = true
