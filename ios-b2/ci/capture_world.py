@@ -3,7 +3,10 @@
 import json,os,pathlib,subprocess,time,shutil
 out=pathlib.Path('build-b2/evidence/world-entry-20');out.mkdir(parents=True,exist_ok=True)
 def get(*args):return subprocess.check_output(args,text=True,timeout=60).strip()
-def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
+def run(*args,**kw):
+ print('RUN',*args,flush=True);started=time.monotonic()
+ try:return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
+ finally:print('DURATION',round(time.monotonic()-started,2),flush=True)
 sdk=get('xcrun','--sdk','iphonesimulator','--show-sdk-version')
 catalog=json.loads(get('xcrun','simctl','list','--json'))
 runtime=next(r for r in reversed(catalog['runtimes']) if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[:2]==sdk.split('.')[:2])
@@ -29,6 +32,10 @@ try:
  summary={'firstReadySample':None if not ready else ready['elapsed'],'webkitTerminations':data['terminations'],'last':data['samples'][-1]}
  (out/'summary.json').write_text(json.dumps(summary,indent=2))
  print(json.dumps({k:v for k,v in summary.items() if k!='last'}),flush=True)
+ assert ready is not None, 'World did not enter during the bounded native run'
+ assert ready['page'].get('pack',{}).get('hits',0)>0, 'Native pack was not used'
+ entry=ready['page'].get('entry',{})
+ assert entry.get('started',0)+entry.get('elapsedMs',float('inf'))<10000, 'Native world entry exceeds 10 seconds'
  # Diagnostic-only commits must never be distributed; the workflow also skips signing/upload.
 finally:
  subprocess.run(['xcrun','simctl','shutdown',udid],timeout=90)

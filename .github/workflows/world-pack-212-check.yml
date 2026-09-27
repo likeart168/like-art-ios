@@ -21,7 +21,9 @@ jobs:
           set -o pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO | tee world-212-compile.log
       - name: Exercise the real bundled pack in WKWebView
-        run: python3 -u ios-b2/ci/capture_world.py
+        run: |
+          set -o pipefail
+          python3 -u ios-b2/ci/capture_world.py 2>&1 | tee world-212-runtime.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -29,12 +31,15 @@ jobs:
           path: |
             world-212-compile.log
             build-b2/evidence/world-entry-20/
+            world-212-runtime.log
       - name: Preserve public guest evidence on the isolated repair branch
         if: always()
         run: |
           if [ -d build-b2/evidence/world-entry-20 ]; then
-            mkdir -p docs/world-212-runtime
-            cp build-b2/evidence/world-entry-20/* docs/world-212-runtime/
+            evidence_dir="docs/world-212-runtime/run-${{ github.run_id }}"
+            mkdir -p "$evidence_dir"
+            cp build-b2/evidence/world-entry-20/* "$evidence_dir/"
+            cp world-212-runtime.log "$evidence_dir/"
             git config user.name github-actions
             git config user.email github-actions@users.noreply.github.com
             git add docs/world-212-runtime
