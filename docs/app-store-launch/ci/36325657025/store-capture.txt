@@ -1,0 +1,152 @@
+RUN xcrun simctl boot CA359E70-5E9C-400C-A7E1-34013F7B088A
+RUN xcrun simctl bootstatus CA359E70-5E9C-400C-A7E1-34013F7B088A -b
+Monitoring boot status for iPhone 17 Pro Max (CA359E70-5E9C-400C-A7E1-34013F7B088A).
+[2026-09-27 14:25:28 +0000] Status=2, isTerminal=NO, Elapsed=00:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:33 seconds
+
+[2026-09-27 14:25:29 +0000] Status=2, isTerminal=NO, Elapsed=00:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:34 seconds
+
+[2026-09-27 14:25:30 +0000] Status=2, isTerminal=NO, Elapsed=00:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:35 seconds
+
+[2026-09-27 14:25:31 +0000] Status=2, isTerminal=NO, Elapsed=00:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:36 seconds
+
+[2026-09-27 14:25:32 +0000] Status=2, isTerminal=NO, Elapsed=00:54.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:37 seconds
+
+[2026-09-27 14:25:33 +0000] Status=2, isTerminal=NO, Elapsed=00:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:38 seconds
+
+[2026-09-27 14:25:34 +0000] Status=2, isTerminal=NO, Elapsed=00:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:39 seconds
+
+[2026-09-27 14:25:35 +0000] Status=2, isTerminal=NO, Elapsed=00:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:40 seconds
+
+[2026-09-27 14:25:36 +0000] Status=2, isTerminal=NO, Elapsed=00:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:41 seconds
+
+[2026-09-27 14:25:40 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:43 seconds
+
+[2026-09-27 14:25:43 +0000] Status=2, isTerminal=NO, Elapsed=01:06.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.accounts.migrator (Accounts.migrator)
+		Migration Elapsed:00:46 seconds
+
+[2026-09-27 14:25:45 +0000] Status=4, isTerminal=NO, Elapsed=01:08.
+	Waiting on System App
+
+[2026-09-27 14:25:47 +0000] Status=4, isTerminal=NO, Elapsed=01:09.
+	Waiting on System App
+
+[2026-09-27 14:25:48 +0000] Status=4, isTerminal=NO, Elapsed=01:10.
+	Waiting on System App
+
+[2026-09-27 14:25:48 +0000] Status=4, isTerminal=NO, Elapsed=01:11.
+	Waiting on System App
+
+[2026-09-27 14:25:49 +0000] Status=4, isTerminal=NO, Elapsed=01:11.
+	Waiting on System App
+
+[2026-09-27 14:25:50 +0000] Status=4, isTerminal=NO, Elapsed=01:12.
+	Waiting on System App
+
+[2026-09-27 14:25:51 +0000] Status=4, isTerminal=NO, Elapsed=01:13.
+	Waiting on System App
+
+[2026-09-27 14:25:54 +0000] Status=4, isTerminal=NO, Elapsed=01:17.
+	Waiting on System App
+
+[2026-09-27 14:25:55 +0000] Status=4, isTerminal=NO, Elapsed=01:17.
+	Waiting on System App
+
+[2026-09-27 14:25:55 +0000] Status=4, isTerminal=NO, Elapsed=01:17.
+	Waiting on System App
+
+[2026-09-27 14:25:56 +0000] Status=4, isTerminal=NO, Elapsed=01:18.
+	Waiting on System App
+
+[2026-09-27 14:25:57 +0000] Status=4, isTerminal=NO, Elapsed=01:20.
+	Waiting on System App
+
+[2026-09-27 14:26:01 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:23.
+	Finished
+
+RUN xcrun simctl status_bar CA359E70-5E9C-400C-A7E1-34013F7B088A override --time 9:41 --dataNetwork wifi --wifiMode active --wifiBars 3 --batteryState charged --batteryLevel 100
+RUN xcrun simctl install CA359E70-5E9C-400C-A7E1-34013F7B088A build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (en) -AppleLocale en-US
+com.likeart.app: 10927
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/en-US/iphone/01-art-market.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/en-US/iphone/01-art-market.png
+CAPTURED build-b2/evidence/store-screenshots/en-US/iphone/01-art-market.png
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (en) -AppleLocale en-US
+com.likeart.app: 12055
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/en-US/iphone/02-clips.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/en-US/iphone/02-clips.png
+CAPTURED build-b2/evidence/store-screenshots/en-US/iphone/02-clips.png
+PASS IMMERSIVE19 native viewport and real inline playback en-US iphone
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (en) -AppleLocale en-US
+com.likeart.app: 13810
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/en-US/iphone/05-profile.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/en-US/iphone/05-profile.png
+CAPTURED build-b2/evidence/store-screenshots/en-US/iphone/05-profile.png
+RUN xcrun simctl install CA359E70-5E9C-400C-A7E1-34013F7B088A build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (ru) -AppleLocale ru
+com.likeart.app: 14195
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/ru/iphone/01-art-market.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/ru/iphone/01-art-market.png
+CAPTURED build-b2/evidence/store-screenshots/ru/iphone/01-art-market.png
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (ru) -AppleLocale ru
+com.likeart.app: 15473
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/ru/iphone/02-clips.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/ru/iphone/02-clips.png
+CAPTURED build-b2/evidence/store-screenshots/ru/iphone/02-clips.png
+PASS IMMERSIVE19 native viewport and real inline playback ru iphone
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (ru) -AppleLocale ru
+com.likeart.app: 16898
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/ru/iphone/05-profile.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/ru/iphone/05-profile.png
+CAPTURED build-b2/evidence/store-screenshots/ru/iphone/05-profile.png
+RUN xcrun simctl install CA359E70-5E9C-400C-A7E1-34013F7B088A build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (zh-Hans) -AppleLocale zh-Hans
+com.likeart.app: 17707
+RUN xcrun simctl io CA359E70-5E9C-400C-A7E1-34013F7B088A screenshot build-b2/evidence/store-screenshots/zh-Hans/iphone/01-art-market.png
+Detected file type 'PNG' from extension
+Wrote screenshot to: build-b2/evidence/store-screenshots/zh-Hans/iphone/01-art-market.png
+CAPTURED build-b2/evidence/store-screenshots/zh-Hans/iphone/01-art-market.png
+RUN xcrun simctl launch --terminate-running-process CA359E70-5E9C-400C-A7E1-34013F7B088A com.likeart.app -AppleLanguages (zh-Hans) -AppleLocale zh-Hans
+com.likeart.app: 19093
+Traceback (most recent call last):
+  File "/Users/runner/work/like-art-ios/like-art-ios/ios-b2/ci/capture_store.py", line 48, in <module>
+    assert probe_path.exists(), 'Clips did not produce live native evidence before the capture deadline'
+           ~~~~~~~~~~~~~~~~~^^
+AssertionError: Clips did not produce live native evidence before the capture deadline
