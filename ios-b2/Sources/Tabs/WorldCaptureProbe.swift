@@ -82,7 +82,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
             (()=>{const p=window.__TERRAIN_PREVIEW__,a=p?.app||window.__V6_ENTRY_APP__;
               return JSON.stringify({path:location.pathname,now:performance.now(),ready:window.ready===true,readyWall:window.__world20ReadyWall,
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
-                errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,
+                errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,renderStartup:window.__V6_STARTUP_RENDER_22__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
                 assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY__,
                 loadingAssets:a?.assets?.list().filter(x=>x.loading).map(x=>({name:x.name,type:x.type})),visibility:document.visibilityState,
