@@ -1,0 +1,1 @@
+World24 diagnostic: GL per-call message IPC is now opt-in (?glTrace=1), preserving real error/context/null-buffer observation and native failure checks. Timed run still includes all app preparation, real assets, full scene, actual rendered readiness and original <=10s release gate. Added queue/scenery status to existing 1Hz snapshot. No signing/upload in world-probe.

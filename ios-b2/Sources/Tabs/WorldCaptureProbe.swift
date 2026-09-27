@@ -18,7 +18,8 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
       a?.assets?.on('load',asset=>trace('asset-loaded',{name:asset.name,type:asset.type}));
       a?.assets?.on('error',(error,asset)=>trace('asset-error',{name:asset?.name,error:String(error)}));
     }});
-    if(window.WebGL2RenderingContext){for(const name of ['bufferData','texImage2D','texStorage2D','renderbufferStorageMultisample','compileShader','linkProgram','getShaderParameter','getProgramParameter']){
+    // GL call-by-call IPC perturbs the timed run; opt in only for fault localization.
+    if(new URL(location.href).searchParams.get('glTrace')==='1' && window.WebGL2RenderingContext){for(const name of ['bufferData','texImage2D','texStorage2D','renderbufferStorageMultisample','compileShader','linkProgram','getShaderParameter','getProgramParameter']){
       const original=WebGL2RenderingContext.prototype[name];if(!original)continue;
       WebGL2RenderingContext.prototype[name]=function(...args){
         if(name==='bufferData' && (args[1]?.byteLength||args[1]||0)<500000)return original.apply(this,args);
@@ -85,6 +86,8 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,renderStartup:window.__V6_STARTUP_RENDER_22__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
                 assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY__,
+                containerGuard:(()=>{const g=window.__V6_CONTAINER_LOAD_GUARD__;return g?{version:g.version,phase:g.phase(),queued:g.queued(),active:g.active(),aheadHits:g.readAheadHits,processed:g.processed}:null})(),
+                scenery:p?Object.fromEntries(['meadowLifeSystem','worldDistanceSystem','skyBirdsSystem','marketFarSystem','faunaSystem','meatsDollSystem'].map(k=>[k,{status:p[k]?.status,errors:p[k]?.errors,error:p[k]?.error}])):null,
                 loadingAssets:a?.assets?.list().filter(x=>x.loading).map(x=>({name:x.name,type:x.type})),visibility:document.visibilityState,
                 navigation:performance.getEntriesByType('navigation').map(n=>({fetchStart:n.fetchStart,domainLookupStart:n.domainLookupStart,domainLookupEnd:n.domainLookupEnd,connectStart:n.connectStart,connectEnd:n.connectEnd,requestStart:n.requestStart,responseStart:n.responseStart,responseEnd:n.responseEnd,domInteractive:n.domInteractive,domComplete:n.domComplete})),viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,canvas:[...document.querySelectorAll('canvas')].map(c=>({id:c.id,width:c.width,height:c.height}))},
                 renderTargets:Array.from(a?.graphicsDevice?.targets||[]).map(t=>({name:t.name,w:t.width,h:t.height,samples:t.samples})),
