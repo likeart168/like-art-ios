@@ -19,8 +19,18 @@ scenes = [('01-art-market', '/?app=1', 25), ('02-clips', '/clips?app=1', 25), ('
 for kind, device in [('iphone', phone), ('ipad', tablet)]:
     udid = device['udid']
     try:
-        if device['state'] != 'Booted': run('xcrun','simctl','boot',udid)
-        run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
+        # Hosted macOS sometimes leaves a freshly booted simulator stuck.
+        # Retry this disposable device once; never skip playback/layout assertions.
+        for boot_attempt in range(2):
+            try:
+                if boot_attempt or device['state'] != 'Booted': run('xcrun','simctl','boot',udid)
+                run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
+                break
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+                if boot_attempt: raise
+                print('Simulator boot stalled; resetting this CI device once',flush=True)
+                subprocess.run(['xcrun','simctl','shutdown',udid],check=False,timeout=90)
+                run('xcrun','simctl','erase',udid)
         run('xcrun','simctl','status_bar',udid,'override','--time','9:41','--dataNetwork','wifi','--wifiMode','active','--wifiBars','3','--batteryState','charged','--batteryLevel','100')
         for language, apple in [('en-US','en'), ('ru','ru'), ('zh-Hans','zh-Hans')]:
             subprocess.run(['xcrun','simctl','uninstall',udid,'com.likeart.app'],check=False,timeout=90)
@@ -35,7 +45,7 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
                 if scene == '02-clips':
                     deadline = time.monotonic()+25
                     while not probe_path.exists() and time.monotonic()<deadline: time.sleep(1)
-                    assert probe_path.exists(), 'Clips did not produce live native evidence before the capture deadline' 
+                    assert probe_path.exists(), 'Clips did not produce live native evidence before the capture deadline'
                 target = out / language / kind / (scene + '.png')
                 target.parent.mkdir(parents=True,exist_ok=True)
                 run('xcrun','simctl','io',udid,'screenshot',str(target))
