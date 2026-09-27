@@ -4,6 +4,8 @@ import json, os, pathlib, subprocess, time
 out = pathlib.Path('build-b2/evidence/store-screenshots')
 out.mkdir(parents=True, exist_ok=True)
 def run(*args, **kwargs):
+    print("RUN", " ".join(args), flush=True)
+    kwargs.setdefault("timeout", 180)
     return subprocess.run(args, check=True, text=True, **kwargs)
 def get(*args):
     return subprocess.check_output(args, text=True)
@@ -18,10 +20,10 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
     udid = device['udid']
     try:
         if device['state'] != 'Booted': run('xcrun','simctl','boot',udid)
-        run('xcrun','simctl','bootstatus',udid,'-b')
+        run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
         run('xcrun','simctl','status_bar',udid,'override','--time','9:41','--dataNetwork','wifi','--wifiMode','active','--wifiBars','3','--batteryState','charged','--batteryLevel','100')
         for language, apple in [('en-US','en'), ('ru','ru'), ('zh-Hans','zh-Hans')]:
-            subprocess.run(['xcrun','simctl','uninstall',udid,'com.likeart.app'],check=False)
+            subprocess.run(['xcrun','simctl','uninstall',udid,'com.likeart.app'],check=False,timeout=90)
             run('xcrun','simctl','install',udid,app)
             for scene, route, wait in scenes:
                 environment = dict(os.environ, SIMCTL_CHILD_STORE_CAPTURE_PATH=route)
@@ -33,5 +35,5 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
                 manifest.append({'file':str(target.relative_to(out)), 'device':device['name'], 'language':language, 'path':route, 'method':'simctl actual native app screenshot', 'data':'live public guest pages; no fixtures'})
                 print('CAPTURED', str(target), flush=True)
     finally:
-        subprocess.run(['xcrun','simctl','shutdown',udid],check=False)
+        subprocess.run(['xcrun','simctl','shutdown',udid],check=False,timeout=90)
 (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')

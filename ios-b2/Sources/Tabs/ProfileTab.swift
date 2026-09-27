@@ -33,7 +33,7 @@ struct ProfileTab: View {
                 }
             }
             if session.token.isEmpty {
-                Button(tr("登录，开启你的收藏故事", "Sign in to your collection", "Войти в свою коллекцию")) { session.open(URL(string: "https://like-art.com/?app=1")!); dismiss() }.buttonStyle(ArtPrimaryButton())
+                Button(tr("登录，开启你的收藏故事", "Sign in to your collection", "Войти в свою коллекцию")) { session.open(URL(string: "https://like-art.com/login?app=1")!); dismiss() }.buttonStyle(ArtPrimaryButton())
             } else {
                 HStack(spacing: 12) {
                     metric(tr("积分", "Points", "Баллы"), value: points)
