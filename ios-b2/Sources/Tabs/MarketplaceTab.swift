@@ -135,6 +135,8 @@ struct WebContent: UIViewRepresentable {
     let clipsImmersive: Bool
     func makeCoordinator() -> Coordinator { Coordinator(state: state) }
     func makeUIView(context: Context) -> WKWebView {
+        let initialTarget = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
+        let isWorldEntry = ["/v6", "/v6/", "/v6/index.html"].contains(initialTarget.path)
         let configuration = WKWebViewConfiguration()
         // CLIPS16: keep visible video inline and let the page control autoplay.
         configuration.allowsInlineMediaPlayback = true
@@ -162,7 +164,7 @@ struct WebContent: UIViewRepresentable {
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.auctionKillJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         // A197: V6 基础资源包 —— 自定义 scheme + 世界页 JS 改写的请求拦截（安卓 WorldPack.java 同源）
-        if NativeReleasePolicy.bundledWorldPackEnabled {
+        if NativeReleasePolicy.bundledWorldPackEnabled && isWorldEntry {
             configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
             configuration.userContentController.addUserScript(
                 WKUserScript(source: PackShim.script(entries: PackShim.bundledEntries), injectionTime: .atDocumentStart, forMainFrameOnly: true))
@@ -180,13 +182,21 @@ struct WebContent: UIViewRepresentable {
         }
         context.coordinator.bridge.webView = view
         context.coordinator.reload = state.reload
-        // applicationNameForUserAgent already supplies the official app UA suffix.
-        // Install the local transport before any initial or requested navigation.
-        if !context.coordinator.initialNavigationStarted {
+        let load = {
+            guard !context.coordinator.initialNavigationStarted else { return }
             context.coordinator.initialNavigationStarted = true
             let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
             if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
             view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
+        }
+        if isWorldEntry {
+            // applicationNameForUserAgent supplies the app suffix without a JS round trip.
+            load()
+        } else {
+            view.evaluateJavaScript("navigator.userAgent") { value, _ in
+                if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
+                load()
+            }
         }
         return view
     }

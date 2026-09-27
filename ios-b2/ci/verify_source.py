@@ -64,9 +64,9 @@ print('PASS bundled archive/descriptor/Swift/Info.plist and every entry SHA-256 
 market = (root / 'Sources/Tabs/MarketplaceTab.swift').read_text()
 app_source = (root / 'Sources/App.swift').read_text()
 assert 'static let bundledWorldPackEnabled = true' in market
-assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n            configuration.setURLSchemeHandler' in market
+assert 'if NativeReleasePolicy.bundledWorldPackEnabled && isWorldEntry {\n            configuration.setURLSchemeHandler' in market
 assert 'PackShim.script(entries: PackShim.bundledEntries)' in market
-assert 'view.evaluateJavaScript("navigator.userAgent")' not in market
+assert 'if isWorldEntry {' in market and 'view.evaluateJavaScript("navigator.userAgent")' in market
 assert 'Bundle.main.url(forResource: "v6-base-assets"' in swift
 assert 'verifyChecksum(fileURL)' in swift
 assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n                            DispatchQueue.global' in app_source
@@ -84,11 +84,11 @@ assert 'likeart-clips-insets-19' in market and 'safeAreaInsets.top' in market
 assert 'event.origin !== location.origin' in market
 assert 'ShareLink' in market and 'native.profile' in market
 print('PASS IMMERSIVE19 full viewport, floating native bars, upload exclusion and same-origin safe-area bridge')
-assert 'if !context.coordinator.initialNavigationStarted {' in market
+assert 'guard !context.coordinator.initialNavigationStarted else { return }' in market
 assert 'context.coordinator.initialNavigationStarted = true' in market
 print('PASS requested deep links win over delayed initial WebView loads')
 
-assert market.count('session.destinationTab == tab') == 3, 'deep links must stay in their target tab at initial/update load'
+assert market.count('session.destinationTab == tab') == 4, 'deep links must stay in their target tab at initial/update load'
 assert 'detail.domain == NSURLErrorDomain && detail.code == NSURLErrorCancelled' in market
 assert 'retryAttempts < 3' in market and 'guard navigation === currentNavigation' in market
 print('PASS world navigation target, stale-error isolation and bounded manual retries')
