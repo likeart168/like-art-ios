@@ -1,0 +1,6 @@
+{
+  "CFBundleDisplayName" => "Like Art"
+  "NSCameraUsageDescription" => "Take photos to upload your avatar or artwork."
+  "NSFaceIDUsageDescription" => "Verify your account with Face ID."
+  "NSMicrophoneUsageDescription" => "Record audio when you start a live stream."
+}
