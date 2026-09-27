@@ -1,0 +1,27 @@
+name: Verified world pack compile check
+on:
+  push:
+    branches: [fix/world-entry-pack-212]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: macos-26
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash ios-b2/ci/select_xcode.sh
+      - run: command -v xcodegen >/dev/null || brew install xcodegen
+      - run: python3 ios-b2/ci/fetch_world_pack.py
+      - run: python3 ios-b2/ci/verify_source.py
+      - run: xcodegen generate --spec ios-b2/project.yml
+      - name: Compile native world fix without signing or publishing
+        run: |
+          set -o pipefail
+          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-world-212 build CODE_SIGNING_ALLOWED=NO | tee world-212-compile.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: world-212-compile
+          path: world-212-compile.log

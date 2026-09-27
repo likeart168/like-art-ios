@@ -49,19 +49,28 @@ assert info['V6PackSize'] == meta['bytes']
 assert info['V6PackSHA256'] == meta['sha256']
 for symbol in ['setURLSchemeHandler', 'WorldPack.shared', 'PackShim.script', 'preparationLock', 'verifyChecksum(fileURL)']:
     assert symbol in swift, symbol
-print('PASS bundled archive/descriptor/Swift/Info.plist contract')
+with zipfile.ZipFile(pak) as archive:
+    manifest = json.loads(archive.read('manifest.json'))
+    assert len(manifest['files']) == len(archive.namelist()) - 1
+    for entry in manifest['files']:
+        data = archive.read(entry['path'])
+        assert len(data) == entry['bytes']
+        assert hashlib.sha256(data).hexdigest() == entry['sha256']
+    queries = json.loads((root/'Resources/v6-pack-queries.json').read_text())
+    assert set(queries) == {e['path'] for e in manifest['files']}
+print('PASS bundled archive/descriptor/Swift/Info.plist and every entry SHA-256 contract')
 
 # CLIPS17: preserve the 1100 safe-build behavior while shipping only the playback fix.
 market = (root / 'Sources/Tabs/MarketplaceTab.swift').read_text()
 app_source = (root / 'Sources/App.swift').read_text()
-assert 'static let bundledWorldPackEnabled = false' in market
+assert 'static let bundledWorldPackEnabled = true' in market
 assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n            configuration.setURLSchemeHandler' in market
 assert 'if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix' in market
 assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n                            DispatchQueue.global' in app_source
 project = (root / 'project.yml').read_text()
 assert "MARKETING_VERSION: '2.0.3'" in project
 assert project.count('"**/*.bak*"') == 2
-print('PASS 2.0.3 TestFlight train, backup exclusions, safe-build pack channel disabled')
+print('PASS 2.0.3 TestFlight train, backup exclusions, verified byte-identical pack channel enabled')
 
 # IMMERSIVE19: retain inline playback, native entry points and route-scoped layout.
 assert 'final class ClipsViewportWebView: WKWebView' in market

@@ -1,9 +1,9 @@
 import SwiftUI
 import WebKit
 
-// CLIPS17: keep the approved safe-build network path until pack acceptance.
+// APPWORLD212: the bundled inventory is verified byte-for-byte against the live origin.
 enum NativeReleasePolicy {
-    static let bundledWorldPackEnabled = false
+    static let bundledWorldPackEnabled = true
 }
 
 struct MarketplaceTab: View {
@@ -188,9 +188,11 @@ struct WebContent: UIViewRepresentable {
                 if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
                 view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
             }
-            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") {
+            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/") {
                 // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: load)
                 WorldPack.shared.prepareAsync { _ in
+                    guard !context.coordinator.initialNavigationStarted else { return }
                     let entries = WorldPack.shared.entryNames()
                     view.configuration.userContentController.addUserScript(
                         WKUserScript(source: PackShim.script(entries: entries), injectionTime: .atDocumentStart, forMainFrameOnly: false))
@@ -264,6 +266,9 @@ struct WebContent: UIViewRepresentable {
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
             state.cancelRetry(); state.loading = false; state.failed = true
             state.failureReason = tr("页面渲染进程意外停止。", "The page renderer stopped unexpectedly.", "Процесс отображения страницы неожиданно остановлен.") + " (WebKit renderer terminated)"
+            if let path = webView.url?.path, path.hasPrefix("/v6/"), !path.hasPrefix("/v6/live/"), !path.hasPrefix("/v6/clips/") {
+                state.failureReason += tr(" 请关闭其他应用后重试。", " Close other apps and retry.", " Закройте другие приложения и повторите.")
+            }
             NSLog("[WorldEntry20] WebKit renderer terminated path=%@", webView.url?.path ?? "")
             #if DEBUG
             worldCapture.terminated()

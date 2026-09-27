@@ -16,3 +16,6 @@ LikeArt.ipa
 build-b2/
 ios-b2/*.xcodeproj/
 __pycache__/
+
+# Pinned artifact is materialized and SHA-256 checked by ci/fetch_world_pack.py.
+ios-b2/Resources/v6-base-assets.pak

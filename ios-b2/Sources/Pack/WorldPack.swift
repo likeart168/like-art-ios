@@ -17,9 +17,9 @@ final class WorldPack {
 
     /// 与打包器 / 安卓 APK / CI 断言一致的事实（改动必须同步 `ios-b2/ci/verify_source.py`）
     static let fileName = "v6-base-assets.pak"
-    static let expectedSize: Int64 = 104850681
-    static let packVersion = "207-20260927"
-    static let packSHA256 = "d0f5e791629ae1e5041f0121dafc2f3a6989d9f5eb2329d1de0ed320bccb205f"
+    static let expectedSize: Int64 = 128814542
+    static let packVersion = "212-gzip-20260928"
+    static let packSHA256 = "5b313a139375827126dbf24679cc5d803116ac5d20bbaa6a2b80151cf6f1f04e"
 
     private struct Entry {
         let method: UInt16        // 0 = stored（本包全部 stored；其它方法一律不读 → 回落网络）
