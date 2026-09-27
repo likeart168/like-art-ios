@@ -1,0 +1,77 @@
+{
+  "error": "",
+  "page": {
+    "compact": true,
+    "feed": {
+      "bottom": 1376,
+      "height": 1376,
+      "width": 1032,
+      "x": 0,
+      "y": 0
+    },
+    "footer": {
+      "bottom": 1376,
+      "height": 82,
+      "width": 1032,
+      "x": 0,
+      "y": 1294
+    },
+    "fullscreen": false,
+    "header": {
+      "bottom": 158,
+      "height": 158,
+      "width": 1032,
+      "x": 0,
+      "y": 0
+    },
+    "insets": {
+      "bottom": "20px",
+      "top": "96px"
+    },
+    "meta": {
+      "bottom": 1259,
+      "height": 133,
+      "width": 936,
+      "x": 16,
+      "y": 1126
+    },
+    "native": "19",
+    "playback": {
+      "controls": false,
+      "fit": "cover",
+      "inline": true,
+      "paused": false,
+      "ready": 4,
+      "time": 1.9006787080000547
+    },
+    "tabs": {
+      "bottom": 142,
+      "height": 44,
+      "width": 244.171875,
+      "x": 369.90625,
+      "y": 98
+    },
+    "url": "/clips",
+    "video": {
+      "bottom": 1376,
+      "height": 1376,
+      "width": 1032,
+      "x": 0,
+      "y": 0
+    },
+    "viewport": {
+      "height": 1376,
+      "width": 1032
+    }
+  },
+  "ready": true,
+  "safeBottom": 20,
+  "safeTop": 96,
+  "samplesRemaining": 21,
+  "webHeight": 1376,
+  "webWidth": 1032,
+  "webX": 0,
+  "webY": 0,
+  "windowHeight": 1376,
+  "windowWidth": 1032
+}

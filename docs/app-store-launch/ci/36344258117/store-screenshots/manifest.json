@@ -1,0 +1,146 @@
+[
+  {
+    "file": "en-US/iphone/01-art-market.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "en-US",
+    "path": "/?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "en-US/iphone/02-clips.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "en-US",
+    "path": "/clips?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "en-US/iphone/05-profile.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "en-US",
+    "path": "profile",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "ru/iphone/01-art-market.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "ru",
+    "path": "/?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "ru/iphone/02-clips.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "ru",
+    "path": "/clips?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "ru/iphone/05-profile.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "ru",
+    "path": "profile",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "zh-Hans/iphone/01-art-market.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "zh-Hans",
+    "path": "/?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "zh-Hans/iphone/02-clips.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "zh-Hans",
+    "path": "/clips?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "zh-Hans/iphone/05-profile.png",
+    "device": "iPhone 17 Pro Max",
+    "language": "zh-Hans",
+    "path": "profile",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "en-US/ipad/01-art-market.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "en-US",
+    "path": "/?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "en-US/ipad/02-clips.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "en-US",
+    "path": "/clips?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "en-US/ipad/05-profile.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "en-US",
+    "path": "profile",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "ru/ipad/01-art-market.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "ru",
+    "path": "/?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "ru/ipad/02-clips.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "ru",
+    "path": "/clips?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "ru/ipad/05-profile.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "ru",
+    "path": "profile",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "zh-Hans/ipad/01-art-market.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "zh-Hans",
+    "path": "/?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "zh-Hans/ipad/02-clips.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "zh-Hans",
+    "path": "/clips?app=1",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  },
+  {
+    "file": "zh-Hans/ipad/05-profile.png",
+    "device": "iPad Pro 13-inch (M4)",
+    "language": "zh-Hans",
+    "path": "profile",
+    "method": "simctl actual native app screenshot",
+    "data": "live public guest pages; no fixtures"
+  }
+]
