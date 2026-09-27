@@ -6,7 +6,7 @@ m=json.loads((root/'Resources/v6-pack.json').read_text());target=root/'Resources
 u=urllib.parse.urlsplit(m['url'])
 assert u.scheme=='https' and u.netloc=='like-art.com' and u.path.startswith('/v6/pack/') and not u.query and not u.fragment
 assert 0<m['bytes']<200*1024*1024 and len(m['sha256'])==64
-if target.exists() and target.stat().st_size==m['bytes'] and hashlib.file_digest(target.open('rb'),'sha256').hexdigest()==m['sha256']:
+if target.exists() and target.stat().st_size==m['bytes'] and hashlib.sha256(target.read_bytes()).hexdigest()==m['sha256']:
  print('Verified bundled pack already present:',m['version']);raise SystemExit
 fd,name=tempfile.mkstemp(prefix='world-pack-',dir=target.parent)
 try:
