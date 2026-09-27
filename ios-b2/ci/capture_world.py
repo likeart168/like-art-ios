@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Bounded real WKWebView world run on a disposable simulator, never a fixture."""
-import json,os,pathlib,subprocess,time,shutil
+import json,os,pathlib,subprocess,time,shutil,re,signal,threading
 out=pathlib.Path('build-b2/evidence/world-entry-20');out.mkdir(parents=True,exist_ok=True)
 def get(*args):return subprocess.check_output(args,text=True,timeout=60).strip()
 def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
@@ -11,14 +11,27 @@ device_name=os.environ.get('WORLD_DEVICE','iPhone 13 Pro')
 type_=next(d for d in catalog['devicetypes'] if d['name']==device_name)
 udid=get('xcrun','simctl','create','LikeArt World Evidence',type_['identifier'],runtime['identifier'])
 (out/'environment.json').write_text(json.dumps({'sdk':sdk,'runtime':runtime,'device':type_},indent=2))
+app_pid=None;watchdog=None
+def stop_app():
+ # simctl terminate can hang when WebKit/GPU is wedged. The PID returned by our
+ # own launch belongs only to this disposable app, never another simulator.
+ if app_pid is not None:
+  try:os.kill(app_pid,signal.SIGKILL)
+  except ProcessLookupError:pass
 try:
  run('xcrun','simctl','boot',udid);run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
  env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
- run('xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)',env=env)
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
+ began=time.monotonic();deadline=began+50
+ launch=subprocess.check_output(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,text=True,timeout=10)
+ print(launch,flush=True)
+ match=re.search(r'com\.likeart\.app:\s*(\d+)',launch)
+ assert match, 'Missing launched app PID; cannot enforce the watchdog'
+ app_pid=int(match[1])
+ watchdog=threading.Timer(max(0,began+55-time.monotonic()),stop_app);watchdog.daemon=True;watchdog.start()
  # A screenshot/blocked WebKit must not extend this into a 90+ second run.
- began=time.monotonic();deadline=began+50;captured=set();capture_errors=[]
+ captured=set();capture_errors=[]
  while time.monotonic()<deadline:
   time.sleep(min(1,max(0,deadline-time.monotonic())))
   source=container/'Documents/world-entry-20.json'
@@ -31,7 +44,7 @@ try:
     try:run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'),timeout=min(2,deadline-time.monotonic()))
     except (subprocess.TimeoutExpired,subprocess.CalledProcessError) as error:capture_errors.append({'second':second,'error':str(error)})
  # Stop the actual application before parsing evidence, even if assertions fail.
- subprocess.run(['xcrun','simctl','terminate',udid,'com.likeart.app'],timeout=5)
+ stop_app()
  assert json.loads((out/'native-checks.json').read_text())['pass'], 'Native navigation/retry checks failed'
  data=json.loads((out/'samples.json').read_text())
  ready=next((s for s in data['samples'] if s.get('page',{}).get('ready')),None)
@@ -46,5 +59,8 @@ try:
   assert ready['page'].get('player'), 'World player missing'
  # Diagnostic-only commits must never be distributed; the workflow also skips signing/upload.
 finally:
- subprocess.run(['xcrun','simctl','shutdown',udid],timeout=90)
- subprocess.run(['xcrun','simctl','delete',udid],timeout=90)
+ stop_app()
+ if watchdog is not None:watchdog.cancel()
+ for action in ('shutdown','delete'):
+  try:subprocess.run(['xcrun','simctl',action,udid],timeout=30)
+  except subprocess.TimeoutExpired:print(f'Simulator cleanup timed out: {action}',flush=True)
