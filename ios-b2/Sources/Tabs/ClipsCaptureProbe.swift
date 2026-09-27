@@ -8,7 +8,11 @@ func scheduleClipsCaptureProbe(_ webView: WKWebView) {
     guard let tracked = webView as? ClipsViewportWebView, tracked.window != nil, !tracked.captureProbeStarted else { return }
     tracked.captureProbeStarted = true
     func sample(_ remaining: Int) {
-        guard let view = webView as? ClipsViewportWebView, let window = view.window else { return }
+        guard let view = webView as? ClipsViewportWebView else { return }
+        guard let window = view.window else {
+            if remaining > 0 { DispatchQueue.main.asyncAfter(deadline: .now() + 2) { sample(remaining - 1) } }
+            return
+        }
         let script = """
         (() => {
           const frame = document.querySelector('.clips-frame');

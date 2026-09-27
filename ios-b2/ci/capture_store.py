@@ -9,10 +9,21 @@ def run(*args, **kwargs):
     return subprocess.run(args, check=True, text=True, **kwargs)
 def get(*args):
     return subprocess.check_output(args, text=True)
-platforms = json.loads(get('xcrun', 'simctl', 'list', 'devices', 'available', '--json'))['devices']
-devices = [d for runtime, rows in platforms.items() if 'iOS' in runtime for d in rows]
-phone = next((d for d in devices if d['name'] == 'iPhone 17 Pro Max'), None) or next(d for d in devices if 'Pro Max' in d['name'])
-tablet = next(d for d in devices if 'iPad Pro 13-inch' in d['name'])
+# Avoid stale pre-created simulators and mismatched runtime/SDK combinations.
+# Only these two disposable devices are booted, serially, and deleted on exit.
+sdk = get('xcrun','--sdk','iphonesimulator','--show-sdk-version').strip()
+catalog = json.loads(get('xcrun','simctl','list','--json'))
+runtimes = [r for r in catalog['runtimes'] if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[:2] == sdk.split('.')[:2]]
+assert runtimes, 'No installed iOS simulator runtime matching SDK '+sdk
+runtime = runtimes[-1]
+types = catalog['devicetypes']
+phone_type = next(d for d in types if d['name']=='iPhone 17 Pro Max')
+tablet_type = [d for d in types if d['name'].startswith('iPad Pro 13-inch')][-1]
+def device(kind, spec):
+    identifier = get('xcrun','simctl','create','LikeArt Store '+kind,spec['identifier'],runtime['identifier']).strip()
+    return {'udid':identifier,'name':spec['name'],'state':'Shutdown'}
+phone, tablet = device('iPhone',phone_type), device('iPad',tablet_type)
+(out/'simulator-environment.json').write_text(json.dumps({'sdk':sdk,'runtime':runtime,'phone':phone,'tablet':tablet},indent=2)+'\n')
 app = 'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app'
 manifest = []
 scenes = [('01-art-market', '/?app=1', 25), ('02-clips', '/clips?app=1', 25), ('05-profile', 'profile', 12)]
@@ -69,4 +80,5 @@ for kind, device in [('iphone', phone), ('ipad', tablet)]:
                     print('PASS IMMERSIVE19 native viewport and real inline playback',language,kind,flush=True)
     finally:
         subprocess.run(['xcrun','simctl','shutdown',udid],check=False,timeout=90)
+        subprocess.run(['xcrun','simctl','delete',udid],check=False,timeout=90)
 (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
