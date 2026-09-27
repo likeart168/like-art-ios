@@ -7,6 +7,8 @@ func tr(_ zh: String, _ en: String, _ ru: String) -> String {
 
 @main
 struct LikeArtApp: App {
+    init() { AppTheme.configure() }
+    @State private var captureProfile = false
     @UIApplicationDelegateAdaptor(PushDelegate.self) private var delegate
     @StateObject private var session = AppSession.shared
     @StateObject private var tabs = AppTabsStore.shared
@@ -33,14 +35,15 @@ struct LikeArtApp: App {
             Group {
                 if session.locked {
                     VStack(spacing: 24) {
-                        Image(systemName: "faceid").font(.largeTitle)
+                        BrandMark(size: 96)
+                        Image(systemName: "faceid").font(.largeTitle).foregroundStyle(AppTheme.tint)
                         Text("Like Art").font(.largeTitle)
                         Button(tr("生物识别登录", "Sign in with biometrics", "Войти по биометрии")) {
                             Task { do { try await session.unlock() } catch { session.error = error.localizedDescription } }
                         }
                         Button(tr("使用其他账号", "Use another account", "Другой аккаунт")) { Task { await session.signOut() } }
                         if let error = session.error { Text(error).font(.footnote).multilineTextAlignment(.center) }
-                    }.padding()
+                    }.padding(28).buttonStyle(ArtPrimaryButton()).frame(maxWidth: .infinity, maxHeight: .infinity).background(AppTheme.paper)
                 } else {
                     // A196: 底部菜单由服务端配置驱动（/api/app-tabs），可随时改、可隐藏
                     TabView(selection: $session.selectedTab) {
@@ -61,7 +64,20 @@ struct LikeArtApp: App {
                     }
                 }
             }
+            .tint(AppTheme.tint)
+            .foregroundStyle(AppTheme.ink)
             .environmentObject(session)
+            .sheet(isPresented: $captureProfile) { ProfileTab().environmentObject(session) }
+            .onAppear {
+                #if DEBUG
+                if let capture = ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"] {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        if capture == "profile" { captureProfile = true }
+                        else if let url = URL(string: "https://like-art.com" + capture) { session.open(url) }
+                    }
+                }
+                #endif
+            }
             .onOpenURL { session.open($0) }
             .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { activity in
                 if let url = activity.webpageURL { session.open(url) }

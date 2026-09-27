@@ -5,21 +5,21 @@ struct MessagesTab: View {
     @EnvironmentObject var session: AppSession
     @State private var messages: [NativeMessage] = []
     @State private var status = ""
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
             VStack {
                 if !status.isEmpty { Text(status).font(.footnote).foregroundStyle(.secondary).padding(.horizontal) }
                 if messages.isEmpty {
-                    VStack(spacing: 16) {
-                        Image(systemName: "bell").font(.largeTitle)
-                        Text(tr("暂无消息", "No messages yet", "Пока нет сообщений")).font(.headline)
-                        Text(tr("登录后查看站内通知和本地推送历史。发现不当内容可前往“我的”举报；我们不允许骚扰或违法内容。", "Sign in to view notifications and saved push history. Report inappropriate content from Profile. Harassment and illegal content are not allowed.", "Войдите для просмотра уведомлений и сохранённой истории push. Сообщайте о нарушениях в профиле. Преследование и незаконный контент запрещены."))
-                        if session.token.isEmpty { Button(tr("登录", "Sign in", "Войти")) { session.open(URL(string: "https://like-art.com/?app=1")!) } }
-                    }.multilineTextAlignment(.center).padding().frame(maxHeight: .infinity)
+                    VStack(spacing: 12) {
+                        ArtEmptyState(symbol: "envelope.open", title: tr("留住每一次相遇", "Good things find you here", "Здесь начинается общение"), detail: tr("作品动态、站内通知和推送消息，会在这里与你相遇。", "Artwork updates, account notifications and saved messages, together in one place.", "Новости работ, уведомления и сохранённые сообщения — в одном месте."))
+                        if session.token.isEmpty { Button(tr("登录查看消息", "Sign in for updates", "Войти и читать")) { session.open(URL(string: "https://like-art.com/?app=1")!); dismiss() }.buttonStyle(ArtPrimaryButton()).padding(.horizontal, 32) }
+                    }.frame(maxHeight: .infinity)
                 } else { MessageTable(messages: messages) }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity).background(AppTheme.paper)
             .navigationTitle(tr("消息", "Messages", "Сообщения"))
-            .toolbar { Button { Task { await refresh() } } label: { Image(systemName: "arrow.clockwise") }.accessibilityLabel(tr("刷新", "Refresh", "Обновить")) }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button(tr("完成", "Done", "Готово")) { dismiss() } }; ToolbarItem(placement: .primaryAction) { Button { Task { await refresh() } } label: { Image(systemName: "arrow.clockwise") }.accessibilityLabel(tr("刷新", "Refresh", "Обновить")) } }
             .task(id: session.token) { await refresh() }
             .onReceive(NotificationCenter.default.publisher(for: .init("LikeArtPushHistoryChanged"))) { _ in Task { await refresh() } }
         }
@@ -54,6 +54,8 @@ struct MessageTable: UIViewRepresentable {
     func makeCoordinator() -> Coordinator { Coordinator() }
     func makeUIView(context: Context) -> UITableView {
         let table = UITableView(frame: .zero, style: .insetGrouped)
+        table.backgroundColor = AppTheme.paperUI
+        table.separatorStyle = .none
         table.dataSource = context.coordinator
         table.allowsSelection = false
         table.rowHeight = UITableView.automaticDimension
@@ -72,6 +74,9 @@ struct MessageTable: UIViewRepresentable {
             content.secondaryText = row.body + "\n" + row.date
             content.textProperties.numberOfLines = 0
             content.secondaryTextProperties.numberOfLines = 0
+            content.textProperties.color = AppTheme.inkUI
+            content.secondaryTextProperties.color = AppTheme.mutedUI
+            cell.backgroundColor = AppTheme.surfaceUI
             cell.contentConfiguration = content
             return cell
         }

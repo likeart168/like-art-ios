@@ -22,6 +22,7 @@ struct WebTab: View {
     @EnvironmentObject var session: AppSession
     @Environment(\.scenePhase) private var scenePhase
     @StateObject private var state = WebState()
+    @State private var profileVisible = false
     let url: URL
     let title: String
     let tab: Int
@@ -43,29 +44,44 @@ struct WebTab: View {
             ZStack {
                 WebContent(url: url, tab: tab, state: state).id(session.revision)
                 if state.loading || state.failed {
-                    VStack(spacing: 18) {
-                        Image(systemName: state.failed ? "wifi.slash" : "bag").font(.largeTitle)
-                        Text("Like Art").font(.title.bold())
+                    VStack(spacing: 22) {
+                        BrandMark(size: 88)
+                        Text("Like Art").font(.system(size: 32, weight: .semibold, design: .serif)).foregroundStyle(AppTheme.ink)
                         if state.failed {
-                            Text(tr("网络不可用，可查看已保存的消息和账户。", "You are offline. Saved messages and account details remain available.", "Нет сети. Сохранённые сообщения и данные профиля доступны."))
-                            Button(tr("重试", "Retry", "Повторить")) { state.reload = UUID() }
-                            Button(tr("离线内容", "Offline content", "Офлайн-данные")) { session.selectedTab = session.tabIndex(for: "profile") }
+                            Text(tr("暂时无法连接", "A little pause", "Небольшая пауза")).font(.headline)
+                            Text(tr("请检查网络后重试。保存的账户和消息仍可查看。", "Check your connection and try again. Your saved account and messages are still available.", "Проверьте подключение. Сохранённый профиль и сообщения по-прежнему доступны.")).font(.subheadline).foregroundStyle(AppTheme.muted)
+                            Button(tr("重新连接", "Try again", "Попробовать снова")) { state.reload = UUID() }.buttonStyle(ArtPrimaryButton())
+                            Button(tr("查看离线内容", "View saved content", "Сохранённые данные")) { profileVisible = true }.padding(10)
                         } else {
-                            ProgressView()
-                            Text(tr("正在加载…", "Loading…", "Загрузка…"))
+                            Text(tr("发现手作的温度", "A world of handmade wonder", "Мир искусства ручной работы")).font(.subheadline).foregroundStyle(AppTheme.muted)
+                            ProgressView().tint(AppTheme.tint).padding(.top, 6)
+                            Text(tr("正在加载…", "Loading…", "Загрузка…")).font(.caption).foregroundStyle(AppTheme.muted)
                         }
-                    }.multilineTextAlignment(.center).padding(32).frame(maxWidth: .infinity, maxHeight: .infinity).background(Color(uiColor: .systemBackground))
+                    }.multilineTextAlignment(.center).padding(30).frame(maxWidth: 430)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity).background(AppTheme.paper)
                 }
             }
             .navigationTitle(title).navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) { Button { state.view?.goBack() } label: { Image(systemName: "chevron.left") }.accessibilityLabel(tr("返回", "Back", "Назад")) }
-                ToolbarItem(placement: .navigationBarTrailing) { ShareLink(item: state.view?.url ?? url) }
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "leaf.fill").foregroundStyle(AppTheme.tint).font(.caption)
+                        Text(title).font(.system(.headline, design: .rounded)).foregroundStyle(AppTheme.ink).lineLimit(1)
+                    }
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    ShareLink(item: state.view?.url ?? url)
+                    Button { profileVisible = true } label: { Image(systemName: "person.crop.circle") }
+                        .accessibilityLabel(tr("我的账户", "My account", "Мой профиль")).accessibilityIdentifier("native.profile")
+                }
             }
         }
-        .onChange(of: session.selectedTab) { newTab in applyAudioActive(newTab == tab && scenePhase == .active) }
-        .onChange(of: scenePhase) { phase in applyAudioActive(session.selectedTab == tab && phase == .active) }
-        .onAppear { applyAudioActive(session.selectedTab == tab) }
+        .sheet(isPresented: $profileVisible) { ProfileTab().environmentObject(session) }
+        .onChange(of: session.selectedTab) { newTab in applyAudioActive(newTab == tab && scenePhase == .active && !profileVisible) }
+        .onChange(of: scenePhase) { phase in applyAudioActive(session.selectedTab == tab && phase == .active && !profileVisible) }
+        .onAppear { applyAudioActive(session.selectedTab == tab && !profileVisible) }
+        .onChange(of: profileVisible) { visible in applyAudioActive(!visible && session.selectedTab == tab && scenePhase == .active) }
     }
 }
 

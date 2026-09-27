@@ -41,6 +41,18 @@ jobs:
         run: |
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build-b2/DerivedData build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/unsigned-build.txt
+      - name: Build and capture real App Store screenshots
+        run: |
+          set -euo pipefail
+          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/simulator-build.txt
+          python3 ios-b2/ci/capture_store.py
+      - name: Preserve native screenshots
+        if: ${{ always() && hashFiles('build-b2/evidence/store-screenshots/**/*.png') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: LikeArt-Store-${{ env.BUILD_NUMBER }}
+          path: build-b2/evidence/store-screenshots/
+          retention-days: 30
       - name: Import distribution certificate and profile
         env:
           P12_CERTIFICATE: ${{ secrets.P12_CERTIFICATE }}
