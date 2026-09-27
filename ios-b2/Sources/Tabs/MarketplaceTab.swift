@@ -192,6 +192,11 @@ struct WebContent: UIViewRepresentable {
           }
         } catch (_) {}
         """
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1" {
+            configuration.userContentController.addUserScript(WKUserScript(source: "window.__documentStart25=performance.now();", injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
+        #endif
         configuration.userContentController.addUserScript(WKUserScript(source: languageScript, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         #if DEBUG
         if ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1" {

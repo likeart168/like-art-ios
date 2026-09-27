@@ -7,6 +7,7 @@ import WebKit
 final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
     static let errorScript = """
     (()=>{
+    window.__afterLanguage25=performance.now();
     let world20ReadyValue=window.ready;
     Object.defineProperty(window,'ready',{configurable:true,get:()=>world20ReadyValue,set:value=>{world20ReadyValue=value;if(value===true&&!window.__world20ReadyWall)window.__world20ReadyWall=Date.now();}});
     window.__world20Errors=[];window.__world20Gpu=[];
@@ -81,7 +82,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
             guard let self, let view, let state else { return }
             let script = """
             (()=>{const p=window.__TERRAIN_PREVIEW__,a=p?.app||window.__V6_ENTRY_APP__;
-              return JSON.stringify({path:location.pathname,now:performance.now(),ready:window.ready===true,readyWall:window.__world20ReadyWall,
+              return JSON.stringify({path:location.pathname,now:performance.now(),documentStart:window.__documentStart25,afterLanguage:window.__afterLanguage25,ready:window.ready===true,readyWall:window.__world20ReadyWall,
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,renderStartup:window.__V6_STARTUP_RENDER_22__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),

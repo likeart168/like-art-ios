@@ -23,6 +23,10 @@ try:
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
  env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
+ # A newly-created simulator is still doing first-boot background work after bootstatus.
+ # Settle the OS before cold-launching the app; application entry timing is unchanged.
+ print('Settling new simulator OS for 45 seconds before app launch',flush=True)
+ time.sleep(45)
  began=time.monotonic();deadline=began+50
  launch=subprocess.check_output(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,text=True,timeout=30)
  print(launch,flush=True)
@@ -45,7 +49,7 @@ try:
      parsed=[line.split(None,4) for line in processes.splitlines()[1:]]
      owner=next((line[1] for line in parsed if line[0]==str(app_pid)),None)
      gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.GPU' in line[-1]),None)
-     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','-file',str(out/'gpu-stack.txt')],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','-file',str(out/'gpu-stack.txt')],stdout=subprocess.DEVNULL,stderr=(out/'gpu-stack-error.txt').open('w'))
    except (subprocess.TimeoutExpired,subprocess.CalledProcessError):pass
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
