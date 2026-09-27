@@ -7,6 +7,7 @@ permissions:
   contents: write
 jobs:
   compile:
+    if: ${{ !contains(github.event.head_commit.message, '[evidence-only]') }}
     runs-on: macos-26
     timeout-minutes: 25
     steps:
@@ -39,7 +40,7 @@ jobs:
             evidence_dir="docs/world-212-runtime/run-${{ github.run_id }}"
             mkdir -p "$evidence_dir"
             cp build-b2/evidence/world-entry-20/* "$evidence_dir/"
-            cp world-212-runtime.log "$evidence_dir/"
+            cp world-212-runtime.log "$evidence_dir/runtime-diagnostics.txt"
             git config user.name github-actions
             git config user.email github-actions@users.noreply.github.com
             git add docs/world-212-runtime

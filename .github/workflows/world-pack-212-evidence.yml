@@ -1,0 +1,27 @@
+name: Preserve native runtime diagnostics
+on:
+  push:
+    branches: [fix/world-entry-pack-212]
+    paths: [.github/workflows/world-pack-212-evidence.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: world-212-compile
+          path: recovered
+          run-id: 36335329236
+          github-token: ${{ github.token }}
+      - run: |
+          cp recovered/world-212-runtime.log docs/world-212-runtime/run-36335329236/runtime-diagnostics.txt
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          git add docs/world-212-runtime/run-36335329236/runtime-diagnostics.txt
+          git commit -m "[skip ci] Preserve native runtime failure diagnostics"
+          git push origin HEAD:fix/world-entry-pack-212
