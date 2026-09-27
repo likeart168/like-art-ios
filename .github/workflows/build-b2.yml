@@ -53,8 +53,9 @@ jobs:
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/simulator-build.txt
           python3 -u ios-b2/ci/capture_store.py 2>&1 | tee build-b2/evidence/store-capture.txt
-      - name: Diagnose real iOS world entry
-        if: contains(github.event.head_commit.message, '[world-probe]')
+      - name: Verify real iOS world entry
+        env:
+          WORLD_ACCEPTANCE: ${{ contains(github.event.head_commit.message, '[world-probe]') && '0' || '1' }}
         timeout-minutes: 15
         run: |
           set -euo pipefail

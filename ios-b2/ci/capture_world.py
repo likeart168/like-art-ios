@@ -26,9 +26,15 @@ try:
  assert json.loads((out/'native-checks.json').read_text())['pass'], 'Native navigation/retry checks failed'
  data=json.loads((out/'samples.json').read_text())
  ready=next((s for s in data['samples'] if s.get('page',{}).get('ready')),None)
- summary={'firstReadySample':None if not ready else ready['elapsed'],'webkitTerminations':data['terminations'],'last':data['samples'][-1]}
+ ready_ms=None if not ready else ready['page'].get('readyWall',0)-data['beganEpochMs']
+ summary={'readyMs':ready_ms,'firstReadySample':None if not ready else ready['elapsed'],'webkitTerminations':data['terminations'],'last':data['samples'][-1]}
  (out/'summary.json').write_text(json.dumps(summary,indent=2))
  print(json.dumps({k:v for k,v in summary.items() if k!='last'}),flush=True)
+ if os.environ.get('WORLD_ACCEPTANCE') == '1':
+  assert ready_ms is not None and 0 < ready_ms <= 10000, 'World entry must render within 10 seconds'
+  assert data['terminations']==0, 'WebKit renderer terminated'
+  assert all(not s.get('jsError') and not s.get('nativeFailed') and not s.get('page',{}).get('errors') and not s.get('page',{}).get('gpuEvents') for s in data['samples']), 'World startup/retention has errors'
+  assert ready['page'].get('player'), 'World player missing'
  # Diagnostic-only commits must never be distributed; the workflow also skips signing/upload.
 finally:
  subprocess.run(['xcrun','simctl','shutdown',udid],timeout=90)
