@@ -85,7 +85,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,renderStartup:window.__V6_STARTUP_RENDER_22__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
-                bufferResidency:a?.graphicsDevice?.__worldBufferResidency25?.snapshot(),physicalBufferBytes:Array.from(a?.graphicsDevice?.buffers||[]).filter(b=>b.impl?.bufferId).reduce((n,b)=>n+(b.numBytes||0),0),
+                textureResidency:a?.graphicsDevice?.__worldTextureResidency25?.snapshot(),bufferResidency:a?.graphicsDevice?.__worldBufferResidency25?.snapshot(),physicalBufferBytes:Array.from(a?.graphicsDevice?.buffers||[]).filter(b=>b.impl?.bufferId).reduce((n,b)=>n+(b.numBytes||0),0),
                 assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY__,
                 containerGuard:(()=>{const g=window.__V6_CONTAINER_LOAD_GUARD__;return g?{version:g.version,phase:g.phase(),queued:g.queued(),active:g.active(),aheadHits:g.readAheadHits,aheadBytes:g.readAheadBytes,pause:g.pauseReason(),processed:g.processed}:null})(),
                 scenery:p?Object.fromEntries(['meadowLifeSystem','worldDistanceSystem','skyBirdsSystem','marketFarSystem','faunaSystem','meatsDollSystem'].map(k=>[k,{status:p[k]?.status,errors:p[k]?.errors,error:p[k]?.error}])):null,
