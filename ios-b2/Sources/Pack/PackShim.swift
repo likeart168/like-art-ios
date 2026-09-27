@@ -10,6 +10,13 @@ import Foundation
 /// 图片 src 改写异常时用原值），绝不因为包的问题让页面白屏或资源加载失败。
 enum PackShim {
 
+    static var bundledEntries: [String] {
+        guard let url = Bundle.main.url(forResource: "v6-pack-queries", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let queries = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return [] }
+        return Array(queries.keys)
+    }
+
     /// 生成注入脚本；`entries` = 包内条目清单（相对 `/v6/` 的路径）
     static func script(entries: [String]) -> String {
         let json: String
@@ -27,7 +34,7 @@ enum PackShim {
 
     private static let template = #"""
     (function () {
-      if (window.__v6PackShim) { return; }
+      if (!/^\/v6\/?(?:index\.html)?$/.test(location.pathname) || window.__v6PackShim) { return; }
 
       // ① App 内退役网页层 SW：原生已预装包，网页层再下一遍 = 白烧 59 MiB + 双份磁盘
       try {

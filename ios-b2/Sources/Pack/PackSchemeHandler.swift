@@ -16,16 +16,26 @@ final class PackSchemeHandler: NSObject, WKURLSchemeHandler {
     /// `likeartpack://local/v6/<entry>` 里前缀部分
     static let pathPrefix = "/v6/"
 
+    private var pending = Set<ObjectIdentifier>()
+
     func webView(_ webView: WKWebView, start task: WKURLSchemeTask) {
         guard let url = task.request.url, let key = Self.key(for: url) else {
             task.didFailWithError(URLError(.badURL))
             return
         }
-        guard let data = WorldPack.shared.data(for: key) else {
-            // 未命中 / 包未就绪 → 让 JS 层回落原始 URL（绝不返回空响应，避免白屏）
-            task.didFailWithError(URLError(.fileDoesNotExist))
-            return
+        let identity = ObjectIdentifier(task as AnyObject)
+        pending.insert(identity)
+        WorldPack.shared.prepareAsync { [weak self] ready in
+            guard let self, self.pending.remove(identity) != nil else { return }
+            guard ready, let data = WorldPack.shared.data(for: key) else {
+                task.didFailWithError(URLError(.fileDoesNotExist))
+                return
+            }
+            self.deliver(data, url: url, key: key, task: task)
         }
+    }
+
+    private func deliver(_ data: Data, url: URL, key: String, task: WKURLSchemeTask) {
         var body = data
         var status = 200
         var headers: [String: String] = [
@@ -63,7 +73,7 @@ final class PackSchemeHandler: NSObject, WKURLSchemeHandler {
     }
 
     func webView(_ webView: WKWebView, stop task: WKURLSchemeTask) {
-        // 单次同步返回，无需中断处理
+        pending.remove(ObjectIdentifier(task as AnyObject))
     }
 
     /// `likeartpack://local/v6/assets/x.glb` → `assets/x.glb`（相对 /v6/ 的条目名）

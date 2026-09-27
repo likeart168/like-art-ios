@@ -164,6 +164,8 @@ struct WebContent: UIViewRepresentable {
         // A197: V6 基础资源包 —— 自定义 scheme + 世界页 JS 改写的请求拦截（安卓 WorldPack.java 同源）
         if NativeReleasePolicy.bundledWorldPackEnabled {
             configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
+            configuration.userContentController.addUserScript(
+                WKUserScript(source: PackShim.script(entries: PackShim.bundledEntries), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         }
         let view = ClipsViewportWebView(frame: .zero, configuration: configuration)
         view.clipsImmersive = clipsImmersive
@@ -178,28 +180,13 @@ struct WebContent: UIViewRepresentable {
         }
         context.coordinator.bridge.webView = view
         context.coordinator.reload = state.reload
-        view.evaluateJavaScript("navigator.userAgent") { value, _ in
-            if let ua = value as? String { view.customUserAgent = ua.contains("LikeArtApp/1.0") ? ua : ua + " LikeArtApp/1.0" }
-            let load = {
-                // A requested deep link wins over the delayed initial UA/pack load.
-                guard !context.coordinator.initialNavigationStarted else { return }
-                context.coordinator.initialNavigationStarted = true
-                let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
-                if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
-                view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
-            }
-            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/") {
-                // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: load)
-                WorldPack.shared.prepareAsync { _ in
-                    guard !context.coordinator.initialNavigationStarted else { return }
-                    let entries = WorldPack.shared.entryNames()
-                    view.configuration.userContentController.addUserScript(
-                        WKUserScript(source: PackShim.script(entries: entries), injectionTime: .atDocumentStart, forMainFrameOnly: false))
-                    NSLog("[WorldPack] world tab load entries=\(entries.count)")
-                    load()
-                }
-            } else { load() }
+        // applicationNameForUserAgent already supplies the official app UA suffix.
+        // Install the local transport before any initial or requested navigation.
+        if !context.coordinator.initialNavigationStarted {
+            context.coordinator.initialNavigationStarted = true
+            let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
+            if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
+            view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
         }
         return view
     }

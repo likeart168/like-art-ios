@@ -37,9 +37,10 @@ final class WorldPack {
     private var missed = 0
 
     private init() {
-        let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        fileURL = base.appendingPathComponent("v6pack", isDirectory: true)
-            .appendingPathComponent("v6-assets.zip")
+        // The app already contains an immutable, signed archive. Read it in place;
+        // copying it to Application Support delayed first entry and duplicated I/O.
+        fileURL = Bundle.main.url(forResource: "v6-base-assets", withExtension: "pak")
+            ?? Bundle.main.bundleURL.appendingPathComponent("missing-v6-base-assets.pak")
     }
 
     // MARK: - 安装（首次拷贝到沙盒）
@@ -51,12 +52,7 @@ final class WorldPack {
         preparationLock.lock()
         defer { preparationLock.unlock() }
         if isReady { return }
-        guard let bundled = Bundle.main.url(forResource: "v6-base-assets", withExtension: "pak") else { return }
-        try? FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
-        let cachedValid = fileSize(fileURL) == Self.expectedSize && verifyChecksum(fileURL)
-        if !cachedValid {
-            guard copy(from: bundled, to: fileURL), verifyChecksum(fileURL) else { return }
-        }
+        guard fileSize(fileURL) == Self.expectedSize, verifyChecksum(fileURL) else { return }
         guard let h = try? FileHandle(forReadingFrom: fileURL) else { return }
         guard let e = Self.readIndex(h) else { try? h.close(); return }
         queue.sync {

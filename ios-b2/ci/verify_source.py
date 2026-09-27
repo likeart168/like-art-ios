@@ -65,7 +65,10 @@ market = (root / 'Sources/Tabs/MarketplaceTab.swift').read_text()
 app_source = (root / 'Sources/App.swift').read_text()
 assert 'static let bundledWorldPackEnabled = true' in market
 assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n            configuration.setURLSchemeHandler' in market
-assert 'if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix' in market
+assert 'PackShim.script(entries: PackShim.bundledEntries)' in market
+assert 'view.evaluateJavaScript("navigator.userAgent")' not in market
+assert 'Bundle.main.url(forResource: "v6-base-assets"' in swift
+assert 'verifyChecksum(fileURL)' in swift
 assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n                            DispatchQueue.global' in app_source
 project = (root / 'project.yml').read_text()
 assert "MARKETING_VERSION: '2.0.3'" in project
@@ -81,7 +84,7 @@ assert 'likeart-clips-insets-19' in market and 'safeAreaInsets.top' in market
 assert 'event.origin !== location.origin' in market
 assert 'ShareLink' in market and 'native.profile' in market
 print('PASS IMMERSIVE19 full viewport, floating native bars, upload exclusion and same-origin safe-area bridge')
-assert 'guard !context.coordinator.initialNavigationStarted else { return }' in market
+assert 'if !context.coordinator.initialNavigationStarted {' in market
 assert 'context.coordinator.initialNavigationStarted = true' in market
 print('PASS requested deep links win over delayed initial WebView loads')
 
