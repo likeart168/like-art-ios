@@ -4,7 +4,7 @@ on:
     branches: [fix/world-entry-pack-212]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   compile:
     runs-on: macos-26
@@ -19,9 +19,25 @@ jobs:
       - name: Compile native world fix without signing or publishing
         run: |
           set -o pipefail
-          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-world-212 build CODE_SIGNING_ALLOWED=NO | tee world-212-compile.log
+          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO | tee world-212-compile.log
+      - name: Exercise the real bundled pack in WKWebView
+        run: python3 -u ios-b2/ci/capture_world.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: world-212-compile
-          path: world-212-compile.log
+          path: |
+            world-212-compile.log
+            build-b2/evidence/world-entry-20/
+      - name: Preserve public guest evidence on the isolated repair branch
+        if: always()
+        run: |
+          if [ -d build-b2/evidence/world-entry-20 ]; then
+            mkdir -p docs/world-212-runtime
+            cp build-b2/evidence/world-entry-20/* docs/world-212-runtime/
+            git config user.name github-actions
+            git config user.email github-actions@users.noreply.github.com
+            git add docs/world-212-runtime
+            git diff --cached --quiet || git commit -m "[skip ci] Record public guest WKWebView world evidence"
+            git push origin HEAD:fix/world-entry-pack-212
+          fi

@@ -39,6 +39,7 @@ final class WorldCaptureProbe {
             let script = """
             (()=>{const p=window.__TERRAIN_PREVIEW__,a=p?.app;
               return JSON.stringify({path:location.pathname,now:performance.now(),ready:window.ready===true,
+                entry:window.__V6_ENTRY__,pack:window.__v6PackShim,terrain:p?.terrainMgr?.material?.terrainTextureStatus,exact:window.__V6_EXACT_TERRAIN_212__,
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
