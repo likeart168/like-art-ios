@@ -1,0 +1,785 @@
+Command line invocation:
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination "generic/platform=iOS Simulator" -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION=202609271239
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    CURRENT_PROJECT_VERSION = 202609271239
+    SDKROOT = iphonesimulator26.2
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'LikeArt' in project 'LikeArt' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 1ece011125ede1740b57342c6394fab1
+Build description path: /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/XCBuildData/1ece011125ede1740b57342c6394fab1.xcbuilddata
+CreateBuildDirectory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    builtin-create-build-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products
+
+CreateBuildDirectory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    builtin-create-build-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex
+
+ClangStatCache /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache
+
+CreateBuildDirectory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    builtin-create-build-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt-018e02f47962fc73e3fc6ce74ef9efff-VFS-iphonesimulator/all-product-headers.yaml
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt-018e02f47962fc73e3fc6ce74ef9efff-VFS-iphonesimulator/all-product-headers.yaml
+
+CreateBuildDirectory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    builtin-create-build-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/ExplicitPrecompiledModules
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    builtin-create-build-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+CreateBuildDirectory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2/LikeArt.xcodeproj
+    builtin-create-build-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_const_extract_protocols.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftConstValuesFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.LinkFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-OutputFileMap.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_const_extract_protocols.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftConstValuesFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.LinkFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-OutputFileMap.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.hmap (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.hmap
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyStaticMetadataFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyMetadataFileList (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-non-framework-target-headers.hmap (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibPath-normal-x86_64.txt (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibPath-normal-x86_64.txt
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibPath-normal-arm64.txt (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibInstallName-normal-x86_64.txt (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibInstallName-normal-x86_64.txt
+
+WriteAuxiliaryFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibInstallName-normal-arm64.txt (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    write-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibInstallName-normal-arm64.txt
+
+MkDir /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /bin/mkdir -p /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+
+Ld /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/__preview.dylib normal arm64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -dynamiclib -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -install_name @rpath/LikeArt.debug.dylib -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_dependency_info.dat -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/__preview.dylib
+
+Ld /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/__preview.dylib normal x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target x86_64-apple-ios16.0-simulator -dynamiclib -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -install_name @rpath/LikeArt.debug.dylib -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_dependency_info.dat -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/__preview.dylib
+
+MkDir /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/unthinned (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /bin/mkdir -p /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/unthinned
+
+MkDir /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /bin/mkdir -p /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned
+
+GenerateAssetSymbols /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets --compile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_dependencies --output-partial-info-plist /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist --app-icon AppIcon --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 16.0 --platform iphonesimulator --bundle-identifier com.likeart.app --generate-swift-asset-symbol-extensions NO --generate-swift-asset-symbols /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+CpResource /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/v6-pack.json /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/v6-pack.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/v6-pack.json /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+
+CreateUniversalBinary /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/__preview.dylib normal arm64\ x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/__preview.dylib /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/__preview.dylib -output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/__preview.dylib
+
+CpResource /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/v6-base-assets.pak /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/v6-base-assets.pak (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/v6-base-assets.pak /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+
+CpResource /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/PrivacyInfo.xcprivacy /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/PrivacyInfo.xcprivacy (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/PrivacyInfo.xcprivacy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+
+CopyStringsFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/zh-Hans.lproj/InfoPlist.strings /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/zh-Hans.lproj/InfoPlist.strings (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copyStrings --validate --outputencoding binary --outfilename InfoPlist.strings --outdir /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/zh-Hans.lproj -- /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/zh-Hans.lproj/InfoPlist.strings
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/zh-Hans.lproj/InfoPlist.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'LikeArt' from project 'LikeArt')
+
+CopyStringsFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/ru.lproj/InfoPlist.strings /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/ru.lproj/InfoPlist.strings (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copyStrings --validate --outputencoding binary --outfilename InfoPlist.strings --outdir /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/ru.lproj -- /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/ru.lproj/InfoPlist.strings
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/ru.lproj/InfoPlist.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'LikeArt' from project 'LikeArt')
+
+CopyStringsFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/en.lproj/InfoPlist.strings /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/en.lproj/InfoPlist.strings (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copyStrings --validate --outputencoding binary --outfilename InfoPlist.strings --outdir /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/en.lproj -- /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/en.lproj/InfoPlist.strings
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/en.lproj/InfoPlist.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'LikeArt' from project 'LikeArt')
+
+CompileStoryboard /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Base.lproj/LaunchScreen.storyboard (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module LikeArt --output-partial-info-plist /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Base.lproj/LaunchScreen-SBPartialInfo.plist --auto-activate-custom-fonts --target-device iphone --target-device ipad --minimum-deployment-target 16.0 --output-format human-readable-text /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Base.lproj/LaunchScreen.storyboard --compilation-directory /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Base.lproj
+
+CompileAssetCatalogVariant thinned /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets --compile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 16.0 --platform iphonesimulator
+/* com.apple.actool.document.notices */
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets:./AppIcon.appiconset/[][ipad][76x76][][][1x][][][][]: notice: 76x76@1x app icons only apply to iPad apps targeting releases of iOS prior to 10.0.
+/* com.apple.actool.compilation-results */
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist_thinned
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned/AppIcon60x60@2x.png
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned/AppIcon76x76@2x~ipad.png
+/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned/Assets.car
+
+
+SwiftDriver LikeArt normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-SwiftDriver -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LikeArt -Onone -enforce-exclusivity\=checked @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target x86_64-apple-ios16.0-simulator -g -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache -output-file-map /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources-normal/x86_64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/x86_64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-Swift.h -working-directory /Users/runner/work/like-art-ios/like-art-ios/ios-b2 -experimental-emit-module-separately -disable-cmo
+
+SwiftDriver LikeArt normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-SwiftDriver -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LikeArt -Onone -enforce-exclusivity\=checked @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache -output-file-map /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-Swift.h -working-directory /Users/runner/work/like-art-ios/like-art-ios/ios-b2 -experimental-emit-module-separately -disable-cmo
+
+LinkStoryboards (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module LikeArt --target-device iphone --target-device ipad --minimum-deployment-target 16.0 --output-format human-readable-text --link /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Base.lproj/LaunchScreen.storyboardc
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ptrcheck-4K3H0MAEM0JBB02QT0SYJ8AR6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ptrauth-EOJM08ZMG6IWGG1I3WQNZQJS4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdbool-7C0H7VPNYC7YAM2A9HL1KCN7I.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stddef-15JQDUNC266E9SDCMHP4ES9SS.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/DeveloperToolsSupport-37M8IUIMZUEUPBFGEUE0EANSH.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdarg-E9T7WAVZBTYU6I58ONICX8ZTC.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_SwiftConcurrencyShims-71BCP0NRENI0OCZ3F85K8CZ2A.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_SwiftConcurrencyShims-9XSOVA29EZTG2R27HK1TRVAHO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_AvailabilityInternal-X2KLNEMBD3QQ93IWIRHHWVFL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/SwiftShims-16ZWBX9BFCMTT8DW3C4WT542K.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ptrauth-5QDU464X89XUFT4R8MVCJZGF7.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stddef-29PVMU57GKKXLRC1HKETHI071.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_AvailabilityInternal-DFHYF7LN7Y7H26NTYQW1U11EK.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdbool-6YFAA5MFWDOP5KNE8QYZWXH51.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdarg-AB9H2JUHY0MTV0CVUOTAHD2BA.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ptrcheck-EDLCLYWKNDM2BXOCIM6TAPYHG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_float-D0G1JQOOX39CYZFWHDSW09GIL.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/SwiftShims-BW24Q3BP5ENDWEYV3Q7CCJGL2.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_DarwinFoundation1-8EN67A1SSP19YABOYXENES4UB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_DarwinFoundation1-8WQ7SWE1O1KR4FCBHT4EC60ZF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/DeveloperToolsSupport-2K0XF72F4LKTQP10QS32WHE3P.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_limits-CVFHTB47BL2URCS50SN7CYVA5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_DarwinFoundation2-9ZDUFH2TT93680PWDI57GSBWZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_limits-43GJQ1A02DFLZPY908FB3WK52.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_DarwinFoundation2-CTVKO31QVHVX9XRSVTYA90MF1.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_float-4L0LQJQK4MPD69OCWGBF6XUMC.pcm
+
+LinkAssetCatalog /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Resources/Assets.xcassets (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-linkAssetCatalog --thinned /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/thinned --thinned-dependencies /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist_unthinned --output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app --plist-output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist
+note: Emplaced /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Assets.car (in target 'LikeArt' from project 'LikeArt')
+note: Emplaced /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/AppIcon76x76@2x~ipad.png (in target 'LikeArt' from project 'LikeArt')
+note: Emplaced /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/AppIcon60x60@2x.png (in target 'LikeArt' from project 'LikeArt')
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/sys_types-5UGSYBFVB4CP4SK3HEX5N07LL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdint-6EA2X5GPT4M02JLDRJW23KCDY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_tgmath-1VRZNDSSCEVP380BVL1X8QTGA.pcm
+
+ProcessInfoPlistFile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Info.plist /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Info.plist (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-infoPlistUtility /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Base.lproj/LaunchScreen-SBPartialInfo.plist -additionalcontentfile /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/assetcatalog_generated_info.plist -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Info.plist
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_DarwinFoundation3-8IFI0EE2PJFZC4OOP5ZAIXWR9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_intrinsics-8REU2C4GMQDIIQTMCZFE4XA5B.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdatomic-909YKD63HO3ZSPTTIEQLT7993.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdint-CGYW919JDB6H82AP9KP3CN9PA.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_tgmath-61Y9RW4T42QRB0YNT9LYBVRDB.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_stdatomic-EWH43KQ3OV4407PGAP1BGFYQW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_inttypes-CZLZPM7KQS6ROIU1VG3DMK5PT.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/sys_types-K3S31HUBWG0DZ0YUULK7V19K.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_DarwinFoundation3-DY24J4V8W8WMP7WEGFVNNNGVH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Darwin-2MURLFDYNYX1HPEPIHXU0WQ38.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/simd-5Y12IGUTWMZLMQAZ6A1NFV60F.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_inttypes-D0343HBU3AKVJZ2LWO2J3FHR2.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/_Builtin_intrinsics-7MD1C7GSX4XZOPQZW6JCGHE9G.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Darwin-B8HF5QVJH7KSSNXL5N5YRJDMW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ObjectiveC-4G6AR2LAL6BAYDAVBT3W63R4W.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/simd-AO5RST6X2YHJISBICMN7LB1CH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/MachO-53JE4HIMHAJUSLUDA03ATYTTT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/os_object-DBNUASY2K7BOUSKF6327O9EA7.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/MachO-4WRT4R9AJGIBM0V8P7MT0XK63.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Spatial-BWMEQLK0PA54HFE0SLMH95X7.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/os_workgroup-4UY44MFBMRF4VM6P0GSABOXOZ.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ObjectiveC-5GHR6ELJ4FNNAELZQTO7XKLE6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Dispatch-AZ4P8H8ZAKVGJ4QRF4CT820RC.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/os_object-BIHYFLL3JOEJ7PUI1ASD5ZYO9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreFoundation-7GZZINL5SS6DUXPSL54EBH2MP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/dnssd-4NS0STP18DPIMJHZUGWVON0OM.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/os_workgroup-20MJKRI9OVC1KAIAVZ57T0ZEH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/XPC-CZ44TT3LPTEIYHOP8D5S2N9SG.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Spatial-CC57PPBJ54LJRL04E7YU9RH8S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Security-AX0WWOPRUAMSFDX993UVUU53A.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Dispatch-3YW2L3R7PK55GTR03SFM04F83.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreGraphics-DVYF0D1CE72HRC60OF8RZCTUH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CFNetwork-E7V6EMRMCW48PKR5VOJFZW6CH.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/XPC-45UTZYF6G63PYVBRSX4W920Z7.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreFoundation-2N9W146T2HL4KV0RUYKFKH13Y.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/dnssd-45OPJFW26SUUXR7ASPEZMP1LG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ImageIO-6H9U6QRTB3JJVVTNXPZI1M4CV.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/os-5TAMV8IOSQGR2TP6J9HPOO5P3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreText-38KQWZGT8AY6DS59ORB8V61WX.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreGraphics-AOKUAICEB2JQSNP1GUU5PN44B.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CFNetwork-DXA85XXZP6EZXH5DCQL29XCC8.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Security-99N1185LLE6POAES0KFEROC6V.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Foundation-564F6L1I4WA926RZAT037MB1V.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/os-C4SZOXPH9STNVYD2U0ZALE9YA.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreText-6ZJROPNM4BO2RYV5ENAHDJ006.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Foundation-31C7BMFN0279CZNWUKODJQWT6.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/ImageIO-CQSEP6N62B4SQ4VDQMAE69ES8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/LocalAuthentication-D10VG6TEJW6O2Z1A0FOTA9S1L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UniformTypeIdentifiers-F1HJORKETNUNVCSMR5G4V5YZT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreData-BLNUVIGE6BOJENF6ISML831NX.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/IOSurface-5GOTUKO7TVXINRJ6KRH2CFYPP.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UIUtilities-DA9IIIG2BL2YLLIFC8UMA90MO.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/LocalAuthentication-1L219MLKSAC9TV2FTD4YFFHAS.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/DataDetection-4139S4VB2NQD4SI5Q9ZVS3B1N.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/OpenGLES-B9MWRB6EH7CP8ZB2UMALQ21G0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/IOSurface-422DUTHLP1COGKP0JQ8JCEK0N.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UserNotifications-790OSK7AIAUZUME4715095THX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UIUtilities-7RHFE129NERHE5JNOVGDQYM6O.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreTransferable-1CZAH3FGD1X0E8DC8TER1RWTS.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/OSLog-65NH5GX8GPRB1S2T2OXVI179F.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/FileProvider-50BJV4EE0YVC12QOML6QUFN4Y.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Accessibility-B6E458ALN28SETH2K4VLVRGYW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Network-502UDEXAZESTK9AMWJ2529R56.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Metal-CAV63FRFF0I5WB4AKYOTXVH7S.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Accessibility-4W7O7NM1QFUNAGI5YE5ZJ4TNO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Symbols-8548O7BG696QIDHEFYOU335RJ.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Metal-CZGR3971U6BIO8SO1E4PLUMWO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/OpenGLES-35VBZD57XTZVVIWERAJVOHD0Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/DataDetection-89OLGLGPH2UNS6QLZYFTYKUAB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/FileProvider-D5H6MZS1R8WPF8NAYSJ3G805N.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreVideo-DQFC1RIZGDIAWM7MBVUYLYSN4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreTransferable-4ZGEQWYP0WOVXTKQLOSLLST5C.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreVideo-8SXZ2YRFVOHJ818D2HKW3XDKY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/OSLog-CI4JA3R659MJOKLDV76TAHLXV.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Network-KHSHSAE8KIZJ0JDR8YQP3ZB9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreImage-5JJRY0HO5ADS9LLCGT523WUBC.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreData-1I03IIHYAXANTMKRGVBV705JJ.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/QuartzCore-54K80FMVGXAP63KHMINZV50D0.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/CoreImage-CVB5AJZPJENRX4IHR412FP0BE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/QuartzCore-CZYKN8BAMYOUBE9IEH66I69V0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UserNotifications-D68TQWYQC5EI2DBK3MN3C8QV8.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/SwiftUICore-E9S7EW22MMZTTAH26RC03O8WW.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UniformTypeIdentifiers-5CIGA4FQWH6GJRJ7AVTF1YUIX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/SwiftUICore-C7DMIJEZE70LXPACLER0ISF2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UIKit-ESJ66IZA10JTRFE24ZZSOBVBT.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Symbols-D3Q313JRO5TELKOJMG5NZJ830.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/UIKit-1CMQNB3CHBL5QGH8N3O1EX2HE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/SwiftUI-4MLBPGKPQSNXBMHXN9C739NCH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/WebKit-BI6RZHXS1H2CJD24VIJ1Q98QN.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/SwiftUI-7LYIW3O1YUE0K6XCXO37P0I7V.pcm
+
+SwiftExplicitDependencyGeneratePcm x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/WebKit-5V5C9AP99OW2A63P2T7WVBEUQ.pcm
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ LikeArt (in target 'LikeArt' from project 'LikeArt')
+EmitSwiftModule normal arm64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 Compiling\ MarketplaceTab.swift,\ MessagesTab.swift,\ PackSchemeHandler.swift,\ PackShim.swift,\ ProfileTab.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MessagesTab.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackSchemeHandler.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackShim.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/ProfileTab.swift (in target 'LikeArt' from project 'LikeArt')
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift:155:21: warning: result of call to function returning 'WKNavigation?' is unused
+                    load()
+                    ^   ~~
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift:157:22: warning: result of call to function returning 'WKNavigation?' is unused
+            } else { load() }
+                     ^   ~~
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MessagesTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackSchemeHandler.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackShim.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/ProfileTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 Compiling\ PushDelegate.swift,\ TabConfig.swift,\ WorldPack.swift,\ WorldTab.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Push/PushDelegate.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/TabConfig.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/WorldPack.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/WorldTab.swift /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Push/PushDelegate.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/TabConfig.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/WorldPack.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/WorldTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftEmitModule normal x86_64 Emitting\ module\ for\ LikeArt (in target 'LikeArt' from project 'LikeArt')
+
+EmitSwiftModule normal x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for LikeArt (in target 'LikeArt' from project 'LikeArt')
+
+SwiftDriver\ Compilation\ Requirements LikeArt normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LikeArt -Onone -enforce-exclusivity\=checked @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache -output-file-map /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-Swift.h -working-directory /Users/runner/work/like-art-ios/like-art-ios/ios-b2 -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal x86_64 Emitting module for LikeArt (in target 'LikeArt' from project 'LikeArt')
+
+SwiftDriver\ Compilation\ Requirements LikeArt normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LikeArt -Onone -enforce-exclusivity\=checked @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target x86_64-apple-ios16.0-simulator -g -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache -output-file-map /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources-normal/x86_64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/x86_64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-Swift.h -working-directory /Users/runner/work/like-art-ios/like-art-ios/ios-b2 -experimental-emit-module-separately -disable-cmo
+
+SwiftCompile normal x86_64 Compiling\ PushDelegate.swift,\ TabConfig.swift,\ WorldPack.swift,\ WorldTab.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Push/PushDelegate.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/TabConfig.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/WorldPack.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/WorldTab.swift /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LikeArt' from project 'LikeArt')
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Push/PushDelegate.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/TabConfig.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/WorldPack.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/WorldTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftMergeGeneratedHeaders /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/LikeArt-Swift.h /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-Swift.h /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-Swift.h (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-Swift.h -arch x86_64 /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-Swift.h -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/LikeArt-Swift.h
+
+SwiftDriverJobDiscovery normal arm64 Compiling PushDelegate.swift, TabConfig.swift, WorldPack.swift, WorldTab.swift, GeneratedAssetSymbols.swift (in target 'LikeArt' from project 'LikeArt')
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/x86_64-apple-ios-simulator.swiftmodule /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftmodule (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftmodule /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/x86_64-apple-ios-simulator.swiftmodule
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/x86_64-apple-ios-simulator.swiftdoc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftdoc (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftdoc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/x86_64-apple-ios-simulator.swiftdoc
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/x86_64-apple-ios-simulator.abi.json /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.abi.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.abi.json /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/x86_64-apple-ios-simulator.abi.json
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftmodule (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftmodule /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftdoc (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftdoc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.abi.json (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.abi.json /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftsourceinfo (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftsourceinfo /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo
+
+Copy /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftsourceinfo (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftsourceinfo /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+SwiftCompile normal x86_64 Compiling\ MarketplaceTab.swift,\ MessagesTab.swift,\ PackSchemeHandler.swift,\ PackShim.swift,\ ProfileTab.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MessagesTab.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackSchemeHandler.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackShim.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/ProfileTab.swift (in target 'LikeArt' from project 'LikeArt')
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift:155:21: warning: result of call to function returning 'WKNavigation?' is unused
+                    load()
+                    ^   ~~
+/Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MarketplaceTab.swift:157:22: warning: result of call to function returning 'WKNavigation?' is unused
+            } else { load() }
+                     ^   ~~
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/MessagesTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackSchemeHandler.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Pack/PackShim.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Tabs/ProfileTab.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftDriverJobDiscovery normal arm64 Compiling MarketplaceTab.swift, MessagesTab.swift, PackSchemeHandler.swift, PackShim.swift, ProfileTab.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftCompile normal arm64 Compiling\ App.swift,\ AppSession.swift,\ AppTheme.swift,\ JSBridge.swift,\ KeychainStore.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/App.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/AppSession.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Design/AppTheme.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Bridge/JSBridge.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/KeychainStore.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/App.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/AppSession.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Design/AppTheme.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Bridge/JSBridge.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal arm64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/KeychainStore.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 Compiling\ App.swift,\ AppSession.swift,\ AppTheme.swift,\ JSBridge.swift,\ KeychainStore.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/App.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/AppSession.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Design/AppTheme.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Bridge/JSBridge.swift /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/KeychainStore.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/App.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/AppSession.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Design/AppTheme.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Bridge/JSBridge.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftCompile normal x86_64 /Users/runner/work/like-art-ios/like-art-ios/ios-b2/Sources/Auth/KeychainStore.swift (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    
+
+SwiftDriverJobDiscovery normal x86_64 Compiling PushDelegate.swift, TabConfig.swift, WorldPack.swift, WorldTab.swift, GeneratedAssetSymbols.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftDriverJobDiscovery normal arm64 Compiling App.swift, AppSession.swift, AppTheme.swift, JSBridge.swift, KeychainStore.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftDriver\ Compilation LikeArt normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-Swift-Compilation -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LikeArt -Onone -enforce-exclusivity\=checked @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache -output-file-map /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/arm64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-Swift.h -working-directory /Users/runner/work/like-art-ios/like-art-ios/ios-b2 -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt.debug.dylib normal arm64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -dynamiclib -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -filelist /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.LinkFileList -install_name @rpath/LikeArt.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.swiftmodule @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-ExecutorLinkFileList-normal-arm64.txt (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    construct-stub-executor-link-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt.debug.dylib /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'LikeArt' from project 'LikeArt')
+
+Ld /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt normal arm64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-ExecutorLinkFileList-normal-arm64.txt /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt.debug.dylib -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt
+
+SwiftDriverJobDiscovery normal x86_64 Compiling App.swift, AppSession.swift, AppTheme.swift, JSBridge.swift, KeychainStore.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftDriverJobDiscovery normal x86_64 Compiling MarketplaceTab.swift, MessagesTab.swift, PackSchemeHandler.swift, PackShim.swift, ProfileTab.swift (in target 'LikeArt' from project 'LikeArt')
+
+SwiftDriver\ Compilation LikeArt normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-Swift-Compilation -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LikeArt -Onone -enforce-exclusivity\=checked @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target x86_64-apple-ios16.0-simulator -g -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/SDKStatCaches.noindex/iphonesimulator26.2-23C57-dc75598d0054f22ec865fa860f139d72e244bd9a5feaf902f95f61bf06266e52.sdkstatcache -output-file-map /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -sdk-module-cache-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-generated-files.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-own-target-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-project-headers.hmap -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources-normal/x86_64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources/x86_64 -Xcc -I/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-Swift.h -working-directory /Users/runner/work/like-art-ios/like-art-ios/ios-b2 -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt.debug.dylib normal x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target x86_64-apple-ios16.0-simulator -dynamiclib -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -filelist /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.LinkFileList -install_name @rpath/LikeArt.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.swiftmodule @/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt.debug.dylib
+
+CreateUniversalBinary /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/LikeArt.debug.dylib normal arm64\ x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt.debug.dylib /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt.debug.dylib -output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/LikeArt.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-ExecutorLinkFileList-normal-x86_64.txt (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    construct-stub-executor-link-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt.debug.dylib /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-ExecutorLinkFileList-normal-x86_64.txt
+note: Using stub executor library with Swift entry point. (in target 'LikeArt' from project 'LikeArt')
+
+Ld /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt normal x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target x86_64-apple-ios16.0-simulator -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -F/Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibPath-normal-x86_64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-DebugDylibInstallName-normal-x86_64.txt -Xlinker -filelist -Xlinker /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt-ExecutorLinkFileList-normal-x86_64.txt /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt.debug.dylib -o /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt
+
+CreateUniversalBinary /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/LikeArt normal arm64\ x86_64 (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/Binary/LikeArt /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/Binary/LikeArt -output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/LikeArt
+
+ExtractAppIntentsMetadata (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.3.7003.10.LrGrvI/Metal.xctoolchain --module-name LikeArt --sdk-root /Applications/Xcode_26.3.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk --xcode-version 17C529 --platform-family iOS --deployment-target 16.0 --bundle-identifier com.likeart.app --output /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app --target-triple arm64-apple-ios16.0-simulator --target-triple x86_64-apple-ios16.0-simulator --binary-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/LikeArt --dependency-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt_dependency_info.dat --dependency-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt_dependency_info.dat --stringsdata-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --stringsdata-file /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftFileList --source-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftFileList --metadata-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyMetadataFileList --static-metadata-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/arm64/LikeArt.SwiftConstValuesFileList --swift-const-vals-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/Objects-normal/x86_64/LikeArt.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-09-27 12:42:00.109 appintentsmetadataprocessor[8466:29204] Starting appintentsmetadataprocessor export
+2026-09-27 12:42:00.115 appintentsmetadataprocessor[8466:29204] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+CopySwiftLibs /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/LikeArt.debug.dylib --scan-folder /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Frameworks --scan-folder /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/PlugIns --scan-folder /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/SystemExtensions --scan-folder /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Extensions --platform iphonesimulator --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.3.7003.10.LrGrvI/Metal.xctoolchain --toolchain /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+Ignoring --strip-bitcode because --sign was not passed
+
+AppIntentsSSUTraining (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Info.plist --temp-dir-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/ssu --bundle-id com.likeart.app --product-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app --extracted-metadata-path /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/Metadata.appintents --metadata-file-list /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Intermediates.noindex/LikeArt.build/Debug-iphonesimulator/LikeArt.build/LikeArt.DependencyMetadataFileList --archive-ssu-assets
+2026-09-27 12:42:00.154 appintentsnltrainingprocessor[8467:29212] Parsing options for appintentsnltrainingprocessor
+2026-09-27 12:42:00.156 appintentsnltrainingprocessor[8467:29212] No AppShortcuts found - Skipping.
+
+RegisterExecutionPolicyException /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-RegisterExecutionPolicyException /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+
+Validate /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    builtin-validationUtility /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app -shallow-bundle -infoplist-subpath Info.plist
+
+Touch /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app (in target 'LikeArt' from project 'LikeArt')
+    cd /Users/runner/work/like-art-ios/like-art-ios/ios-b2
+    /usr/bin/touch -c /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+
+** BUILD SUCCEEDED **
+
