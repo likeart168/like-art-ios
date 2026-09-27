@@ -23,6 +23,8 @@ final class AppSession: ObservableObject {
     @Published var locked = UserDefaults.standard.bool(forKey: "biometric")
     @Published var selectedTab = 0
     @Published var destination: URL?
+    private(set) var destinationKey: String?
+    var destinationTab: Int? { destinationKey.map { tabIndex(for: $0) } }
     @Published var revision = UUID()
     @Published var error: String?
     private let noRedirect = NoRedirect()
@@ -50,8 +52,11 @@ final class AppSession: ObservableObject {
 
     func open(_ url: URL) {
         guard Self.allowed(url) else { return }
-        selectedTab = tabIndex(for: url.path.hasPrefix("/v6") ? "world" : "shop")
+        let targetKey = url.path.hasPrefix("/v6") ? "world" : "shop"
+        let targetTab = tabIndex(for: targetKey)
+        destinationKey = targetKey
         destination = url
+        selectedTab = targetTab
     }
     func accept(_ value: String) async {
         guard !locked else { return }

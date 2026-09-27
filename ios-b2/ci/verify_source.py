@@ -75,3 +75,8 @@ print('PASS IMMERSIVE19 full viewport, floating native bars, upload exclusion an
 assert 'guard !context.coordinator.initialNavigationStarted else { return }' in market
 assert 'context.coordinator.initialNavigationStarted = true' in market
 print('PASS requested deep links win over delayed initial WebView loads')
+
+assert market.count('session.destinationTab == tab') == 3, 'deep links must stay in their target tab at initial/update load'
+assert 'detail.domain == NSURLErrorDomain && detail.code == NSURLErrorCancelled' in market
+assert 'retryAttempts < 3' in market and 'guard navigation === currentNavigation' in market
+print('PASS world navigation target, stale-error isolation and bounded manual retries')

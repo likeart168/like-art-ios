@@ -20,7 +20,10 @@ try:
   time.sleep(1)
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
+  checks=container/'Documents/world-native-checks-20.json'
+  if checks.exists():shutil.copy2(checks,out/'native-checks.json')
   if second in (10,30,50):run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'))
+ assert json.loads((out/'native-checks.json').read_text())['pass'], 'Native navigation/retry checks failed'
  data=json.loads((out/'samples.json').read_text())
  ready=next((s for s in data['samples'] if s.get('page',{}).get('ready')),None)
  summary={'firstReadySample':None if not ready else ready['elapsed'],'webkitTerminations':data['terminations'],'last':data['samples'][-1]}

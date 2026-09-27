@@ -184,8 +184,8 @@ struct WebContent: UIViewRepresentable {
                 // A requested deep link wins over the delayed initial UA/pack load.
                 guard !context.coordinator.initialNavigationStarted else { return }
                 context.coordinator.initialNavigationStarted = true
-                let target = session.selectedTab == tab ? (session.destination ?? url) : url
-                if session.selectedTab == tab { context.coordinator.destination = session.destination }
+                let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
+                if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
                 view.load(URLRequest(url: target, cachePolicy: .useProtocolCachePolicy))
             }
             if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") {
@@ -203,7 +203,7 @@ struct WebContent: UIViewRepresentable {
     }
     func updateUIView(_ view: WKWebView, context: Context) {
         if let clipsView = view as? ClipsViewportWebView { clipsView.clipsImmersive = clipsImmersive }
-        if let destination = session.destination, session.selectedTab == tab, destination != context.coordinator.destination {
+        if let destination = session.destination, session.destinationTab == tab, session.selectedTab == tab, destination != context.coordinator.destination {
             context.coordinator.destination = destination
             context.coordinator.initialNavigationStarted = true
             view.load(URLRequest(url: destination))
