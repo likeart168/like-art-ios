@@ -182,6 +182,7 @@ struct WebContent: UIViewRepresentable {
         configuration.userContentController.addUserScript(WKUserScript(source: languageScript, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         #if DEBUG
         if ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1" {
+            configuration.userContentController.add(context.coordinator.worldCapture, name: "worldCaptureTrace")
             configuration.userContentController.addUserScript(WKUserScript(source: WorldCaptureProbe.errorScript, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         }
         #endif
@@ -254,6 +255,9 @@ struct WebContent: UIViewRepresentable {
         view.stopLoading()
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtSession")
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtWorldPack", contentWorld: .page)
+        #if DEBUG
+        view.configuration.userContentController.removeScriptMessageHandler(forName: "worldCaptureTrace")
+        #endif
     }
     @MainActor final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         let state: WebState

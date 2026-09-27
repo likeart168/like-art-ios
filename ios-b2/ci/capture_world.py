@@ -38,10 +38,10 @@ try:
   if source.exists():shutil.copy2(source,out/'samples.json')
   checks=container/'Documents/world-native-checks-20.json'
   if checks.exists():shutil.copy2(checks,out/'native-checks.json')
-  for second in (10,30,48):
+  for second in (40,):
    if second not in captured and time.monotonic()-began>=second and deadline-time.monotonic()>0.1:
     captured.add(second)
-    try:run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'),timeout=min(2,deadline-time.monotonic()))
+    try:run('xcrun','simctl','io',udid,'screenshot',str(out/f'{second:02d}-seconds.png'),timeout=min(8,deadline-time.monotonic()))
     except (subprocess.TimeoutExpired,subprocess.CalledProcessError) as error:capture_errors.append({'second':second,'error':str(error)})
  # Stop the actual application before parsing evidence, even if assertions fail.
  stop_app()

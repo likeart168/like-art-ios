@@ -4,12 +4,28 @@ import WebKit
 // Captures only the public guest world in an explicitly requested CI run.
 // No diagnostic upload or capture hooks are compiled into Release archives.
 @MainActor
-final class WorldCaptureProbe {
+final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
     static let errorScript = """
     (()=>{
     let world20ReadyValue=window.ready;
     Object.defineProperty(window,'ready',{configurable:true,get:()=>world20ReadyValue,set:value=>{world20ReadyValue=value;if(value===true&&!window.__world20ReadyWall)window.__world20ReadyWall=Date.now();}});
     window.__world20Errors=[];window.__world20Gpu=[];
+    let traceCount=0;
+    const trace=(kind,detail={})=>{if(traceCount++<2000)window.webkit?.messageHandlers?.worldCaptureTrace?.postMessage({kind,at:performance.now(),...detail});};
+    let earlyApp;
+    Object.defineProperty(window,'__V6_ENTRY_APP__',{configurable:true,get:()=>earlyApp,set:a=>{
+      earlyApp=a;trace('app-created');
+      a?.assets?.on('load',asset=>trace('asset-loaded',{name:asset.name,type:asset.type}));
+      a?.assets?.on('error',(error,asset)=>trace('asset-error',{name:asset?.name,error:String(error)}));
+    }});
+    if(window.WebGL2RenderingContext){for(const name of ['bufferData','texImage2D','texStorage2D','renderbufferStorageMultisample','compileShader','linkProgram','getShaderParameter','getProgramParameter']){
+      const original=WebGL2RenderingContext.prototype[name];if(!original)continue;
+      WebGL2RenderingContext.prototype[name]=function(...args){
+        if(name==='bufferData' && (args[1]?.byteLength||args[1]||0)<500000)return original.apply(this,args);
+        trace('gl-begin',{name,bytes:name==='bufferData'?(args[1]?.byteLength||args[1]||0):0});
+        try{return original.apply(this,args);}finally{trace('gl-end',{name});}
+      };
+    }}
     addEventListener('webglcontextlost',e=>__world20Gpu.push({kind:'contextlost',at:performance.now(),message:e.statusMessage}),true);
     addEventListener('webglcontextrestored',()=>__world20Gpu.push({kind:'contextrestored',at:performance.now()}),true);
     if(window.WebGL2RenderingContext){
@@ -26,13 +42,25 @@ final class WorldCaptureProbe {
     private var began = Date()
     private var preparationBegan: Date?
     private var terminations = 0
+    private var traceEvents: [[String: Any]] = []
+    private var traceSavePending = false
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard message.frameInfo.isMainFrame, let event = message.body as? [String: Any] else { return }
+        traceEvents.append(event)
+        if traceEvents.count > 200 { traceEvents.removeFirst(traceEvents.count - 200) }
+        guard !traceSavePending else { return }
+        traceSavePending = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { [weak self] in
+            self?.traceSavePending = false; self?.save()
+        }
+    }
     func markEntryRequested() {
         guard preparationBegan == nil else { return }
         preparationBegan = Date()
     }
     func terminated() { terminations += 1; save() }
     private func save() {
-        let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "terminations": terminations, "elapsed": Date().timeIntervalSince(began)]
+        let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "trace":traceEvents, "terminations": terminations, "elapsed": Date().timeIntervalSince(began)]
         if let data = try? JSONSerialization.data(withJSONObject: record, options: [.prettyPrinted, .sortedKeys]),
            let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             try? data.write(to: directory.appendingPathComponent("world-entry-20.json"), options: .atomic)
@@ -51,12 +79,13 @@ final class WorldCaptureProbe {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self, weak view, weak state] in
             guard let self, let view, let state else { return }
             let script = """
-            (()=>{const p=window.__TERRAIN_PREVIEW__,a=p?.app;
+            (()=>{const p=window.__TERRAIN_PREVIEW__,a=p?.app||window.__V6_ENTRY_APP__;
               return JSON.stringify({path:location.pathname,now:performance.now(),ready:window.ready===true,readyWall:window.__world20ReadyWall,
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
                 assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY__,
+                loadingAssets:a?.assets?.list().filter(x=>x.loading).map(x=>({name:x.name,type:x.type})),visibility:document.visibilityState,
                 navigation:performance.getEntriesByType('navigation').map(n=>({fetchStart:n.fetchStart,domainLookupStart:n.domainLookupStart,domainLookupEnd:n.domainLookupEnd,connectStart:n.connectStart,connectEnd:n.connectEnd,requestStart:n.requestStart,responseStart:n.responseStart,responseEnd:n.responseEnd,domInteractive:n.domInteractive,domComplete:n.domComplete})),viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,canvas:[...document.querySelectorAll('canvas')].map(c=>({id:c.id,width:c.width,height:c.height}))},
                 renderTargets:Array.from(a?.graphicsDevice?.targets||[]).map(t=>({name:t.name,w:t.width,h:t.height,samples:t.samples})),
                 textures:Array.from(a?.graphicsDevice?.textures||[]).map(t=>({name:t.name,w:t.width,h:t.height,bytes:t._gpuSize})).sort((a,b)=>(b.bytes||0)-(a.bytes||0)).slice(0,24),
