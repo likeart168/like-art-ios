@@ -55,7 +55,7 @@ jobs:
         timeout-minutes: 35
         run: |
           set -euo pipefail
-          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/simulator-build.txt
+          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Automatic CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/simulator-build.txt
           python3 -u ios-b2/ci/capture_store.py 2>&1 | tee build-b2/evidence/store-capture.txt
       - name: Verify real iOS world entry
         env:
@@ -63,7 +63,7 @@ jobs:
         timeout-minutes: 20
         run: |
           set -euo pipefail
-          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/world-simulator-build.txt
+          xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Automatic CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/world-simulator-build.txt
           python3 -u ios-b2/ci/capture_world.py 2>&1 | tee build-b2/evidence/world-capture.txt
       - name: Preserve native screenshots
         if: ${{ always() && hashFiles('build-b2/evidence/store-screenshots/**/*.png') != '' }}
