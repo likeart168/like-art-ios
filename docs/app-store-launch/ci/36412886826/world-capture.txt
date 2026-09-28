@@ -1,0 +1,1118 @@
+Monitoring boot status for LikeArt World Evidence (B9EA54D9-0892-4002-ADCF-87A5DDF08D57).
+[2026-09-28 11:02:38 +0000] Status=2, isTerminal=NO, Elapsed=01:11.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:03 seconds
+
+[2026-09-28 11:02:39 +0000] Status=2, isTerminal=NO, Elapsed=01:12.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:04 seconds
+
+[2026-09-28 11:02:40 +0000] Status=2, isTerminal=NO, Elapsed=01:13.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:05 seconds
+
+[2026-09-28 11:02:41 +0000] Status=2, isTerminal=NO, Elapsed=01:14.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:06 seconds
+
+[2026-09-28 11:02:42 +0000] Status=2, isTerminal=NO, Elapsed=01:15.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:07 seconds
+
+[2026-09-28 11:02:45 +0000] Status=2, isTerminal=NO, Elapsed=01:18.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:08 seconds
+
+[2026-09-28 11:02:47 +0000] Status=2, isTerminal=NO, Elapsed=01:20.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:10 seconds
+
+[2026-09-28 11:02:49 +0000] Status=2, isTerminal=NO, Elapsed=01:22.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:12 seconds
+
+[2026-09-28 11:02:56 +0000] Status=2, isTerminal=NO, Elapsed=01:29.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:14 seconds
+
+[2026-09-28 11:03:00 +0000] Status=2, isTerminal=NO, Elapsed=01:33.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:21 seconds
+
+[2026-09-28 11:03:01 +0000] Status=2, isTerminal=NO, Elapsed=01:34.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)
+		Migration Elapsed:01:25 seconds
+
+[2026-09-28 11:03:02 +0000] Status=2, isTerminal=NO, Elapsed=01:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:26 seconds
+
+[2026-09-28 11:03:02 +0000] Status=2, isTerminal=NO, Elapsed=01:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:27 seconds
+
+[2026-09-28 11:03:03 +0000] Status=2, isTerminal=NO, Elapsed=01:36.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:28 seconds
+
+[2026-09-28 11:03:04 +0000] Status=2, isTerminal=NO, Elapsed=01:37.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:29 seconds
+
+[2026-09-28 11:03:05 +0000] Status=2, isTerminal=NO, Elapsed=01:38.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:30 seconds
+
+[2026-09-28 11:03:08 +0000] Status=2, isTerminal=NO, Elapsed=01:41.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:31 seconds
+
+[2026-09-28 11:03:09 +0000] Status=2, isTerminal=NO, Elapsed=01:42.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:33 seconds
+
+[2026-09-28 11:03:09 +0000] Status=2, isTerminal=NO, Elapsed=01:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:34 seconds
+
+[2026-09-28 11:03:11 +0000] Status=2, isTerminal=NO, Elapsed=01:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:35 seconds
+
+[2026-09-28 11:03:12 +0000] Status=2, isTerminal=NO, Elapsed=01:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:36 seconds
+
+[2026-09-28 11:03:12 +0000] Status=2, isTerminal=NO, Elapsed=01:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:37 seconds
+
+[2026-09-28 11:03:13 +0000] Status=2, isTerminal=NO, Elapsed=01:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:38 seconds
+
+[2026-09-28 11:03:14 +0000] Status=2, isTerminal=NO, Elapsed=01:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:39 seconds
+
+[2026-09-28 11:03:15 +0000] Status=2, isTerminal=NO, Elapsed=01:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:40 seconds
+
+[2026-09-28 11:03:16 +0000] Status=2, isTerminal=NO, Elapsed=01:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:41 seconds
+
+[2026-09-28 11:03:17 +0000] Status=2, isTerminal=NO, Elapsed=01:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:42 seconds
+
+[2026-09-28 11:03:18 +0000] Status=2, isTerminal=NO, Elapsed=01:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:43 seconds
+
+[2026-09-28 11:03:19 +0000] Status=2, isTerminal=NO, Elapsed=01:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:44 seconds
+
+[2026-09-28 11:03:20 +0000] Status=2, isTerminal=NO, Elapsed=01:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:45 seconds
+
+[2026-09-28 11:03:21 +0000] Status=2, isTerminal=NO, Elapsed=01:54.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:46 seconds
+
+[2026-09-28 11:03:22 +0000] Status=2, isTerminal=NO, Elapsed=01:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:47 seconds
+
+[2026-09-28 11:03:23 +0000] Status=2, isTerminal=NO, Elapsed=01:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:48 seconds
+
+[2026-09-28 11:03:24 +0000] Status=2, isTerminal=NO, Elapsed=01:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:49 seconds
+
+[2026-09-28 11:03:25 +0000] Status=2, isTerminal=NO, Elapsed=01:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:50 seconds
+
+[2026-09-28 11:03:26 +0000] Status=2, isTerminal=NO, Elapsed=01:59.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:51 seconds
+
+[2026-09-28 11:03:27 +0000] Status=2, isTerminal=NO, Elapsed=02:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:52 seconds
+
+[2026-09-28 11:03:28 +0000] Status=2, isTerminal=NO, Elapsed=02:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:53 seconds
+
+[2026-09-28 11:03:29 +0000] Status=2, isTerminal=NO, Elapsed=02:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:54 seconds
+
+[2026-09-28 11:03:30 +0000] Status=2, isTerminal=NO, Elapsed=02:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:55 seconds
+
+[2026-09-28 11:03:31 +0000] Status=2, isTerminal=NO, Elapsed=02:04.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:56 seconds
+
+[2026-09-28 11:03:32 +0000] Status=2, isTerminal=NO, Elapsed=02:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:57 seconds
+
+[2026-09-28 11:03:33 +0000] Status=2, isTerminal=NO, Elapsed=02:06.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:58 seconds
+
+[2026-09-28 11:03:34 +0000] Status=2, isTerminal=NO, Elapsed=02:07.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:59 seconds
+
+[2026-09-28 11:03:35 +0000] Status=2, isTerminal=NO, Elapsed=02:08.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:00 seconds
+
+[2026-09-28 11:03:36 +0000] Status=2, isTerminal=NO, Elapsed=02:09.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:01 seconds
+
+[2026-09-28 11:03:37 +0000] Status=2, isTerminal=NO, Elapsed=02:10.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:02 seconds
+
+[2026-09-28 11:03:38 +0000] Status=2, isTerminal=NO, Elapsed=02:11.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:03 seconds
+
+[2026-09-28 11:03:39 +0000] Status=2, isTerminal=NO, Elapsed=02:12.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:04 seconds
+
+[2026-09-28 11:03:40 +0000] Status=2, isTerminal=NO, Elapsed=02:13.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:05 seconds
+
+[2026-09-28 11:03:41 +0000] Status=2, isTerminal=NO, Elapsed=02:14.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:06 seconds
+
+[2026-09-28 11:03:42 +0000] Status=2, isTerminal=NO, Elapsed=02:15.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:07 seconds
+
+[2026-09-28 11:03:43 +0000] Status=2, isTerminal=NO, Elapsed=02:16.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:08 seconds
+
+[2026-09-28 11:03:44 +0000] Status=2, isTerminal=NO, Elapsed=02:17.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:09 seconds
+
+[2026-09-28 11:03:45 +0000] Status=2, isTerminal=NO, Elapsed=02:18.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:10 seconds
+
+[2026-09-28 11:03:46 +0000] Status=2, isTerminal=NO, Elapsed=02:19.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:11 seconds
+
+[2026-09-28 11:03:47 +0000] Status=2, isTerminal=NO, Elapsed=02:20.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:12 seconds
+
+[2026-09-28 11:03:48 +0000] Status=2, isTerminal=NO, Elapsed=02:21.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:13 seconds
+
+[2026-09-28 11:03:49 +0000] Status=2, isTerminal=NO, Elapsed=02:22.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:14 seconds
+
+[2026-09-28 11:03:50 +0000] Status=2, isTerminal=NO, Elapsed=02:23.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:15 seconds
+
+[2026-09-28 11:03:51 +0000] Status=2, isTerminal=NO, Elapsed=02:24.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:16 seconds
+
+[2026-09-28 11:03:52 +0000] Status=2, isTerminal=NO, Elapsed=02:25.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:17 seconds
+
+[2026-09-28 11:03:53 +0000] Status=2, isTerminal=NO, Elapsed=02:26.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:18 seconds
+
+[2026-09-28 11:03:54 +0000] Status=2, isTerminal=NO, Elapsed=02:27.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:19 seconds
+
+[2026-09-28 11:03:55 +0000] Status=2, isTerminal=NO, Elapsed=02:28.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:20 seconds
+
+[2026-09-28 11:03:56 +0000] Status=2, isTerminal=NO, Elapsed=02:29.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:21 seconds
+
+[2026-09-28 11:03:57 +0000] Status=2, isTerminal=NO, Elapsed=02:30.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:22 seconds
+
+[2026-09-28 11:03:58 +0000] Status=2, isTerminal=NO, Elapsed=02:31.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:23 seconds
+
+[2026-09-28 11:03:59 +0000] Status=2, isTerminal=NO, Elapsed=02:32.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:24 seconds
+
+[2026-09-28 11:04:00 +0000] Status=2, isTerminal=NO, Elapsed=02:33.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:25 seconds
+
+[2026-09-28 11:04:01 +0000] Status=2, isTerminal=NO, Elapsed=02:34.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:26 seconds
+
+[2026-09-28 11:04:02 +0000] Status=2, isTerminal=NO, Elapsed=02:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:27 seconds
+
+[2026-09-28 11:04:03 +0000] Status=2, isTerminal=NO, Elapsed=02:36.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:28 seconds
+
+[2026-09-28 11:04:04 +0000] Status=2, isTerminal=NO, Elapsed=02:37.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:29 seconds
+
+[2026-09-28 11:04:05 +0000] Status=2, isTerminal=NO, Elapsed=02:38.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:30 seconds
+
+[2026-09-28 11:04:06 +0000] Status=2, isTerminal=NO, Elapsed=02:39.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:31 seconds
+
+[2026-09-28 11:04:07 +0000] Status=2, isTerminal=NO, Elapsed=02:40.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:32 seconds
+
+[2026-09-28 11:04:08 +0000] Status=2, isTerminal=NO, Elapsed=02:41.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:33 seconds
+
+[2026-09-28 11:04:09 +0000] Status=2, isTerminal=NO, Elapsed=02:42.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:34 seconds
+
+[2026-09-28 11:04:10 +0000] Status=2, isTerminal=NO, Elapsed=02:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:35 seconds
+
+[2026-09-28 11:04:11 +0000] Status=2, isTerminal=NO, Elapsed=02:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:36 seconds
+
+[2026-09-28 11:04:12 +0000] Status=2, isTerminal=NO, Elapsed=02:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:37 seconds
+
+[2026-09-28 11:04:13 +0000] Status=2, isTerminal=NO, Elapsed=02:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:38 seconds
+
+[2026-09-28 11:04:14 +0000] Status=2, isTerminal=NO, Elapsed=02:47.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:39 seconds
+
+[2026-09-28 11:04:15 +0000] Status=2, isTerminal=NO, Elapsed=02:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:40 seconds
+
+[2026-09-28 11:04:16 +0000] Status=2, isTerminal=NO, Elapsed=02:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:41 seconds
+
+[2026-09-28 11:04:17 +0000] Status=2, isTerminal=NO, Elapsed=02:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:42 seconds
+
+[2026-09-28 11:04:18 +0000] Status=2, isTerminal=NO, Elapsed=02:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:43 seconds
+
+[2026-09-28 11:04:19 +0000] Status=2, isTerminal=NO, Elapsed=02:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:44 seconds
+
+[2026-09-28 11:04:20 +0000] Status=2, isTerminal=NO, Elapsed=02:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:45 seconds
+
+[2026-09-28 11:04:21 +0000] Status=2, isTerminal=NO, Elapsed=02:54.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:46 seconds
+
+[2026-09-28 11:04:22 +0000] Status=2, isTerminal=NO, Elapsed=02:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:47 seconds
+
+[2026-09-28 11:04:23 +0000] Status=2, isTerminal=NO, Elapsed=02:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:48 seconds
+
+[2026-09-28 11:04:24 +0000] Status=2, isTerminal=NO, Elapsed=02:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:49 seconds
+
+[2026-09-28 11:04:25 +0000] Status=2, isTerminal=NO, Elapsed=02:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:50 seconds
+
+[2026-09-28 11:04:26 +0000] Status=2, isTerminal=NO, Elapsed=02:59.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:51 seconds
+
+[2026-09-28 11:04:27 +0000] Status=2, isTerminal=NO, Elapsed=03:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:52 seconds
+
+[2026-09-28 11:04:28 +0000] Status=2, isTerminal=NO, Elapsed=03:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:53 seconds
+
+[2026-09-28 11:04:29 +0000] Status=2, isTerminal=NO, Elapsed=03:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:54 seconds
+
+[2026-09-28 11:04:30 +0000] Status=2, isTerminal=NO, Elapsed=03:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:55 seconds
+
+[2026-09-28 11:04:31 +0000] Status=2, isTerminal=NO, Elapsed=03:04.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:56 seconds
+
+[2026-09-28 11:04:32 +0000] Status=2, isTerminal=NO, Elapsed=03:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:57 seconds
+
+[2026-09-28 11:04:33 +0000] Status=2, isTerminal=NO, Elapsed=03:06.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:58 seconds
+
+[2026-09-28 11:04:34 +0000] Status=2, isTerminal=NO, Elapsed=03:07.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:02:59 seconds
+
+[2026-09-28 11:04:35 +0000] Status=2, isTerminal=NO, Elapsed=03:08.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:00 seconds
+
+[2026-09-28 11:04:36 +0000] Status=2, isTerminal=NO, Elapsed=03:09.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:01 seconds
+
+[2026-09-28 11:04:37 +0000] Status=2, isTerminal=NO, Elapsed=03:10.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:02 seconds
+
+[2026-09-28 11:04:38 +0000] Status=2, isTerminal=NO, Elapsed=03:11.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:03 seconds
+
+[2026-09-28 11:04:39 +0000] Status=2, isTerminal=NO, Elapsed=03:12.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:04 seconds
+
+[2026-09-28 11:04:40 +0000] Status=2, isTerminal=NO, Elapsed=03:13.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:05 seconds
+
+[2026-09-28 11:04:41 +0000] Status=2, isTerminal=NO, Elapsed=03:14.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:06 seconds
+
+[2026-09-28 11:04:42 +0000] Status=2, isTerminal=NO, Elapsed=03:15.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:07 seconds
+
+[2026-09-28 11:04:43 +0000] Status=2, isTerminal=NO, Elapsed=03:16.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:08 seconds
+
+[2026-09-28 11:04:44 +0000] Status=2, isTerminal=NO, Elapsed=03:17.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:09 seconds
+
+[2026-09-28 11:04:45 +0000] Status=2, isTerminal=NO, Elapsed=03:18.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:10 seconds
+
+[2026-09-28 11:04:46 +0000] Status=2, isTerminal=NO, Elapsed=03:19.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:11 seconds
+
+[2026-09-28 11:04:47 +0000] Status=2, isTerminal=NO, Elapsed=03:20.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:12 seconds
+
+[2026-09-28 11:04:48 +0000] Status=2, isTerminal=NO, Elapsed=03:21.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:13 seconds
+
+[2026-09-28 11:04:49 +0000] Status=2, isTerminal=NO, Elapsed=03:22.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:14 seconds
+
+[2026-09-28 11:04:50 +0000] Status=2, isTerminal=NO, Elapsed=03:23.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:15 seconds
+
+[2026-09-28 11:04:51 +0000] Status=2, isTerminal=NO, Elapsed=03:24.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:16 seconds
+
+[2026-09-28 11:04:52 +0000] Status=2, isTerminal=NO, Elapsed=03:25.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:17 seconds
+
+[2026-09-28 11:04:53 +0000] Status=2, isTerminal=NO, Elapsed=03:26.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:18 seconds
+
+[2026-09-28 11:04:54 +0000] Status=2, isTerminal=NO, Elapsed=03:27.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:19 seconds
+
+[2026-09-28 11:04:55 +0000] Status=2, isTerminal=NO, Elapsed=03:28.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:20 seconds
+
+[2026-09-28 11:04:56 +0000] Status=2, isTerminal=NO, Elapsed=03:29.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:21 seconds
+
+[2026-09-28 11:04:57 +0000] Status=2, isTerminal=NO, Elapsed=03:30.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:22 seconds
+
+[2026-09-28 11:04:58 +0000] Status=2, isTerminal=NO, Elapsed=03:31.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:23 seconds
+
+[2026-09-28 11:04:59 +0000] Status=2, isTerminal=NO, Elapsed=03:32.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:24 seconds
+
+[2026-09-28 11:05:00 +0000] Status=2, isTerminal=NO, Elapsed=03:33.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:25 seconds
+
+[2026-09-28 11:05:01 +0000] Status=2, isTerminal=NO, Elapsed=03:34.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:26 seconds
+
+[2026-09-28 11:05:02 +0000] Status=2, isTerminal=NO, Elapsed=03:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:27 seconds
+
+[2026-09-28 11:05:03 +0000] Status=2, isTerminal=NO, Elapsed=03:36.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:28 seconds
+
+[2026-09-28 11:05:04 +0000] Status=2, isTerminal=NO, Elapsed=03:37.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:29 seconds
+
+[2026-09-28 11:05:05 +0000] Status=2, isTerminal=NO, Elapsed=03:38.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:30 seconds
+
+[2026-09-28 11:05:06 +0000] Status=2, isTerminal=NO, Elapsed=03:39.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:31 seconds
+
+[2026-09-28 11:05:07 +0000] Status=2, isTerminal=NO, Elapsed=03:40.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:32 seconds
+
+[2026-09-28 11:05:08 +0000] Status=2, isTerminal=NO, Elapsed=03:41.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:33 seconds
+
+[2026-09-28 11:05:09 +0000] Status=2, isTerminal=NO, Elapsed=03:42.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:34 seconds
+
+[2026-09-28 11:05:10 +0000] Status=2, isTerminal=NO, Elapsed=03:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:35 seconds
+
+[2026-09-28 11:05:11 +0000] Status=2, isTerminal=NO, Elapsed=03:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:36 seconds
+
+[2026-09-28 11:05:12 +0000] Status=2, isTerminal=NO, Elapsed=03:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:37 seconds
+
+[2026-09-28 11:05:13 +0000] Status=2, isTerminal=NO, Elapsed=03:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:38 seconds
+
+[2026-09-28 11:05:14 +0000] Status=2, isTerminal=NO, Elapsed=03:47.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:39 seconds
+
+[2026-09-28 11:05:15 +0000] Status=2, isTerminal=NO, Elapsed=03:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:40 seconds
+
+[2026-09-28 11:05:16 +0000] Status=2, isTerminal=NO, Elapsed=03:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:41 seconds
+
+[2026-09-28 11:05:17 +0000] Status=2, isTerminal=NO, Elapsed=03:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:42 seconds
+
+[2026-09-28 11:05:18 +0000] Status=2, isTerminal=NO, Elapsed=03:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:43 seconds
+
+[2026-09-28 11:05:19 +0000] Status=2, isTerminal=NO, Elapsed=03:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:44 seconds
+
+[2026-09-28 11:05:20 +0000] Status=2, isTerminal=NO, Elapsed=03:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:45 seconds
+
+[2026-09-28 11:05:21 +0000] Status=2, isTerminal=NO, Elapsed=03:54.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:46 seconds
+
+[2026-09-28 11:05:22 +0000] Status=2, isTerminal=NO, Elapsed=03:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:47 seconds
+
+[2026-09-28 11:05:23 +0000] Status=2, isTerminal=NO, Elapsed=03:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:48 seconds
+
+[2026-09-28 11:05:24 +0000] Status=2, isTerminal=NO, Elapsed=03:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:49 seconds
+
+[2026-09-28 11:05:25 +0000] Status=2, isTerminal=NO, Elapsed=03:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:50 seconds
+
+[2026-09-28 11:05:26 +0000] Status=2, isTerminal=NO, Elapsed=03:59.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:51 seconds
+
+[2026-09-28 11:05:27 +0000] Status=2, isTerminal=NO, Elapsed=04:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:52 seconds
+
+[2026-09-28 11:05:28 +0000] Status=2, isTerminal=NO, Elapsed=04:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:53 seconds
+
+[2026-09-28 11:05:29 +0000] Status=2, isTerminal=NO, Elapsed=04:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:54 seconds
+
+[2026-09-28 11:05:30 +0000] Status=2, isTerminal=NO, Elapsed=04:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:55 seconds
+
+[2026-09-28 11:05:31 +0000] Status=2, isTerminal=NO, Elapsed=04:04.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:56 seconds
+
+[2026-09-28 11:05:32 +0000] Status=2, isTerminal=NO, Elapsed=04:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:57 seconds
+
+[2026-09-28 11:05:33 +0000] Status=2, isTerminal=NO, Elapsed=04:06.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:58 seconds
+
+[2026-09-28 11:05:34 +0000] Status=2, isTerminal=NO, Elapsed=04:07.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:03:59 seconds
+
+[2026-09-28 11:05:35 +0000] Status=2, isTerminal=NO, Elapsed=04:08.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:00 seconds
+
+[2026-09-28 11:05:36 +0000] Status=2, isTerminal=NO, Elapsed=04:09.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:01 seconds
+
+[2026-09-28 11:05:37 +0000] Status=2, isTerminal=NO, Elapsed=04:10.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:02 seconds
+
+[2026-09-28 11:05:38 +0000] Status=2, isTerminal=NO, Elapsed=04:11.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:03 seconds
+
+[2026-09-28 11:05:39 +0000] Status=2, isTerminal=NO, Elapsed=04:12.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:04 seconds
+
+[2026-09-28 11:05:40 +0000] Status=2, isTerminal=NO, Elapsed=04:13.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:05 seconds
+
+[2026-09-28 11:05:41 +0000] Status=2, isTerminal=NO, Elapsed=04:14.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:06 seconds
+
+[2026-09-28 11:05:42 +0000] Status=2, isTerminal=NO, Elapsed=04:15.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:07 seconds
+
+[2026-09-28 11:05:43 +0000] Status=2, isTerminal=NO, Elapsed=04:16.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:08 seconds
+
+[2026-09-28 11:05:44 +0000] Status=2, isTerminal=NO, Elapsed=04:17.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:09 seconds
+
+[2026-09-28 11:05:45 +0000] Status=2, isTerminal=NO, Elapsed=04:18.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:10 seconds
+
+[2026-09-28 11:05:46 +0000] Status=2, isTerminal=NO, Elapsed=04:19.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:11 seconds
+
+[2026-09-28 11:05:47 +0000] Status=2, isTerminal=NO, Elapsed=04:20.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:12 seconds
+
+[2026-09-28 11:05:48 +0000] Status=2, isTerminal=NO, Elapsed=04:21.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:13 seconds
+
+[2026-09-28 11:05:49 +0000] Status=2, isTerminal=NO, Elapsed=04:22.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:14 seconds
+
+[2026-09-28 11:05:50 +0000] Status=2, isTerminal=NO, Elapsed=04:23.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:15 seconds
+
+[2026-09-28 11:05:51 +0000] Status=2, isTerminal=NO, Elapsed=04:24.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:16 seconds
+
+[2026-09-28 11:05:52 +0000] Status=2, isTerminal=NO, Elapsed=04:25.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:17 seconds
+
+[2026-09-28 11:05:53 +0000] Status=2, isTerminal=NO, Elapsed=04:26.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:18 seconds
+
+[2026-09-28 11:05:54 +0000] Status=2, isTerminal=NO, Elapsed=04:27.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:19 seconds
+
+[2026-09-28 11:05:55 +0000] Status=2, isTerminal=NO, Elapsed=04:28.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:20 seconds
+
+[2026-09-28 11:05:56 +0000] Status=2, isTerminal=NO, Elapsed=04:29.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:21 seconds
+
+[2026-09-28 11:05:57 +0000] Status=2, isTerminal=NO, Elapsed=04:30.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:22 seconds
+
+[2026-09-28 11:05:58 +0000] Status=2, isTerminal=NO, Elapsed=04:31.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:23 seconds
+
+[2026-09-28 11:05:59 +0000] Status=2, isTerminal=NO, Elapsed=04:32.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:24 seconds
+
+[2026-09-28 11:06:00 +0000] Status=2, isTerminal=NO, Elapsed=04:33.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:25 seconds
+
+[2026-09-28 11:06:01 +0000] Status=2, isTerminal=NO, Elapsed=04:34.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:26 seconds
+
+[2026-09-28 11:06:02 +0000] Status=2, isTerminal=NO, Elapsed=04:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:27 seconds
+
+[2026-09-28 11:06:03 +0000] Status=2, isTerminal=NO, Elapsed=04:36.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:28 seconds
+
+[2026-09-28 11:06:04 +0000] Status=2, isTerminal=NO, Elapsed=04:37.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:29 seconds
+
+[2026-09-28 11:06:05 +0000] Status=2, isTerminal=NO, Elapsed=04:38.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:30 seconds
+
+[2026-09-28 11:06:06 +0000] Status=2, isTerminal=NO, Elapsed=04:39.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:31 seconds
+
+[2026-09-28 11:06:07 +0000] Status=2, isTerminal=NO, Elapsed=04:40.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:32 seconds
+
+[2026-09-28 11:06:08 +0000] Status=2, isTerminal=NO, Elapsed=04:41.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:33 seconds
+
+[2026-09-28 11:06:09 +0000] Status=2, isTerminal=NO, Elapsed=04:42.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:34 seconds
+
+[2026-09-28 11:06:10 +0000] Status=2, isTerminal=NO, Elapsed=04:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:35 seconds
+
+[2026-09-28 11:06:11 +0000] Status=2, isTerminal=NO, Elapsed=04:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:36 seconds
+
+[2026-09-28 11:06:12 +0000] Status=2, isTerminal=NO, Elapsed=04:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:37 seconds
+
+[2026-09-28 11:06:13 +0000] Status=2, isTerminal=NO, Elapsed=04:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:38 seconds
+
+[2026-09-28 11:06:14 +0000] Status=2, isTerminal=NO, Elapsed=04:47.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:39 seconds
+
+[2026-09-28 11:06:15 +0000] Status=2, isTerminal=NO, Elapsed=04:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:40 seconds
+
+[2026-09-28 11:06:16 +0000] Status=2, isTerminal=NO, Elapsed=04:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:41 seconds
+
+[2026-09-28 11:06:17 +0000] Status=2, isTerminal=NO, Elapsed=04:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:42 seconds
+
+[2026-09-28 11:06:18 +0000] Status=2, isTerminal=NO, Elapsed=04:51.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:43 seconds
+
+[2026-09-28 11:06:19 +0000] Status=2, isTerminal=NO, Elapsed=04:52.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:44 seconds
+
+[2026-09-28 11:06:20 +0000] Status=2, isTerminal=NO, Elapsed=04:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:45 seconds
+
+[2026-09-28 11:06:21 +0000] Status=2, isTerminal=NO, Elapsed=04:54.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:46 seconds
+
+[2026-09-28 11:06:22 +0000] Status=2, isTerminal=NO, Elapsed=04:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:47 seconds
+
+[2026-09-28 11:06:23 +0000] Status=2, isTerminal=NO, Elapsed=04:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:48 seconds
+
+[2026-09-28 11:06:24 +0000] Status=2, isTerminal=NO, Elapsed=04:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:49 seconds
+
+[2026-09-28 11:06:25 +0000] Status=2, isTerminal=NO, Elapsed=04:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:50 seconds
+
+[2026-09-28 11:06:26 +0000] Status=2, isTerminal=NO, Elapsed=04:59.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:51 seconds
+
+[2026-09-28 11:06:27 +0000] Status=2, isTerminal=NO, Elapsed=05:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:52 seconds
+
+[2026-09-28 11:06:28 +0000] Status=2, isTerminal=NO, Elapsed=05:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:53 seconds
+
+[2026-09-28 11:06:29 +0000] Status=2, isTerminal=NO, Elapsed=05:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:04:54 seconds
+
+Traceback (most recent call last):
+  File "/Users/runner/work/like-art-ios/like-art-ios/ios-b2/ci/capture_world.py", line 29, in <module>
+    run('xcrun','simctl','boot',udid);run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
+                                      ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/runner/work/like-art-ios/like-art-ios/ios-b2/ci/capture_world.py", line 6, in run
+    def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
+                               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2179, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1279, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 2076, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '('xcrun', 'simctl', 'bootstatus', 'B9EA54D9-0892-4002-ADCF-87A5DDF08D57', '-b')' timed out after 300 seconds
