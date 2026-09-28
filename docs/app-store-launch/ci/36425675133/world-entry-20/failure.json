@@ -1,0 +1,6 @@
+{
+  "phase": "app-launch",
+  "type": "TimeoutExpired",
+  "error": "Command '['xcrun', 'simctl', 'launch', '5EB3EEA7-0E9F-42E7-88C7-E997F515546B', 'com.likeart.app', '-AppleLanguages', '(zh-Hans)']' timed out after 30 seconds",
+  "appLaunched": false
+}
