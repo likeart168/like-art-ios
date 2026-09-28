@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://like-art.com/v6/?app=1&measure=1",
+    "status": 200,
+    "bytes": 134084,
+    "seconds": 1.2632180000000517
+  },
+  {
+    "url": "https://like-art.com/v6/world-startup-render-22.js?v=world22",
+    "status": 200,
+    "bytes": 6222,
+    "seconds": 0.685734082999943
+  }
+]
