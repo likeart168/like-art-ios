@@ -1,0 +1,1926 @@
+{
+  "device": "iPhone 13 Pro",
+  "captureWallSeconds": 51.34834570800001,
+  "captureErrors": [],
+  "readyMs": null,
+  "firstReadySample": null,
+  "webkitTerminations": 0,
+  "last": {
+    "elapsed": 34.79125702381134,
+    "estimatedProgress": 1,
+    "jsError": "",
+    "jsErrorDetail": "",
+    "nativeFailed": false,
+    "nativeFailure": "",
+    "nativeLoading": false,
+    "nativePack": {
+      "missed": 0,
+      "ready": true,
+      "served": 112
+    },
+    "page": {
+      "afterLanguage": 4852,
+      "assets": 277,
+      "bufferResidency": {
+        "deferredBuffers": 963,
+        "deferredBytes": 171033840,
+        "residentBytes": 3360,
+        "uploadedBytes": 0,
+        "uploads": 0
+      },
+      "containerGuard": {
+        "active": true,
+        "aheadBytes": 356228,
+        "aheadHits": 36,
+        "pause": null,
+        "phase": "decode",
+        "processed": 47,
+        "queued": 1,
+        "version": "v6-container-load-guard-165-readahead-24"
+      },
+      "documentStart": 4841,
+      "emptyLight": {
+        "emptyVariants": 0,
+        "localVariants": 0,
+        "version": "world-empty-light-25"
+      },
+      "entry": {
+        "failure": null,
+        "phase": "initial scenery",
+        "stages": [
+          {
+            "elapsedMs": 1195,
+            "name": "heightmap-sculpt-biome-load",
+            "started": 16343,
+            "status": "ready"
+          },
+          {
+            "elapsedMs": 7810.000000000004,
+            "name": "game-zone-gateway-preload",
+            "started": 17561,
+            "status": "ready"
+          },
+          {
+            "elapsedMs": 3578,
+            "name": "castle-single-preload",
+            "started": 17561,
+            "status": "ready"
+          },
+          {
+            "elapsedMs": 2883,
+            "name": "water-system",
+            "started": 17565,
+            "status": "ready"
+          },
+          {
+            "elapsedMs": 5044,
+            "name": "road-system",
+            "started": 17565,
+            "status": "ready"
+          },
+          {
+            "elapsedMs": 10916,
+            "name": "market-assets-preload",
+            "started": 17569,
+            "status": "ready"
+          },
+          {
+            "elapsedMs": 3325.9999999999964,
+            "name": "gateway-bridge",
+            "started": 22653.000000000004,
+            "status": "ready"
+          },
+          {
+            "name": "initial scenery",
+            "started": 29497,
+            "status": "loading"
+          }
+        ],
+        "started": 6184,
+        "status": "loading",
+        "version": "212"
+      },
+      "errors": [],
+      "exactTerrain": {
+        "entries": 76,
+        "hits": 76,
+        "sha256": "d9b65c68292cf3aa85740b33c2cad9ff2678e93f60d4d407049df119741859a0",
+        "transport": "verified-pack"
+      },
+      "gpuEvents": [],
+      "graphics": {
+        "mode": "single-compatibility-webgl2",
+        "recovered": false
+      },
+      "loading": "\u5373\u5c06\u8fdb\u5165\u4e16\u754c\u2026",
+      "loadingAssets": [
+        {
+          "name": "World far ./assets/game-zone/life-houses/story-atelier-far-babaeb2f1ca2.glb",
+          "type": "container"
+        },
+        {
+          "name": "texture_20250901-83",
+          "type": "texture"
+        }
+      ],
+      "navigation": [
+        {
+          "connectEnd": 32,
+          "connectStart": 32,
+          "domainLookupEnd": 32,
+          "domainLookupStart": 32,
+          "domComplete": 15537,
+          "domInteractive": 14682,
+          "fetchStart": 32,
+          "requestStart": 45,
+          "responseEnd": 437,
+          "responseStart": 238.00000000000003
+        }
+      ],
+      "now": 30611,
+      "pack": {
+        "bytes": 51802893,
+        "entries": 187,
+        "failures": [],
+        "fallbacks": 0,
+        "hits": 76,
+        "ready": true,
+        "transport": "native-message-22"
+      },
+      "path": "/v6/",
+      "physicalBufferBytes": 3404,
+      "player": {
+        "dancing": false,
+        "jumping": false,
+        "moving": false,
+        "region": "Heartvale",
+        "running": false,
+        "waterDepth": 0,
+        "x": 35,
+        "y": 8.703705660502116,
+        "yaw": 0,
+        "z": -20
+      },
+      "progress": "90%",
+      "ready": false,
+      "renderStartup": {
+        "frames": 0,
+        "heldDraws": 0,
+        "parallel": true,
+        "phase": "assets",
+        "shaders": 0,
+        "skippedUpdates": 0,
+        "updateCalls": 0,
+        "version": "world-startup-render-22"
+      },
+      "renderTargets": [],
+      "resources": [
+        {
+          "bytes": 2201,
+          "duration": 462,
+          "name": "/v6/i18n/page-109.js",
+          "start": 4934
+        },
+        {
+          "bytes": 2964,
+          "duration": 451,
+          "name": "/v6/i18n/runtime.js",
+          "start": 4945
+        },
+        {
+          "bytes": 69046,
+          "duration": 447,
+          "name": "/v6/i18n/catalog-109.js",
+          "start": 4949
+        },
+        {
+          "bytes": 3715,
+          "duration": 444,
+          "name": "/v6/i18n/ui-109.js",
+          "start": 4952
+        },
+        {
+          "bytes": 1714,
+          "duration": 438,
+          "name": "/v6/i18n/core.js",
+          "start": 4958
+        },
+        {
+          "bytes": 4825,
+          "duration": 435,
+          "name": "/v6/i18n/messages.js",
+          "start": 4961
+        },
+        {
+          "bytes": 445,
+          "duration": 431,
+          "name": "/v6/i18n/localize-109.js",
+          "start": 4965
+        },
+        {
+          "bytes": 1321,
+          "duration": 429.9999999999991,
+          "name": "/v6/pack-preload-201.js",
+          "start": 4967.000000000001
+        },
+        {
+          "bytes": 4818,
+          "duration": 429,
+          "name": "/v6/zone-preload.js",
+          "start": 4969
+        },
+        {
+          "bytes": 740,
+          "duration": 425,
+          "name": "/v6/game-zone/game-zone-residency.js",
+          "start": 4972
+        },
+        {
+          "bytes": 1024,
+          "duration": 423,
+          "name": "/v6/i18n/world-text.js",
+          "start": 4974
+        },
+        {
+          "bytes": 1411,
+          "duration": 419,
+          "name": "/v6/terrain-worker-local-207.js",
+          "start": 4978
+        },
+        {
+          "bytes": 1963,
+          "duration": 416,
+          "name": "/v6/asset-cdn-165.js",
+          "start": 4982
+        },
+        {
+          "bytes": 602716,
+          "duration": 1118,
+          "name": "/v6/playcanvas.mjs",
+          "start": 4985
+        },
+        {
+          "bytes": 1958,
+          "duration": 410,
+          "name": "/v6/world-diagnostics-150.js",
+          "start": 4988
+        },
+        {
+          "bytes": 2650,
+          "duration": 408,
+          "name": "/v6/world-startup-render-22.js",
+          "start": 4990
+        },
+        {
+          "bytes": 2780,
+          "duration": 405,
+          "name": "/v6/exhibition-resource-handoff-098.js",
+          "start": 4993
+        },
+        {
+          "bytes": 2713,
+          "duration": 403,
+          "name": "/v6/motion-stability-164.js",
+          "start": 4996
+        },
+        {
+          "bytes": 675,
+          "duration": 399,
+          "name": "/v6/terrain-scene-depth-084.js",
+          "start": 4999
+        },
+        {
+          "bytes": 2050,
+          "duration": 417.0000000000009,
+          "name": "/v6/landscape-ground-084.js",
+          "start": 5002
+        },
+        {
+          "bytes": 2418,
+          "duration": 412.0000000000009,
+          "name": "/v6/water/river-bank-083.js",
+          "start": 5007
+        },
+        {
+          "bytes": 1154,
+          "duration": 408.0000000000009,
+          "name": "/v6/terrain-mountain-depth-084.js",
+          "start": 5011
+        },
+        {
+          "bytes": 24263,
+          "duration": 442,
+          "name": "/v6/terrain-water-083.js",
+          "start": 5015
+        },
+        {
+          "bytes": 1848,
+          "duration": 397.0000000000009,
+          "name": "/v6/terrain-exact-212.js",
+          "start": 5022
+        },
+        {
+          "bytes": 747,
+          "duration": 394,
+          "name": "/v6/terrain-sample-cache-207.js",
+          "start": 5026
+        },
+        {
+          "bytes": 1398,
+          "duration": 429,
+          "name": "/v6/polyline-nearest-208.js",
+          "start": 5035
+        },
+        {
+          "bytes": 977,
+          "duration": 416,
+          "name": "/v6/terrain-far-worker-165.js",
+          "start": 5042
+        },
+        {
+          "bytes": 798,
+          "duration": 411,
+          "name": "/v6/frame-work-136.js",
+          "start": 5046
+        },
+        {
+          "bytes": 1076,
+          "duration": 417,
+          "name": "/v6/terrain-border-093.js",
+          "start": 5047
+        },
+        {
+          "bytes": 1312,
+          "duration": 413,
+          "name": "/v6/terrain-ridge-finish-093.js",
+          "start": 5051
+        },
+        {
+          "bytes": 418879,
+          "duration": 966,
+          "name": "/v6/terrain-ridge-data-093.js",
+          "start": 5053
+        },
+        {
+          "bytes": 1017,
+          "duration": 409,
+          "name": "/v6/river-shoulder-finish-092.js",
+          "start": 5055
+        },
+        {
+          "bytes": 36675,
+          "duration": 448,
+          "name": "/v6/river-shoulder-data-092.js",
+          "start": 5056
+        },
+        {
+          "bytes": 3808,
+          "duration": 408,
+          "name": "/v6/river-grade-083.js",
+          "start": 5057
+        },
+        {
+          "bytes": 2074,
+          "duration": 425.0000000000009,
+          "name": "/v6/river-channel-finish-091.js",
+          "start": 5058
+        },
+        {
+          "bytes": 2763,
+          "duration": 439,
+          "name": "/v6/lake-profile-074.js",
+          "start": 5059
+        },
+        {
+          "bytes": 1440,
+          "duration": 439,
+          "name": "/v6/water-detail-079.js",
+          "start": 5062
+        },
+        {
+          "bytes": 3154,
+          "duration": 443,
+          "name": "/v6/mountain-surface-084.js",
+          "start": 5064
+        },
+        {
+          "bytes": 3286,
+          "duration": 443,
+          "name": "/v6/mountain-profile-008.js",
+          "start": 5065
+        },
+        {
+          "bytes": 1390,
+          "duration": 449,
+          "name": "/v6/meadow-surface-073.js",
+          "start": 5066
+        },
+        {
+          "bytes": 1360,
+          "duration": 446.9999999999991,
+          "name": "/v6/lake-shore-084.js",
+          "start": 5068.000000000001
+        },
+        {
+          "bytes": 623,
+          "duration": 446,
+          "name": "/v6/water/water-lake-086.js",
+          "start": 5069
+        },
+        {
+          "bytes": 3421,
+          "duration": 446,
+          "name": "/v6/water/water-lake-083.js",
+          "start": 5070
+        },
+        {
+          "bytes": 3245,
+          "duration": 453,
+          "name": "/v6/water/surface-optics-136.js",
+          "start": 5071
+        },
+        {
+          "bytes": 29204,
+          "duration": 498,
+          "name": "/v6/water/water-system-083.js",
+          "start": 5072
+        },
+        {
+          "bytes": 3610,
+          "duration": 452,
+          "name": "/v6/water/water-habitat-plants-086.js",
+          "start": 5073
+        },
+        {
+          "bytes": 20514,
+          "duration": 527,
+          "name": "/v6/tree-forest-lake-074.js",
+          "start": 5074
+        },
+        {
+          "bytes": 1313,
+          "duration": 450,
+          "name": "/v6/zone-tree-layout.js",
+          "start": 5075
+        },
+        {
+          "bytes": 15384,
+          "duration": 553.9999999999991,
+          "name": "/v6/forest-boundary-layout-005.js",
+          "start": 5076.000000000001
+        },
+        {
+          "bytes": 1624,
+          "duration": 508,
+          "name": "/v6/forest-understory-lake-074.js",
+          "start": 5077
+        },
+        {
+          "bytes": 1311,
+          "duration": 526,
+          "name": "/v6/forest-vista-layout-066.js",
+          "start": 5078
+        },
+        {
+          "bytes": 1200,
+          "duration": 540,
+          "name": "/v6/forest-vista-layout-068.js",
+          "start": 5079
+        },
+        {
+          "bytes": 1690,
+          "duration": 563,
+          "name": "/v6/tree-budget-070.js",
+          "start": 5080
+        },
+        {
+          "bytes": 1266,
+          "duration": 609,
+          "name": "/v6/game-zone/game-load-051.js",
+          "start": 5081
+        },
+        {
+          "bytes": 16844,
+          "duration": 674,
+          "name": "/v6/water/water-habitat-layout-076.js",
+          "start": 5082
+        },
+        {
+          "bytes": 17896,
+          "duration": 703.0000000000009,
+          "name": "/v6/roads/road-system-071.js",
+          "start": 5083
+        },
+        {
+          "bytes": 1218,
+          "duration": 657,
+          "name": "/v6/roads/surface-conform-091.js",
+          "start": 5084.000000000001
+        },
+        {
+          "bytes": 764,
+          "duration": 702,
+          "name": "/v6/game-zone/game-zone-site-plan.js",
+          "start": 5084.000000000001
+        },
+        {
+          "bytes": 1574,
+          "duration": 715,
+          "name": "/v6/plaza-paving.js",
+          "start": 5085
+        },
+        {
+          "bytes": 1626,
+          "duration": 730,
+          "name": "/v6/biome-runtime.js",
+          "start": 5086
+        },
+        {
+          "bytes": 5580,
+          "duration": 738,
+          "name": "/v6/bridge-runtime.js",
+          "start": 5087
+        },
+        {
+          "bytes": 1244,
+          "duration": 737,
+          "name": "/v6/bridge-contact-143.js",
+          "start": 5088
+        },
+        {
+          "bytes": 2862,
+          "duration": 734,
+          "name": "/v6/seating-135.js",
+          "start": 5091
+        },
+        {
+          "bytes": 1240,
+          "duration": 732.9999999999991,
+          "name": "/v6/interaction-prompts-135.js",
+          "start": 5092.000000000001
+        },
+        {
+          "bytes": 12303,
+          "duration": 741.0000000000009,
+          "name": "/v6/player-home-lake-130.js",
+          "start": 5093
+        },
+        {
+          "bytes": 1386,
+          "duration": 740.0000000000009,
+          "name": "/v6/avatar-catalog-141.js",
+          "start": 5094
+        },
+        {
+          "bytes": 933,
+          "duration": 739.0000000000009,
+          "name": "/v6/personal-avatars-183.js",
+          "start": 5095
+        },
+        {
+          "bytes": 3015,
+          "duration": 738.0000000000009,
+          "name": "/v6/avatar-runtime-141.js",
+          "start": 5096
+        },
+        {
+          "bytes": 564,
+          "duration": 737.0000000000009,
+          "name": "/v6/avatar-size-143.js",
+          "start": 5097
+        },
+        {
+          "bytes": 2168,
+          "duration": 736.0000000000009,
+          "name": "/v6/water/water-navigation-091.js",
+          "start": 5098
+        },
+        {
+          "bytes": 1235,
+          "duration": 735.0000000000009,
+          "name": "/v6/world-collision-20260917.js",
+          "start": 5099
+        },
+        {
+          "bytes": 1676,
+          "duration": 733.0000000000009,
+          "name": "/v6/home-space.js",
+          "start": 5101
+        },
+        {
+          "bytes": 910,
+          "duration": 823,
+          "name": "/v6/life/travel.js",
+          "start": 5102
+        },
+        {
+          "bytes": 4063,
+          "duration": 816.9999999999991,
+          "name": "/v6/container-load-guard-165.js",
+          "start": 5108.000000000001
+        },
+        {
+          "bytes": 2959,
+          "duration": 816,
+          "name": "/v6/tasks/world-entry-118.js",
+          "start": 5109
+        },
+        {
+          "bytes": 1049,
+          "duration": 814,
+          "name": "/v6/tasks/feature-toggle-122.js",
+          "start": 5111
+        },
+        {
+          "bytes": 1792,
+          "duration": 814,
+          "name": "/v6/castle-single-runtime.js",
+          "start": 5112
+        },
+        {
+          "bytes": 3259,
+          "duration": 817,
+          "name": "/v6/meats-doll-142.js",
+          "start": 5112
+        },
+        {
+          "bytes": 7985,
+          "duration": 817,
+          "name": "/v6/market-assets-safe-212.js",
+          "start": 5113
+        },
+        {
+          "bytes": 691,
+          "duration": 815,
+          "name": "/v6/tree-trunk-143.js",
+          "start": 5115
+        },
+        {
+          "bytes": 1081,
+          "duration": 813.9999999999991,
+          "name": "/v6/region-proximity-087.js",
+          "start": 5116.000000000001
+        },
+        {
+          "bytes": 851,
+          "duration": 812,
+          "name": "/v6/region-residency-071.js",
+          "start": 5118
+        },
+        {
+          "bytes": 25850,
+          "duration": 832,
+          "name": "/v6/collector-village-safe-087.js",
+          "start": 5120
+        },
+        {
+          "bytes": 1631,
+          "duration": 809,
+          "name": "/v6/artist-courtyard-landscape-plan.js",
+          "start": 5121
+        },
+        {
+          "bytes": 2588,
+          "duration": 807,
+          "name": "/v6/artist-village-road-plan.js",
+          "start": 5123
+        },
+        {
+          "bytes": 26194,
+          "duration": 846,
+          "name": "/v6/artist-village-safe-087.js",
+          "start": 5124
+        },
+        {
+          "bytes": 2320,
+          "duration": 826,
+          "name": "/v6/artist-village-slot-layout.js",
+          "start": 5126
+        },
+        {
+          "bytes": 5308,
+          "duration": 830,
+          "name": "/v6/artist-facade-grid.js",
+          "start": 5127
+        },
+        {
+          "bytes": 4229,
+          "duration": 831.0000000000009,
+          "name": "/v6/titania-main-hall-runtime.js",
+          "start": 5128
+        },
+        {
+          "bytes": 3413,
+          "duration": 841,
+          "name": "/v6/assets/buildings/registry.js",
+          "start": 5130
+        },
+        {
+          "bytes": 1632,
+          "duration": 843,
+          "name": "/v6/world-bright-sky-013.js",
+          "start": 5131
+        },
+        {
+          "bytes": 4290,
+          "duration": 842,
+          "name": "/v6/skyline-runtime.js",
+          "start": 5132
+        },
+        {
+          "bytes": 17325,
+          "duration": 845,
+          "name": "/v6/aoi-runtime-103.js",
+          "start": 5133
+        },
+        {
+          "bytes": 1750,
+          "duration": 844,
+          "name": "/v6/room-presence-171.js",
+          "start": 5134
+        },
+        {
+          "bytes": 1438,
+          "duration": 843,
+          "name": "/v6/aoi-safety-099.js",
+          "start": 5135
+        },
+        {
+          "bytes": 2419,
+          "duration": 843,
+          "name": "/v6/login-return-153.js",
+          "start": 5136
+        },
+        {
+          "bytes": 1242,
+          "duration": 842,
+          "name": "/v6/resident-client-144.js",
+          "start": 5137
+        },
+        {
+          "bytes": 1181,
+          "duration": 840,
+          "name": "/v6/account-sync-132.js",
+          "start": 5139
+        },
+        {
+          "bytes": 1261,
+          "duration": 839,
+          "name": "/v6/storage-102.js",
+          "start": 5140
+        },
+        {
+          "bytes": 706,
+          "duration": 838,
+          "name": "/v6/request-timeout-104.js",
+          "start": 5141
+        },
+        {
+          "bytes": 1005,
+          "duration": 837,
+          "name": "/v6/aoi-session-100.js",
+          "start": 5142
+        },
+        {
+          "bytes": 3072,
+          "duration": 846,
+          "name": "/v6/avatar-nameplates-054.js",
+          "start": 5144
+        },
+        {
+          "bytes": 1219,
+          "duration": 844,
+          "name": "/v6/aoi-batch-050.js",
+          "start": 5146
+        },
+        {
+          "bytes": 704,
+          "duration": 843,
+          "name": "/v6/aoi-batch-048.js",
+          "start": 5147
+        },
+        {
+          "bytes": 1194,
+          "duration": 842,
+          "name": "/v6/aoi-interpolation.js",
+          "start": 5148
+        },
+        {
+          "bytes": 942,
+          "duration": 840,
+          "name": "/v6/life/travel-sync.js",
+          "start": 5150
+        },
+        {
+          "bytes": 995,
+          "duration": 839,
+          "name": "/v6/quality-safety-079.js",
+          "start": 5151
+        },
+        {
+          "bytes": 1249,
+          "duration": 836.9999999999991,
+          "name": "/v6/quality-runtime.js",
+          "start": 5153.000000000001
+        },
+        {
+          "bytes": 1602,
+          "duration": 834,
+          "name": "/v6/terrain-travel-165.js",
+          "start": 5156
+        },
+        {
+          "bytes": 3865,
+          "duration": 834.0000000000009,
+          "name": "/v6/quality-controller-165.js",
+          "start": 5157
+        },
+        {
+          "bytes": 673,
+          "duration": 832,
+          "name": "/v6/render-resolution-164.js",
+          "start": 5158
+        },
+        {
+          "bytes": 10187,
+          "duration": 831.0000000000009,
+          "name": "/v6/game-zone/wonder-hub-life-052.js",
+          "start": 5160
+        },
+        {
+          "bytes": 2144,
+          "duration": 830,
+          "name": "/v6/game-zone/life-entry-038.js",
+          "start": 5161.000000000001
+        },
+        {
+          "bytes": 2533,
+          "duration": 828.0000000000009,
+          "name": "/v6/game-zone/game-zone-gateway-landmark.js",
+          "start": 5163
+        },
+        {
+          "bytes": 8605,
+          "duration": 827.0000000000009,
+          "name": "/v6/game-zone/game-village-life-052.js",
+          "start": 5164
+        },
+        {
+          "bytes": 1089,
+          "duration": 826,
+          "name": "/v6/i18n/namespace.js",
+          "start": 5166
+        },
+        {
+          "bytes": 771,
+          "duration": 825,
+          "name": "/v6/game-zone/house-assets-052.js",
+          "start": 5167
+        },
+        {
+          "bytes": 1239,
+          "duration": 825,
+          "name": "/v6/game-zone/house-lod.js",
+          "start": 5167
+        },
+        {
+          "bytes": 2480,
+          "duration": 824,
+          "name": "/v6/game-zone/house-entrances-006.js",
+          "start": 5168
+        },
+        {
+          "bytes": 902,
+          "duration": 822,
+          "name": "/v6/life/garden-navigation.js",
+          "start": 5170
+        },
+        {
+          "bytes": 926,
+          "duration": 820,
+          "name": "/v6/life/game-navigation-002.js",
+          "start": 5172
+        },
+        {
+          "bytes": 2144,
+          "duration": 818,
+          "name": "/v6/game-zone/life-entry-038.js",
+          "start": 5174
+        },
+        {
+          "bytes": 902,
+          "duration": 816,
+          "name": "/v6/life/garden-navigation.js",
+          "start": 5176
+        },
+        {
+          "bytes": 1002,
+          "duration": 814,
+          "name": "/v6/life/game-navigation-164.js",
+          "start": 5178
+        },
+        {
+          "bytes": 1354,
+          "duration": 813,
+          "name": "/v6/life/game-context-164.js",
+          "start": 5180
+        },
+        {
+          "bytes": 1074,
+          "duration": 811,
+          "name": "/v6/life/world-164.js",
+          "start": 5182
+        },
+        {
+          "bytes": 3051,
+          "duration": 809,
+          "name": "/v6/life/field-world-164.js",
+          "start": 5184
+        },
+        {
+          "bytes": 3029,
+          "duration": 873,
+          "name": "/v6/life/field-controls-033b.js",
+          "start": 5184
+        },
+        {
+          "bytes": 1755,
+          "duration": 871,
+          "name": "/v6/life/field-pickup-033.js",
+          "start": 5186
+        },
+        {
+          "bytes": 1582,
+          "duration": 869,
+          "name": "/v6/life/messages-033.js",
+          "start": 5188
+        },
+        {
+          "bytes": 977,
+          "duration": 868,
+          "name": "/v6/life/api.js",
+          "start": 5189
+        },
+        {
+          "bytes": 12045,
+          "duration": 868,
+          "name": "/v6/life/messages.js",
+          "start": 5189
+        },
+        {
+          "bytes": 7231,
+          "duration": 873,
+          "name": "/v6/life/ui-164.js",
+          "start": 5190
+        },
+        {
+          "bytes": 3139,
+          "duration": 872,
+          "name": "/v6/life/guest-play.js",
+          "start": 5191
+        },
+        {
+          "bytes": 977,
+          "duration": 871,
+          "name": "/v6/life/api.js",
+          "start": 5192
+        },
+        {
+          "bytes": 1698,
+          "duration": 869.9999999999991,
+          "name": "/v6/life/journal.js",
+          "start": 5193.000000000001
+        },
+        {
+          "bytes": 826,
+          "duration": 868,
+          "name": "/v6/life/memory-text.js",
+          "start": 5195
+        },
+        {
+          "bytes": 1426,
+          "duration": 866,
+          "name": "/v6/life/journal-layout.js",
+          "start": 5197
+        },
+        {
+          "bytes": 2312,
+          "duration": 865,
+          "name": "/v6/life/hunt-view.js",
+          "start": 5198
+        },
+        {
+          "bytes": 662,
+          "duration": 864,
+          "name": "/v6/life/hunt-assets.js",
+          "start": 5199
+        },
+        {
+          "bytes": 1076,
+          "duration": 863,
+          "name": "/v6/life/hunt-residency-033.js",
+          "start": 5200
+        },
+        {
+          "bytes": 4386,
+          "duration": 862.9999999999991,
+          "name": "/v6/game-zone/game-zone-landscape-life-053.js",
+          "start": 5201.000000000001
+        },
+        {
+          "bytes": 2089,
+          "duration": 861,
+          "name": "/v6/game-zone/game-zone-wayfinding-052.js",
+          "start": 5202
+        },
+        {
+          "bytes": 4661,
+          "duration": 859,
+          "name": "/v6/game-zone/game-zone-paving-053.js",
+          "start": 5205
+        },
+        {
+          "bytes": 731,
+          "duration": 859,
+          "name": "/v6/game-zone/game-zone-residency.js",
+          "start": 5205
+        },
+        {
+          "bytes": 4048,
+          "duration": 858,
+          "name": "/v6/world-status-142.js",
+          "start": 5206
+        },
+        {
+          "bytes": 2602,
+          "duration": 857,
+          "name": "/v6/personal-world-183.js",
+          "start": 5207
+        },
+        {
+          "bytes": 1049,
+          "duration": 856,
+          "name": "/v6/tasks/feature-toggle-122.js",
+          "start": 5208
+        },
+        {
+          "bytes": 601,
+          "duration": 854,
+          "name": "/v6/world-status-data-142.js",
+          "start": 5210
+        },
+        {
+          "bytes": 2056,
+          "duration": 853,
+          "name": "/v6/exhibitions/hall-02/exhibition-program.js",
+          "start": 5211
+        },
+        {
+          "bytes": 2533,
+          "duration": 851,
+          "name": "/v6/exhibitions/hall-02/layout.js",
+          "start": 5213
+        },
+        {
+          "bytes": 2043,
+          "duration": 850,
+          "name": "/v6/exhibitions/hall-02/exhibition-decor.js",
+          "start": 5215
+        },
+        {
+          "bytes": 10206,
+          "duration": 849,
+          "name": "/v6/artist-room-portal-home-042.js",
+          "start": 5216
+        },
+        {
+          "bytes": 5958,
+          "duration": 847.9999999999991,
+          "name": "/v6/exhibition-native-130.js",
+          "start": 5217.000000000001
+        },
+        {
+          "bytes": 1402,
+          "duration": 847,
+          "name": "/v6/hall-handoff-169.js",
+          "start": 5218
+        },
+        {
+          "bytes": 761,
+          "duration": 846,
+          "name": "/v6/hall-resources-142.js",
+          "start": 5219
+        },
+        {
+          "bytes": 1086,
+          "duration": 843,
+          "name": "/v6/room-lifecycle-131.js",
+          "start": 5222
+        },
+        {
+          "bytes": 3599,
+          "duration": 838,
+          "name": "/v6/exhibitions/hall-02/portal.js",
+          "start": 5227
+        },
+        {
+          "bytes": 801,
+          "duration": 836,
+          "name": "/v6/artist-room-gfx-debug.js",
+          "start": 5229
+        },
+        {
+          "bytes": 2056,
+          "duration": 836,
+          "name": "/v6/exhibitions/hall-02/exhibition-program.js",
+          "start": 5229
+        },
+        {
+          "bytes": 1320,
+          "duration": 874,
+          "name": "/v6/artist-room-suspension.js",
+          "start": 5230
+        },
+        {
+          "bytes": 6414,
+          "duration": 873,
+          "name": "/v6/artist-room-gpu-residency-150.js",
+          "start": 5231
+        },
+        {
+          "bytes": 810,
+          "duration": 872,
+          "name": "/v6/artist-room-gfx-debug.js",
+          "start": 5232
+        },
+        {
+          "bytes": 1479,
+          "duration": 870,
+          "name": "/v6/artist-room-telemetry.js",
+          "start": 5234
+        },
+        {
+          "bytes": 26405,
+          "duration": 864,
+          "name": "/v6/collector-home-042.js",
+          "start": 5240
+        },
+        {
+          "bytes": 1464,
+          "duration": 862.9999999999991,
+          "name": "/v6/collector-entry-173.js",
+          "start": 5241.000000000001
+        },
+        {
+          "bytes": 1526,
+          "duration": 863,
+          "name": "/v6/collector-entry-172.js",
+          "start": 5242
+        },
+        {
+          "bytes": 1250,
+          "duration": 861,
+          "name": "/v6/room-peers-171.js",
+          "start": 5244
+        },
+        {
+          "bytes": 658,
+          "duration": 860,
+          "name": "/v6/collection-card-099.js",
+          "start": 5245
+        },
+        {
+          "bytes": 6562,
+          "duration": 858,
+          "name": "/v6/doll-social/motion.js",
+          "start": 5247
+        },
+        {
+          "bytes": 2876,
+          "duration": 857,
+          "name": "/v6/doll-social/volume-skinning.js",
+          "start": 5248
+        },
+        {
+          "bytes": 860,
+          "duration": 856,
+          "name": "/v6/doll-social/pose-policy.js",
+          "start": 5249
+        },
+        {
+          "bytes": 7156,
+          "duration": 855,
+          "name": "/v6/doll-social/inspector.js",
+          "start": 5250
+        },
+        {
+          "bytes": 1829,
+          "duration": 855,
+          "name": "/v6/artist-room/turntable-shared.js",
+          "start": 5251
+        },
+        {
+          "bytes": 569,
+          "duration": 854,
+          "name": "/v6/home-legacy-textures.js",
+          "start": 5252
+        },
+        {
+          "bytes": 1062,
+          "duration": 853,
+          "name": "/v6/home-compat-011.js",
+          "start": 5253
+        },
+        {
+          "bytes": 6475,
+          "duration": 851,
+          "name": "/v6/home-garden-room-042.js",
+          "start": 5255
+        },
+        {
+          "bytes": 1836,
+          "duration": 849,
+          "name": "/v6/life/garden/room-features-042.js",
+          "start": 5257
+        },
+        {
+          "bytes": 2737,
+          "duration": 849,
+          "name": "/v6/life/garden/gather-042.js",
+          "start": 5257
+        },
+        {
+          "bytes": 5318,
+          "duration": 848,
+          "name": "/v6/life/garden/together-042.js",
+          "start": 5259
+        },
+        {
+          "bytes": 2032,
+          "duration": 848.0000000000009,
+          "name": "/v6/life/garden/gather-messages-030.js",
+          "start": 5260
+        },
+        {
+          "bytes": 2192,
+          "duration": 847.0000000000009,
+          "name": "/v6/life/garden/gather-peers-037.js",
+          "start": 5261
+        },
+        {
+          "bytes": 1383,
+          "duration": 848,
+          "name": "/v6/life/garden/seats-031.js",
+          "start": 5262
+        },
+        {
+          "bytes": 791,
+          "duration": 845.0000000000009,
+          "name": "/v6/life/garden/seats-content-031.js",
+          "start": 5263
+        },
+        {
+          "bytes": 852,
+          "duration": 847,
+          "name": "/v6/life/garden/room-space-037.js",
+          "start": 5263
+        },
+        {
+          "bytes": 509,
+          "duration": 845,
+          "name": "/v6/life/garden/cultivation-assets.js",
+          "start": 5265
+        },
+        {
+          "bytes": 1846,
+          "duration": 848,
+          "name": "/v6/home-cultivation.js",
+          "start": 5266
+        },
+        {
+          "bytes": 752,
+          "duration": 843,
+          "name": "/v6/life/garden/cultivation-content.js",
+          "start": 5267
+        },
+        {
+          "bytes": 8091,
+          "duration": 877.9999999999991,
+          "name": "/v6/home-garden-tools-040.js",
+          "start": 5270.000000000001
+        },
+        {
+          "bytes": 1044,
+          "duration": 841,
+          "name": "/v6/life/garden/placement-drag-040.js",
+          "start": 5271
+        },
+        {
+          "bytes": 3341,
+          "duration": 875,
+          "name": "/v6/life/garden/care-036.js",
+          "start": 5273
+        },
+        {
+          "bytes": 1139,
+          "duration": 873,
+          "name": "/v6/life/garden/care-content-036.js",
+          "start": 5275
+        },
+        {
+          "bytes": 3021,
+          "duration": 872,
+          "name": "/v6/life/garden/cultivation-messages.js",
+          "start": 5276
+        },
+        {
+          "bytes": 4249,
+          "duration": 872,
+          "name": "/v6/life/garden/messages.js",
+          "start": 5276
+        },
+        {
+          "bytes": 836,
+          "duration": 869.9999999999991,
+          "name": "/v6/life/garden/content.js",
+          "start": 5278.000000000001
+        },
+        {
+          "bytes": 1085,
+          "duration": 868,
+          "name": "/v6/life/garden/session.js",
+          "start": 5280
+        },
+        {
+          "bytes": 872,
+          "duration": 866,
+          "name": "/v6/home-garden-placement.js",
+          "start": 5282
+        },
+        {
+          "bytes": 5522,
+          "duration": 867,
+          "name": "/v6/home-art-017.js",
+          "start": 5282
+        },
+        {
+          "bytes": 1450,
+          "duration": 866,
+          "name": "/v6/home-fireplace-017.js",
+          "start": 5283
+        },
+        {
+          "bytes": 1649,
+          "duration": 865,
+          "name": "/v6/home-windows-016.js",
+          "start": 5284
+        },
+        {
+          "bytes": 1667,
+          "duration": 864,
+          "name": "/v6/home-curtains-014.js",
+          "start": 5285
+        },
+        {
+          "bytes": 779,
+          "duration": 862,
+          "name": "/v6/home-art-assets-010.js",
+          "start": 5287
+        },
+        {
+          "bytes": 1685,
+          "duration": 860,
+          "name": "/v6/home-space.js",
+          "start": 5289
+        },
+        {
+          "bytes": 3104,
+          "duration": 859,
+          "name": "/v6/collector-room-layout-018.js",
+          "start": 5291
+        },
+        {
+          "bytes": 2859,
+          "duration": 858,
+          "name": "/v6/collector-room-drapery.js",
+          "start": 5292
+        },
+        {
+          "bytes": 1009,
+          "duration": 858,
+          "name": "/v6/collector-room-access.js",
+          "start": 5292
+        },
+        {
+          "bytes": 1431,
+          "duration": 857,
+          "name": "/v6/room-lifecycle.js",
+          "start": 5293
+        },
+        {
+          "bytes": 2909,
+          "duration": 855.9999999999991,
+          "name": "/v6/entry-guard-211.js",
+          "start": 5294.000000000001
+        },
+        {
+          "bytes": 69037,
+          "duration": 854,
+          "name": "/v6/i18n/catalog-109.js",
+          "start": 5297
+        },
+        {
+          "bytes": 3715,
+          "duration": 851,
+          "name": "/v6/i18n/ui-109.js",
+          "start": 5299
+        },
+        {
+          "bytes": 629,
+          "duration": 853,
+          "name": "/v6/env.js",
+          "start": 5299
+        },
+        {
+          "bytes": 7804,
+          "duration": 852,
+          "name": "/v6/bgm-runtime.js",
+          "start": 5300
+        },
+        {
+          "bytes": 643,
+          "duration": 182,
+          "name": "/v6/manifest.webmanifest",
+          "start": 6212
+        },
+        {
+          "bytes": 2824,
+          "duration": 199,
+          "name": "/v6/review-dolls-214.js",
+          "start": 14734
+        },
+        {
+          "bytes": 1947,
+          "duration": 295,
+          "name": "/v6/world-shader-queue-25.js",
+          "start": 14779
+        },
+        {
+          "bytes": 1404,
+          "duration": 287,
+          "name": "/v6/world-empty-light-25.js",
+          "start": 14787
+        },
+        {
+          "bytes": 1523,
+          "duration": 275.9999999999982,
+          "name": "/v6/world-buffer-residency-25.js",
+          "start": 14931.000000000002
+        },
+        {
+          "bytes": 1067,
+          "duration": 264,
+          "name": "/v6/world-texture-residency-25.js",
+          "start": 14935
+        },
+        {
+          "bytes": 966,
+          "duration": 217,
+          "name": "/v6/api/spawn",
+          "start": 15500
+        },
+        {
+          "bytes": 16693,
+          "duration": 187.99999999999818,
+          "name": "/v6/basis/basis.wasm.js",
+          "start": 16304.000000000002
+        },
+        {
+          "bytes": 12145,
+          "duration": 189,
+          "name": "/v6/draco.wasm.js",
+          "start": 16617
+        },
+        {
+          "bytes": 4603,
+          "duration": 203,
+          "name": "/v6/meadow-life-safe-087.js",
+          "start": 17599
+        },
+        {
+          "bytes": 3147,
+          "duration": 200,
+          "name": "/v6/world-distance-087.js",
+          "start": 17602
+        },
+        {
+          "bytes": 2857,
+          "duration": 199,
+          "name": "/v6/sky-birds-062.js",
+          "start": 17603
+        },
+        {
+          "bytes": 2181,
+          "duration": 198,
+          "name": "/v6/market-far-170.js",
+          "start": 17604
+        },
+        {
+          "bytes": 2840,
+          "duration": 205,
+          "name": "/v6/fauna-safe-087.js",
+          "start": 17607
+        },
+        {
+          "bytes": 2792,
+          "duration": 195,
+          "name": "/v6/api/wonder-hub-world",
+          "start": 17608
+        },
+        {
+          "bytes": 19307,
+          "duration": 312,
+          "name": "/v6/tree-forest-runtime-005.js",
+          "start": 20817
+        },
+        {
+          "bytes": 2277,
+          "duration": 292.99999999999636,
+          "name": "/v6/fauna-057.js",
+          "start": 20836.000000000004
+        },
+        {
+          "bytes": 1577,
+          "duration": 176.99999999999636,
+          "name": "/v6/forest-understory-005.js",
+          "start": 22676.000000000004
+        },
+        {
+          "bytes": 1230,
+          "duration": 179,
+          "name": "/v6/api/collector-village/houses",
+          "start": 28549
+        },
+        {
+          "bytes": 377,
+          "duration": 175,
+          "name": "/v6/rtel.png",
+          "start": 29393
+        },
+        {
+          "bytes": 430,
+          "duration": 174,
+          "name": "/api/feature-toggles",
+          "start": 29422
+        },
+        {
+          "bytes": 1313,
+          "duration": 238,
+          "name": "/v6/api/review-dolls",
+          "start": 29424
+        },
+        {
+          "bytes": 361,
+          "duration": 200,
+          "name": "/v6/api/account",
+          "start": 29451
+        },
+        {
+          "bytes": 361,
+          "duration": 205.00000000000364,
+          "name": "/v6/api/account",
+          "start": 29451
+        },
+        {
+          "bytes": 430,
+          "duration": 204,
+          "name": "/api/feature-toggles",
+          "start": 29453
+        },
+        {
+          "bytes": 430,
+          "duration": 205,
+          "name": "/api/feature-toggles",
+          "start": 29453
+        },
+        {
+          "bytes": 430,
+          "duration": 192,
+          "name": "/api/feature-toggles",
+          "start": 29471
+        },
+        {
+          "bytes": 5626,
+          "duration": 209,
+          "name": "/v6/life/world-photo-073.js",
+          "start": 29510
+        },
+        {
+          "bytes": 4798,
+          "duration": 183.99999999999636,
+          "name": "/v6/life/lake-guide-077.js",
+          "start": 29522.000000000004
+        }
+      ],
+      "scenery": {
+        "faunaSystem": {
+          "errors": [],
+          "status": "ready"
+        },
+        "marketFarSystem": {
+          "errors": [],
+          "status": "ready"
+        },
+        "meadowLifeSystem": {
+          "errors": [],
+          "status": "ready"
+        },
+        "meatsDollSystem": {
+          "error": null,
+          "status": "ready"
+        },
+        "skyBirdsSystem": {
+          "errors": [],
+          "status": "ready"
+        },
+        "worldDistanceSystem": {
+          "errors": [],
+          "status": "loading"
+        }
+      },
+      "stages": [
+        {
+          "kind": "stage-start",
+          "name": "heightmap-sculpt-biome-load",
+          "ts": 16343
+        },
+        {
+          "kind": "stage-end",
+          "name": "heightmap-sculpt-biome-load",
+          "ts": 17539
+        },
+        {
+          "kind": "stage-start",
+          "name": "game-zone-gateway-preload",
+          "ts": 17561
+        },
+        {
+          "kind": "stage-start",
+          "name": "castle-single-preload",
+          "ts": 17561
+        },
+        {
+          "kind": "stage-start",
+          "name": "water-system",
+          "ts": 17565
+        },
+        {
+          "kind": "stage-start",
+          "name": "road-system",
+          "ts": 17565
+        },
+        {
+          "kind": "stage-start",
+          "name": "market-assets-preload",
+          "ts": 17569
+        },
+        {
+          "kind": "stage-end",
+          "name": "water-system",
+          "ts": 20448
+        },
+        {
+          "kind": "stage-end",
+          "name": "castle-single-preload",
+          "ts": 21139
+        },
+        {
+          "kind": "stage-end",
+          "name": "road-system",
+          "ts": 22609
+        },
+        {
+          "kind": "stage-start",
+          "name": "gateway-bridge",
+          "ts": 22653.000000000004
+        },
+        {
+          "kind": "stage-end",
+          "name": "game-zone-gateway-preload",
+          "ts": 25371.000000000004
+        },
+        {
+          "kind": "stage-end",
+          "name": "gateway-bridge",
+          "ts": 25979
+        },
+        {
+          "kind": "stage-end",
+          "name": "market-assets-preload",
+          "ts": 28485
+        },
+        {
+          "kind": "stage-start",
+          "name": "initial scenery",
+          "ts": 29497
+        }
+      ],
+      "startup": {
+        "biome-mask-v6.json": {
+          "attempt": 1,
+          "loaded": true
+        },
+        "heightmap_2049.r16": {
+          "attempt": 1,
+          "loaded": true
+        },
+        "terrain-sculpt.json": {
+          "attempt": 1,
+          "loaded": true
+        },
+        "water-hydrology.json": {
+          "attempt": 1,
+          "loaded": true
+        }
+      },
+      "textureResidency": {
+        "deferredBytes": 307666192,
+        "deferredTextures": 97,
+        "deferredWrites": 117,
+        "residentBytes": 0
+      },
+      "textures": [
+        {
+          "bytes": 524288,
+          "h": 256,
+          "name": "Lake ground field 076",
+          "w": 512
+        },
+        {
+          "bytes": 32,
+          "h": 2,
+          "name": "AreaLightLUTplaceholder",
+          "w": 2
+        },
+        {
+          "bytes": 4,
+          "h": 1,
+          "name": "element-system",
+          "w": 1
+        },
+        {
+          "bytes": 4,
+          "h": 1,
+          "name": "",
+          "w": 1
+        },
+        {
+          "bytes": 0,
+          "h": 1,
+          "name": "CookieAtlas",
+          "w": 1
+        },
+        {
+          "bytes": 0,
+          "h": 1,
+          "name": "ShadowMap2D_DEPTH",
+          "w": 1
+        },
+        {
+          "bytes": 0,
+          "h": 990,
+          "name": "Camera-posteffect-0",
+          "w": 585
+        },
+        {
+          "bytes": 0,
+          "h": 256,
+          "name": "V6 Bright White Cloud Soft Mask",
+          "w": 512
+        },
+        {
+          "bytes": 0,
+          "h": 1024,
+          "name": "texture_0-0",
+          "w": 1024
+        },
+        {
+          "bytes": 0,
+          "h": 512,
+          "name": "Forest mountain rock 002",
+          "w": 512
+        },
+        {
+          "bytes": 0,
+          "h": 1536,
+          "name": "River bank numerical field 081",
+          "w": 1024
+        },
+        {
+          "bytes": 0,
+          "h": 256,
+          "name": "texture_20250901-1",
+          "w": 256
+        },
+        {
+          "bytes": 0,
+          "h": 128,
+          "name": "",
+          "w": 128
+        },
+        {
+          "bytes": 0,
+          "h": 128,
+          "name": "",
+          "w": 128
+        },
+        {
+          "bytes": 0,
+          "h": 128,
+          "name": "",
+          "w": 128
+        },
+        {
+          "bytes": 0,
+          "h": 128,
+          "name": "",
+          "w": 256
+        },
+        {
+          "bytes": 0,
+          "h": 1024,
+          "name": "v6-grass-albedo-task47-seamless",
+          "w": 1024
+        },
+        {
+          "bytes": 0,
+          "h": 1024,
+          "name": "v6-grass-normal-task47-medium",
+          "w": 1024
+        },
+        {
+          "bytes": 0,
+          "h": 2048,
+          "name": "texture_20250901-2",
+          "w": 2048
+        },
+        {
+          "bytes": 0,
+          "h": 2048,
+          "name": "texture_20250901-3",
+          "w": 2048
+        },
+        {
+          "bytes": 0,
+          "h": 512,
+          "name": "Game Zone Arrival Stone Albedo",
+          "w": 512
+        },
+        {
+          "bytes": 0,
+          "h": 512,
+          "name": "Game Zone Arrival Stone Normal",
+          "w": 512
+        },
+        {
+          "bytes": 0,
+          "h": 512,
+          "name": "Game Zone Arrival Stone Albedo",
+          "w": 512
+        },
+        {
+          "bytes": 0,
+          "h": 512,
+          "name": "Game Zone Arrival Stone Normal",
+          "w": 512
+        }
+      ],
+      "viewport": {
+        "canvas": [
+          {
+            "height": 990,
+            "id": "game",
+            "width": 585
+          },
+          {
+            "height": 380,
+            "id": "minimap",
+            "width": 380
+          }
+        ],
+        "dpr": 3,
+        "height": 660,
+        "width": 390
+      },
+      "visibility": "visible",
+      "vram": {
+        "ib": 36229500,
+        "sb": 0,
+        "tex": 524328,
+        "ub": 0,
+        "vb": 134807744
+      }
+    },
+    "webURL": "https://like-art.com/v6/?app=1&measure=1"
+  }
+}

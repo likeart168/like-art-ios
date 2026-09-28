@@ -1,0 +1,20 @@
+{
+  "checks" : {
+    "cancelPreventsReload" : true,
+    "clipsTargetsShop" : true,
+    "deepLinkWaitsForPack" : true,
+    "disposedViewCannotNavigateLate" : true,
+    "doubleTapCoalescedWithDelay" : true,
+    "firstRetryExecutedOnce" : true,
+    "fourthRetryBlocked" : true,
+    "healthyPageDoesNotRetry" : true,
+    "latePackOrTimeoutCannotReload" : true,
+    "latestPendingLinkWins" : true,
+    "subsequentNavigationRemainsAvailable" : true,
+    "switchShopDoesNotRetargetWorldLink" : true,
+    "thirdAttemptBudget" : true,
+    "untrustedLinkRejected" : true,
+    "worldLinkTargetsWorld" : true
+  },
+  "pass" : true
+}
