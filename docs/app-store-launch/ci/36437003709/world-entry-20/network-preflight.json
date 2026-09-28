@@ -1,0 +1,23 @@
+[
+  {
+    "url": "https://like-art.com/v6/?app=1&measure=1",
+    "status": 200,
+    "bytes": 135176,
+    "sha256": "9b9f7cc5326fc6158d938d304d03eca510edc52a531ba8d8f95ff5e9b61c279f",
+    "seconds": 1.6790561249999882
+  },
+  {
+    "url": "https://like-art.com/v6/world-startup-render-22.js?v=world22",
+    "status": 200,
+    "bytes": 6417,
+    "sha256": "bfd3b4c8c2403dd287581c6aca966973ae1b9a95bf0b927c30b65167a74a1707",
+    "seconds": 0.920185416999999
+  },
+  {
+    "url": "https://like-art.com/v6/world-decoder-recycle-27.js",
+    "status": 200,
+    "bytes": 6008,
+    "sha256": "ecd398cd338ade51f278aceb3ccd3920216300ce5802d5f60b1fba0b724c4a6a",
+    "seconds": 0.8916666659999919
+  }
+]

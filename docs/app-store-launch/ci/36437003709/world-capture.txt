@@ -1,0 +1,55 @@
+Monitoring boot status for LikeArt World Evidence (25585E29-44C2-44D6-9426-A873F77F9B9E).
+[2026-09-28 14:37:29 +0000] Status=2, isTerminal=NO, Elapsed=01:19.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:09 seconds
+
+[2026-09-28 14:37:31 +0000] Status=2, isTerminal=NO, Elapsed=01:21.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.accounts.migrator (Accounts.migrator)
+		Migration Elapsed:01:12 seconds
+
+[2026-09-28 14:37:34 +0000] Status=4, isTerminal=NO, Elapsed=01:24.
+	Waiting on System App
+
+[2026-09-28 14:37:35 +0000] Status=4, isTerminal=NO, Elapsed=01:25.
+	Waiting on System App
+
+[2026-09-28 14:37:35 +0000] Status=4, isTerminal=NO, Elapsed=01:25.
+	Waiting on System App
+
+[2026-09-28 14:37:36 +0000] Status=4, isTerminal=NO, Elapsed=01:26.
+	Waiting on System App
+
+[2026-09-28 14:37:38 +0000] Status=4, isTerminal=NO, Elapsed=01:28.
+	Waiting on System App
+
+[2026-09-28 14:37:39 +0000] Status=4, isTerminal=NO, Elapsed=01:29.
+	Waiting on System App
+
+[2026-09-28 14:37:39 +0000] Status=4, isTerminal=NO, Elapsed=01:29.
+	Waiting on System App
+
+[2026-09-28 14:37:40 +0000] Status=4, isTerminal=NO, Elapsed=01:30.
+	Waiting on System App
+
+[2026-09-28 14:37:41 +0000] Status=4, isTerminal=NO, Elapsed=01:31.
+	Waiting on System App
+
+[2026-09-28 14:37:42 +0000] Status=4, isTerminal=NO, Elapsed=01:32.
+	Waiting on System App
+
+[2026-09-28 14:37:43 +0000] Status=4, isTerminal=NO, Elapsed=01:33.
+	Waiting on System App
+
+[2026-09-28 14:37:44 +0000] Status=4, isTerminal=NO, Elapsed=01:34.
+	Waiting on System App
+
+[2026-09-28 14:37:45 +0000] Status=4, isTerminal=NO, Elapsed=01:35.
+	Waiting on System App
+
+[2026-09-28 14:37:56 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:46.
+	Finished
+
+Settling new simulator OS for 45 seconds before app launch
+{"device": "iPhone 13 Pro", "captureWallSeconds": 66.06716395899997, "captureErrors": [], "readyMs": null, "firstReadySample": null, "webkitTerminations": 0}
