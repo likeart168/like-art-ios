@@ -60,7 +60,7 @@ jobs:
       - name: Verify real iOS world entry
         env:
           WORLD_ACCEPTANCE: ${{ contains(github.event.head_commit.message, '[world-probe]') && '0' || '1' }}
-        timeout-minutes: 15
+        timeout-minutes: 20
         run: |
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build-b2/Simulator build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/world-simulator-build.txt

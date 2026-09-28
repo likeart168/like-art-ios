@@ -13,12 +13,13 @@ for url in ['https://like-art.com/v6/?app=1&measure=1','https://like-art.com/v6/
 (out/'network-preflight.json').write_text(json.dumps(preflight,indent=2))
 sdk=get('xcrun','--sdk','iphonesimulator','--show-sdk-version')
 catalog=json.loads(get('xcrun','simctl','list','--json'))
+(out/'simulator-catalog.json').write_text(json.dumps(catalog,indent=2))
 # The SDK is a compiler target, not a requirement to use its newest simulator OS.
 # 26.5 has twice hung in CoreLocationMigrator before our app launched. Prefer an
 # available earlier 26.x runtime and record its exact version; never call this
 # an exact-OS or physical-device acceptance run.
 available=[r for r in catalog['runtimes'] if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[0]=='26']
-preferred=[r for r in available if tuple(map(int,r['version'].split('.')[:2])) < tuple(map(int,sdk.split('.')[:2]))]
+preferred=[r for r in available if r['version'].startswith('26.2')]
 runtime=max(preferred or available,key=lambda r:tuple(map(int,r['version'].split('.'))))
 device_name=os.environ.get('WORLD_DEVICE','iPhone 13 Pro')
 type_=next(d for d in catalog['devicetypes'] if d['name']==device_name)
@@ -32,7 +33,11 @@ def stop_app():
   try:os.kill(app_pid,signal.SIGKILL)
   except ProcessLookupError:pass
 try:
- run('xcrun','simctl','boot',udid);run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
+ run('xcrun','simctl','boot',udid)
+ # Initialize the actual Simulator UI/display services before waiting for first
+ # boot migration. This time is OS preparation, never excluded app startup time.
+ run('open','-a','Simulator','--args','-CurrentDeviceUDID',udid,timeout=30)
+ run('xcrun','simctl','bootstatus',udid,'-b',timeout=600)
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
  diagnostic=os.environ.get('WORLD_ACCEPTANCE')=='0'
  env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1'+('&probeAvatar=mushroom' if diagnostic else ''),SIMCTL_CHILD_WORLD_CAPTURE='1')
