@@ -1,0 +1,6 @@
+{
+  "phase": "launch-and-world-capture",
+  "type": "AssertionError",
+  "error": "No owned App process observed; see launch/system/process logs",
+  "appLaunched": false
+}

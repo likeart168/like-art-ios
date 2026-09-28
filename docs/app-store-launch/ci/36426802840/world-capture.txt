@@ -1,0 +1,53 @@
+Monitoring boot status for LikeArt World Evidence (B2915858-3ACD-4042-9157-794EC669795F).
+[2026-09-28 13:14:35 +0000] Status=2, isTerminal=NO, Elapsed=01:31.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.MobileGestalt.MobileGestaltMigrator (MobileGestaltMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:12 seconds
+
+[2026-09-28 13:14:38 +0000] Status=2, isTerminal=NO, Elapsed=01:34.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:17 seconds
+
+[2026-09-28 13:14:41 +0000] Status=4, isTerminal=NO, Elapsed=01:36.
+	Waiting on System App
+
+[2026-09-28 13:14:41 +0000] Status=4, isTerminal=NO, Elapsed=01:37.
+	Waiting on System App
+
+[2026-09-28 13:14:45 +0000] Status=4, isTerminal=NO, Elapsed=01:41.
+	Waiting on System App
+
+[2026-09-28 13:14:46 +0000] Status=4, isTerminal=NO, Elapsed=01:42.
+	Waiting on System App
+
+[2026-09-28 13:14:48 +0000] Status=4, isTerminal=NO, Elapsed=01:43.
+	Waiting on System App
+
+[2026-09-28 13:14:48 +0000] Status=4, isTerminal=NO, Elapsed=01:44.
+	Waiting on System App
+
+[2026-09-28 13:14:49 +0000] Status=4, isTerminal=NO, Elapsed=01:44.
+	Waiting on System App
+
+[2026-09-28 13:14:50 +0000] Status=4, isTerminal=NO, Elapsed=01:46.
+	Waiting on System App
+
+[2026-09-28 13:14:52 +0000] Status=4, isTerminal=NO, Elapsed=01:47.
+	Waiting on System App
+
+[2026-09-28 13:14:53 +0000] Status=4, isTerminal=NO, Elapsed=01:49.
+	Waiting on System App
+
+[2026-09-28 13:14:57 +0000] Status=4, isTerminal=NO, Elapsed=01:52.
+	Waiting on System App
+
+[2026-09-28 13:15:09 +0000] Status=4294967295, isTerminal=YES, Elapsed=02:04.
+	Finished
+
+Settling new simulator OS for 45 seconds before app launch
+Traceback (most recent call last):
+  File "/Users/runner/work/like-art-ios/like-art-ios/ios-b2/ci/capture_world.py", line 101, in <module>
+    assert app_pid is not None, 'No owned App process observed; see launch/system/process logs'
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: No owned App process observed; see launch/system/process logs

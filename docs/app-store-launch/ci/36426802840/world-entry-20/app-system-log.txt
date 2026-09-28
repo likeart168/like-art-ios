@@ -1,0 +1,847 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-09-28 13:15:40.016 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager registerPromise:]: Registered promise <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]> for UUID A08EFBD6-0B4C-48EB-844E-5AFDD44389BB
+2026-09-28 13:15:40.020 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder setAttributes:]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: setting placeholder attributes to <IXPlaceholderAttributes<0x600003004240> : {
+    CFBundleShortVersionString = "2.0.3";
+    CFBundleSupportedPlatforms =     (
+        iPhoneSimulator
+    );
+    CFBundleVersion = 202609281311;
+    DTPlatformName = iphonesimulator;
+    LSRequiresIPhoneOS = 1;
+    MinimumOSVersion = "16.0";
+    UIDeviceFamily =     (
+        1,
+        2
+    );
+}>
+2026-09-28 13:15:40.023 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] +[IXPlaceholder _setEntitlementsFromBundleExecutableURL:withBundleID:client:onPlaceholder:location:error:]: Executable for com.likeart.app at LikeArt -- file:///Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app/ had no entitlements
+2026-09-28 13:15:40.024 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] +[IXPlaceholder _placeholderForBundle:client:withParent:installType:metadata:placeholderType:mayBeDeltaPackage:isFromSerializedPlaceholder:location:error:]: Using full fidelity icons for com.likeart.app at /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app
+2026-09-28 13:15:40.026 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager registerPromise:]: Registered promise <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]> for UUID 44B8C0B0-CBF6-4EE0-A849-355E80A9EE81
+2026-09-28 13:15:40.049 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXPromisedTransferToPath setComplete:]: <IXPromisedTransferToPath<0x60000172cd80> name:"Icon resources for com.likeart.app" uuid:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 creator:"InstallCoordination Simple SPI" location:[system-defined]> Move operation from /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Shared/SystemGroup/systemgroup.com.apple.installcoordinationd/Library/InstallCoordination/PromiseStaging/44B8C0B0-CBF6-4EE0-A849-355E80A9EE81/temp.oPbf1s to /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Shared/SystemGroup/systemgroup.com.apple.installcoordinationd/Library/InstallCoordination/PromiseStaging/44B8C0B0-CBF6-4EE0-A849-355E80A9EE81/temp.oPbf1s took 0.000194 seconds
+2026-09-28 13:15:40.051 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromise _setPercentComplete:saveStateIfNeeded:]: Progress: <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]>
+2026-09-28 13:15:40.052 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidBegin:]: Unowned promise began: <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]>
+2026-09-28 13:15:40.052 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promise:didUpdateProgress:]: Unowned promise update progress to 1.000000 : <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]>
+2026-09-28 13:15:40.052 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidComplete:]: Unowned promise completed: <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]>
+2026-09-28 13:15:40.054 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromise _setPercentComplete:saveStateIfNeeded:]: Progress: <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]>
+2026-09-28 13:15:40.055 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager registerPromise:]: Registered promise <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]> for UUID A66CC9FA-9821-495A-BB43-12DC4E1015B5
+2026-09-28 13:15:40.055 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidBegin:]: Unowned promise began: <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]>
+2026-09-28 13:15:40.055 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promise:didUpdateProgress:]: Unowned promise update progress to 1.000000 : <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]>
+2026-09-28 13:15:40.055 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidComplete:]: Unowned promise completed: <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]>
+2026-09-28 13:15:40.056 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSPlaceholder setIconResourcesPromise:]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: setting icon resources promise to <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]>
+2026-09-28 13:15:40.057 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSPlaceholder setInfoPlistIconContentPromise:]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: setting Info.plist icon content promise to <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]>
+2026-09-28 13:15:40.058 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidBegin:]: Unowned promise began: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.058 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promise:didUpdateProgress:]: Unowned promise update progress to 0.000000 : <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.058 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promise:didUpdateProgress:]: Unowned promise update progress to 0.000000 : <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.062 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromise _setPercentComplete:saveStateIfNeeded:]: Progress: <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]>
+2026-09-28 13:15:40.062 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager registerPromise:]: Registered promise <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]> for UUID 597073B0-0DE5-443A-9229-BFE8E063F291
+2026-09-28 13:15:40.063 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidBegin:]: Unowned promise began: <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]>
+2026-09-28 13:15:40.063 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promise:didUpdateProgress:]: Unowned promise update progress to 1.000000 : <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]>
+2026-09-28 13:15:40.063 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidComplete:]: Unowned promise completed: <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]>
+2026-09-28 13:15:40.063 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder setLocalizationDictionaryPromise:]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: setting localization dict promise to <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]>
+2026-09-28 13:15:40.064 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promise:didUpdateProgress:]: Unowned promise update progress to 0.000000 : <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.065 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder setConfigurationComplete:]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: setting configuration complete to Y
+2026-09-28 13:15:40.065 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder _materialize]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: Materializing placeholder at /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Shared/SystemGroup/systemgroup.com.apple.installcoordinationd/Library/InstallCoordination/PromiseStaging/A08EFBD6-0B4C-48EB-844E-5AFDD44389BB/LikeArt.app
+2026-09-28 13:15:40.066 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder _materialize]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: Using Info.plist icon content: {
+    CFBundleIcons =     {
+        CFBundlePrimaryIcon =         {
+            CFBundleIconName = AppIcon;
+        };
+    };
+    "CFBundleIcons~ipad" =     {
+        CFBundlePrimaryIcon =         {
+            CFBundleIconName = AppIcon;
+        };
+    };
+    ISIconPlatform = iPhoneOS;
+}
+2026-09-28 13:15:40.066 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder _materialize]_block_invoke: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: Using icon resource Assets.car
+2026-09-28 13:15:40.067 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPlaceholder _materialize]: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>: Including lproj localizations for (
+    "zh-Hans",
+    en,
+    Base,
+    ru
+)
+2026-09-28 13:15:40.068 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager promiseDidComplete:]: Unowned promise completed: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.070 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSDataPromiseManager registerPromise:]: Registered promise <IXSPromisedTransferToPath(0x600002c00980) Name:App Asset: com.likeart.app Creator:InstallCoordination Simple SPI UUID:14FE24E5-7F99-4498-968C-62B4FB94D191 Location:[system-defined]> for UUID 14FE24E5-7F99-4498-968C-62B4FB94D191
+2026-09-28 13:15:40.088 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatorManager coordinatorForIdentity:connection:error:creatingIfNotExisting:]_block_invoke: Registered coordinator: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:Background state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:01234>
+2026-09-28 13:15:40.088 Df installcoordinationd[4198:4eee] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:1:1:1:Created coordinator with intent IXCoordinatorIntentInitiating for client InstallCoordination Simple SPI
+2026-09-28 13:15:40.092 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setPriorityBoostCompletion:withSourceInfo:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:Background state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:01234>: Retaining completion from CoreSimulatorBridge (3282), QOS_CLASS_DEFAULT (0x15)
+2026-09-28 13:15:40.093 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _onQueue_fireObserversForClient:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:Background state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:01234>: Firing applicable observers for client <IXSClientConnection<0x6000026082a0> client:CoreSimulatorBridge (pid 3282) uuid:9B683C92-44E6-4005-81CE-34C922F47BA4>
+2026-09-28 13:15:40.093 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setImportance:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:01234>: set importance to UserWaiting
+2026-09-28 13:15:40.093 Df CoreSimulatorBridge[3282:43a6] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got observer registration delegate
+2026-09-28 13:15:40.093 Df CoreSimulatorBridge[3282:43a6] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_shouldResume]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got should resume delegate
+2026-09-28 13:15:40.093 Df CoreSimulatorBridge[3282:43a6] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didRegisterForObservation]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Observer <_IXSimpleInstallerDelegate 0x0x600000c07120> does not respond to coordinatorDidRegisterForObservation:
+2026-09-28 13:15:40.093 Df CoreSimulatorBridge[3282:43a6] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_shouldResume]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Observer <_IXSimpleInstallerDelegate 0x0x600000c07120> does not respond to coordinatorShouldResume:
+2026-09-28 13:15:40.094 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setPriorityBoostCompletion:withSourceInfo:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:01234>: Disposing of completion from CoreSimulatorBridge (3282), QOS_CLASS_DEFAULT (0x15)
+2026-09-28 13:15:40.094 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setPriorityBoostCompletion:withSourceInfo:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:01234>: Retaining completion from CoreSimulatorBridge (3282), QOS_CLASS_DEFAULT (0x15)
+2026-09-28 13:15:40.098 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _internal_setInstallOptionsPromise:performExternalActions:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:012I4> : install options set: <IXSPromisedInMemoryData(0x600002c00580) Name:MIInstallOptions data Creator:Install Coordination Internal UUID:9271D1B9-F495-462A-9AB1-205592E976BB Location:[system-defined]>
+2026-09-28 13:15:40.098 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall promiseDidComplete:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:012I4> : Promise completed: <IXSPromisedInMemoryData(0x600002c00580) Name:MIInstallOptions data Creator:Install Coordination Internal UUID:9271D1B9-F495-462A-9AB1-205592E976BB Location:[system-defined]>
+2026-09-28 13:15:40.099 Df installcoordinationd[4198:4eed] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:12:1:1:Install Options Promise began. Coordinator State: IXAppCoordinationStatePlaceholderPromiseNotSet
+2026-09-28 13:15:40.099 Df installcoordinationd[4198:4eed] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:12:2:1:Install Options Promise completed. Coordinator State: IXAppCoordinationStatePlaceholderPromiseNotSet
+2026-09-28 13:15:40.099 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _internal_setAppAssetPromise:performExternalActions:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:0a2I4> : App Asset Promise set: <IXSPromisedTransferToPath(0x600002c00980) Name:App Asset: com.likeart.app Creator:InstallCoordination Simple SPI UUID:14FE24E5-7F99-4498-968C-62B4FB94D191 Location:[system-defined]>
+2026-09-28 13:15:40.100 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setInitialODRAssetPromises:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:0a2I4> : Initial ODR Asset Promises set: (
+)
+2026-09-28 13:15:40.115 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXPromisedTransferToPath setComplete:]: <IXPromisedTransferToPath<0x600001701600> name:"App Asset: com.likeart.app" uuid:14FE24E5-7F99-4498-968C-62B4FB94D191 creator:"InstallCoordination Simple SPI" location:[system-defined]> Copy operation from /Users/runner/work/like-art-ios/like-art-ios/build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app to /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Shared/SystemGroup/systemgroup.com.apple.installcoordinationd/Library/InstallCoordination/PromiseStaging/14FE24E5-7F99-4498-968C-62B4FB94D191/LikeArt.app took 0.014096 seconds
+2026-09-28 13:15:40.117 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSDataPromise _setPercentComplete:saveStateIfNeeded:]: Progress: <IXSPromisedTransferToPath(0x600002c00980) Name:App Asset: com.likeart.app Creator:InstallCoordination Simple SPI UUID:14FE24E5-7F99-4498-968C-62B4FB94D191 Location:[system-defined]>
+2026-09-28 13:15:40.117 Df installcoordinationd[4198:4eed] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:9:1:1:App Asset Promise began. Coordinator State: IXAppCoordinationStatePlaceholderPromiseNotSet
+2026-09-28 13:15:40.118 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got promise did begin fulfillment for identifier 2
+2026-09-28 13:15:40.118 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Observer <_IXSimpleInstallerDelegate 0x0x600000c07120> does not respond to coordinator:configuredPromiseDidBeginFulfillment: (or any deprecated equivalent)
+2026-09-28 13:15:40.122 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall promiseDidComplete:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStatePlaceholderPromiseNotSet promise-state:0A2I4> : Promise completed: <IXSPromisedTransferToPath(0x600002c00980) Name:App Asset: com.likeart.app Creator:InstallCoordination Simple SPI UUID:14FE24E5-7F99-4498-968C-62B4FB94D191 Location:[system-defined]>
+2026-09-28 13:15:40.122 Df installcoordinationd[4198:4eed] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:9:2:1:App Asset Promise completed. Coordinator State: IXAppCoordinationStatePlaceholderPromiseNotSet
+2026-09-28 13:15:40.122 Df CoreSimulatorBridge[3282:43a6] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 100.000000 phase IXCoordinatorProgressPhaseLoading overallProgress 60.000000
+2026-09-28 13:15:40.122 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setPlaceholderPromise:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateReadyForPlaceholderInstall promise-state:PA2I4> : Placeholder Promise set: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.122 Df CoreSimulatorBridge[3282:43a6] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:40.123 Df installcoordinationd[4198:4eed] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall promiseDidComplete:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateReadyForPlaceholderInstall promise-state:PA2I4> : Promise completed: <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:40.125 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _onQueue_acquireAssertionAndInstallPlaceholder]: Acquiring termination assertion to install placeholder for [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:40.125 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSPendingOperationsTracker beginPendingOperationForIdentity:]_block_invoke: Beginning pending operation for [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:40.139 Df runningboardd[3253:39ca] [com.apple.runningboard:connection] Received termination request from [osservice<com.apple.installcoordinationd>:4198] on <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">> with context <RBSTerminateContext| explanation:installcoordinationd app:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 isPlaceholder:Y reportType:None maxTerminationResistance:Absolute attrs:[
+	<RBSPreventLaunchLimitation| <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">> allow:(null)>
+	]>
+2026-09-28 13:15:40.140 Df runningboardd[3253:39ca] [com.apple.runningboard:general] failed to get LSApplicationRecord for com.likeart.app - probably OK
+2026-09-28 13:15:40.140 Df runningboardd[3253:39ca] [com.apple.runningboard:connection] skipping plugin hold for uninstalled proxy com.likeart.app
+2026-09-28 13:15:40.141 Df runningboardd[3253:39ca] [com.apple.runningboard:ttl] Acquiring assertion targeting system from originator [osservice<com.apple.installcoordinationd>:4198] with description <RBSAssertionDescriptor| "installcoordinationd app:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 isPlaceholder:Y" ID:3253-4198-122 target:system attributes:[
+	<RBSPreventLaunchLimitation| <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">> allow:(null)>
+	]>
+2026-09-28 13:15:40.141 Df runningboardd[3253:39ca] [com.apple.runningboard:process] Executing termination request for: <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">>
+2026-09-28 13:15:40.142 Df installcoordinationd[4198:4eee] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall assertionTargetProcessDidExit:]: RBS termination assertion observer called for <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateWaitingForPlaceholderAssertion promise-state:PA2I4>
+2026-09-28 13:15:40.143 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Common] termination assertion acquired for com.likeart.app (app not found)
+2026-09-28 13:15:40.143 Df installcoordinationd[4198:4523] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:8:1:1:Placeholder Promise began. Coordinator State: IXAppCoordinationStateWaitingForPlaceholderAssertion
+2026-09-28 13:15:40.143 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatorProgress setTotalUnitsCompleted:]: Progress for coordinator: [com.likeart.app/Invalid/[system-defined]], Phase: IXCoordinatorProgressPhaseLoading, Percentage: 100.000000: Attempt to set units completed on finished progress: 100
+2026-09-28 13:15:40.143 Df installcoordinationd[4198:4523] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:8:2:1:Placeholder Promise completed. Coordinator State: IXAppCoordinationStateWaitingForPlaceholderAssertion
+2026-09-28 13:15:40.145 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got promise did begin fulfillment for identifier 1
+2026-09-28 13:15:40.145 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_promiseDidBeginFulfillmentWithIdentifier:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Observer <_IXSimpleInstallerDelegate 0x0x600000c07120> does not respond to coordinator:configuredPromiseDidBeginFulfillment: (or any deprecated equivalent)
+2026-09-28 13:15:40.147 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _onQueue_installPlaceholder]: Acquired termination assertion for placeholder [com.likeart.app/Invalid/[system-defined]]; proceeding with install.
+2026-09-28 13:15:40.149 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPowerAssertion initWithAssertionName:details:]: Acquired power assertion IXPowerAssertion-12-[com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:40.169 Df installd[4079:41ba] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:41.091 Df installd[4079:41ba] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:41.096 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MIInstaller _installInstallable:containingSymlink:error:]: Installing <MIInstallableBundle ID=com.likeart.app; Persona=com.apple.containermanager.primary-persona, Version=202609281311, ShortVersion=2.0.3>
+2026-09-28 13:15:41.096 Df installd[4079:41ba] [com.apple.appinstallation:TransactionLog] com.likeart.app/com.apple.containermanager.primary-persona:7:4:1:1:Start : Install (Placeholder)
+2026-09-28 13:15:53.289 Df installd[4079:41ba] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 4, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:53.291 Df installd[4079:41ba] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 4, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:53.292 Df installd[4079:41ba] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000003
+2026-09-28 13:15:53.294 E  containermanagerd_system[3312:3567] [com.apple.containermanager:schema] [com.likeart.app(1)] Current schema version (1) is newer than the latest (0), ignoring.
+2026-09-28 13:15:53.295 Df containermanagerd_system[3312:3567] [com.apple.containermanager:schema] [u 1FBABD42-FDAA-4FBB-939E-55D154B525FF:p A683C112-228B-46FD-BDF0-82041025CD6F:c com.likeart.app(1):i2967811] Successfully updated schema from (0) → (0), actions count = 0
+2026-09-28 13:15:53.297 Df installd[4079:41ba] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:53.304 Df installd[4079:41ba] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 2, identifier = [com.likeart.app](1), flags = 300000003
+2026-09-28 13:15:53.311 Df containermanagerd[3317:3578] [com.apple.containermanager:schema] [u 93E6E6B0-1B4E-451A-9C8A-7E80D67942E0:p 06BEE227-39DE-4162-8AFA-DFA382E014AB:c com.likeart.app(2):i2967817] Successfully updated schema from (0) → (1), actions count = 6
+2026-09-28 13:15:53.314 Df installd[4079:41ba] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 2, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:53.317 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MIInstallationJournalEntry _refreshUUIDForContainer:withError:]: Data container for com.likeart.app is now at /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Data/Application/6FC6764B-C20D-43CA-8467-19D3FA77EC82
+2026-09-28 13:15:53.317 Df containermanagerd[3317:3579] [com.apple.containermanager:schema] [u 93E6E6B0-1B4E-451A-9C8A-7E80D67942E0:p 6FC6764B-C20D-43CA-8467-19D3FA77EC82:c com.likeart.app(2):i0] Successfully updated schema from (0) → (1), actions count = 6
+2026-09-28 13:15:53.318 Df installd[4079:41ba] [com.apple.containermanager:unspecified] Replace; old = <NULL>, new = [temp-app:com.likeart.app:501::(1FBABD42-FDAA-4FBB-939E-55D154B525FF)]
+2026-09-28 13:15:53.322 Df installd[4079:41ba] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:53.323 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MIContainer makeContainerLiveReplacingContainer:reason:waitForDeletion:withError:]: Made container live for com.likeart.app at /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2
+2026-09-28 13:15:53.325 Df containermanagerd[3317:3578] [com.apple.containermanager:codesignmapping] Reconciled [com.likeart.app]; old app groups: (null), new app groups: (null), old system groups: (null), new system groups: (null)
+2026-09-28 13:15:53.329 Df installd[4079:41ba] [com.apple.containermanager:unspecified] Requesting disk usage; class = 1, identifier = com.likeart.app
+2026-09-28 13:15:53.336 Df installd[4079:41ba] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 7, identifier = [com.likeart.app](1), flags = 300000001
+2026-09-28 13:15:53.355 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Common] termination assertion released for com.likeart.app (app not found)
+2026-09-28 13:15:53.356 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MILaunchServicesOperationManager _onQueue_addPendingLaunchServicesOperation:error:]: Added pending LS operation <MILaunchServicesRegisterOperation: 9D6492AF-A83D-4FDB-BC89-3113C1199B21:1 com.likeart.app/MIInstallationDomainSystemShared personas:[com.apple.containermanager.primary-persona]>
+2026-09-28 13:15:53.369 Df lsd[3314:4267] [com.apple.launchservices:appinstallation] Post installation registration: request to register com.likeart.app, operation 9D6492AF-A83D-4FDB-BC89-3113C1199B21, from pid 4079
+2026-09-28 13:15:53.373 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:4:1:1:Registering bundles via registrant - start
+2026-09-28 13:15:53.384 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:5:1:1:Building bundle record for app
+2026-09-28 13:15:53.384 Df lsd[3314:4267] [com.apple.launchservices:appinstallation] No bundles to remove for com.likeart.app
+2026-09-28 13:15:53.384 Df lsd[3314:4267] [com.apple.launchservices:appinstallation] Placeholder detected - Flagging bundle com.likeart.app incomplete
+2026-09-28 13:15:53.385 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:5:2:1:Built bundle record for app
+2026-09-28 13:15:53.391 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:4:2:1:Registered bundle status = success
+2026-09-28 13:15:53.391 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:4:2:1:Finished registering com.likeart.app, bundle unit 2a0
+2026-09-28 13:15:53.397 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sending applicationInstallsDidStart: for (
+    "<LSApplicationProxy: 0x60000370a340> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.397 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MIJournal purgeJournalEntry:withError:]: Removing journal entry <MIInstallationJournalEntry<0x6000033080a0> [com.likeart.app/com.apple.containermanager.primary-persona/[system-defined]]/MIInstallationDomainSystemShared op:2 phase:JournalPhaseDidRegisterWithLS version:202609281311>
+2026-09-28 13:15:53.397 Df installd[4079:41ba] [com.apple.appinstallation:TransactionLog] com.likeart.app/com.apple.containermanager.primary-persona:7:4:2:1:Success (End) : Install (Placeholder)
+2026-09-28 13:15:53.397 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MIInstaller _logOperationCompletionWithStartTime:distributorID:]: Install successful for (Placeholder:com.likeart.app) [Distributor: (null)]; Staging: 0.00s; Waiting: 0.00s; Preflight/Patch: 12.19s, Verifying: 0.00s; Overall: 13.24s
+2026-09-28 13:15:53.403 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPowerAssertion invalidate]: Released power assertion IXPowerAssertion-12-[com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:53.404 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPendingOperationsTracker endPendingOperationForIdentity:]_block_invoke: Ending pending operation for [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:53.405 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setPlaceholderInstallState:withLSRecordPromiseForCompletion:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateReadyForInstall promise-state:PA2I4>: Placeholder install completed.
+2026-09-28 13:15:53.406 Df installcoordinationd[4198:4523] [com.apple.installprogress:server] initiating progress for [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:53.421 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Created parent progress <NSProgress: com.likeart.app phase=InstallingPlaceholder; state=Waiting; finalPhase=Installing; fractionCompleted=0.000000>
+2026-09-28 13:15:53.429 Df appstored[4110:447c] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003709800> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.481 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sent distributed notification com.apple.LaunchServices.applicationRegistered with payload {
+    bundleIDs =     (
+        "com.likeart.app"
+    );
+    isPlaceholder = 1;
+}
+2026-09-28 13:15:53.483 Df mobiletimerd[3267:4e41] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003708780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.485 Df dasd[3278:35fc] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700480> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.485 Df sleepd[3279:3560] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.491 Df deviceaccessd[4098:50d6] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700c00> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.499 Df liveactivitiesd[3321:50d3] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003708780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.500 Df financed[3399:3a38] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037339c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.501 Df nsurlsessiond[3328:36cc] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037095c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.502 Df nanotimekitcompaniond[4097:48a1] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700600> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.504 Df locationd[3276:3817] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037052c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.506 Df gamed[4154:50d0] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003705d40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.506 Df callservicesd[3365:4474] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x10459cb40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.506 Df activityawardsd[4148:4776] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037003c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.509 Df runningboardd[3253:50c7] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704b40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.523 Df profiled[4116:4542] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003702280> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.566 Df donotdisturbd[3325:36fa] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003708840> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.568 Df activitysharingd[4261:486c] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037040c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.572 Df installcoordinationd[4198:4523] [com.apple.installprogress:default] Created published identity progress for [com.likeart.app/Invalid/[system-defined]], observer 0x600001708ac0
+2026-09-28 13:15:53.573 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatorProgress setTotalUnitsCompleted:]: Progress for coordinator: [com.likeart.app/Invalid/[system-defined]], Phase: IXCoordinatorProgressPhaseLoading, Percentage: 100.000000: Attempt to set units completed on finished progress: 100
+2026-09-28 13:15:53.573 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _onQueue_acquireAssertionAndDoInstall]: Acquiring termination assertion to install [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:53.573 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPendingOperationsTracker beginPendingOperationForIdentity:]_block_invoke: Beginning pending operation for [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:53.578 Df healthd[3260:46e9] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037092c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.606 E  intents_helper[4252:4715] [com.apple.siri:Intents] -[INHService loadSchemaURLsForBundleIdentifiers:completion:] Error getting bundle record for bundle identifier com.likeart.app: Error Domain=NSOSStatusErrorDomain Code=-10814 "(null)" UserInfo={_LSLine=156, _LSFunction=+[LSBundleRecord bundleRecordWithBundleIdentifier:allowPlaceholder:error:], _LSFile=LSBundleRecord.mm, NSUnderlyingError=0x600000ca02a0 {Error Domain=NSOSStatusErrorDomain Code=-10814 "Unable to find this application extension record in the Launch Services database." UserInfo={_LSLine=652, _LSFunction=_LSPluginFindWithPlatformInfo, _LSFile=LSPluginBundle.mm, NSDebugDescription=Unable to find this application extension record in the Launch Services database., SK=com.likeart.app, IS=false}}}
+2026-09-28 13:15:53.633 Df passd[3281:49c0] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003705c80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.637 Df runningboardd[3253:50d9] [com.apple.runningboard:connection] Received termination request from [osservice<com.apple.installcoordinationd>:4198] on <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">> with context <RBSTerminateContext| explanation:installcoordinationd app:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 isPlaceholder:N reportType:None maxTerminationResistance:Absolute attrs:[
+	<RBSPreventLaunchLimitation| <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">> allow:(null)>
+	]>
+2026-09-28 13:15:53.638 Df runningboardd[3253:50d9] [com.apple.runningboard:general] failed to get LSApplicationRecord for com.likeart.app - probably OK
+2026-09-28 13:15:53.639 Df installcoordinationd[4198:4efd] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _limitedConcurrency_fetchLoadingProgressForPlaceholderInstallType:progressHint:andRun:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateWaitingForInstallAssertion promise-state:PA2I4>: initiating loading progress with install type 1
+2026-09-28 13:15:53.639 Df installcoordinationd[4198:4efd] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:1:1:Updating PlaceholderMetadata for com.likeart.app with LSInstallType 1
+2026-09-28 13:15:53.640 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got placeholder did install delegate for app record { bundleID: com.likeart.app, URL: file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ }
+2026-09-28 13:15:53.641 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_placeholderDidInstallForApplicationRecord:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Observer <_IXSimpleInstallerDelegate 0x0x600000c07120> does not respond to coordinatorDidInstallPlaceholder:forApplicationRecord: (or any deprecated equivalent)
+2026-09-28 13:15:53.645 Df runningboardd[3253:50d9] [com.apple.runningboard:connection] skipping plugin hold for uninstalled proxy com.likeart.app
+2026-09-28 13:15:53.645 Df runningboardd[3253:50d9] [com.apple.runningboard:ttl] Acquiring assertion targeting system from originator [osservice<com.apple.installcoordinationd>:4198] with description <RBSAssertionDescriptor| "installcoordinationd app:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 isPlaceholder:N" ID:3253-4198-128 target:system attributes:[
+	<RBSPreventLaunchLimitation| <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">> allow:(null)>
+	]>
+2026-09-28 13:15:53.667 Df routined[3258:37a3] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x60000370d740> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.689 Df siriactionsd[3345:39af] [com.apple.shortcuts:Daemon] Dispatching XPC event: <distributed notification: com.apple.LaunchServices.applicationRegistered, userInfo: [AnyHashable("isPlaceholder"): 1, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x60000000d230>(
+com.likeart.app
+)
+]>
+2026-09-28 13:15:53.692 Df siriactionsd[3345:39af] [com.apple.shortcuts:XPCEvent] Dispatching XPC event: <distributed notification: com.apple.LaunchServices.applicationRegistered, userInfo: [AnyHashable("isPlaceholder"): 1, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x60000000d230>(
+com.likeart.app
+)
+]>
+2026-09-28 13:15:53.695 Df homed[3363:4340] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704f00> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.698 Df SpringBoard[3250:45b9] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037b7780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:53.702 Df runningboardd[3253:50d9] [com.apple.runningboard:process] Executing termination request for: <RBSProcessPredicate <RBSProcessBundleIdentifierPredicate "com.likeart.app">>
+2026-09-28 13:15:53.704 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Common] termination assertion acquired for com.likeart.app (app not found)
+2026-09-28 13:15:53.706 Df lsd[3314:4267] [com.apple.launchservices:progress] Using publishing string "com.likeart.app.InstallingPlaceholder" for the first time
+2026-09-28 13:15:53.706 Df lsd[3314:4267] [com.apple.launchservices:progress] Parent progress for installation <NSProgress: com.likeart.app phase=InstallingPlaceholder; state=Finished; finalPhase=Installing; fractionCompleted=0.000000>, adding phase 3
+2026-09-28 13:15:53.724 Df SpringBoard[3250:45b9] [com.apple.frontboard.ApplicationLibrary:observer] -[FBSApplicationLibrary applicationInstallsDidStart:] com.likeart.app
+2026-09-28 13:15:53.725 Df SpringBoard[3250:45b9] [com.apple.frontboard.ApplicationLibrary:default] Added placeholder: <SBApplicationPlaceholderProxy: 0x600002c54400; com.likeart.app (Like Art); LSInstallType: StoreDownload>
+2026-09-28 13:15:53.726 Df SpringBoard[3250:34d6] [com.apple.frontboard.ApplicationLibrary:sb.placeholder] App placeholder proxies added: (
+    "<SBApplicationPlaceholderProxy: 0x600002c54400; com.likeart.app (Like Art); LSInstallType: StoreDownload>"
+), currentlyKnownExistingPlaceholders: {
+}
+2026-09-28 13:15:53.726 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:0:1:1:Placeholder add BEGIN
+2026-09-28 13:15:53.768 Df dmd[4099:430c] Received xpc stream event (distributed notification matching) with name: com.apple.LaunchServices.applicationRegistered user info: {
+    bundleIDs =     (
+        "com.likeart.app"
+    );
+    isPlaceholder = 1;
+}
+2026-09-28 13:15:53.801 Df appprotectiond[3270:46ea] [com.apple.appprotection:server] Received distnoted event <dictionary: 0x600003e0e800> { count = 3, transaction: 0, voucher = 0x6000021055e0, contents =
+	"UserInfo" => <dictionary: 0x600002605320> { count = 2, transaction: 0, voucher = 0x0, contents =
+		"isPlaceholder" => <bool: 0x1e57603f0>: true
+		"bundleIDs" => <array: 0x600000c04510> { count = 1, capacity = 1, contents =
+			0: <string: 0x600000c04660> { string cache = 0x0, length = 15, contents = "com.likeart.app" }
+		}
+	}
+	"Name" => <string: 0x600000c04e10> { string cache = 0x0, length = 46, contents = "com.apple.LaunchServices.applicationRegistered" }
+	"XPCEventName" => <string: 0x600000c04c30> { string cache = 0x0, length = 21, contents = "ApplicationRegistered" }
+}
+2026-09-28 13:15:53.819 Df appprotectiond[3270:46ea] [com.apple.appprotection:server] received note: name = com.apple.LaunchServices.applicationRegistered, object = Optional(AppProtection.DistnotedXPCEventStreamTranslator), userInfo = Optional([AnyHashable("isPlaceholder"): 1, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x6000000083b0>(
+com.likeart.app
+)
+])
+2026-09-28 13:15:53.821 Df appprotectiond[3270:46ea] [com.apple.appprotection:server] processing settings authority event: SettingsAuthorityEvent.promotePreferenceFromProvisionalForApplication(com.likeart.app)
+2026-09-28 13:15:53.834 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall assertionTargetProcessDidExit:]: RBS termination assertion observer called for <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateWaitingForInstallAssertion promise-state:PA2I4>
+2026-09-28 13:15:53.836 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _onQueue_doInstall]: Acquired termination assertion for [com.likeart.app/Invalid/[system-defined]]; proceeding with install.
+2026-09-28 13:15:53.836 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSPowerAssertion initWithAssertionName:details:]: Acquired power assertion IXPowerAssertion-12-[com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:54.060 Df SpringBoard[3250:45ef] [com.apple.launchservices:progress] #LSInstallProgressList add subscriber: <_NSProgressSubscriber: 0x600000d0e700> publishingString: com.likeart.app
+2026-09-28 13:15:54.060 Df SpringBoard[3250:45ef] [com.apple.launchservices:progress] Subscribing to progress for app com.likeart.app,
+2026-09-28 13:15:54.060 E  SpringBoard[3250:45ef] [com.apple.frontboard.ApplicationLibrary:placeholder] Non-demoted placeholder for com.likeart.app has no associated NSProgress!
+2026-09-28 13:15:54.061 Df lsd[3314:4267] [com.apple.launchservices:progress] #LSInstallProgressList add subscriber: <_NSProgressSubscriber: 0x600000c01440> publishingString: com.likeart.app.InstallingPlaceholder
+2026-09-28 13:15:54.061 Df lsd[3314:4267] [com.apple.launchservices:progress] Subscribing to com.likeart.app.InstallingPlaceholder
+2026-09-28 13:15:54.061 Df installcoordinationd[4198:4efd] [com.apple.launchservices:progress] Published install progress <NSProgress: com.likeart.app.InstallingPlaceholder phase=InstallingPlaceholder; state=Waiting; finalPhase=Installing; fractionCompleted=0.000000>
+2026-09-28 13:15:54.069 Df lsd[3314:355f] [com.apple.launchservices:progress] unsubscribing from com.likeart.app.InstallingPlaceholder as it was unpublished
+2026-09-28 13:15:54.069 Df lsd[3314:355f] [com.apple.launchservices:progress] #LSInstallProgressList remove subscriber: <_NSProgressSubscriber: 0x600000c01440> publishingString: com.likeart.app.InstallingPlaceholder
+2026-09-28 13:15:54.075 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MIClientConnection updatePlaceholderMetadataForApp:installType:failureReason:underlyingError:failureSource:completion:]: Update placeholder metadata requested by client installcoordinationd (pid 4198 (501/20)) for app com.likeart.app installType = 1 failureReason = 0 underlyingError = (null) failureSource = 0
+2026-09-28 13:15:54.075 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:54.078 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:54.159 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing active data source: <SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:54.160 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing from data souce: (null) to data source:com.likeart.app.
+2026-09-28 13:15:54.160 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] icon model preparing to add icon to designated location: <SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:54.191 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:1:1:Updating bundle record for app (placeholderMetadata)
+2026-09-28 13:15:54.191 Df lsd[3314:4267] [com.apple.launchservices:default] Created bundleRecordUpdater for app com.likeart.app. flags=14000041202
+2026-09-28 13:15:54.191 Df lsd[3314:4267] [com.apple.launchservices:default] Updating database with (null) (null) {
+    LSInstallType = 1;
+    PlaceholderFailureReason = 0;
+} for com.likeart.app: did not actually need an update, and it was not forced, so skipping
+2026-09-28 13:15:54.191 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:2:1:Updated bundle record (skipped)
+2026-09-28 13:15:54.192 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sending applicationsDidUpdateMetadata: for (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.194 Df deviceaccessd[4098:50d5] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.195 Df mobiletimerd[3267:4e41] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.195 Df nanotimekitcompaniond[4097:48a1] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.196 Df financed[3399:3a38] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.196 Df sleepd[3279:3560] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.196 Df donotdisturbd[3325:45cc] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.196 Df dasd[3278:4544] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df runningboardd[3253:50c7] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df liveactivitiesd[3321:50d3] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df routined[3258:3790] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df locationd[3276:3621] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df nsurlsessiond[3328:4b0a] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df activityawardsd[4148:4772] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.197 Df callservicesd[3365:4474] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.198 Df profiled[4116:50d7] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.198 Df gamed[4154:4911] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.198 Df activitysharingd[4261:4861] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.199 Df passd[3281:499e] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.212 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:1:1:Updating bundle record for app (placeholderMetadata)
+2026-09-28 13:15:54.212 Df lsd[3314:4267] [com.apple.launchservices:default] Created bundleRecordUpdater for app com.likeart.app. flags=14000041202
+2026-09-28 13:15:54.212 Df lsd[3314:4267] [com.apple.launchservices:default] Updating database with (null) (null) {
+    LSInstallType = 1;
+} for com.likeart.app: did not actually need an update, and it was not forced, so skipping
+2026-09-28 13:15:54.212 Df lsd[3314:4267] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:2:1:Updated bundle record (skipped)
+2026-09-28 13:15:54.233 Df appstored[4110:4419] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.253 Df installcoordinationd[4198:4efd] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:2:1:Updated Placeholder install type with error (null)
+2026-09-28 13:15:54.253 Df installcoordinationd[4198:4efd] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:11:2:1:Updated PlaceholderMetadata for app with error (null)
+2026-09-28 13:15:54.259 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:1:3:1:Created icon for placeholder.
+2026-09-28 13:15:54.272 Df SpringBoard[3250:34d6] [com.apple.frontboard.ApplicationLibrary:sb.placeholder] Placeholders added: (
+    "<SBApplicationPlaceholder: 0x600000d11b90; bundleIdentifier: com.likeart.app; displayName: Like Art>"
+), modified: (
+), removed: (null)
+2026-09-28 13:15:54.276 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Widgets] handleRemovedDataSource:<SBApplicationPlaceholder: 0x600000d11b90; bundleIdentifier: com.likeart.app; displayName: Like Art> ofIcon:<SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:54.276 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing active data source: <SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:54.276 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing from data souce: (null) to data source:com.likeart.app.
+2026-09-28 13:15:54.282 Df SpringBoard[3250:34d6] [com.apple.launchservices:progress] Got progress <NSProgress: com.likeart.app phase=InstallingPlaceholder; state=Waiting; finalPhase=Installing; fractionCompleted=0.000000> for app com.likeart.app,
+2026-09-28 13:15:54.300 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sending applicationInstallsDidStart: for (
+    "<LSApplicationProxy: 0x600003707a80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.363 Df healthd[3260:3afa] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.410 Df homed[3363:433e] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.442 Df SpringBoard[3250:4398] [com.apple.launchservices:appinstallation] LaunchServices observer: MetadataUpdate (
+    "com.likeart.app"
+)
+2026-09-28 13:15:54.449 Df lsd[3314:4267] [com.apple.launchservices:progress] Setting progress proportions for com.likeart.app to {
+    0 = "0.6";
+    1 = "0.4";
+    4 = 0;
+}, error is (null)
+2026-09-28 13:15:54.459 Df appstored[4110:4406] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003705140> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.465 Df mobiletimerd[3267:4e41] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700480> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.492 Df nanotimekitcompaniond[4097:470b] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700840> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.492 Df homed[3363:3947] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704cc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.495 Df sleepd[3279:4581] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700300> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.496 Df financed[3399:3a35] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x60000373a340> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.498 Df dasd[3278:35fc] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003708fc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.502 Df nsurlsessiond[3328:449f] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704cc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.505 Df runningboardd[3253:50c7] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704a80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.506 Df deviceaccessd[4098:50d6] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037080c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.507 Df healthd[3260:4702] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037092c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.512 Df routined[3258:3790] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003710b40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.513 Df locationd[3276:3621] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037052c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.514 Df liveactivitiesd[3321:47b7] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704600> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.516 Df donotdisturbd[3325:36fa] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037043c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.518 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sent distributed notification com.apple.LaunchServices.applicationRegistered with payload {
+    bundleIDs =     (
+        "com.likeart.app"
+    );
+    isPlaceholder = 1;
+}
+2026-09-28 13:15:54.522 Df activitysharingd[4261:486c] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003700a80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.527 Df passd[3281:4aa3] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003709980> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.536 Df callservicesd[3365:37ec] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x10459cb40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.537 Df activityawardsd[4148:4760] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037043c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.541 Df profiled[4116:4542] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003704900> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.545 Df gamed[4154:50d0] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x600003701680> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.564 Df installcoordinationd[4198:4efd] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall _limitedConcurrency_setUpLSProgressForInstallType:progressHint:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateWaitingForInstall promise-state:PA2I4>: Set progress proportions to {
+    0 = "0.6";
+    1 = "0.4";
+    4 = 0;
+}
+2026-09-28 13:15:54.568 Df lsd[3314:4267] [com.apple.launchservices:progress] Using publishing string "com.likeart.app.Loading" for the first time
+2026-09-28 13:15:54.568 Df lsd[3314:4267] [com.apple.launchservices:progress] Updating installPhase for <NSProgress: com.likeart.app phase=InstallingPlaceholder; state=Finished; finalPhase=Installing; fractionCompleted=0.000000> to 0
+2026-09-28 13:15:54.639 Df siriactionsd[3345:39af] [com.apple.shortcuts:Daemon] Dispatching XPC event: <distributed notification: com.apple.LaunchServices.applicationRegistered, userInfo: [AnyHashable("isPlaceholder"): 1, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x60000000d320>(
+com.likeart.app
+)
+]>
+2026-09-28 13:15:54.644 Df lsd[3314:4267] [com.apple.launchservices:progress] Parent progress for installation <NSProgress: com.likeart.app phase=Loading; state=Finished; finalPhase=Installing; fractionCompleted=0.000000>, adding phase 0
+2026-09-28 13:15:54.655 E  intents_helper[4252:4715] [com.apple.siri:Intents] -[INHService loadSchemaURLsForBundleIdentifiers:completion:] Error getting bundle record for bundle identifier com.likeart.app: Error Domain=NSOSStatusErrorDomain Code=-10814 "(null)" UserInfo={_LSLine=156, _LSFunction=+[LSBundleRecord bundleRecordWithBundleIdentifier:allowPlaceholder:error:], _LSFile=LSBundleRecord.mm, NSUnderlyingError=0x600000ca0150 {Error Domain=NSOSStatusErrorDomain Code=-10814 "Unable to find this application extension record in the Launch Services database." UserInfo={_LSLine=652, _LSFunction=_LSPluginFindWithPlatformInfo, _LSFile=LSPluginBundle.mm, NSDebugDescription=Unable to find this application extension record in the Launch Services database., SK=com.likeart.app, IS=false}}}
+2026-09-28 13:15:54.655 Df siriactionsd[3345:39af] [com.apple.shortcuts:XPCEvent] Dispatching XPC event: <distributed notification: com.apple.LaunchServices.applicationRegistered, userInfo: [AnyHashable("isPlaceholder"): 1, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x60000000d320>(
+com.likeart.app
+)
+]>
+2026-09-28 13:15:54.689 Df dmd[4099:430c] Received xpc stream event (distributed notification matching) with name: com.apple.LaunchServices.applicationRegistered user info: {
+    bundleIDs =     (
+        "com.likeart.app"
+    );
+    isPlaceholder = 1;
+}
+2026-09-28 13:15:54.732 Df lsd[3314:4267] [com.apple.launchservices:progress] #LSInstallProgressList add subscriber: <_NSProgressSubscriber: 0x600000c0aa00> publishingString: com.likeart.app.Loading
+2026-09-28 13:15:54.739 Df SpringBoard[3250:4615] [com.apple.launchservices:appinstallation] LaunchServices observer: InstallsStarted (
+    "<LSApplicationProxy: 0x6000037280c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/CC33DC19-A5C6-4244-BEA2-EEB68B10FBE2/LikeArt.app/ <com.likeart.app <placeholder >:1>"
+)
+2026-09-28 13:15:54.746 Df lsd[3314:4267] [com.apple.launchservices:progress] Subscribing to com.likeart.app.Loading
+2026-09-28 13:15:54.749 Df installcoordinationd[4198:4efd] [com.apple.launchservices:progress] Published install progress <NSProgress: com.likeart.app.Loading phase=Loading; state=Waiting; finalPhase=Installing; fractionCompleted=0.000000>
+2026-09-28 13:15:54.751 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 100.000000 phase IXCoordinatorProgressPhaseLoading overallProgress 60.000000
+2026-09-28 13:15:54.751 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:54.753 Df lsd[3314:4267] [com.apple.launchservices:progress] Using publishing string "com.likeart.app.Installing" for the first time
+2026-09-28 13:15:54.759 Df appprotectiond[3270:46ea] [com.apple.appprotection:server] Received distnoted event <dictionary: 0x600003e0e800> { count = 3, transaction: 0, voucher = 0x6000021055e0, contents =
+	"UserInfo" => <dictionary: 0x600002605320> { count = 2, transaction: 0, voucher = 0x0, contents =
+		"isPlaceholder" => <bool: 0x1e57603f0>: true
+		"bundleIDs" => <array: 0x600000c043c0> { count = 1, capacity = 1, contents =
+			0: <string: 0x600000c04510> { string cache = 0x0, length = 15, contents = "com.likeart.app" }
+		}
+	}
+	"Name" => <string: 0x600000c04e10> { string cache = 0x0, length = 46, contents = "com.apple.LaunchServices.applicationRegistered" }
+	"XPCEventName" => <string: 0x600000c04810> { string cache = 0x0, length = 21, contents = "ApplicationRegistered" }
+}
+2026-09-28 13:15:54.760 Df appprotectiond[3270:46ea] [com.apple.appprotection:server] received note: name = com.apple.LaunchServices.applicationRegistered, object = Optional(AppProtection.DistnotedXPCEventStreamTranslator), userInfo = Optional([AnyHashable("isPlaceholder"): 1, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x6000000083b0>(
+com.likeart.app
+)
+])
+2026-09-28 13:15:54.760 Df appprotectiond[3270:46ea] [com.apple.appprotection:server] processing settings authority event: SettingsAuthorityEvent.promotePreferenceFromProvisionalForApplication(com.likeart.app)
+2026-09-28 13:15:54.761 Df lsd[3314:3617] [com.apple.launchservices:appinstallation] Save after update app record for bundle com.likeart.app attempted: 1 save error: (null)
+2026-09-28 13:15:54.762 Df installd[4079:41ba] (MobileSystemServices) 0x16faf3000 -[MILaunchServicesOperationManager _onQueue_removePendingLaunchServicesOperationForUUID:dueToLSSave:]: Removing operation after LS save: <MILaunchServicesRegisterOperation: 9D6492AF-A83D-4FDB-BC89-3113C1199B21:1 com.likeart.app/MIInstallationDomainSystemShared personas:[com.apple.containermanager.primary-persona]>
+2026-09-28 13:15:54.821 Df lsd[3314:4267] [com.apple.launchservices:progress] Updating installPhase for <NSProgress: com.likeart.app phase=Loading; state=Active; finalPhase=Installing; fractionCompleted=0.600000> to 1
+2026-09-28 13:15:54.823 Df lsd[3314:4267] [com.apple.launchservices:progress] Parent progress for installation <NSProgress: com.likeart.app phase=Installing; state=Active; finalPhase=Installing; fractionCompleted=0.600000>, adding phase 1
+2026-09-28 13:15:54.830 Df lsd[3314:355f] [com.apple.launchservices:progress] unsubscribing from com.likeart.app.Loading as it was unpublished
+2026-09-28 13:15:54.832 Df lsd[3314:355f] [com.apple.launchservices:progress] #LSInstallProgressList remove subscriber: <_NSProgressSubscriber: 0x600000c0aa00> publishingString: com.likeart.app.Loading
+2026-09-28 13:15:54.833 Df lsd[3314:4267] [com.apple.launchservices:progress] #LSInstallProgressList add subscriber: <_NSProgressSubscriber: 0x600000c111d0> publishingString: com.likeart.app.Installing
+2026-09-28 13:15:54.833 Df lsd[3314:4267] [com.apple.launchservices:progress] Subscribing to com.likeart.app.Installing
+2026-09-28 13:15:54.833 Df installcoordinationd[4198:4eff] [com.apple.launchservices:progress] Published install progress <NSProgress: com.likeart.app.Installing phase=Installing; state=Waiting; finalPhase=Installing; fractionCompleted=0.000000>
+2026-09-28 13:15:54.856 Df installcoordinationd[4198:4523] [com.apple.installcoordination:daemon] -[IXSClientConnection _remote_removabilityForAppWithIdentity:completion:]: Returning removability PossibleAndAllowed for com.likeart.app to client SpringBoard (pid 3250)
+2026-09-28 13:15:54.862 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:2:3:1:Reloading icon image.
+2026-09-28 13:15:54.864 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:2:3:1:Reloading icon image.
+2026-09-28 13:15:54.950 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:54.972 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 5.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 62.000000
+2026-09-28 13:15:54.972 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 15.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 66.000000
+2026-09-28 13:15:54.972 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:54.972 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:54.980 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:54.990 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.004 Df installcoordinationd[4198:4efd] [com.apple.installcoordination:daemon] -[IXSCoordinatorProgress setTotalUnitsCompleted:]: Progress for coordinator: [com.likeart.app/Invalid/[system-defined]], Phase: IXCoordinatorProgressPhaseInstalling, Percentage: 20.000000: Attempt to set units completed on finished progress: 20
+2026-09-28 13:15:55.026 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 20.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 68.000000
+2026-09-28 13:15:55.026 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.045 Df SpringBoard[3250:4615] [com.apple.frontboard.ApplicationLibrary:observer] -[FBSApplicationLibrary applicationInstallsDidStart:] com.likeart.app
+2026-09-28 13:15:55.047 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.053 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MIInstaller _installInstallable:containingSymlink:error:]: Installing <MIInstallableBundle ID=com.likeart.app; Persona=com.apple.containermanager.primary-persona, Version=202609281311, ShortVersion=2.0.3>
+2026-09-28 13:15:55.067 Df installd[4079:4204] [com.apple.appinstallation:TransactionLog] com.likeart.app/com.apple.containermanager.primary-persona:7:5:1:1:Start : Install (New)
+2026-09-28 13:15:55.079 Df installd[4079:4204] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 4, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.098 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:2:3:1:Reloading icon image.
+2026-09-28 13:15:55.182 Df installd[4079:4204] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 4, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.229 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 30.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 72.000000
+2026-09-28 13:15:55.229 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.236 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 40.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 76.000000
+2026-09-28 13:15:55.236 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.316 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000003
+2026-09-28 13:15:55.317 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 50.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 80.000000
+2026-09-28 13:15:55.317 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.317 E  containermanagerd_system[3312:50c6] [com.apple.containermanager:schema] [com.likeart.app(1)] Current schema version (1) is newer than the latest (0), ignoring.
+2026-09-28 13:15:55.319 Df containermanagerd_system[3312:50c6] [com.apple.containermanager:schema] [u 4E033550-9845-4561-9570-F12F23D6DCA4:p A4E2DED1-E0F5-4675-8D9F-944DA29F7C5F:c com.likeart.app(1):i2967902] Successfully updated schema from (0) → (0), actions count = 0
+2026-09-28 13:15:55.324 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.325 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 60.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 84.000000
+2026-09-28 13:15:55.325 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.327 Df installd[4079:4204] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 2, identifier = [com.likeart.app](1), flags = 300000003
+2026-09-28 13:15:55.327 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 70.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 88.000000
+2026-09-28 13:15:55.327 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.328 Df installd[4079:4204] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 2, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.517 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 80.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 92.000000
+2026-09-28 13:15:55.517 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.519 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MIInstallationJournalEntry _refreshUUIDForContainer:withError:]: Data container for com.likeart.app is now at /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Data/Application/6780EE45-2513-40B1-A8DB-FD49FF5C5064
+2026-09-28 13:15:55.520 Df containermanagerd[3317:3579] [com.apple.containermanager:schema] [u 93E6E6B0-1B4E-451A-9C8A-7E80D67942E0:p 6780EE45-2513-40B1-A8DB-FD49FF5C5064:c com.likeart.app(2):i0] Successfully updated schema from (0) → (1), actions count = 6
+2026-09-28 13:15:55.520 Df installd[4079:4204] [com.apple.containermanager:unspecified] Replace; old = [app:com.likeart.app:501::(1FBABD42-FDAA-4FBB-939E-55D154B525FF)], new = [temp-app:com.likeart.app:501::(4E033550-9845-4561-9570-F12F23D6DCA4)]
+2026-09-28 13:15:55.524 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.525 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MIContainer makeContainerLiveReplacingContainer:reason:waitForDeletion:withError:]: Made container live for com.likeart.app at /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED
+2026-09-28 13:15:55.526 Df installd[4079:4204] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, class = 1, identifier = [com.likeart.app](1), flags = 300000002
+2026-09-28 13:15:55.531 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 90.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 96.000000
+2026-09-28 13:15:55.531 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.532 Df containermanagerd[3317:3578] [com.apple.containermanager:codesignmapping] Reconciled [com.likeart.app]; old app groups: (null), new app groups: (null), old system groups: (null), new system groups: (null)
+2026-09-28 13:15:55.532 Df installd[4079:4204] [com.apple.containermanager:unspecified] Requesting disk usage; class = 1, identifier = com.likeart.app
+2026-09-28 13:15:55.543 Df installd[4079:4204] [com.apple.containermanager:query] Query; euid = 501, uid = 501, class = 7, identifier = [com.likeart.app](1), flags = 300000001
+2026-09-28 13:15:55.550 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MILaunchServicesOperationManager _onQueue_addPendingLaunchServicesOperation:error:]: Added pending LS operation <MILaunchServicesRegisterOperation: E6FB6521-1994-4E10-B725-8A7F4755682C:2 com.likeart.app/MIInstallationDomainSystemShared personas:[com.apple.containermanager.primary-persona]>
+2026-09-28 13:15:55.551 Df lsd[3314:3a2c] [com.apple.launchservices:appinstallation] Post installation registration: request to register com.likeart.app, operation E6FB6521-1994-4E10-B725-8A7F4755682C, from pid 4079
+2026-09-28 13:15:55.551 Df lsd[3314:3a2c] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:4:1:1:Registering bundles via registrant - start
+2026-09-28 13:15:55.557 Df lsd[3314:3a2c] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:5:1:1:Building bundle record for app
+2026-09-28 13:15:55.557 Df lsd[3314:3a2c] [com.apple.launchservices:appinstallation] Removed existing registered placeholder for com.likeart.app
+2026-09-28 13:15:55.557 Df lsd[3314:3a2c] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:5:2:1:Built bundle record for app
+2026-09-28 13:15:55.569 Df lsd[3314:3a2c] [com.apple.launchservices:icons] clearAlternateNameForBundleIdentifier: won't clear for com.likeart.app
+2026-09-28 13:15:55.569 Df lsd[3314:3a2c] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:4:2:1:Registered bundle status = success
+2026-09-28 13:15:55.570 Df lsd[3314:3a2c] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:4:2:1:Finished registering com.likeart.app, bundle unit 2a4
+2026-09-28 13:15:55.570 Df lsd[3314:4267] [com.apple.launchservices:progress] Installation ended for com.likeart.app with state 5
+2026-09-28 13:15:55.573 Df lsd[3314:4267] [com.apple.launchservices:progress] Discarding proportions for com.likeart.app
+2026-09-28 13:15:55.574 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MIJournal purgeJournalEntry:withError:]: Removing journal entry <MIInstallationJournalEntry<0x600003304320> [com.likeart.app/com.apple.containermanager.primary-persona/[system-defined]]/MIInstallationDomainSystemShared op:1 phase:JournalPhaseDidRegisterWithLS version:202609281311>
+2026-09-28 13:15:55.574 Df installd[4079:4204] [com.apple.appinstallation:TransactionLog] com.likeart.app/com.apple.containermanager.primary-persona:7:5:2:1:Success (End) : Install (New)
+2026-09-28 13:15:55.575 Df installd[4079:4204] (MobileSystemServices) 0x16fb7f000 -[MIInstaller _logOperationCompletionWithStartTime:distributorID:]: Install successful for (Developer:com.likeart.app) [Distributor: (null)]; Staging: 0.09s; Waiting: 0.00s; Preflight/Patch: 0.01s, Verifying: 0.24s; Overall: 0.74s
+2026-09-28 13:15:55.577 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSPendingOperationsTracker endPendingOperationForIdentity:]_block_invoke: Ending pending operation for [com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:55.579 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setComplete:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateComplete promise-state:PA2I4> complete!
+2026-09-28 13:15:55.579 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSPowerAssertion invalidate]: Released power assertion IXPowerAssertion-12-[com.likeart.app/Invalid/[system-defined]]
+2026-09-28 13:15:55.580 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSDataPromise decommission]: Decommissioning <IXSPromisedTransferToPath(0x600002c09e80) Name:Icon resources for com.likeart.app Creator:InstallCoordination Simple SPI UUID:44B8C0B0-CBF6-4EE0-A849-355E80A9EE81 Location:[system-defined]>
+2026-09-28 13:15:55.588 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got did update progress delegate with percentComplete 100.000000 phase IXCoordinatorProgressPhaseInstalling overallProgress 100.000000
+2026-09-28 13:15:55.588 Df CoreSimulatorBridge[3282:3692] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didUpdateProgress:forPhase:overallProgress:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinator:didUpdateProgress:forPhase:overallProgress: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.589 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSDataPromise decommission]: Decommissioning <IXSPromisedInMemoryDictionary(0x600002c02000) Name:Info.plist icon content for com.likeart.app Creator:InstallCoordination Simple SPI UUID:A66CC9FA-9821-495A-BB43-12DC4E1015B5 Location:[system-defined]>
+2026-09-28 13:15:55.590 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSDataPromise decommission]: Decommissioning <IXSPromisedInMemoryDictionary(0x600002c08a80) Name:Localizations for com.likeart.app Creator:InstallCoordination Simple SPI UUID:597073B0-0DE5-443A-9229-BFE8E063F291 Location:[system-defined]>
+2026-09-28 13:15:55.603 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sending applicationsDidInstall: for (
+    "<LSApplicationProxy: 0x600003704180> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.606 Df deviceaccessd[4098:50d6] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003704300> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.607 Df mobiletimerd[3267:4e41] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x6000037086c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.609 Df appstored[4110:4419] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003709740> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.609 Df nanotimekitcompaniond[4097:470b] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003708480> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.609 Df financed[3399:3a35] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003733a80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.611 Df sleepd[3279:4581] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003704000> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.613 Df donotdisturbd[3325:36fa] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003704600> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.613 Df homed[3363:3947] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x6000037018c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.614 Df runningboardd[3253:511b] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x6000037000c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.614 Df liveactivitiesd[3321:50d3] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003700300> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.615 Df locationd[3276:3621] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003705a40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.615 Df routined[3258:3790] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003716a00> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.616 Df nsurlsessiond[3328:36cc] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003704cc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.616 Df passd[3281:49c1] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003709500> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.617 Df activityawardsd[4148:4776] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003704480> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.617 Df lsd[3314:3a2c] [com.apple.launchservices:progress] Sent distributed notification com.apple.LaunchServices.applicationRegistered with payload {
+    bundleIDs =     (
+        "com.likeart.app"
+    );
+    isPlaceholder = 0;
+}
+2026-09-28 13:15:55.618 Df gamed[4154:50d0] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003708cc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.618 Df callservicesd[3365:37ec] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x10459cb40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.618 Df profiled[4116:4542] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x6000037049c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.619 Df dasd[3278:35fc] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003709140> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.619 Df lsd[3314:355f] [com.apple.launchservices:progress] unsubscribing from com.likeart.app.Installing as it was unpublished
+2026-09-28 13:15:55.619 Df lsd[3314:355f] [com.apple.launchservices:progress] #LSInstallProgressList remove subscriber: <_NSProgressSubscriber: 0x600000c111d0> publishingString: com.likeart.app.Installing
+2026-09-28 13:15:55.620 Df activitysharingd[4261:486c] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x600003708300> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.625 Df siriactionsd[3345:39af] [com.apple.shortcuts:Daemon] Dispatching XPC event: <distributed notification: com.apple.LaunchServices.applicationRegistered, userInfo: [AnyHashable("isPlaceholder"): 0, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x600000005d00>(
+com.likeart.app
+)
+]>
+2026-09-28 13:15:55.625 Df siriactionsd[3345:39af] [com.apple.shortcuts:XPCEvent] Dispatching XPC event: <distributed notification: com.apple.LaunchServices.applicationRegistered, userInfo: [AnyHashable("isPlaceholder"): 0, AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x600000005d00>(
+com.likeart.app
+)
+]>
+2026-09-28 13:15:55.631 Df healthd[3260:394d] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x60000371c300> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.645 Df appstored[4110:4406] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003709800> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.645 Df profiled[4116:50d7] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003704840> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.656 Df activityawardsd[4148:4760] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x6000037003c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.657 Df locationd[3276:361a] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003704a80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.658 Df locationd[3276:361a] [com.apple.locationd.Core:Core] {"msg":"#Warning #ClientResolution the passed keyPath is not registered. Resolving to #nullCKP", "InputCKP":icom.likeart.app:}
+2026-09-28 13:15:55.658 Df locationd[3276:361a] [com.apple.locationd.Core:Core] {"msg":"AppMonitor - application (un)installation notification", "notification":Installation, "BundleId":com.likeart.app, "BundlePath":/Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app, "ExecutablePath":/Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/LikeArt}
+2026-09-28 13:15:55.659 Df mobiletimerd[3267:5039] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003708480> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.659 Df callservicesd[3365:4474] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x10459ccc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.660 Df runningboardd[3253:50da] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003704b40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.660 Df activitysharingd[4261:4861] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003709140> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.661 Df financed[3399:3a36] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003733b40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.661 Df nanotimekitcompaniond[4097:48a1] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003708fc0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.661 Df nsurlsessiond[3328:4514] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x6000037089c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.661 Df dasd[3278:4544] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003704780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.662 Df homed[3363:433e] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003708900> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.662 Df liveactivitiesd[3321:47b7] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003708600> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.662 Df deviceaccessd[4098:50d5] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003700780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.668 Df passd[3281:4aa3] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003705c80> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.668 Df sleepd[3279:3560] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003704e40> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.668 Df donotdisturbd[3325:4284] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x6000037046c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.678 Df dmd[4099:430c] Received xpc stream event (distributed notification matching) with name: com.apple.LaunchServices.applicationRegistered user info: {
+    bundleIDs =     (
+        "com.likeart.app"
+    );
+    isPlaceholder = 0;
+}
+2026-09-28 13:15:55.684 Df nanotimekitcompaniond[4097:48a1] [com.apple.NanoTimeKit:UpNext] Setting data sources for SiriDefaultsPhoneThirdPartyDataSources - {(
+    "com.likeart.app"
+)}
+2026-09-28 13:15:55.688 Df gamed[4154:4911] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x600003705ec0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.690 Df appprotectiond[3270:4995] [com.apple.appprotection:server] Received distnoted event <dictionary: 0x600003e09000> { count = 3, transaction: 0, voucher = 0x6000021055e0, contents =
+	"UserInfo" => <dictionary: 0x600002600f00> { count = 2, transaction: 0, voucher = 0x0, contents =
+		"isPlaceholder" => <bool: 0x1e5760410>: false
+		"bundleIDs" => <array: 0x600000c01230> { count = 1, capacity = 1, contents =
+			0: <string: 0x600000c01650> { string cache = 0x0, length = 15, contents = "com.likeart.app" }
+		}
+	}
+	"Name" => <string: 0x600000c019b0> { string cache = 0x0, length = 46, contents = "com.apple.LaunchServices.applicationRegistered" }
+	"XPCEventName" => <string: 0x600000c01a40> { string cache = 0x0, length = 21, contents = "ApplicationRegistered" }
+}
+2026-09-28 13:15:55.690 Df appprotectiond[3270:4995] [com.apple.appprotection:server] received note: name = com.apple.LaunchServices.applicationRegistered, object = Optional(AppProtection.DistnotedXPCEventStreamTranslator), userInfo = Optional([AnyHashable("bundleIDs"): <__NSSingleObjectArrayI 0x6000000046a0>(
+com.likeart.app
+)
+, AnyHashable("isPlaceholder"): 0])
+2026-09-28 13:15:55.690 Df appprotectiond[3270:4995] [com.apple.appprotection:server] processing settings authority event: SettingsAuthorityEvent.promotePreferenceFromProvisionalForApplication(com.likeart.app)
+2026-09-28 13:15:55.719 Df callservicesd[3365:4474] [com.apple.calls.copresencecore:Default] Invalidating cached value for bundle identifier: com.likeart.app
+2026-09-28 13:15:55.730 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Common] termination assertion released for com.likeart.app (app not found)
+2026-09-28 13:15:55.756 Df callservicesd[3365:4474] [com.apple.calls.copresencecore:Default] Invalidating cached value for bundle identifier: com.likeart.app
+2026-09-28 13:15:55.759 Df healthd[3260:394d] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x60000371d380> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.782 Df appstored[4110:4406] [com.apple.appstored:ODR] Handling application installation: {bundleID = com.likeart.app; version = 202609281311; shortVersion = 2.0.3; variantID = (null)}
+2026-09-28 13:15:55.796 Df appstored[4110:4406] [com.apple.appstored:ODR] Ignoring installation for {bundleID = com.likeart.app; version = 202609281311; shortVersion = 2.0.3; variantID = (null)} as it does not appear to support ODR
+2026-09-28 13:15:55.796 Df appstored[4110:4406] [com.apple.appstored:General] Checking to see if apps need to be migrated to managed: [com.likeart.app]
+2026-09-28 13:15:55.829 Df deviceaccessd[4098:438b] [com.apple.DeviceAccess:DADaemonServer] ### applicationsDidInstall [
+    <LSApplicationProxy: 0x600003700780> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+]
+2026-09-28 13:15:55.829 Df deviceaccessd[4098:438b] [com.apple.DeviceAccess:DADaemonServer] ### applicationsDidInstall com.likeart.app
+2026-09-28 13:15:55.842 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSDataPromise decommission]: Decommissioning <IXSPlaceholder(0x102205dc0) Name:App Placeholder: Like Art (com.likeart.app) Creator:InstallCoordination Simple SPI UUID:A08EFBD6-0B4C-48EB-844E-5AFDD44389BB Location:[system-defined]>
+2026-09-28 13:15:55.844 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSDataPromise decommission]: Decommissioning <IXSPromisedTransferToPath(0x600002c00980) Name:App Asset: com.likeart.app Creator:InstallCoordination Simple SPI UUID:14FE24E5-7F99-4498-968C-62B4FB94D191 Location:[system-defined]>
+2026-09-28 13:15:55.847 Df installcoordinationd[4198:4eff] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:4:1:2:1:Coordinator completed successfully.
+2026-09-28 13:15:55.850 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSCoordinatorManager unregisterCoordinator:]: Unregistered coordinator: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateComplete promise-state:PA2I4>
+2026-09-28 13:15:55.850 Df installcoordinationd[4198:4eff] [com.apple.installcoordination:daemon] -[IXSCoordinatedAppInstall setPriorityBoostCompletion:withSourceInfo:]: <IXSCoordinatedAppInstall<0x100f06000> [P=CoreSimulatorBridge (pid 3282)] identifier:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 intent:IXCoordinatorIntentInitiating creator/appDRI:InstallCoordination Simple SPI importance:UserWaiting state:IXAppCoordinationStateComplete promise-state:PA2I4>: Disposing of completion from CoreSimulatorBridge (3282), QOS_CLASS_DEFAULT (0x15)
+2026-09-28 13:15:55.877 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Got completion delegate for app record { bundleID: com.likeart.app, URL: file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ }
+2026-09-28 13:15:55.878 Df CoreSimulatorBridge[3282:3845] [com.apple.installcoordination:framework] -[IXAppInstallCoordinator _clientDelegate_didCompleteForApplicationRecord:]_block_invoke: <IXInitiatingAppInstallCoordinator<0x6000017230c0> identity:[com.likeart.app/Invalid/[system-defined]] uuid:99782995-17C1-4A98-8D3D-6B0B76FF3632 creator:InstallCoordination Simple SPI>: Calling selector coordinatorDidCompleteSuccessfully:forApplicationRecord: on observer <_IXSimpleInstallerDelegate 0x0x600000c07120>
+2026-09-28 13:15:55.885 Df SpringBoard[3250:34d6] [com.apple.launchservices:progress] Unpublishing progress block called for app com.likeart.app
+2026-09-28 13:15:55.885 Df routined[3258:37aa] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x6000037124c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.885 Df SpringBoard[3250:510f] [com.apple.launchservices:progress] #LSInstallProgressList remove subscriber: <_NSProgressSubscriber: 0x600000d0e700> publishingString: com.likeart.app
+2026-09-28 13:15:55.886 Df SpringBoard[3250:439a] [com.apple.launchservices:appinstallation] Received applicationsDidInstall:(
+    "<LSApplicationProxy: 0x6000037cd2c0> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>"
+)
+2026-09-28 13:15:55.891 Df SpringBoard[3250:439a] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:5:8:3:1:applicationsDidInstall <LSApplicationProxy: 0x6000037cd980> com.likeart.app file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/ <com.likeart.app <installed >:0>
+2026-09-28 13:15:55.891 Df SpringBoard[3250:439a] [com.apple.frontboard.ApplicationLibrary:observer] -[FBSApplicationLibrary applicationsDidInstall:] com.likeart.app
+2026-09-28 13:15:55.891 Df SpringBoard[3250:439a] [com.apple.frontboard.ApplicationLibrary:default] Removed placeholder: <SBApplicationPlaceholderProxy: 0x600002c54400; com.likeart.app (Like Art); LSInstallType: StoreDownload>
+2026-09-28 13:15:55.905 Df SpringBoard[3250:439a] [com.apple.frontboard.ApplicationLibrary:default] Added application: <SBApplicationInfo: 0x104ec5f70; com.likeart.app (Like Art)>
+2026-09-28 13:15:55.905 Df SpringBoard[3250:34d6] [com.apple.frontboard.ApplicationLibrary:sb.placeholder] App placeholder proxies installed: (
+    "<SBApplicationPlaceholderProxy: 0x600002c54400; com.likeart.app (Like Art); LSInstallType: StoreDownload>"
+)
+2026-09-28 13:15:55.905 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:4:1:1:Placeholder remove BEGIN
+2026-09-28 13:15:55.906 Df SpringBoard[3250:34d6] [com.apple.appinstallation:TransactionLog] com.likeart.app/Unknown Persona:10:10:3:1:Application added
+2026-09-28 13:15:55.942 Df linkd[3434:50d2] [com.apple.appintents:Registry] com.apple.LaunchServices.applicationRegistered => ["com.likeart.app"]
+2026-09-28 13:15:55.945 Df linkd[3434:50d2] [com.apple.appintents:Registry] com.likeart.app is not link enabled
+2026-09-28 13:15:55.949 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Common] Installed apps did change.
+Added: {(
+    "com.likeart.app"
+)}
+Removed: {(
+)}
+Replaced: {(
+)}
+Updated: (null)
+2026-09-28 13:15:55.949 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Widgets] handleRemovedDataSource:<SBApplicationPlaceholder: 0x600000d11b90; bundleIdentifier: com.likeart.app; displayName: Like Art; progress: 100%; state: Finished> ofIcon:<SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:55.949 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing active data source: <SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:55.949 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing from data souce: (null) to data source:com.likeart.app.
+2026-09-28 13:15:55.950 Df SpringBoard[3250:34d6] [com.apple.frontboard.ApplicationLibrary:sb.placeholder] Placeholders added: (null), modified: (null), removed: (
+    "<SBApplicationPlaceholder: 0x600000d11b90; bundleIdentifier: com.likeart.app; displayName: Like Art; progress: 100%; state: Finished>"
+)
+2026-09-28 13:15:55.950 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Widgets] handleRemovedDataSource:<SBApplication: 0x600003d42a30; com.likeart.app> {
+} ofIcon:<SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:55.950 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing active data source: <SBApplicationIcon: 0x6000033073e0; nodeID: com.likeart.app; bundleID: com.likeart.app>
+2026-09-28 13:15:55.950 Df SpringBoard[3250:34d6] [com.apple.SpringBoard:Icon] <<SBLeafIcon:0x6000033073e0 [com.likeart.app]>> Changing from data souce: (null) to data source:com.likeart.app.
+2026-09-28 13:15:56.022 Df SpringBoard[3250:439a] [com.apple.SplashBoard:FileManifest] Applications were added. Updating launch images for: (
+    "com.likeart.app"
+)
+2026-09-28 13:15:56.031 Df SpringBoard[3250:439a] [com.apple.SplashBoard:FileManifest] com.likeart.app Manifest is empty; purging everything at /Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Data/Application/6780EE45-2513-40B1-A8DB-FD49FF5C5064/Library/SplashBoard/Snapshots
+2026-09-28 13:15:56.042 Df SpringBoard[3250:439a] [com.apple.SplashBoard:Capture] Processing launch request <XBLaunchStateRequest: 0x600002a03bf0> for app: com.likeart.app.
+2026-09-28 13:15:56.042 Df SpringBoard[3250:439a] [com.apple.SplashBoard:Capture] Processing launch request <XBLaunchStateRequest: 0x600002a039c0> for app: com.likeart.app.
+2026-09-28 13:15:56.042 Df SpringBoard[3250:439a] [com.apple.SplashBoard:Capture] Processing launch request <XBLaunchStateRequest: 0x600002a01e30> for app: com.likeart.app.
+2026-09-28 13:15:56.042 Df SpringBoard[3250:439a] [com.apple.SplashBoard:Capture] Processing launch request <XBLaunchStateRequest: 0x600002a02a00> for app: com.likeart.app.
+2026-09-28 13:15:56.043 Df SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Asynchronously generating image data for request: <XBLaunchStateRequest: 0x600002a03bf0; groupID: com.likeart.app - {DEFAULT GROUP}; statusBar: normal; refSize: {390, 844}; orientation: Portrait; userInterfaceStyle: Light>
+2026-09-28 13:15:56.049 E  SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Resource validation error: Security error -67056 reading resource from bundle: file:///Users/runner/Library/Developer/CoreSimulator/Devices/B2915858-3ACD-4042-9157-794EC669795F/data/Containers/Bundle/Application/6147DD5D-3226-4736-B51A-D56B1DCD7DED/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/launch-controller-view-launch-view.nib, com.likeart.app v202609281311
+2026-09-28 13:15:56.050 E  SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Snapshot generation resulted in an error with code: 11 for app bundleID: com.likeart.app
+2026-09-28 13:15:56.050 E  SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Noting that the application com.likeart.app has a bad launch image until it is updated.
+2026-09-28 13:15:56.050 Df SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Asynchronously generating image data for request: <XBLaunchStateRequest: 0x600002a039c0; groupID: com.likeart.app - {DEFAULT GROUP}; statusBar: normal; refSize: {390, 844}; orientation: Portrait; userInterfaceStyle: Dark>
+2026-09-28 13:15:56.050 E  SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Skipping launch request <XBLaunchStateRequest: 0x600002a039c0> due to denied app: com.likeart.app.
+2026-09-28 13:15:56.050 Df SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Asynchronously generating image data for request: <XBLaunchStateRequest: 0x600002a01e30; groupID: com.likeart.app - {DEFAULT GROUP}; statusBar: hidden; refSize: {390, 844}; naturalSize: {844, 390}; orientation: LandscapeLeft; userInterfaceStyle: Light>
+2026-09-28 13:15:56.050 E  SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Skipping launch request <XBLaunchStateRequest: 0x600002a01e30> due to denied app: com.likeart.app.
+2026-09-28 13:15:56.050 Df SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Asynchronously generating image data for request: <XBLaunchStateRequest: 0x600002a02a00; groupID: com.likeart.app - {DEFAULT GROUP}; statusBar: hidden; refSize: {390, 844}; naturalSize: {844, 390}; orientation: LandscapeLeft; userInterfaceStyle: Dark>
+2026-09-28 13:15:56.050 E  SpringBoard[3250:4598] [com.apple.SplashBoard:Capture] Skipping launch request <XBLaunchStateRequest: 0x600002a02a00> due to denied app: com.likeart.app.
+2026-09-28 13:15:56.054 Df SpringBoard[3250:5107] [com.apple.UserNotifications:DataProviderFactory] [com.likeart.app] Application installed using default data provider
+2026-09-28 13:15:56.054 Df SpringBoard[3250:5107] [com.apple.UserNotifications:Settings] Getting sectionInfos for section identifiers: {(
+    "com.likeart.app"
+)}
+2026-09-28 13:15:56.056 Df SpringBoard[3250:5107] [com.apple.UserNotifications:Settings] [{(
+    "com.likeart.app"
+)}] Got section infos [ hasResult: 1 ]
+2026-09-28 13:15:57.093 Df SpringBoard[3250:4398] [com.apple.SplashBoard:FileManifest] <XBApplicationSnapshotManifestImpl: 0x600002c5ca80> [com.likeart.app] We don't have any snapshots, so we're clearing our manifest data.
+2026-09-28 13:15:58.638 Df deviceaccessd[4098:438b] [com.apple.DeviceAccess:DADaemonServer] ### appBundleHasASKEnabled com.likeart.app supports None
+2026-09-28 13:15:58.638 Df deviceaccessd[4098:438b] [com.apple.DeviceAccess:DADaemonServer] ### UpdateAppsAccess: com.likeart.app with existing info plist options: None
+2026-09-28 13:15:59.449 Df installd[4079:452a] (MobileSystemServices) 0x16fc97000 -[MILaunchServicesOperationManager _onQueue_removePendingLaunchServicesOperationForUUID:dueToLSSave:]: Removing operation after LS save: <MILaunchServicesRegisterOperation: E6FB6521-1994-4E10-B725-8A7F4755682C:2 com.likeart.app/MIInstallationDomainSystemShared personas:[com.apple.containermanager.primary-persona]>
+2026-09-28 13:16:24.969 Df storekitd[5044:51cd] [com.apple.storekit:Receipts] [ReceiptManager] Handling app install for (
+    "com.likeart.app"
+)
+2026-09-28 13:16:25.156 Df SpringBoard[3250:5107] [com.apple.launchservices:progress] #LSInstallProgressList add subscriber: <_NSProgressSubscriber: 0x600000cc71e0> publishingString: com.likeart.app
+2026-09-28 13:16:25.160 Df SpringBoard[3250:5107] [com.apple.launchservices:progress] Subscribing to progress for app com.likeart.app,
+2026-09-28 13:16:25.804 Df liveactivitiesd[3321:5141] [com.apple.launchservices:progress] #LSInstallProgressList add subscriber: <_NSProgressSubscriber: 0x600000c1c4e0> publishingString: com.likeart.app
+2026-09-28 13:16:25.804 Df liveactivitiesd[3321:5141] [com.apple.launchservices:progress] Subscribing to progress for app com.likeart.app,
+2026-09-28 13:16:35.637 Df storekitd[5044:51cd] [com.apple.storekit:Receipts] [ReceiptManager] Clearing app receipt for com.likeart.app
+2026-09-28 13:16:50.122 Df CoreSimulatorBridge[3282:45ec] Requesting launch of com.likeart.app with options: {
+    arguments =     (
+        "-AppleLanguages",
+        "(zh-Hans)"
+    );
+    environment =     {
+        "STORE_CAPTURE_PATH" = "/v6/?app=1&measure=1&probeAvatar=mushroom";
+        "WORLD_CAPTURE" = 1;
+        "WORLD_CAPTURE_FLOW" = "shop-first";
+    };
+}
+2026-09-28 13:16:50.130 Df CoreSimulatorBridge[3282:45ec] Beginning launch sequence for bundle 'com.likeart.app'
+	retryTimeout: 120.000000 (default write com.apple.CoreSimulatorBridge LaunchRetryTimeout <value>)
+	bootTimeout: 300.000000 (default write com.apple.CoreSimulatorBridge BootRetryTimeout <value>)
+	bootLeeway: 120.000000 (default write com.apple.CoreSimulatorBridge BootLeeway <value>)
+	Note: Use 'xcrun simctl spawn booted defaults write <domain> <key> <value>' to modify defaults in the booted Simulator device.
+Simulator booted at: Mon Sep 28 13:13:18 2026
+Current time: Mon Sep 28 13:16:50 2026
+Within boot leeway: NO
+2026-09-28 13:16:50.136 Df CoreSimulatorBridge[3282:45ec] Launch attempt #0 for bundle 'com.likeart.app', have been trying to launch for 0 seconds.
+2026-09-28 13:16:50.137 Df CoreSimulatorBridge[3282:45ec] Got LSBundleProxy for 'com.likeart.app', sequenceNumber 676, cacheGUID FB96CF68-B197-4505-9091-CDCB304FC577
+2026-09-28 13:16:50.141 Df CoreSimulatorBridge[3282:45ec] [com.apple.FrontBoard:Common] [FBSSystemService][0x462c] Sending request to open "com.likeart.app"
+2026-09-28 13:17:32.240 Df BackgroundShortcutRunner[8980:7d52] [com.apple.shortcuts:ToolKitScheduler] Policy: seed LaunchServicesChangesetProducer contributes changeset: .partial(updatedCount: 1 removedCount: 0 updated: ["com.likeart.app"], removed: [])
+2026-09-28 13:17:32.333 Df BackgroundShortcutRunner[8980:7d52] [com.apple.shortcuts:ToolKitScheduler] Policy: derived changeset .partial(updatedCount: 1 removedCount: 0 updated: ["com.likeart.app"], removed: []) from reasons: [<ToolKitIndexingReason id: ED7E9A83-BEFC-4A43-B581-D3DF84D41866, trigger: .appIntentsDatabaseChanged, changeset: .full>]
+2026-09-28 13:17:32.340 Df BackgroundShortcutRunner[8980:7d52] [com.apple.shortcuts:ToolKitIndexing] Indexing for request: <WFToolKitIndexingRequest: 0x600001701300>, changeset: .partial(updatedCount: 1 removedCount: 0 updated: ["com.likeart.app"], removed: []), priority: 31
+2026-09-28 13:17:32.342 Df BackgroundShortcutRunner[8980:7d52] [com.apple.shortcuts:AppIntentsMetadata] Loading LNExamplePhraseDescription for bundle identifier com.likeart.app
+2026-09-28 13:17:32.475 Df BackgroundShortcutRunner[8980:7d53] [com.apple.shortcuts:AppIntentsMetadata] Loading LNEntityMetadata for bundle identifier com.likeart.app
+2026-09-28 13:17:32.475 Df BackgroundShortcutRunner[8980:7d53] [com.apple.shortcuts:AppIntentsMetadata] Loading LNActionMetadata for bundle identifier com.likeart.app
+2026-09-28 13:17:37.100 Df log[9552:0] [com.apple.log:] log run noninteractively, parent: 3234 (launchd_sim), args: 'log' 'show' '--last' '2m' '--style' 'compact' '--predicate' 'process == "LikeArt" OR eventMessage CONTAINS "com.likeart.app"'
