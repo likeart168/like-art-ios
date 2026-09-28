@@ -1,0 +1,6 @@
+{
+  "phase": "simulator-boot",
+  "type": "TimeoutExpired",
+  "error": "Command '('xcrun', 'simctl', 'bootstatus', '32EE267A-EC3D-4971-BEE6-CCE96089199E', '-b')' timed out after 300 seconds",
+  "appLaunched": false
+}
