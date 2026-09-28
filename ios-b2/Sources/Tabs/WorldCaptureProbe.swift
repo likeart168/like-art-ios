@@ -12,7 +12,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
     Object.defineProperty(window,'ready',{configurable:true,get:()=>world20ReadyValue,set:value=>{world20ReadyValue=value;if(value===true&&!window.__world20ReadyWall)window.__world20ReadyWall=Date.now();}});
     window.__world20Errors=[];window.__world20Gpu=[];
     let traceCount=0;
-    const trace=(kind,detail={})=>{if(traceCount++<2000)window.webkit?.messageHandlers?.worldCaptureTrace?.postMessage({kind,at:performance.now(),...detail});};
+    const trace=(kind,detail={})=>{if(traceCount++<8000)window.webkit?.messageHandlers?.worldCaptureTrace?.postMessage({kind,at:performance.now(),...detail});};
     let earlyApp;
     Object.defineProperty(window,'__V6_ENTRY_APP__',{configurable:true,get:()=>earlyApp,set:a=>{
       earlyApp=a;trace('app-created');
@@ -20,11 +20,11 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
       a?.assets?.on('error',(error,asset)=>trace('asset-error',{name:asset?.name,error:String(error)}));
     }});
     // GL call-by-call IPC perturbs the timed run; opt in only for fault localization.
-    if(new URL(location.href).searchParams.get('glTrace')==='1' && window.WebGL2RenderingContext){for(const name of ['bufferData','texImage2D','texStorage2D','renderbufferStorageMultisample','compileShader','linkProgram','getShaderParameter','getProgramParameter']){
+    if(new URL(location.href).searchParams.get('glTrace')==='1' && window.WebGL2RenderingContext){for(const name of ['compileShader','linkProgram','getProgramParameter','getActiveUniform','getUniformLocation']){
       const original=WebGL2RenderingContext.prototype[name];if(!original)continue;
       WebGL2RenderingContext.prototype[name]=function(...args){
         if(name==='bufferData' && (args[1]?.byteLength||args[1]||0)<500000)return original.apply(this,args);
-        trace('gl-begin',{name,bytes:name==='bufferData'?(args[1]?.byteLength||args[1]||0):0});
+        trace('gl-begin',{name,parameter:typeof args[1]==='number'?args[1]:0});
         try{return original.apply(this,args);}finally{trace('gl-end',{name});}
       };
     }}

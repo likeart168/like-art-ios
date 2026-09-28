@@ -21,7 +21,7 @@ def stop_app():
 try:
  run('xcrun','simctl','boot',udid);run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
- env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
+ env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1&glTrace=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
  # A newly-created simulator is still doing first-boot background work after bootstatus.
  # Settle the OS before cold-launching the app; application entry timing is unchanged.
@@ -45,11 +45,11 @@ try:
     processes=subprocess.check_output(['ps','-axo','pid,ppid,rss,pcpu,comm'],text=True,timeout=2)
     process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer','MTLCompilerService'])]})
     (out/'processes.json').write_text(json.dumps(process_samples,indent=2))
-    if os.environ.get('WORLD_GPU_PROFILE') == '1' and elapsed>=25 and gpu_profile is None:
+    if elapsed>=30 and gpu_profile is None:
      parsed=[line.split(None,4) for line in processes.splitlines()[1:]]
      owner=next((line[1] for line in parsed if line[0]==str(app_pid)),None)
-     gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.GPU' in line[-1]),None)
-     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','-file',str(out/'gpu-stack.txt')],stdout=subprocess.DEVNULL,stderr=(out/'gpu-stack-error.txt').open('w'))
+     gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.WebContent' in line[-1]),None)
+     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','10','-mayDie','-noSymbolication','-file',str(out/'webcontent-stack.txt')],stdout=subprocess.DEVNULL,stderr=(out/'webcontent-stack-error.txt').open('w'))
    except (subprocess.TimeoutExpired,subprocess.CalledProcessError):pass
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
