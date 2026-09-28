@@ -114,6 +114,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
               }
               return JSON.stringify({path:location.pathname,now:performance.now(),documentStart:window.__documentStart25,afterLanguage:window.__afterLanguage25,ready:window.ready===true,readyWall:window.__world20ReadyWall,
                 walk:window.__world35Walk,diagnostics:p?.worldDiagnostics?.snapshot(),
+                initialScenery:window.__V6_INITIAL_SCENERY39__,heightmap:window.__V6_HEIGHTMAP38__,trees:window.treePlantingSystem?{status:window.treePlantingSystem.status,count:window.treePlantingSystem.instanceCount,preloadedBeforeWorldReady:window.treePlantingSystem.preloadedBeforeWorldReady,errors:window.treePlantingSystem.errors}:null,
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,renderStartup:window.__V6_STARTUP_RENDER_22__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
