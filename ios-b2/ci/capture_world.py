@@ -5,7 +5,7 @@ out=pathlib.Path('build-b2/evidence/world-entry-20');out.mkdir(parents=True,exis
 def get(*args):return subprocess.check_output(args,text=True,timeout=60).strip()
 def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
 preflight=[]
-for url in ['https://like-art.com/v6/?app=1&measure=1&glTrace=1','https://like-art.com/v6/world-startup-render-22.js?v=world22']:
+for url in ['https://like-art.com/v6/?app=1&measure=1','https://like-art.com/v6/world-startup-render-22.js?v=world22']:
  start=time.monotonic()
  try:
   with urllib.request.urlopen(url,timeout=20) as response: body=response.read();preflight.append({'url':url,'status':response.status,'bytes':len(body),'seconds':time.monotonic()-start})
@@ -28,7 +28,7 @@ def stop_app():
 try:
  run('xcrun','simctl','boot',udid);run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
- env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1&glTrace=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
+ env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
  # A newly-created simulator is still doing first-boot background work after bootstatus.
  # Settle the OS before cold-launching the app; application entry timing is unchanged.
@@ -52,7 +52,7 @@ try:
     processes=subprocess.check_output(['ps','-axo','pid,ppid,rss,pcpu,comm'],text=True,timeout=2)
     process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer','MTLCompilerService'])]})
     (out/'processes.json').write_text(json.dumps(process_samples,indent=2))
-    if elapsed>=30 and gpu_profile is None:
+    if os.environ.get('WORLD_GPU_PROFILE') == '1' and elapsed>=30 and gpu_profile is None:
      parsed=[line.split(None,4) for line in processes.splitlines()[1:]]
      owner=next((line[1] for line in parsed if line[0]==str(app_pid)),None)
      gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.WebContent' in line[-1]),None)

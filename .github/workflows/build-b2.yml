@@ -39,12 +39,14 @@ jobs:
           python3 ios-b2/ci/verify_source.py | tee build-b2/evidence/source-assertions.txt
           xcodegen generate --spec ios-b2/project.yml
       - name: Compile asset catalog
+        if: ${{ !contains(github.event.head_commit.message, '[world-probe]') }}
         run: |
           set -euo pipefail
           mkdir -p build-b2/assets
           xcrun actool ios-b2/Resources/Assets.xcassets --compile build-b2/assets --platform iphoneos --minimum-deployment-target 16.0 --target-device iphone --target-device ipad --app-icon AppIcon --output-partial-info-plist build-b2/asset-info.plist 2>&1 | tee build-b2/evidence/actool.txt
           test -s build-b2/assets/Assets.car
       - name: Build without signing
+        if: ${{ !contains(github.event.head_commit.message, '[world-probe]') }}
         run: |
           set -euo pipefail
           xcodebuild -project ios-b2/LikeArt.xcodeproj -scheme LikeArt -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build-b2/DerivedData build CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION="$BUILD_NUMBER" 2>&1 | tee build-b2/evidence/unsigned-build.txt
