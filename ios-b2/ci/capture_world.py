@@ -25,7 +25,7 @@ device_name=os.environ.get('WORLD_DEVICE','iPhone 13 Pro')
 type_=next(d for d in catalog['devicetypes'] if d['name']==device_name)
 udid=get('xcrun','simctl','create','LikeArt World Evidence',type_['identifier'],runtime['identifier'])
 (out/'environment.json').write_text(json.dumps({'sdk':sdk,'runtime':runtime,'device':type_},indent=2))
-app_pid=None;watchdog=None;phase="simulator-boot"
+app_pid=None;watchdog=None;launch_process=None;phase="simulator-boot"
 def stop_app():
  # simctl terminate can hang when WebKit/GPU is wedged. The PID returned by our
  # own launch belongs only to this disposable app, never another simulator.
@@ -44,17 +44,18 @@ try:
  if diagnostic:env.update(SIMCTL_CHILD_WORLD_CAPTURE_FLOW='shop-first')
  (out/'capture-mode.json').write_text(json.dumps({'diagnostic':diagnostic,'scene':'public Central Market','avatar':'mushroom descriptor fixture' if diagnostic else 'real public guest','flow':'shop-first' if diagnostic else 'direct','pack':'enabled: verified 235 full manifest'},indent=2))
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
+ bundle=get('xcrun','simctl','get_app_container',udid,'com.likeart.app','app')
  # A newly-created simulator is still doing first-boot background work after bootstatus.
  # Settle the OS before cold-launching the app; application entry timing is unchanged.
  print('Settling new simulator OS for 45 seconds before app launch',flush=True)
  time.sleep(45)
  phase='app-launch'
  began=time.monotonic();deadline=began+50
- launch=subprocess.check_output(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,text=True,timeout=30)
- print(launch,flush=True)
- match=re.search(r'com\.likeart\.app:\s*(\d+)',launch)
- assert match, 'Missing launched app PID; cannot enforce the watchdog'
- app_pid=int(match[1]);phase='world-capture'
+ # simctl launch itself can stall after spawning the app. Observe our installed
+ # executable directly while collecting evidence, rather than losing all startup
+ # samples during a blocking helper call. The 55s app deadline starts here.
+ launch_process=subprocess.Popen(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,stdout=(out/'launch.txt').open('w'),stderr=subprocess.STDOUT)
+ phase='launch-and-world-capture'
  watchdog=threading.Timer(max(0,began+55-time.monotonic()),stop_app);watchdog.daemon=True;watchdog.start()
  # A screenshot/blocked WebKit must not extend this into a 90+ second run.
  captured=set();capture_errors=[];process_samples=[];last_process=-5;gpu_profile=None
@@ -65,6 +66,9 @@ try:
    last_process=elapsed
    try:
     processes=subprocess.check_output(['ps','-axo','pid,ppid,rss,pcpu,comm'],text=True,timeout=2)
+    if app_pid is None:
+     own=next((line.split(None,4) for line in processes.splitlines()[1:] if line.split(None,4)[-1]==bundle+'/LikeArt'),None)
+     if own:app_pid=int(own[0])
     process_samples.append({'elapsed':elapsed,'rows':[r for r in processes.splitlines() if any(n in r for n in ['WebKit','LikeArt.app','Simulator.app','WindowServer','MTLCompilerService'])]})
     (out/'processes.json').write_text(json.dumps(process_samples,indent=2))
     if os.environ.get('WORLD_GPU_PROFILE') == '1' and elapsed>=30 and gpu_profile is None:
@@ -89,6 +93,12 @@ try:
  if gpu_profile is not None and gpu_profile.poll() is None:gpu_profile.terminate()
  # Stop the actual application before parsing evidence, even if assertions fail.
  stop_app()
+ if launch_process.poll() is None:launch_process.terminate()
+ try:
+  with (out/'app-system-log.txt').open('w') as log:
+   subprocess.run(['xcrun','simctl','spawn',udid,'log','show','--last','2m','--style','compact','--predicate','process == "LikeArt" OR eventMessage CONTAINS "com.likeart.app"'],stdout=log,stderr=subprocess.STDOUT,timeout=15)
+ except subprocess.TimeoutExpired:pass
+ assert app_pid is not None, 'No owned App process observed; see launch/system/process logs'
  assert json.loads((out/'native-checks.json').read_text())['pass'], 'Native navigation/retry checks failed'
  data=json.loads((out/'samples.json').read_text())
  ready=next((s for s in data['samples'] if s.get('page',{}).get('ready')),None)
@@ -107,6 +117,7 @@ except Exception as error:
  raise
 finally:
  stop_app()
+ if launch_process is not None and launch_process.poll() is None:launch_process.terminate()
  if watchdog is not None:watchdog.cancel()
  for action in ('shutdown','delete'):
   try:subprocess.run(['xcrun','simctl',action,udid],timeout=30)
