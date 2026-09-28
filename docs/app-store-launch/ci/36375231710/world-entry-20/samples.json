@@ -1,0 +1,775 @@
+{
+  "beganEpochMs" : 1790567790291.012,
+  "elapsed" : 45.440524935722351,
+  "samples" : [
+    {
+      "elapsed" : 28.621874928474426,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 5472,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 29.674726963043213,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 6551,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 30.743809938430786,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 7621,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 31.792824983596802,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 8670,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 32.836456894874573,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 9713.0000000000018,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 33.88130795955658,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 10757,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 34.932346940040588,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 11809.000000000002,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 35.981215000152588,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 12858,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 37.0309818983078,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 13908,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 38.082866907119751,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 14960,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 39.130895972251892,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 16008,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 40.186829924583435,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 17063,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 41.2340989112854,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 18108,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 42.278684973716736,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 19155,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 43.33880889415741,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 20215,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 44.390200972557068,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 21267,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    },
+    {
+      "elapsed" : 45.440329909324646,
+      "jsError" : "",
+      "jsErrorDetail" : "",
+      "nativeFailed" : false,
+      "nativeFailure" : "",
+      "nativeLoading" : true,
+      "nativePack" : {
+        "missed" : 0,
+        "ready" : true,
+        "served" : 0
+      },
+      "page" : {
+        "containerGuard" : null,
+        "navigation" : [
+
+        ],
+        "now" : 22317,
+        "path" : "blank",
+        "physicalBufferBytes" : 0,
+        "ready" : false,
+        "renderTargets" : [
+
+        ],
+        "resources" : [
+
+        ],
+        "scenery" : null,
+        "stages" : [
+
+        ],
+        "textures" : [
+
+        ],
+        "viewport" : {
+          "canvas" : [
+
+          ],
+          "dpr" : 3,
+          "height" : 660,
+          "width" : 390
+        },
+        "visibility" : "visible"
+      }
+    }
+  ],
+  "terminations" : 0,
+  "trace" : [
+
+  ]
+}

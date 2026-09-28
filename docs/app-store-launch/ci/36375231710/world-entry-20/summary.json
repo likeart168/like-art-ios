@@ -1,0 +1,41 @@
+{
+  "device": "iPhone 13 Pro",
+  "captureWallSeconds": 50.184367416999976,
+  "captureErrors": [],
+  "readyMs": null,
+  "firstReadySample": null,
+  "webkitTerminations": 0,
+  "last": {
+    "elapsed": 45.440329909324646,
+    "jsError": "",
+    "jsErrorDetail": "",
+    "nativeFailed": false,
+    "nativeFailure": "",
+    "nativeLoading": true,
+    "nativePack": {
+      "missed": 0,
+      "ready": true,
+      "served": 0
+    },
+    "page": {
+      "containerGuard": null,
+      "navigation": [],
+      "now": 22317,
+      "path": "blank",
+      "physicalBufferBytes": 0,
+      "ready": false,
+      "renderTargets": [],
+      "resources": [],
+      "scenery": null,
+      "stages": [],
+      "textures": [],
+      "viewport": {
+        "canvas": [],
+        "dpr": 3,
+        "height": 660,
+        "width": 390
+      },
+      "visibility": "visible"
+    }
+  }
+}

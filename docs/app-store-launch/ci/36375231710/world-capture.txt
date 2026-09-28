@@ -1,0 +1,93 @@
+Monitoring boot status for LikeArt World Evidence (83BE63A3-CBCE-4A6B-89CB-F4D1F5B7256C).
+[2026-09-28 03:52:46 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:45 seconds
+
+[2026-09-28 03:52:47 +0000] Status=2, isTerminal=NO, Elapsed=01:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:49 seconds
+
+[2026-09-28 03:52:48 +0000] Status=2, isTerminal=NO, Elapsed=01:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:50 seconds
+
+[2026-09-28 03:52:49 +0000] Status=2, isTerminal=NO, Elapsed=01:07.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:51 seconds
+
+[2026-09-28 03:52:50 +0000] Status=2, isTerminal=NO, Elapsed=01:08.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:52 seconds
+
+[2026-09-28 03:52:51 +0000] Status=2, isTerminal=NO, Elapsed=01:09.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:53 seconds
+
+[2026-09-28 03:52:52 +0000] Status=2, isTerminal=NO, Elapsed=01:09.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:54 seconds
+
+[2026-09-28 03:52:52 +0000] Status=2, isTerminal=NO, Elapsed=01:10.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:55 seconds
+
+[2026-09-28 03:52:53 +0000] Status=2, isTerminal=NO, Elapsed=01:10.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:55 seconds
+
+[2026-09-28 03:52:54 +0000] Status=2, isTerminal=NO, Elapsed=01:12.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:56 seconds
+
+[2026-09-28 03:52:55 +0000] Status=2, isTerminal=NO, Elapsed=01:13.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:57 seconds
+
+[2026-09-28 03:52:56 +0000] Status=2, isTerminal=NO, Elapsed=01:14.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:00:58 seconds
+
+[2026-09-28 03:52:58 +0000] Status=2, isTerminal=NO, Elapsed=01:15.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)
+		Migration Elapsed:00:59 seconds
+
+[2026-09-28 03:53:00 +0000] Status=2, isTerminal=NO, Elapsed=01:18.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.PassbookDataMigrator (PassbookDataMigrator.migrator)
+		Migration Elapsed:01:01 seconds
+
+[2026-09-28 03:53:01 +0000] Status=4, isTerminal=NO, Elapsed=01:19.
+	Waiting on System App
+
+[2026-09-28 03:53:02 +0000] Status=4, isTerminal=NO, Elapsed=01:19.
+	Waiting on System App
+
+[2026-09-28 03:53:06 +0000] Status=4, isTerminal=NO, Elapsed=01:23.
+	Waiting on System App
+
+[2026-09-28 03:53:07 +0000] Status=4, isTerminal=NO, Elapsed=01:25.
+	Waiting on System App
+
+[2026-09-28 03:53:11 +0000] Status=4, isTerminal=NO, Elapsed=01:29.
+	Waiting on System App
+
+[2026-09-28 03:53:19 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:37.
+	Finished
+
+Settling new simulator OS for 45 seconds before app launch
+com.likeart.app: 8347
+
+{"device": "iPhone 13 Pro", "captureWallSeconds": 50.184367416999976, "captureErrors": [], "readyMs": null, "firstReadySample": null, "webkitTerminations": 0}
