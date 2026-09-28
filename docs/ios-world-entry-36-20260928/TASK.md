@@ -1,0 +1,1 @@
+2026-09-28 Owner requests installed-pack world <=10 seconds, complete Artists Zone and reliable Collector entry. Add a separate verified 48-entry room/ASTC supplement; retain the original 235 pack. No release/Archive/quality gates changed. Native compilation/physical acceptance pending; this session currently has no GitHub CLI credential.

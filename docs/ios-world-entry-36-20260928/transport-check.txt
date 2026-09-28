@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: native chunks reconstruct exact bytes and normal response semantics
+ok 1 - native chunks reconstruct exact bytes and normal response semantics
+  ---
+  duration_ms: 51.661301
+  ...
+# Subtest: unknown versions and authenticated/range/non-GET requests stay on network
+ok 2 - unknown versions and authenticated/range/non-GET requests stay on network
+  ---
+  duration_ms: 11.269768
+  ...
+# Subtest: failed native read falls back exactly once and records a specific reason
+ok 3 - failed native read falls back exactly once and records a specific reason
+  ---
+  duration_ms: 7.861485
+  ...
+# Subtest: cancellation stops native chunks and does not start network fallback
+ok 4 - cancellation stops native chunks and does not start network fallback
+  ---
+  duration_ms: 18.25726
+  ...
+# Subtest: multiple assets stay within two simultaneous chunk transfers
+ok 5 - multiple assets stay within two simultaneous chunk transfers
+  ---
+  duration_ms: 80.894119
+  ...
+# Subtest: XHR receives identical ArrayBuffer via origin-owned Blob
+ok 6 - XHR receives identical ArrayBuffer via origin-owned Blob
+  ---
+  duration_ms: 42.218218
+  ...
+# Subtest: XHR abort during bridge read cannot send a late request
+ok 7 - XHR abort during bridge read cannot send a late request
+  ---
+  duration_ms: 32.610693
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 252.272318

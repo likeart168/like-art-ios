@@ -57,7 +57,26 @@ with zipfile.ZipFile(pak) as archive:
         assert len(data) == entry['bytes']
         assert hashlib.sha256(data).hexdigest() == entry['sha256']
     queries = json.loads((root/'Resources/v6-pack-queries.json').read_text())
-    assert set(queries) == {e['path'] for e in manifest['files']}
+    base_paths = {e['path'] for e in manifest['files']}
+extra_meta = json.loads((root/'Resources/v6-room-pack.json').read_text())
+extra_pak = root/'Resources/v6-room-assets.pak'
+assert extra_pak.stat().st_size == extra_meta['bytes']
+assert hashlib.sha256(extra_pak.read_bytes()).hexdigest() == extra_meta['sha256']
+assert f'supplementalSize: Int64 = {extra_meta["bytes"]}' in swift
+assert f'supplementalSHA256 = "{extra_meta["sha256"]}"' in swift
+assert 'entry.supplemental ? supplementalHandle : handle' in swift
+assert 'e.supplemental ? supplementalHandle : handle' in swift
+with zipfile.ZipFile(extra_pak) as archive:
+    manifest = json.loads(archive.read('manifest.json'))
+    assert manifest['version'] == extra_meta['version']
+    assert all(e.compress_type == zipfile.ZIP_STORED for e in archive.infolist())
+    assert len(manifest['files']) == len(archive.namelist()) - 1
+    extra_paths = {e['path'] for e in manifest['files']}
+    assert not base_paths & extra_paths, 'Supplement must never shadow a base entry'
+    for entry in manifest['files']:
+        data = archive.read(entry['path'])
+        assert len(data) == entry['bytes'] and hashlib.sha256(data).hexdigest() == entry['sha256']
+    assert set(queries) == base_paths | extra_paths
 print('PASS bundled archive/descriptor/Swift/Info.plist and every entry SHA-256 contract')
 
 # CLIPS17: preserve the 1100 safe-build behavior while shipping only the playback fix.

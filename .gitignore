@@ -19,3 +19,5 @@ __pycache__/
 
 # Versioned public artifact is verified/materialized before every native build.
 ios-b2/Resources/v6-base-assets.pak
+
+ios-b2/Resources/v6-room-assets.pak

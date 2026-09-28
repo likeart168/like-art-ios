@@ -1,0 +1,20 @@
+PASS Clips inline/autoplay policy before WKWebView construction; background suspension retained
+PASS tab items: 1
+PASS KeychainStore: 2
+PASS APNs registration: 1
+PASS deletion status: 2
+PASS request deletion: 1
+PASS cancel deletion: 1
+PASS domain whitelist: 2
+PASS UA: 3
+PASS native table: 10
+PASS cookie store: 2
+PASS bridge: 5
+PASS config-driven tab bar (app-tabs api + fallback + key-based lookup)
+PASS source Info.plist, three languages, launch screen, privacy manifest and all iPad icon sizes
+PASS bundled archive/descriptor/Swift/Info.plist and every entry SHA-256 contract
+PASS 2.0.3 TestFlight train, backup exclusions, exact verified pack channel enabled
+PASS IMMERSIVE19 full viewport, floating native bars, upload exclusion and same-origin safe-area bridge
+PASS requested deep links wait for transport setup, latest destination wins, late completion cannot reload
+PASS world navigation target, stale-error isolation and bounded manual retries
+PASS origin-checked bounded native transport and direct UA configuration

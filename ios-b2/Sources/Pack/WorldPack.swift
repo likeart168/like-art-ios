@@ -21,7 +21,11 @@ final class WorldPack {
     static let packVersion = "235-astc-20260928"
     static let packSHA256 = "bb5c5e10876b8b99da240110038c611423416e94ff2fddd185fac703cea27798"
 
+    static let supplementalSize: Int64 = 32284032
+    static let supplementalSHA256 = "19191eea28ea07054baa6dccc7f0cc5414f9b9a416ff914c6ae075677a9073ef"
+
     private struct Entry {
+        var supplemental = false
         let method: UInt16        // 0 = stored（本包全部 stored；其它方法一律不读 → 回落网络）
         let dataOffset: UInt64    // 已跳过 local header 的数据起点
         let size: UInt32          // 压缩后大小（stored 时 == 原大小）
@@ -31,6 +35,7 @@ final class WorldPack {
     private let fileURL: URL
     private var entries: [String: Entry] = [:]
     private var handle: FileHandle?
+    private var supplementalHandle: FileHandle?
     private var prepared = false
     private let preparationLock = NSLock()
     private var served = 0
@@ -59,12 +64,30 @@ final class WorldPack {
         }
         guard let h = try? FileHandle(forReadingFrom: fileURL) else { return }
         guard let e = Self.readIndex(h) else { try? h.close(); return }
+        // Both independently verified archives are required by this build.
+        // Keep separate handles; never expand either ZIP into process memory.
+        guard let roomBundle = Bundle.main.url(forResource: "v6-room-assets", withExtension: "pak") else { try? h.close(); return }
+        let roomURL = fileURL.deletingLastPathComponent().appendingPathComponent("v6-room-assets.zip")
+        let roomValid = fileSize(roomURL) == Self.supplementalSize && verifyChecksum(roomURL, expectedSHA: Self.supplementalSHA256)
+        if !roomValid {
+            guard copy(from: roomBundle, to: roomURL, expected: Self.supplementalSize), verifyChecksum(roomURL, expectedSHA: Self.supplementalSHA256) else { try? h.close(); return }
+        }
+        guard let roomHandle = try? FileHandle(forReadingFrom: roomURL) else { try? h.close(); return }
+        guard let roomEntries = Self.readIndex(roomHandle) else { try? h.close(); try? roomHandle.close(); return }
+        var merged = e
+        for (key, value) in roomEntries where key != "manifest.json" {
+            guard merged[key] == nil else { try? h.close(); try? roomHandle.close(); return }
+            var entry = value
+            entry.supplemental = true
+            merged[key] = entry
+        }
         queue.sync {
             handle = h
-            entries = e
+            supplementalHandle = roomHandle
+            entries = merged
             prepared = true
         }
-        NSLog("[WorldPack] ready version=\(Self.packVersion) entries=\(e.count)")
+        NSLog("[WorldPack] ready version=\(Self.packVersion) entries=\(merged.count)")
     }
 
     /// 后台准备 + 主线程回调（用于「先备好包再加载世界页」，保证首启也能命中本地包）
@@ -88,11 +111,11 @@ final class WorldPack {
     func chunk(for path: String, offset: Int) -> (data: Data, total: Int)? {
         queue.sync {
             guard prepared, offset >= 0, let entry = entries[path], entry.method == 0,
-                  offset < Int(entry.size), let handle else { missed += 1; return nil }
+                  offset < Int(entry.size), let reader = (entry.supplemental ? supplementalHandle : handle) else { missed += 1; return nil }
             let count = min(1024 * 1024, Int(entry.size) - offset)
             do {
-                try handle.seek(toOffset: entry.dataOffset + UInt64(offset))
-                guard let data = try handle.read(upToCount: count), data.count == count else { return nil }
+                try reader.seek(toOffset: entry.dataOffset + UInt64(offset))
+                guard let data = try reader.read(upToCount: count), data.count == count else { return nil }
                 served += 1
                 return (data, Int(entry.size))
             } catch { missed += 1; return nil }
@@ -103,7 +126,7 @@ final class WorldPack {
     func data(for path: String) -> Data? {
         let key = path.hasPrefix("/") ? String(path.dropFirst()) : path
         return queue.sync {
-            guard prepared, let e = entries[key], e.method == 0, let h = handle else {
+            guard prepared, let e = entries[key], e.method == 0, let h = (e.supplemental ? supplementalHandle : handle) else {
                 missed += 1
                 return nil
             }
@@ -154,7 +177,7 @@ final class WorldPack {
         return n.int64Value
     }
 
-    private func copy(from src: URL, to dst: URL) -> Bool {
+    private func copy(from src: URL, to dst: URL, expected: Int64 = WorldPack.expectedSize) -> Bool {
         let tmp = dst.appendingPathExtension("part")
         try? FileManager.default.removeItem(at: tmp)
         do {
@@ -164,7 +187,7 @@ final class WorldPack {
             try? FileManager.default.removeItem(at: tmp)
             return false
         }
-        guard fileSize(tmp) == Self.expectedSize else {
+        guard fileSize(tmp) == expected else {
             NSLog("[WorldPack] copied size mismatch — 丢弃")
             try? FileManager.default.removeItem(at: tmp)
             return false
@@ -180,14 +203,14 @@ final class WorldPack {
         }
     }
 
-    private func verifyChecksum(_ url: URL) -> Bool {
+    private func verifyChecksum(_ url: URL, expectedSHA: String = WorldPack.packSHA256) -> Bool {
         // Own handle: never seek or close the handle serving WebKit requests.
         guard let h = try? FileHandle(forReadingFrom: url) else { return false }
         defer { try? h.close() }
         do {
             var hasher = SHA256()
             while let chunk = try h.read(upToCount: 1 << 20), !chunk.isEmpty { hasher.update(data: chunk) }
-            return hasher.finalize().map { String(format: "%02x", $0) }.joined() == Self.packSHA256
+            return hasher.finalize().map { String(format: "%02x", $0) }.joined() == expectedSHA
         } catch { return false }
     }
 
