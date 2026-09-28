@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Bounded real WKWebView world run on a disposable simulator, never a fixture."""
-import json,os,pathlib,subprocess,time,shutil,re,signal,threading,urllib.request
+import json,os,pathlib,subprocess,time,shutil,re,signal,threading,urllib.request,hashlib
 out=pathlib.Path('build-b2/evidence/world-entry-20');out.mkdir(parents=True,exist_ok=True)
 def get(*args):return subprocess.check_output(args,text=True,timeout=60).strip()
 def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
 preflight=[]
-for url in ['https://like-art.com/v6/?app=1&measure=1','https://like-art.com/v6/world-startup-render-22.js?v=world22']:
+for url in ['https://like-art.com/v6/?app=1&measure=1','https://like-art.com/v6/world-startup-render-22.js?v=world22','https://like-art.com/v6/world-decoder-recycle-27.js']:
  start=time.monotonic()
  try:
-  with urllib.request.urlopen(url,timeout=20) as response: body=response.read();preflight.append({'url':url,'status':response.status,'bytes':len(body),'seconds':time.monotonic()-start})
+  with urllib.request.urlopen(url,timeout=20) as response: body=response.read();preflight.append({'url':url,'status':response.status,'bytes':len(body),'sha256':hashlib.sha256(body).hexdigest(),'seconds':time.monotonic()-start})
  except Exception as error:preflight.append({'url':url,'error':str(error),'seconds':time.monotonic()-start})
 (out/'network-preflight.json').write_text(json.dumps(preflight,indent=2))
 sdk=get('xcrun','--sdk','iphonesimulator','--show-sdk-version')
