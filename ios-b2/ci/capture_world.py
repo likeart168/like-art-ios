@@ -18,7 +18,7 @@ device_name=os.environ.get('WORLD_DEVICE','iPhone 13 Pro')
 type_=next(d for d in catalog['devicetypes'] if d['name']==device_name)
 udid=get('xcrun','simctl','create','LikeArt World Evidence',type_['identifier'],runtime['identifier'])
 (out/'environment.json').write_text(json.dumps({'sdk':sdk,'runtime':runtime,'device':type_},indent=2))
-app_pid=None;watchdog=None
+app_pid=None;watchdog=None;phase="simulator-boot"
 def stop_app():
  # simctl terminate can hang when WebKit/GPU is wedged. The PID returned by our
  # own launch belongs only to this disposable app, never another simulator.
@@ -34,12 +34,13 @@ try:
  # Settle the OS before cold-launching the app; application entry timing is unchanged.
  print('Settling new simulator OS for 45 seconds before app launch',flush=True)
  time.sleep(45)
+ phase='app-launch'
  began=time.monotonic();deadline=began+50
  launch=subprocess.check_output(['xcrun','simctl','launch',udid,'com.likeart.app','-AppleLanguages','(zh-Hans)'],env=env,text=True,timeout=30)
  print(launch,flush=True)
  match=re.search(r'com\.likeart\.app:\s*(\d+)',launch)
  assert match, 'Missing launched app PID; cannot enforce the watchdog'
- app_pid=int(match[1])
+ app_pid=int(match[1]);phase='world-capture'
  watchdog=threading.Timer(max(0,began+55-time.monotonic()),stop_app);watchdog.daemon=True;watchdog.start()
  # A screenshot/blocked WebKit must not extend this into a 90+ second run.
  captured=set();capture_errors=[];process_samples=[];last_process=-5;gpu_profile=None
@@ -87,6 +88,9 @@ try:
   assert all(not s.get('jsError') and not s.get('nativeFailed') and not s.get('page',{}).get('errors') and not s.get('page',{}).get('gpuEvents') for s in data['samples']), 'World startup/retention has errors'
   assert ready['page'].get('player'), 'World player missing'
  # Diagnostic-only commits must never be distributed; the workflow also skips signing/upload.
+except Exception as error:
+ (out/'failure.json').write_text(json.dumps({'phase':phase,'type':type(error).__name__,'error':str(error),'appLaunched':app_pid is not None},indent=2))
+ raise
 finally:
  stop_app()
  if watchdog is not None:watchdog.cancel()
