@@ -98,7 +98,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
                 resources:performance.getEntriesByType('resource').map(x=>({name:new URL(x.name).pathname,start:x.startTime,duration:x.duration,bytes:x.transferSize}))});})();
             """
             view.evaluateJavaScript(script) { value, error in
-                var record: [String: Any] = ["elapsed":Date().timeIntervalSince(self.began),"nativeLoading":state.loading,"nativeFailed":state.failed,"nativeFailure":state.failureReason,"jsError":error?.localizedDescription ?? "", "jsErrorDetail":(error as NSError?)?.userInfo["WKJavaScriptExceptionMessage"] as? String ?? ""]
+                var record: [String: Any] = ["webURL":view.url?.absoluteString ?? "", "estimatedProgress":view.estimatedProgress,"elapsed":Date().timeIntervalSince(self.began),"nativeLoading":state.loading,"nativeFailed":state.failed,"nativeFailure":state.failureReason,"jsError":error?.localizedDescription ?? "", "jsErrorDetail":(error as NSError?)?.userInfo["WKJavaScriptExceptionMessage"] as? String ?? ""]
                 let pack = WorldPack.shared.stats
                 record["nativePack"] = ["served":pack.served,"missed":pack.missed,"ready":pack.ready]
                 if let text = value as? String, let data = text.data(using: .utf8), let page = try? JSONSerialization.jsonObject(with: data) { record["page"] = page }

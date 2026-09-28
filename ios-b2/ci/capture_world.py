@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 """Bounded real WKWebView world run on a disposable simulator, never a fixture."""
-import json,os,pathlib,subprocess,time,shutil,re,signal,threading
+import json,os,pathlib,subprocess,time,shutil,re,signal,threading,urllib.request
 out=pathlib.Path('build-b2/evidence/world-entry-20');out.mkdir(parents=True,exist_ok=True)
 def get(*args):return subprocess.check_output(args,text=True,timeout=60).strip()
 def run(*args,**kw):return subprocess.run(args,check=True,timeout=kw.pop('timeout',180),**kw)
+preflight=[]
+for url in ['https://like-art.com/v6/?app=1&measure=1&glTrace=1','https://like-art.com/v6/world-startup-render-22.js?v=world22']:
+ start=time.monotonic()
+ try:
+  with urllib.request.urlopen(url,timeout=20) as response: body=response.read();preflight.append({'url':url,'status':response.status,'bytes':len(body),'seconds':time.monotonic()-start})
+ except Exception as error:preflight.append({'url':url,'error':str(error),'seconds':time.monotonic()-start})
+(out/'network-preflight.json').write_text(json.dumps(preflight,indent=2))
 sdk=get('xcrun','--sdk','iphonesimulator','--show-sdk-version')
 catalog=json.loads(get('xcrun','simctl','list','--json'))
 runtime=next(r for r in reversed(catalog['runtimes']) if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[:2]==sdk.split('.')[:2])
@@ -49,7 +56,7 @@ try:
      parsed=[line.split(None,4) for line in processes.splitlines()[1:]]
      owner=next((line[1] for line in parsed if line[0]==str(app_pid)),None)
      gpu=next((line[0] for line in parsed if line[1]==owner and 'com.apple.WebKit.WebContent' in line[-1]),None)
-     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','10','-mayDie','-noSymbolication','-file',str(out/'webcontent-stack.txt')],stdout=subprocess.DEVNULL,stderr=(out/'webcontent-stack-error.txt').open('w'))
+     if gpu:gpu_profile=subprocess.Popen(['sample',gpu,'1','10','-mayDie','-file',str(out/'webcontent-stack.txt')],stdout=subprocess.DEVNULL,stderr=(out/'webcontent-stack-error.txt').open('w'))
    except (subprocess.TimeoutExpired,subprocess.CalledProcessError):pass
   source=container/'Documents/world-entry-20.json'
   if source.exists():shutil.copy2(source,out/'samples.json')
