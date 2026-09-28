@@ -1,0 +1,5 @@
+# WORLD35 native verified full pack integration (acceptance pending)
+Owner explicitly requests enable and complete resource pack pipeline and stop walking crashes.
+227 verified entries, 207574698 bytes (<200 MiB native download guard), SHA bb5c5e10876b8b99da240110038c611423416e94ff2fddd185fac703cea27798. Retains all187 original212 entries/queries, adds40 lossless-gzip full-resolution ASTC derivatives. On-disk ZIP_STORED, independently checked1MiB checksum chunks, two JS transfers,1MiB native replies. No whole-pack RAM read.
+Source/archive/Info.plist/Swift every-entry checksum contract and7 transport tests pass. Pack public200, textures CDN40 SHA/CORS verified in web repo evidence.
+Diagnostic now enables pack and retains shop-first flow. Prefer earlier installed iOS26 runtime because last2 attempts failed CoreLocationMigrator before app launch. Exact runtime recorded; not physical iPhone acceptance. Compiler SDK and original <=10s release gate unchanged. [world-probe] must not sign/distribute.

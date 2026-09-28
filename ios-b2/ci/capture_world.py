@@ -13,7 +13,13 @@ for url in ['https://like-art.com/v6/?app=1&measure=1','https://like-art.com/v6/
 (out/'network-preflight.json').write_text(json.dumps(preflight,indent=2))
 sdk=get('xcrun','--sdk','iphonesimulator','--show-sdk-version')
 catalog=json.loads(get('xcrun','simctl','list','--json'))
-runtime=next(r for r in reversed(catalog['runtimes']) if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[:2]==sdk.split('.')[:2])
+# The SDK is a compiler target, not a requirement to use its newest simulator OS.
+# 26.5 has twice hung in CoreLocationMigrator before our app launched. Prefer an
+# available earlier 26.x runtime and record its exact version; never call this
+# an exact-OS or physical-device acceptance run.
+available=[r for r in catalog['runtimes'] if r.get('isAvailable') and r['name'].startswith('iOS ') and r['version'].split('.')[0]=='26']
+preferred=[r for r in available if tuple(map(int,r['version'].split('.')[:2])) < tuple(map(int,sdk.split('.')[:2]))]
+runtime=max(preferred or available,key=lambda r:tuple(map(int,r['version'].split('.'))))
 device_name=os.environ.get('WORLD_DEVICE','iPhone 13 Pro')
 type_=next(d for d in catalog['devicetypes'] if d['name']==device_name)
 udid=get('xcrun','simctl','create','LikeArt World Evidence',type_['identifier'],runtime['identifier'])
@@ -30,8 +36,8 @@ try:
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
  diagnostic=os.environ.get('WORLD_ACCEPTANCE')=='0'
  env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1'+('&probeAvatar=mushroom' if diagnostic else ''),SIMCTL_CHILD_WORLD_CAPTURE='1')
- if diagnostic:env.update(SIMCTL_CHILD_WORLD_CAPTURE_NO_PACK='1',SIMCTL_CHILD_WORLD_CAPTURE_FLOW='shop-first')
- (out/'capture-mode.json').write_text(json.dumps({'diagnostic':diagnostic,'scene':'public Central Market','avatar':'mushroom descriptor fixture' if diagnostic else 'real public guest','flow':'shop-first' if diagnostic else 'direct','pack':'disabled to match installed f349a9a' if diagnostic else 'release configuration'},indent=2))
+ if diagnostic:env.update(SIMCTL_CHILD_WORLD_CAPTURE_FLOW='shop-first')
+ (out/'capture-mode.json').write_text(json.dumps({'diagnostic':diagnostic,'scene':'public Central Market','avatar':'mushroom descriptor fixture' if diagnostic else 'real public guest','flow':'shop-first' if diagnostic else 'direct','pack':'enabled: verified 235 full manifest'},indent=2))
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
  # A newly-created simulator is still doing first-boot background work after bootstatus.
  # Settle the OS before cold-launching the app; application entry timing is unchanged.

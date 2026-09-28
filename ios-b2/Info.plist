@@ -71,10 +71,10 @@
 		</dict>
 	</dict>
 	<key>V6PackVersion</key>
-	<string>212-gzip-20260928</string>
+	<string>235-astc-20260928</string>
 	<key>V6PackSize</key>
-	<integer>128814542</integer>
+	<integer>207574698</integer>
 	<key>V6PackSHA256</key>
-	<string>5b313a139375827126dbf24679cc5d803116ac5d20bbaa6a2b80151cf6f1f04e</string>
+	<string>bb5c5e10876b8b99da240110038c611423416e94ff2fddd185fac703cea27798</string>
 </dict>
 </plist>
