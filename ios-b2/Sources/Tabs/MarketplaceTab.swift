@@ -3,7 +3,12 @@ import WebKit
 
 // WORLD22: the pinned pack is verified against the public byte inventory.
 enum NativeReleasePolicy {
+    #if DEBUG
+    // Reproduce the actually installed Clips17/19 build's network transport.
+    static let bundledWorldPackEnabled = ProcessInfo.processInfo.environment["WORLD_CAPTURE_NO_PACK"] != "1"
+    #else
     static let bundledWorldPackEnabled = true
+    #endif
 }
 
 // Queue the latest destination until native UA/pack setup finishes. A SwiftUI
@@ -220,6 +225,9 @@ struct WebContent: UIViewRepresentable {
         view.navigationDelegate = context.coordinator
         view.uiDelegate = context.coordinator
         state.view = view
+        #if DEBUG
+        WorldCaptureProbe.register(view, tab: tab)
+        #endif
         context.coordinator.urlObservation = view.observe(\.url, options: [.initial, .new]) { [weak state] webView, _ in
             let current = webView.url
             DispatchQueue.main.async { state?.currentURL = current }

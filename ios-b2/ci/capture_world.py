@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded real WKWebView world run on a disposable simulator, never a fixture."""
+"""Bounded real WKWebView/public-scene run; diagnostic avatar/host fixtures are explicit."""
 import json,os,pathlib,subprocess,time,shutil,re,signal,threading,urllib.request,hashlib
 out=pathlib.Path('build-b2/evidence/world-entry-20');out.mkdir(parents=True,exist_ok=True)
 def get(*args):return subprocess.check_output(args,text=True,timeout=60).strip()
@@ -28,7 +28,10 @@ def stop_app():
 try:
  run('xcrun','simctl','boot',udid);run('xcrun','simctl','bootstatus',udid,'-b',timeout=300)
  run('xcrun','simctl','install',udid,'build-b2/Simulator/Build/Products/Debug-iphonesimulator/LikeArt.app')
- env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1',SIMCTL_CHILD_WORLD_CAPTURE='1')
+ diagnostic=os.environ.get('WORLD_ACCEPTANCE')=='0'
+ env=dict(os.environ,SIMCTL_CHILD_STORE_CAPTURE_PATH='/v6/?app=1&measure=1'+('&probeAvatar=mushroom' if diagnostic else ''),SIMCTL_CHILD_WORLD_CAPTURE='1')
+ if diagnostic:env.update(SIMCTL_CHILD_WORLD_CAPTURE_NO_PACK='1',SIMCTL_CHILD_WORLD_CAPTURE_FLOW='shop-first')
+ (out/'capture-mode.json').write_text(json.dumps({'diagnostic':diagnostic,'scene':'public Central Market','avatar':'mushroom descriptor fixture' if diagnostic else 'real public guest','flow':'shop-first' if diagnostic else 'direct','pack':'disabled to match installed f349a9a' if diagnostic else 'release configuration'},indent=2))
  container=pathlib.Path(get('xcrun','simctl','get_app_container',udid,'com.likeart.app','data'))
  # A newly-created simulator is still doing first-boot background work after bootstatus.
  # Settle the OS before cold-launching the app; application entry timing is unchanged.

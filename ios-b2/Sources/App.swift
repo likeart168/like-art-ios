@@ -12,7 +12,11 @@ struct LikeArtApp: App {
         #if DEBUG
         // Deterministic cold deep link for real simulator capture; no page fixture.
         if let capture = ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"], capture != "profile",
-           let target = URL(string: "https://like-art.com" + capture) { AppSession.shared.open(target) }
+           let target = URL(string: "https://like-art.com" + capture) {
+            if ProcessInfo.processInfo.environment["WORLD_CAPTURE_FLOW"] == "shop-first" {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) { AppSession.shared.open(target) }
+            } else { AppSession.shared.open(target) }
+        }
         #endif
     }
     @State private var captureProfile = false

@@ -5,8 +5,28 @@ import WebKit
 // No diagnostic upload or capture hooks are compiled into Release archives.
 @MainActor
 final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
+    private final class ViewRecord {
+        weak var view: WKWebView?
+        let tab: Int
+        init(_ view: WKWebView, tab: Int) { self.view = view; self.tab = tab }
+    }
+    private static var views: [ViewRecord] = []
+    static func register(_ view: WKWebView, tab: Int) {
+        guard ProcessInfo.processInfo.environment["WORLD_CAPTURE"] == "1" else { return }
+        views.removeAll { $0.view == nil }
+        views.append(ViewRecord(view, tab: tab))
+    }
     static let errorScript = """
     (()=>{
+    if(new URL(location.href).searchParams.get('probeAvatar')==='mushroom'){
+      const originalFetch=window.fetch.bind(window);
+      window.fetch=async function(input,init){const result=await originalFetch(input,init);
+        if(new URL(typeof input==='string'?input:input.url,location.href).pathname!=='/v6/api/spawn')return result;
+        const body=await result.json(),avatar={id:'artist-mushroom-2667-168',revision:'avatar-141',height:3};
+        body.avatar=avatar;body.identity={...body.identity,avatar};body.spawn={x:35,y:8.7,z:-20};body.region='market';
+        window.__world30AvatarFixture=true;return new Response(JSON.stringify(body),{status:200,headers:{'Content-Type':'application/json'}});
+      };
+    }
     window.__afterLanguage25=performance.now();
     let world20ReadyValue=window.ready;
     Object.defineProperty(window,'ready',{configurable:true,get:()=>world20ReadyValue,set:value=>{world20ReadyValue=value;if(value===true&&!window.__world20ReadyWall)window.__world20ReadyWall=Date.now();}});
@@ -62,7 +82,11 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
     }
     func terminated() { terminations += 1; save() }
     private func save() {
-        let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "trace":traceEvents, "terminations": terminations, "elapsed": Date().timeIntervalSince(began)]
+        let webViews: [[String: Any]] = Self.views.compactMap { item in
+            guard let view = item.view else { return nil }
+            return ["tab":item.tab,"path":view.url?.path ?? "", "attached":view.window != nil,"hidden":view.isHidden,"loading":view.isLoading]
+        }
+        let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "trace":traceEvents, "terminations": terminations, "elapsed": Date().timeIntervalSince(began),"webViews":webViews,"packEnabled":NativeReleasePolicy.bundledWorldPackEnabled]
         if let data = try? JSONSerialization.data(withJSONObject: record, options: [.prettyPrinted, .sortedKeys]),
            let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             try? data.write(to: directory.appendingPathComponent("world-entry-20.json"), options: .atomic)
@@ -86,7 +110,7 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
                 loading:document.querySelector('#load-status')?.textContent,progress:document.querySelector('#load-fill')?.style.width,
                 errors:window.__world20Errors,gpuEvents:window.__world20Gpu,graphics:window.__V6_GRAPHICS_STARTUP__,startup:window.__V6_STARTUP_RESOURCES__,renderStartup:window.__V6_STARTUP_RENDER_22__,
                 stages:(window.__TASK119_TRACE__||[]).filter(x=>x.kind==='stage-start'||x.kind==='stage-end').map(({name,kind,ts})=>({name,kind,ts})),
-                decoder:window.__V6_DECODER_RECYCLE_27__?.stats,emptyLight:a?.scene?.__worldEmptyLight25,textureResidency:a?.graphicsDevice?.__worldTextureResidency25?.snapshot(),bufferResidency:a?.graphicsDevice?.__worldBufferResidency25?.snapshot(),physicalBufferBytes:Array.from(a?.graphicsDevice?.buffers||[]).filter(b=>b.impl?.bufferId).reduce((n,b)=>n+(b.numBytes||0),0),
+                avatarFixture:window.__world30AvatarFixture,decoder:window.__V6_DECODER_RECYCLE_27__?.stats,streamHandoff:a?.assets?.__v6ContainerLoadGuard?.handoff,emptyLight:a?.scene?.__worldEmptyLight25,textureResidency:a?.graphicsDevice?.__worldTextureResidency25?.snapshot(),bufferResidency:a?.graphicsDevice?.__worldBufferResidency25?.snapshot(),physicalBufferBytes:Array.from(a?.graphicsDevice?.buffers||[]).filter(b=>b.impl?.bufferId).reduce((n,b)=>n+(b.numBytes||0),0),
                 assets:a?.assets?.list().length,vram:a?.graphicsDevice?._vram,pack:window.__v6PackShim,exactTerrain:window.__V6_EXACT_TERRAIN_212__,entry:window.__V6_ENTRY__,
                 containerGuard:(()=>{const g=window.__V6_CONTAINER_LOAD_GUARD__;return g?{version:g.version,phase:g.phase(),queued:g.queued(),active:g.active(),aheadHits:g.readAheadHits,aheadBytes:g.readAheadBytes,pause:g.pauseReason(),processed:g.processed}:null})(),
                 scenery:p?Object.fromEntries(['meadowLifeSystem','worldDistanceSystem','skyBirdsSystem','marketFarSystem','faunaSystem','meatsDollSystem'].map(k=>[k,{status:p[k]?.status,errors:p[k]?.errors,error:p[k]?.error}])):null,

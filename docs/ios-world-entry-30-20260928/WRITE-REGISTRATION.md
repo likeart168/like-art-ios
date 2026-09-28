@@ -1,0 +1,1 @@
+WORLD30: Owner insists on actual App-only crash diagnosis. DEBUG-only reproduction of shipping no-pack path, mushroom avatar at market, normal shop-first navigation, count retained WKWebViews; capture metadata. No Release functionality/pack contract/signing/upload/gate changes. Current native working tree clean; other sessions own doll pipeline.
