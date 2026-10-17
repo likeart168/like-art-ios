@@ -24,8 +24,11 @@ private enum WorldPackRecovery {
     static let messageName = "likeArtWorldPackRecovery"
     static let script = """
     (() => {
-      if (!/^https:\/\/(www\\.)?like-art\\.com$/.test(location.origin) ||
-          !location.pathname.startsWith('/v6/') || /^\\/v6\\/(clips|live)\\//.test(location.pathname) ||
+      const origin = location.origin;
+      if ((origin !== 'https://like-art.com' && origin !== 'https://www.like-art.com') ||
+          !location.pathname.startsWith('/v6/') ||
+          location.pathname.startsWith('/v6/clips/') ||
+          location.pathname.startsWith('/v6/live/') ||
           new URL(location.href).searchParams.get('nopack') === '1') return;
       let sent = false;
       const report = (reason) => {
