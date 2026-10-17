@@ -1,0 +1,1 @@
+bb5c5e10876b8b99da240110038c611423416e94ff2fddd185fac703cea27798  build-b2/verify/Payload/LikeArt.app/v6-base-assets.pak

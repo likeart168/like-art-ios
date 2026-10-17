@@ -1,0 +1,6 @@
+{
+  "CFBundleDisplayName" => "Like Art"
+  "NSCameraUsageDescription" => "Съёмка и загрузка аватара или работ."
+  "NSFaceIDUsageDescription" => "Подтверждение аккаунта с помощью Face ID."
+  "NSMicrophoneUsageDescription" => "Запись звука при запуске прямого эфира."
+}

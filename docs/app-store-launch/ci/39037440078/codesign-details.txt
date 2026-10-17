@@ -1,0 +1,2 @@
+Executable=/Users/runner/work/like-art-ios/like-art-ios/build-b2/verify/Payload/LikeArt.app/LikeArt
+warning: Specifying ':' in the path is deprecated and will not work in a future release

@@ -1,0 +1,36 @@
+Archive:  build-b2/export/LikeArt.ipa
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  10-17-2026 13:43   Payload/
+        0  10-17-2026 13:43   Payload/LikeArt.app/
+        0  10-17-2026 13:43   Payload/LikeArt.app/_CodeSignature/
+     6332  10-17-2026 13:43   Payload/LikeArt.app/_CodeSignature/CodeResources
+        0  10-17-2026 13:43   Payload/LikeArt.app/zh-Hans.lproj/
+      255  10-17-2026 13:43   Payload/LikeArt.app/zh-Hans.lproj/InfoPlist.strings
+        0  10-17-2026 13:43   Payload/LikeArt.app/en.lproj/
+      312  10-17-2026 13:43   Payload/LikeArt.app/en.lproj/InfoPlist.strings
+    17759  10-17-2026 13:43   Payload/LikeArt.app/AppIcon60x60@2x.png
+   655536  10-17-2026 13:43   Payload/LikeArt.app/LikeArt
+      216  10-17-2026 13:43   Payload/LikeArt.app/v6-room-pack.json
+        0  10-17-2026 13:43   Payload/LikeArt.app/Base.lproj/
+        0  10-17-2026 13:43   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/
+     2745  10-17-2026 13:43   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/launch-controller-view-launch-view.nib
+      932  10-17-2026 13:43   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-launch-controller.nib
+      279  10-17-2026 13:43   Payload/LikeArt.app/Base.lproj/LaunchScreen.storyboardc/Info.plist
+  1769464  10-17-2026 13:43   Payload/LikeArt.app/Assets.car
+    27215  10-17-2026 13:43   Payload/LikeArt.app/AppIcon76x76@2x~ipad.png
+     4231  10-17-2026 13:43   Payload/LikeArt.app/PrivacyInfo.xcprivacy
+        0  10-17-2026 13:43   Payload/LikeArt.app/ru.lproj/
+      424  10-17-2026 13:43   Payload/LikeArt.app/ru.lproj/InfoPlist.strings
+207574698  10-17-2026 13:43   Payload/LikeArt.app/v6-base-assets.pak
+ 32284032  10-17-2026 13:43   Payload/LikeArt.app/v6-room-assets.pak
+     8539  10-17-2026 13:43   Payload/LikeArt.app/world-pack-transport.js
+    12064  10-17-2026 13:43   Payload/LikeArt.app/embedded.mobileprovision
+    19246  10-17-2026 13:43   Payload/LikeArt.app/v6-pack-queries.json
+     2522  10-17-2026 13:43   Payload/LikeArt.app/Info.plist
+        8  10-17-2026 13:43   Payload/LikeArt.app/PkgInfo
+      217  10-17-2026 13:43   Payload/LikeArt.app/v6-pack.json
+        0  10-17-2026 13:43   Symbols/
+  1758780  10-17-2026 13:43   Symbols/067C116A-F35C-320A-B76F-B434319B2DEF.symbols
+---------                     -------
+244145806                     31 files
