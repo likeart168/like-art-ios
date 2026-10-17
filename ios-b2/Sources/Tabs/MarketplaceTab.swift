@@ -3,16 +3,53 @@ import WebKit
 
 // WORLD22: the pinned pack is verified against the public byte inventory.
 enum NativeReleasePolicy {
-    #if DEBUG
+#if DEBUG
     // Reproduce the actually installed Clips17/19 build's network transport.
     static let bundledWorldPackEnabled = ProcessInfo.processInfo.environment["WORLD_CAPTURE_NO_PACK"] != "1"
-    #else
-    static let bundledWorldPackEnabled = true
-    #endif
+#else
+    // The last known-good 2.0.3 path used HTTPS for every WebView. The bundled
+    // 207 MB archive previously caused real-device world crashes and startup
+    // contention; keep it opt-in for diagnostics until a new device build proves
+    // the pack path independently.
+    static let bundledWorldPackEnabled = false
+#endif
+
+    static func packAllowed(for url: URL) -> Bool {
+        guard bundledWorldPackEnabled else { return false }
+        return URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "nopack" })?.value != "1"
+    }
 }
 
-// Queue the latest destination until native UA/pack setup finishes. A SwiftUI
-// update can arrive before makeUIView's asynchronous preparation callback.
+private enum WorldPackRecovery {
+    static let messageName = "likeArtWorldPackRecovery"
+    static let script = """
+    (() => {
+      if (!/^https:\/\/(www\\.)?like-art\\.com$/.test(location.origin) ||
+          !location.pathname.startsWith('/v6/') || /^\\/v6\\/(clips|live)\\//.test(location.pathname) ||
+          new URL(location.href).searchParams.get('nopack') === '1') return;
+      let sent = false;
+      const report = (reason) => {
+        if (sent || !window.__v6PackShim) return;
+        sent = true;
+        window.webkit?.messageHandlers?.likeArtWorldPackRecovery?.postMessage({reason:String(reason || 'entry-failure')});
+      };
+      const check = () => {
+        const entry = window.__V6_ENTRY__;
+        const failure = entry && ((entry.failure === true) || (typeof entry.failure === 'string' && entry.failure) || (entry.failure && typeof entry.failure !== 'function') || (typeof entry.error === 'string' && entry.error));
+        if (failure) return report(failure);
+        if (window.__v6PackShim?.failures?.length && entry && entry.status === 'error') return report(entry.status);
+        if (performance.now() > 180000 && window.ready !== true) return report('world-render-timeout');
+        if (performance.now() > 180000 && window.ready === true && !document.querySelector('canvas')) return report('world-canvas-missing');
+      };
+      const timer = setInterval(check, 1000);
+      setTimeout(() => clearInterval(timer), 182000);
+      check();
+    })();
+    """
+}
+
+// Queue the latest destination until the WebView has started its first load.
+// A SwiftUI update can arrive while makeUIView is constructing the view.
 @MainActor
 final class InitialWebNavigation {
     private(set) var prepared = false
@@ -35,7 +72,24 @@ final class InitialWebNavigation {
 }
 
 struct MarketplaceTab: View {
-    var body: some View { WebTab(url: URL(string: "https://like-art.com/?app=1")!, title: tr("商城", "Shop", "Магазин"), tab: 0) }
+    var body: some View { WebTab(url: URL(string: "https://like-art.com/?app=1")!, title: tr("商城", "Shop", "Магазин"), tab: 0, tabKey: "shop") }
+}
+
+enum WebNavigationPolicy {
+    static let maximumCoverDuration: TimeInterval = 180
+    static let maximumRetries = 2
+    static let retryInterval: TimeInterval = 30
+
+    // activeProcessorCount is the native equivalent of hardwareConcurrency.
+    static func timeout(for url: URL?, physicalMemory: UInt64 = ProcessInfo.processInfo.physicalMemory,
+                        hardwareConcurrency: Int = ProcessInfo.processInfo.activeProcessorCount) -> TimeInterval {
+        if let path = url?.path, path == "/v6" || path.contains("/v6/") { return 180 }
+        return physicalMemory < 4 * 1024 * 1024 * 1024 || hardwareConcurrency <= 4 ? 120 : 60
+    }
+
+    static func request(_ url: URL, cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy) -> URLRequest {
+        URLRequest(url: url, cachePolicy: cachePolicy, timeoutInterval: timeout(for: url))
+    }
 }
 
 @MainActor
@@ -45,16 +99,46 @@ final class WebState: ObservableObject {
     @Published var reload = UUID()
     @Published var currentURL: URL?
     @Published var failureReason = ""
-    @Published var retryAttempts = 0
     @Published var retryPending = false
+    @Published private(set) var retryAttempts: Int
+    private(set) var coverDismissed = false
+    var retryURL: URL?
+    private let defaults: UserDefaults
+    private let retryKey: String
     private var retryTask: Task<Void, Never>?
+    init(tabKey: String = "shop", defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        retryKey = "LikeArt.navigationRetry.v1." + tabKey
+        retryAttempts = (defaults.dictionary(forKey: retryKey)?["attempts"] as? Int) ?? 0
+    }
+    func dismissCover() { coverDismissed = true; loading = false }
+    func showFailure(_ reason: String) {
+        dismissCover()
+        failed = true
+        failureReason = reason
+    }
+    func beginNavigation() {
+        cancelRetry()
+        loading = !coverDismissed
+        failed = false
+        failureReason = ""
+    }
+    // Only a button calls this. Keep both the count and spacing across WebView,
+    // tab and app recreation; successful loads do not silently refill the budget.
     func retry() {
-        guard failed, !retryPending, retryAttempts < 3 else { return }
-        retryAttempts += 1; retryPending = true
-        let delay = UInt64(1 << (retryAttempts - 1)) * 1_000_000_000
+        let saved = defaults.dictionary(forKey: retryKey) ?? [:]
+        let attempts = (saved["attempts"] as? Int) ?? 0
+        let last = (saved["lastRetryAt"] as? Double) ?? 0
+        retryAttempts = attempts
+        guard failed, !retryPending, attempts < WebNavigationPolicy.maximumRetries else { return }
+        retryPending = true
+        let now = Date().timeIntervalSince1970
+        retryAttempts = attempts + 1
+        defaults.set(["attempts": retryAttempts, "lastRetryAt": now], forKey: retryKey)
+        let delay = max(0, WebNavigationPolicy.retryInterval - (now - last))
         retryTask = Task { @MainActor [weak self] in
-            try? await Task.sleep(nanoseconds: delay)
-            guard !Task.isCancelled, let self else { return }
+            try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            guard !Task.isCancelled, let self, self.failed else { return }
             self.retryPending = false; self.reload = UUID()
         }
     }
@@ -65,11 +149,17 @@ final class WebState: ObservableObject {
 struct WebTab: View {
     @EnvironmentObject var session: AppSession
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject private var state = WebState()
+    @StateObject private var state: WebState
     @State private var profileVisible = false
     let url: URL
     let title: String
     let tab: Int
+    let tabKey: String
+
+    init(url: URL, title: String, tab: Int, tabKey: String) {
+        self.url = url; self.title = title; self.tab = tab; self.tabKey = tabKey
+        _state = StateObject(wrappedValue: WebState(tabKey: tabKey))
+    }
 
     private var clipsImmersive: Bool {
         let current = state.currentURL ?? url
@@ -105,27 +195,32 @@ struct WebTab: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                WebContent(url: url, tab: tab, state: state, clipsImmersive: clipsImmersive)
+                WebContent(url: url, tab: tab, tabKey: tabKey, state: state, clipsImmersive: clipsImmersive)
                     .id(session.revision)
                     .ignoresSafeArea(.container, edges: clipsImmersive ? .vertical : [])
-                if state.loading || state.failed {
+                if state.loading {
                     VStack(spacing: 22) {
                         BrandMark(size: 88)
                         Text("Like Art").font(.system(size: 32, weight: .semibold, design: .serif)).foregroundStyle(AppTheme.ink)
-                        if state.failed {
-                            Text(tr("页面未能打开", "Page could not open", "Не удалось открыть страницу")).font(.headline)
-                            Text(state.failureReason).font(.subheadline).foregroundStyle(AppTheme.muted)
-                            Button(state.retryPending ? tr("正在等待重试…", "Waiting to retry…", "Ожидание повтора…") : tr("重新连接", "Try again", "Попробовать снова")) { state.retry() }.buttonStyle(ArtPrimaryButton())
-                                .disabled(state.retryPending || state.retryAttempts >= 3)
-                            if state.retryAttempts >= 3 { Text(tr("已连续重试三次，请稍后再打开。", "Three retries used. Please try again later.", "Три попытки использованы. Повторите позже.")) }
-                            Button(tr("查看离线内容", "View saved content", "Сохранённые данные")) { profileVisible = true }.padding(10)
-                        } else {
-                            Text(tr("发现手作的温度", "A world of handmade wonder", "Мир искусства ручной работы")).font(.subheadline).foregroundStyle(AppTheme.muted)
-                            ProgressView().tint(AppTheme.tint).padding(.top, 6)
-                            Text(tr("正在加载…", "Loading…", "Загрузка…")).font(.caption).foregroundStyle(AppTheme.muted)
-                        }
+                        Text(tr("发现手作的温度", "A world of handmade wonder", "Мир искусства ручной работы")).font(.subheadline).foregroundStyle(AppTheme.muted)
+                        ProgressView().tint(AppTheme.tint).padding(.top, 6)
+                        Text(tr("正在加载…", "Loading…", "Загрузка…")).font(.caption).foregroundStyle(AppTheme.muted)
                     }.multilineTextAlignment(.center).padding(30).frame(maxWidth: 430)
                         .frame(maxWidth: .infinity, maxHeight: .infinity).background(AppTheme.paper)
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                if state.failed {
+                    VStack(spacing: 8) {
+                        Text(state.failureReason).font(.caption).foregroundStyle(AppTheme.muted)
+                        Button(state.retryPending ? tr("正在等待重试…", "Waiting to retry…", "Ожидание повтора…") : tr("重新连接", "Try again", "Попробовать снова")) { state.retry() }
+                            .buttonStyle(ArtPrimaryButton())
+                            .disabled(state.retryPending || state.retryAttempts >= WebNavigationPolicy.maximumRetries)
+                        if state.retryAttempts >= WebNavigationPolicy.maximumRetries {
+                            Text(tr("已用完两次重试。", "Both retries have been used.", "Обе попытки использованы.")).font(.caption)
+                        }
+                        Button(tr("查看离线内容", "View saved content", "Сохранённые данные")) { profileVisible = true }
+                    }.multilineTextAlignment(.center).padding().frame(maxWidth: .infinity).background(AppTheme.paper)
                 }
             }
             .overlay(alignment: .top) {
@@ -172,9 +267,10 @@ struct WebContent: UIViewRepresentable {
     @EnvironmentObject var session: AppSession
     let url: URL
     let tab: Int
+    let tabKey: String
     @ObservedObject var state: WebState
     let clipsImmersive: Bool
-    func makeCoordinator() -> Coordinator { Coordinator(state: state) }
+    func makeCoordinator() -> Coordinator { Coordinator(state: state, session: session, tabKey: tabKey, initialURL: url) }
     func makeUIView(context: Context) -> WKWebView {
         #if DEBUG
         if ["/v6", "/v6/", "/v6/index.html"].contains(url.path) {
@@ -211,12 +307,17 @@ struct WebContent: UIViewRepresentable {
         #endif
         configuration.applicationNameForUserAgent = "LikeArtApp/1.0"
         configuration.userContentController.add(context.coordinator.bridge, name: "likeArtSession")
-        configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.script(token: session.token), injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        context.coordinator.syncSessionScript(session.token, controller: configuration.userContentController)
         configuration.userContentController.addUserScript(WKUserScript(source: JSBridge.auctionKillJS, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         // A197: V6 基础资源包 —— 自定义 scheme + 世界页 JS 改写的请求拦截（安卓 WorldPack.java 同源）
-        if NativeReleasePolicy.bundledWorldPackEnabled {
+        if NativeReleasePolicy.packAllowed(for: url) {
             configuration.setURLSchemeHandler(PackSchemeHandler(), forURLScheme: PackSchemeHandler.scheme)
             configuration.userContentController.addScriptMessageHandler(PackMessageHandler(), contentWorld: .page, name: "likeArtWorldPack")
+        }
+        let packCandidate = url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/")
+        if packCandidate && NativeReleasePolicy.packAllowed(for: url) {
+            configuration.userContentController.add(context.coordinator, name: WorldPackRecovery.messageName)
+            configuration.userContentController.addUserScript(WKUserScript(source: WorldPackRecovery.script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         }
         let view = ClipsViewportWebView(frame: .zero, configuration: configuration)
         view.clipsImmersive = clipsImmersive
@@ -228,9 +329,9 @@ struct WebContent: UIViewRepresentable {
         #if DEBUG
         WorldCaptureProbe.register(view, tab: tab)
         #endif
-        context.coordinator.urlObservation = view.observe(\.url, options: [.initial, .new]) { [weak state] webView, _ in
+        context.coordinator.urlObservation = view.observe(\.url, options: [.initial, .new]) { [weak coordinator = context.coordinator] webView, _ in
             let current = webView.url
-            DispatchQueue.main.async { state?.currentURL = current }
+            DispatchQueue.main.async { coordinator?.record(current) }
         }
         context.coordinator.bridge.webView = view
         context.coordinator.reload = state.reload
@@ -238,65 +339,211 @@ struct WebContent: UIViewRepresentable {
         // wait for an empty WebContent process/JS round trip before navigation.
         do {
             let load = {
-                // A requested deep link wins over the delayed initial UA/pack load.
-                let target = session.selectedTab == tab && session.destinationTab == tab ? (session.destination ?? url) : url
-                if session.selectedTab == tab && session.destinationTab == tab { context.coordinator.destination = session.destination }
-                guard let preparedTarget = context.coordinator.initialNavigation.finish(defaultURL: target) else { return }
-                view.load(URLRequest(url: preparedTarget, cachePolicy: .useProtocolCachePolicy))
-            }
-            if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/") {
-                // 世界页：先把包备好再加载，保证首启也能命中本地包（失败/超时则照常加载 → 回落网络）
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: load)
-                WorldPack.shared.prepareAsync { _ in
-                    guard !context.coordinator.initialNavigation.prepared else { return }
-                    let entries = WorldPack.shared.entryNames()
-                    view.configuration.userContentController.addUserScript(
-                        WKUserScript(source: PackShim.script(entries: entries), injectionTime: .atDocumentStart, forMainFrameOnly: false))
-                    NSLog("[WorldPack] world tab load entries=\(entries.count)")
-                    load()
+                // A requested deep link wins over the initial tab URL.
+                var target = session.tabNavigation.restore(for: tabKey, canonicalURL: url)
+                if session.selectedTab == tab && session.destinationTab == tab,
+                   let destination = session.destination, destination != context.coordinator.destination {
+                    target = destination
+                    context.coordinator.handle(destination)
                 }
-            } else { load() }
+                guard let preparedTarget = context.coordinator.initialNavigation.finish(defaultURL: target) else { return }
+                context.coordinator.markDestinationHandled()
+                context.coordinator.startCoverWatchdog()
+                view.load(WebNavigationPolicy.request(preparedTarget))
+            }
+            let worldPackCandidate = url.path.hasPrefix("/v6") && !url.path.hasPrefix("/v6/clips/") && !url.path.hasPrefix("/v6/live/")
+            guard worldPackCandidate, NativeReleasePolicy.packAllowed(for: url) else { load(); return view }
+
+            // Do not hold the first navigation behind the archive. A warm archive can
+            // be installed before navigation; a cold archive leaves the network
+            // navigation in place and remains available for a later user retry.
+            let started = ProcessInfo.processInfo.systemUptime
+            let installShim: () -> Bool = {
+                guard !context.coordinator.disposed, session.selectedTab == tab,
+                      !context.coordinator.packShimInstalled,
+                      WorldPack.shared.isReady else { return false }
+                let entries = WorldPack.shared.entryNames()
+                guard !entries.isEmpty else { return false }
+                let source = PackShim.script(entries: entries)
+                guard !source.isEmpty else {
+                    NSLog("[WorldPack] shim template unavailable; keeping network transport")
+                    return false
+                }
+                view.configuration.userContentController.addUserScript(
+                    WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false))
+                context.coordinator.packShimInstalled = true
+                NSLog("[WorldPack] world tab pack enabled entries=%d", entries.count)
+                return true
+            }
+            if installShim() {
+                load()
+            } else {
+                load()
+                WorldPack.shared.prepareAsync { ready in
+                    guard !context.coordinator.packDecisionMade else { return }
+                    context.coordinator.packDecisionMade = true
+                    let elapsed = ProcessInfo.processInfo.systemUptime - started
+                    guard ready, elapsed <= 1.5, installShim(), !context.coordinator.packReloaded,
+                          !state.coverDismissed, !state.failed else {
+                        NSLog("[WorldPack] network fallback ready=%d elapsed=%.3f", ready ? 1 : 0, elapsed)
+                        return
+                    }
+                    // The first request was deliberately allowed to start immediately.
+                    // Do not replace it with a second navigation when the pack warms;
+                    // a retry remains an explicit user action.
+                    let current = view.url ?? url
+                    guard current.path.hasPrefix("/v6"), !current.path.hasPrefix("/v6/clips/"), !current.path.hasPrefix("/v6/live/") else { return }
+                    context.coordinator.packReloaded = true
+                    NSLog("[WorldPack] verified within budget; keeping current navigation path=%@", current.path)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    guard !context.coordinator.packDecisionMade else { return }
+                    context.coordinator.packDecisionMade = true
+                    NSLog("[WorldPack] pack preparation exceeded 1.5s; session uses network")
+                }
+            }
         }
         return view
     }
     func updateUIView(_ view: WKWebView, context: Context) {
+        guard session.selectedTab == tab, !context.coordinator.disposed else { return }
         if let clipsView = view as? ClipsViewportWebView { clipsView.clipsImmersive = clipsImmersive }
+        context.coordinator.syncSessionScript(session.token, controller: view.configuration.userContentController)
         if let destination = session.destination, session.destinationTab == tab, session.selectedTab == tab, destination != context.coordinator.destination {
-            context.coordinator.destination = destination
+            context.coordinator.handle(destination)
             if let target = context.coordinator.initialNavigation.request(destination) {
-                view.load(URLRequest(url: target))
+                context.coordinator.markDestinationHandled()
+                state.retryURL = nil
+                view.load(WebNavigationPolicy.request(target))
             }
         }
         if context.coordinator.reload != state.reload {
             context.coordinator.reload = state.reload
-            if let target = context.coordinator.initialNavigation.request(view.url ?? url) {
-                view.load(URLRequest(url: target))
+            let retryTarget = state.retryURL ?? (view.url ?? session.tabNavigation.restore(for: tabKey, canonicalURL: url))
+            if let target = context.coordinator.initialNavigation.request(retryTarget) {
+                view.load(WebNavigationPolicy.request(target))
             }
         }
     }
     static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) {
+        coordinator.disposed = true
+        coordinator.cancelLoadingTimeout()
         coordinator.urlObservation?.invalidate()
         coordinator.state.cancelRetry()
         coordinator.initialNavigation.cancel()
+        view.navigationDelegate = nil
+        view.uiDelegate = nil
         view.stopLoading()
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtSession")
         view.configuration.userContentController.removeScriptMessageHandler(forName: "likeArtWorldPack", contentWorld: .page)
+        view.configuration.userContentController.removeScriptMessageHandler(forName: WorldPackRecovery.messageName)
         #if DEBUG
         view.configuration.userContentController.removeScriptMessageHandler(forName: "worldCaptureTrace")
         #endif
     }
-    @MainActor final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
+    @MainActor final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
         let state: WebState
         let bridge = JSBridge()
+        let session: AppSession
+        let tabKey: String
+        let initialURL: URL
+        let revision: UUID
+        var disposed = false
+        private var sessionScript: WKUserScript?
+        private var scriptToken: String?
         var reload = UUID()
         var urlObservation: NSKeyValueObservation?
         var destination: URL?
         let initialNavigation = InitialWebNavigation()
-        weak var currentNavigation: WKNavigation?
+        // Keep the token strongly until WebKit reports completion. WKNavigation is
+        // not guaranteed to stay alive between didStart and didFinish; a weak token
+        // made the native loading cover remain forever on otherwise healthy pages.
+        var currentNavigation: WKNavigation?
+        var packShimInstalled = false
+        var packDecisionMade = false
+        var packReloaded = false
+        private var packRecoveryAttempted = false
+        private var loadingTimeoutWorkItem: DispatchWorkItem?
+        private var coverTimeoutWorkItem: DispatchWorkItem?
         #if DEBUG
         let worldCapture = WorldCaptureProbe()
         #endif
-        init(state: WebState) { self.state = state }
+        init(state: WebState, session: AppSession, tabKey: String, initialURL: URL = URL(string: "https://like-art.com/?app=1")!) {
+            self.state = state
+            self.session = session
+            self.tabKey = tabKey
+            self.initialURL = initialURL
+            revision = session.revision
+            destination = session.tabNavigation.destination(for: tabKey)
+        }
+        func cancelLoadingTimeout() {
+            loadingTimeoutWorkItem?.cancel()
+            loadingTimeoutWorkItem = nil
+            coverTimeoutWorkItem?.cancel()
+            coverTimeoutWorkItem = nil
+        }
+        func startCoverWatchdog() {
+            // One deadline for the initial cover, never extended by redirects or
+            // repeated didStart callbacks. Also works if WebKit sends no callback.
+            guard !state.coverDismissed, coverTimeoutWorkItem == nil else { return }
+            let timeout = DispatchWorkItem { [weak self] in
+                guard let self, !self.disposed, self.state.loading else { return }
+                self.showTimeout()
+                NSLog("[LikeArt] loading cover reached 180s tab=%@", self.tabKey)
+            }
+            coverTimeoutWorkItem = timeout
+            DispatchQueue.main.asyncAfter(deadline: .now() + WebNavigationPolicy.maximumCoverDuration, execute: timeout)
+        }
+        private func showTimeout() {
+            state.cancelRetry()
+            state.showFailure(tr("页面加载较慢，可继续等待或点击重试。", "The page is taking longer. Keep waiting or try again.", "Страница загружается долго. Подождите или повторите попытку."))
+        }
+        func handle(_ url: URL) {
+            destination = url
+        }
+        func markDestinationHandled() {
+            if let destination { session.tabNavigation.handled(destination, for: tabKey) }
+        }
+        func record(_ url: URL?) {
+            // Ignore queued observations from a disposed view or a signed-out account.
+            guard !disposed, revision == session.revision else { return }
+            session.tabNavigation.record(url, for: tabKey)
+            state.currentURL = url
+        }
+        func syncSessionScript(_ token: String, controller: WKUserContentController) {
+            guard scriptToken != token else { return }
+            let replacement = WKUserScript(source: JSBridge.script(token: token), injectionTime: .atDocumentStart, forMainFrameOnly: true)
+            if let previous = sessionScript {
+                // Preserve language, pack, media and capture scripts in their original order.
+                let scripts = controller.userScripts.map { $0 === previous ? replacement : $0 }
+                controller.removeAllUserScripts()
+                scripts.forEach { controller.addUserScript($0) }
+            } else { controller.addUserScript(replacement) }
+            sessionScript = replacement
+            scriptToken = token
+        }
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            guard message.name == WorldPackRecovery.messageName,
+                  message.frameInfo.isMainFrame,
+                  let webView = state.view,
+                  !packRecoveryAttempted,
+                  !disposed,
+                  let current = webView.url,
+                  NativeReleasePolicy.packAllowed(for: current) else { return }
+            packRecoveryAttempted = true
+            var components = URLComponents(url: current, resolvingAgainstBaseURL: false)
+            var items = components?.queryItems ?? []
+            items.removeAll { $0.name == "nopack" }
+            items.append(URLQueryItem(name: "nopack", value: "1"))
+            components?.queryItems = items
+            guard let fallback = components?.url else { return }
+            // Pack failures (including slow GPU startup) must never auto-navigate.
+            // Preserve the nopack fallback for the user's bounded manual retry.
+            state.retryURL = fallback
+            cancelLoadingTimeout()
+            state.showFailure(tr("世界加载较慢，可继续等待或点击重试。", "The world is taking longer. Keep waiting or try again.", "Мир загружается долго. Подождите или повторите попытку."))
+            NSLog("[WorldPack] manual nopack retry available reason=%@", String(describing: message.body))
+        }
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             guard let url = action.request.url else { decisionHandler(.cancel); return }
             if AppSession.allowed(url) { decisionHandler(.allow); return }
@@ -306,39 +553,76 @@ struct WebContent: UIViewRepresentable {
             decisionHandler(.cancel)
         }
         func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-            if let url = action.request.url, AppSession.allowed(url) { webView.load(action.request) }
+            if let url = action.request.url, AppSession.allowed(url) {
+                var request = action.request
+                request.timeoutInterval = WebNavigationPolicy.timeout(for: url)
+                webView.load(request)
+            }
             return nil
         }
         func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-            currentNavigation = navigation; state.cancelRetry()
-            state.loading = true; state.failed = false; state.failureReason = ""
+            guard !disposed else { return }
+            currentNavigation = navigation
+            state.beginNavigation()
+            startCoverWatchdog()
+            loadingTimeoutWorkItem?.cancel()
+            guard let expectedNavigation = navigation else { return }
+            let timeout = DispatchWorkItem { [weak self, weak webView, expectedNavigation] in
+                guard let self, let webView,
+                      !self.disposed, self.currentNavigation === expectedNavigation else { return }
+                // End only the loading UI; do not cancel page requests or form submissions.
+                self.showTimeout()
+                NSLog("[LikeArt] navigation timeout path=%@", webView.url?.path ?? "")
+            }
+            loadingTimeoutWorkItem = timeout
+            let budget = WebNavigationPolicy.timeout(for: webView.url ?? state.currentURL ?? initialURL)
+            DispatchQueue.main.asyncAfter(deadline: .now() + budget, execute: timeout)
             #if DEBUG
             worldCapture.start(webView, state: state)
             #endif
         }
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            guard navigation === currentNavigation, !state.failed else { return }
-            state.loading = false; bridge.refresh()
+            guard !disposed, navigation === currentNavigation else { return }
+            cancelLoadingTimeout()
+            record(webView.url)
+            state.cancelRetry()
+            state.dismissCover(); state.failed = false; state.failureReason = ""; state.retryURL = nil
+            bridge.refresh()
             (webView as? ClipsViewportWebView)?.syncClipsInsets(force: true)
             #if DEBUG
             scheduleClipsCaptureProbe(webView)
             #endif
         }
+        func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+            guard !disposed, navigation === currentNavigation else { return }
+            record(webView.url)
+            // didCommit starts presenting the document; dismiss conservatively
+            // without waiting for streaming subresources or GPU startup. Latch this
+            // for this WebState so later starts cannot cover rendered content again.
+            cancelLoadingTimeout()
+            state.cancelRetry()
+            state.dismissCover(); state.failed = false; state.failureReason = ""
+        }
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { guard navigation === currentNavigation else { return }; fail(error) }
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { guard navigation === currentNavigation else { return }; fail(error) }
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-            state.cancelRetry(); state.loading = false; state.failed = true
-            state.failureReason = tr("页面渲染进程意外停止。", "The page renderer stopped unexpectedly.", "Процесс отображения страницы неожиданно остановлен.") + " (WebKit renderer terminated)"
+            guard !disposed else { return }
+            cancelLoadingTimeout()
+            currentNavigation = nil
+            state.cancelRetry()
+            state.showFailure(tr("页面渲染进程意外停止。", "The page renderer stopped unexpectedly.", "Процесс отображения страницы неожиданно остановлен.") + " (WebKit renderer terminated)")
             NSLog("[WorldEntry20] WebKit renderer terminated path=%@", webView.url?.path ?? "")
             #if DEBUG
             worldCapture.terminated()
             #endif
         }
         func fail(_ error: Error) {
+            guard !disposed else { return }
             let detail = error as NSError
+            cancelLoadingTimeout()
+            state.cancelRetry(); state.dismissCover()
             if detail.domain == NSURLErrorDomain && detail.code == NSURLErrorCancelled { return }
-            state.cancelRetry(); state.loading = false; state.failed = true
-            state.failureReason = "\(detail.localizedDescription) (\(detail.domain) \(detail.code))"
+            state.showFailure("\(detail.localizedDescription) (\(detail.domain) \(detail.code))")
             NSLog("[WorldEntry20] navigation failure domain=%@ code=%ld", detail.domain, detail.code)
         }
     }

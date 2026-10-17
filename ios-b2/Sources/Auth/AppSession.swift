@@ -26,6 +26,7 @@ final class AppSession: ObservableObject {
     private(set) var destinationKey: String?
     var destinationTab: Int? { destinationKey.map { tabIndex(for: $0) } }
     @Published var revision = UUID()
+    let tabNavigation = TabNavigationHistory()
     @Published var error: String?
     private let noRedirect = NoRedirect()
     private lazy var client = URLSession(configuration: .default, delegate: noRedirect, delegateQueue: nil)
@@ -70,7 +71,8 @@ final class AppSession: ObservableObject {
             KeychainStore.clearBiometrics()
             try KeychainStore.save(value)
             token = value
-            revision = UUID()
+            // The login page is still redirecting. Publishing token updates native
+            // UI/scripts; rebuilding WebContent here would interrupt that navigation.
             await PushSettings.shared.sync()
         } catch { self.error = error.localizedDescription }
     }
@@ -87,6 +89,9 @@ final class AppSession: ObservableObject {
         UserDefaults.standard.set(false, forKey: "biometric")
         HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
         await WKWebsiteDataStore.default().removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast)
+        tabNavigation.reset()
+        destination = nil
+        destinationKey = nil
         revision = UUID()
     }
     func unlock() async throws {
