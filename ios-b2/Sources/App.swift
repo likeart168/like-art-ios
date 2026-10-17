@@ -10,6 +10,9 @@ struct LikeArtApp: App {
     init() {
         AppTheme.configure()
         #if DEBUG
+        if ProcessInfo.processInfo.environment["IOS_SHELL_NAV_CHECKS"] == "1" {
+            Task { await worldEntryNativeChecks20() }
+        }
         // Deterministic cold deep link for real simulator capture; no page fixture.
         if let capture = ProcessInfo.processInfo.environment["STORE_CAPTURE_PATH"], capture != "profile",
            let target = URL(string: "https://like-art.com" + capture) {
@@ -35,9 +38,9 @@ struct LikeArtApp: App {
             ProfileTab()
         default:
             if let s = item.url, let u = URL(string: s) {
-                WebTab(url: u, title: item.labelText(), tab: index)
+                WebTab(url: u, title: item.labelText(), tab: index, tabKey: item.key)
             } else {
-                WebTab(url: URL(string: "https://like-art.com/?app=1")!, title: item.labelText(), tab: index)
+                WebTab(url: URL(string: "https://like-art.com/?app=1")!, title: item.labelText(), tab: index, tabKey: item.key)
             }
         }
     }
@@ -59,17 +62,25 @@ struct LikeArtApp: App {
                     // A196: 底部菜单由服务端配置驱动（/api/app-tabs），可随时改、可隐藏
                     TabView(selection: $session.selectedTab) {
                         ForEach(Array(tabs.tabs.enumerated()), id: \.element.key) { idx, item in
-                            tabContent(item, index: idx)
+                            // A WebKit world, clips feed and community feed each own a
+                            // sizeable renderer. SwiftUI may construct every TabView
+                            // child during the first render, which starts all five
+                            // navigations together and lets the world archive compete
+                            // with the other pages. Keep inactive tabs as inert views;
+                            // their route is restored by TabNavigationHistory when the
+                            // player selects them.
+                            Group {
+                                if session.selectedTab == idx {
+                                    tabContent(item, index: idx)
+                                } else {
+                                    Color.clear
+                                }
+                            }
                                 .tabItem { Label(item.labelText(), systemImage: item.icon) }
                                 .tag(idx)
                         }
                     }
                     .onAppear { AppTabsStore.shared.load() }
-                    .onAppear {
-                        if NativeReleasePolicy.bundledWorldPackEnabled {
-                            DispatchQueue.global(qos: .utility).async { WorldPack.shared.prepare() }
-                        }
-                    }
                     .onChange(of: scenePhase) { phase in
                         if phase == .active { AppTabsStore.shared.load() }
                     }

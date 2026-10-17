@@ -4,6 +4,7 @@ root = pathlib.Path('ios-b2')
 # CLIPS16: stop the signed build if native playback policies regress.
 import runpy
 runpy.run_path(str(root / 'ci/verify_clips_playback.py'), run_name='__main__')
+runpy.run_path(str(root / 'ci/verify_admin_navigation.py'), run_name='__main__')
 swift = '\n'.join(p.read_text() for p in (root / 'Sources').rglob('*.swift'))
 for label, pattern in [('tab items', r'\.tabItem'), ('KeychainStore', r'kSecClassGenericPassword'), ('APNs registration', r'/api/auth/push-register'), ('deletion status', r'/api/auth/deletion-status'), ('request deletion', r'request-deletion'), ('cancel deletion', r'cancel-deletion'), ('domain whitelist', r'\["like-art.com", "www.like-art.com"\]'), ('UA', r'LikeArtApp/1.0'), ('native table', r'UITableView'), ('cookie store', r'httpCookieStore'), ('bridge', r'LikeAppNative')]:
     count = len(re.findall(pattern, swift))
@@ -79,17 +80,20 @@ with zipfile.ZipFile(extra_pak) as archive:
     assert set(queries) == base_paths | extra_paths
 print('PASS bundled archive/descriptor/Swift/Info.plist and every entry SHA-256 contract')
 
-# CLIPS17: preserve the 1100 safe-build behavior while shipping only the playback fix.
+# SHELL-RECOVERY: restore the last known-good release path: HTTPS first; pack remains DEBUG-only.
 market = (root / 'Sources/Tabs/MarketplaceTab.swift').read_text()
 app_source = (root / 'Sources/App.swift').read_text()
-assert 'static let bundledWorldPackEnabled = true' in market
-assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n            configuration.setURLSchemeHandler' in market
-assert 'if NativeReleasePolicy.bundledWorldPackEnabled && url.path.hasPrefix' in market
-assert 'if NativeReleasePolicy.bundledWorldPackEnabled {\n                            DispatchQueue.global' in app_source
+assert 'static let bundledWorldPackEnabled = false' in market
+assert 'if NativeReleasePolicy.packAllowed(for: url) {' in market
+assert 'WorldPack.shared.prepareAsync { ready in' in market
+assert 'elapsed <= 1.5' in market and 'pack preparation exceeded 1.5s' in market
+assert 'WorldPackRecovery.messageName' in market and 'nopack' in market
+assert 'WorldPack.shared.prepareAsync { ready in' not in app_source
+assert 'if session.selectedTab == idx' in app_source
 project = (root / 'project.yml').read_text()
 assert "MARKETING_VERSION: '2.0.3'" in project
 assert project.count('"**/*.bak*"') == 2
-print('PASS 2.0.3 TestFlight train, backup exclusions, exact verified pack channel enabled')
+print('PASS 2.0.3 TestFlight train, safe HTTPS release path, lazy tabs and no global archive warm-up')
 
 # IMMERSIVE19: retain inline playback, native entry points and route-scoped layout.
 assert 'final class ClipsViewportWebView: WKWebView' in market
@@ -105,10 +109,11 @@ assert 'initialNavigation.request(destination)' in market
 assert 'initialNavigation.cancel()' in market
 print('PASS requested deep links wait for transport setup, latest destination wins, late completion cannot reload')
 
-assert market.count('session.destinationTab == tab') == 3, 'deep links must stay in their target tab at initial/update load'
+assert market.count('session.destinationTab == tab') == 2, 'deep links must stay in their target tab at initial/update load'
 assert 'detail.domain == NSURLErrorDomain && detail.code == NSURLErrorCancelled' in market
-assert 'retryAttempts < 3' in market and 'guard navigation === currentNavigation' in market
-print('PASS world navigation target, stale-error isolation and bounded manual retries')
+assert 'attempts < WebNavigationPolicy.maximumRetries' in market and 'guard !disposed, navigation === currentNavigation' in market
+assert 'retryInterval: TimeInterval = 30' in market and 'lastRetryAt' in market
+print('PASS world navigation target, stale-error isolation and two persistent manual retries')
 
 transport = (root/'Resources/world-pack-transport.js').read_text()
 handler = (root/'Sources/Pack/PackMessageHandler.swift').read_text()

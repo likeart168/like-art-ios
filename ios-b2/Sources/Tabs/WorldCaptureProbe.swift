@@ -84,9 +84,11 @@ final class WorldCaptureProbe: NSObject, WKScriptMessageHandler {
     private func save() {
         let webViews: [[String: Any]] = Self.views.compactMap { item in
             guard let view = item.view else { return nil }
-            return ["tab":item.tab,"path":view.url?.path ?? "", "attached":view.window != nil,"hidden":view.isHidden,"loading":view.isLoading]
+            return ["tab":item.tab,"path":view.url?.path ?? "", "query":view.url?.query ?? "", "attached":view.window != nil,"hidden":view.isHidden,"loading":view.isLoading]
         }
-        let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "trace":traceEvents, "terminations": terminations, "elapsed": Date().timeIntervalSince(began),"webViews":webViews,"packEnabled":NativeReleasePolicy.bundledWorldPackEnabled]
+        let worldURL = webViews.first { ($0["path"] as? String)?.hasPrefix("/v6") == true }
+        let packAllowed = worldURL.flatMap { $0["query"] as? String }.map { !$0.split(separator: "&").contains { $0 == "nopack=1" } } ?? false
+        let record: [String: Any] = ["beganEpochMs":began.timeIntervalSince1970*1000, "samples": samples, "trace":traceEvents, "terminations": terminations, "elapsed": Date().timeIntervalSince(began),"webViews":webViews,"packEnabled":NativeReleasePolicy.bundledWorldPackEnabled,"packAllowedForWorld":packAllowed]
         if let data = try? JSONSerialization.data(withJSONObject: record, options: [.prettyPrinted, .sortedKeys]),
            let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             try? data.write(to: directory.appendingPathComponent("world-entry-20.json"), options: .atomic)

@@ -2,12 +2,13 @@
 // Responses and blobs are constructed in the HTTPS page's own origin.
 (function () {
   if (window.__v6PackShim || !/^https:\/\/(www\.)?like-art\.com$/.test(location.origin) ||
-      !location.pathname.startsWith('/v6/') || /^\/v6\/(clips|live)\//.test(location.pathname)) return;
+      !location.pathname.startsWith('/v6/') || /^\/v6\/(clips|live)\//.test(location.pathname) ||
+      new URL(location.href).searchParams.get('nopack') === '1') return;
   const bridge = window.webkit?.messageHandlers?.likeArtWorldPack;
   if (!bridge?.postMessage) return;
   const catalog = __QUERIES__, entries = __ENTRIES__.filter(p => Object.hasOwn(catalog, p));
   const available = new Set(entries), originalFetch = window.fetch.bind(window);
-  const stats = window.__v6PackShim = {transport:'native-message-22',entries:entries.length,ready:!!entries.length,hits:0,fallbacks:0,bytes:0,failures:[]};
+  const stats = window.__v6PackShim = {transport:'native-message-22',entries:entries.length,ready:!!entries.length,hits:0,fallbacks:0,networkFallbacks:0,bytes:0,failures:[]};
   if (!stats.ready) return;
   window.__V6_PACK_PATHS__ = new Set(entries.map(p => '/v6/' + p));
   navigator.serviceWorker?.getRegistrations().then(rs => {
@@ -15,6 +16,7 @@
   }).catch(() => {});
   const failure = (path, error) => {
     stats.fallbacks++;
+    stats.networkFallbacks++;
     if (stats.failures.length < 16) stats.failures.push({path,reason:String(error)});
   };
   function key(input) {
@@ -69,7 +71,7 @@
       const response=new Response(data.bytes,{status:200,headers:{'Content-Type':data.mime,'Content-Length':String(data.bytes.byteLength),'X-LikeArt-Pack':'native-message-22'}});
       Object.defineProperty(response,'url',{value:new URL(typeof input==='string'?input:input.url || String(input),location.href).href});
       return response;
-    } catch(error) {aborted(signal);failure(path,error);return originalFetch(input,init);}
+    } catch(error) {aborted(signal);failure(path,error);/* Explicitly retry the original HTTPS request. */return originalFetch(input,init);}
   };
   const proto=XMLHttpRequest.prototype, open=proto.open, send=proto.send, abort=proto.abort, setHeader=proto.setRequestHeader;
   const requests=new WeakMap();
@@ -102,6 +104,7 @@
     }).catch(error=>{
       if(state.controller.signal.aborted || requests.get(xhr)!==state)return;
       state.pending=false;failure(state.path,error);
+      // Pack reads are an optimization; an XHR failure must reopen its original URL.
       try{reopen(state.args[1]);send.call(xhr,body);}catch{ xhr.dispatchEvent(new ProgressEvent('error'));xhr.dispatchEvent(new ProgressEvent('loadend')); }
     });
   };
