@@ -1,0 +1,6 @@
+{
+  "phase": "simulator-boot",
+  "type": "TimeoutExpired",
+  "error": "Command '('open', '-a', 'Simulator', '--args', '-CurrentDeviceUDID', '487E047F-92C5-42DE-AB52-4B5B9F8C0E2D')' timed out after 30 seconds",
+  "appLaunched": false
+}
