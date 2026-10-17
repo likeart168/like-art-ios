@@ -1,0 +1,6 @@
+{
+  "phase": "launch-and-world-capture",
+  "type": "AssertionError",
+  "error": "World entry must render within 10 seconds",
+  "appLaunched": true
+}

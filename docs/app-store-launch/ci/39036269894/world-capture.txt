@@ -1,0 +1,41 @@
+Monitoring boot status for LikeArt World Evidence (C19A8BCC-EE73-4707-8154-FFF11D6573DC).
+[2026-10-17 13:31:20 +0000] Status=4, isTerminal=NO, Elapsed=01:25.
+	Waiting on System App
+
+[2026-10-17 13:31:21 +0000] Status=4, isTerminal=NO, Elapsed=01:26.
+	Waiting on System App
+
+[2026-10-17 13:31:24 +0000] Status=4, isTerminal=NO, Elapsed=01:28.
+	Waiting on System App
+
+[2026-10-17 13:31:24 +0000] Status=4, isTerminal=NO, Elapsed=01:29.
+	Waiting on System App
+
+[2026-10-17 13:31:25 +0000] Status=4, isTerminal=NO, Elapsed=01:30.
+	Waiting on System App
+
+[2026-10-17 13:31:25 +0000] Status=4, isTerminal=NO, Elapsed=01:30.
+	Waiting on System App
+
+[2026-10-17 13:31:27 +0000] Status=4, isTerminal=NO, Elapsed=01:31.
+	Waiting on System App
+
+[2026-10-17 13:31:27 +0000] Status=4, isTerminal=NO, Elapsed=01:32.
+	Waiting on System App
+
+[2026-10-17 13:31:28 +0000] Status=4, isTerminal=NO, Elapsed=01:33.
+	Waiting on System App
+
+[2026-10-17 13:31:29 +0000] Status=4, isTerminal=NO, Elapsed=01:34.
+	Waiting on System App
+
+[2026-10-17 13:31:39 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:43.
+	Finished
+
+Settling new simulator OS for 45 seconds before app launch
+{"device": "iPhone 13 Pro", "captureWallSeconds": 64.13537658299998, "captureErrors": [], "readyMs": null, "firstReadySample": null, "webkitTerminations": 1}
+Traceback (most recent call last):
+  File "/Users/runner/work/like-art-ios/like-art-ios/ios-b2/ci/capture_world.py", line 110, in <module>
+    assert ready_ms is not None and 0 < ready_ms <= 10000, 'World entry must render within 10 seconds'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: World entry must render within 10 seconds

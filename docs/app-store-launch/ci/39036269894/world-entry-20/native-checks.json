@@ -1,0 +1,28 @@
+{
+  "checks" : {
+    "clipsTargetsShop" : true,
+    "deepLinkWaitsForPack" : true,
+    "disposedObservationCannotOverwriteRoute" : true,
+    "disposedViewCannotNavigateLate" : true,
+    "doubleTapCoalescedWithDelay" : true,
+    "healthyPageDoesNotRetry" : true,
+    "latePackOrTimeoutCannotReload" : true,
+    "latestPendingLinkWins" : true,
+    "logoutResetRejectsOldAccountObservation" : true,
+    "newExplicitDestinationStillWins" : true,
+    "newTabUsesHotUpdatedCanonical" : true,
+    "queuedDeepLinkNotConsumedBeforeLoad" : true,
+    "rebuildDoesNotReplayOldLoginLink" : true,
+    "retryCountPersistsBeforeNavigation" : true,
+    "subsequentNavigationRemainsAvailable" : true,
+    "switchShopDoesNotRetargetWorldLink" : true,
+    "tabKeysIsolateWorldAndAdmin" : true,
+    "tabRebuildRestoresLastVisitedNotCanonical" : true,
+    "tokenRefreshPreservesPackAndReplacesOnlySessionScript" : true,
+    "twoRetryBudget" : true,
+    "unsafeOrEmptyURLCannotReplaceAdminRoute" : true,
+    "untrustedLinkRejected" : true,
+    "worldLinkTargetsWorld" : true
+  },
+  "pass" : true
+}
