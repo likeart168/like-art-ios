@@ -2,9 +2,12 @@ name: iOS WebView Build
 
 on:
   push:
-    branches: [main]
+    branches: [main, ios-webview-release]
     paths:
       - '.trigger*'
+      - 'ios-b2/**'
+      - 'ios/App/**'
+      - '.github/workflows/ios-build.yml'
   workflow_dispatch:
 
 jobs:
@@ -69,7 +72,7 @@ jobs:
             PROVISIONING_PROFILE_SPECIFIER="fad0d533-ab97-48d8-8a60-944c6f3b91af" \
             DEVELOPMENT_TEAM=2JZCL349AG \
             CURRENT_PROJECT_VERSION=$GITHUB_RUN_NUMBER \
-            MARKETING_VERSION=2.0.1
+            MARKETING_VERSION=2.0.3
       
       - name: Export IPA
         env:
